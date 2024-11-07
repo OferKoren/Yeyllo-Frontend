@@ -7,7 +7,7 @@ export const ADD_BOARD_MSG = 'ADD_BOARD_MSG'
 
 const initialState = {
     boards: [],
-    board: null
+    board: null,
 }
 
 export function boardReducer(state = initialState, action) {
@@ -21,19 +21,19 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, board: action.board }
             break
         case REMOVE_BOARD:
-            const lastRemovedBoard = state.boards.find(board => board._id === action.boardId)
-            boards = state.boards.filter(board => board._id !== action.boardId)
+            const lastRemovedBoard = state.boards.find((board) => board._id === action.boardId)
+            boards = state.boards.filter((board) => board._id !== action.boardId)
             newState = { ...state, boards, lastRemovedBoard }
             break
         case ADD_BOARD:
             newState = { ...state, boards: [...state.boards, action.board] }
             break
         case UPDATE_BOARD:
-            boards = state.boards.map(board => (board._id === action.board._id) ? action.board : board)
+            boards = state.boards.map((board) => (board._id === action.board._id ? action.board : board))
             newState = { ...state, boards }
             break
         case ADD_BOARD_MSG:
-            newState = { ...state, board: { ...state.board, msgs: [...state.board.msgs || [], action.msg] } }
+            newState = { ...state, board: { ...state.board, msgs: [...(state.board.msgs || []), action.msg] } }
             break
         default:
     }
@@ -66,4 +66,3 @@ function unitTestReducer() {
     state = boardReducer(state, { type: REMOVE_BOARD, boardId: board1._id })
     console.log('After REMOVE_BOARD:', state)
 }
-

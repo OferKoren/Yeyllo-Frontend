@@ -11,9 +11,8 @@ import { BoardList } from '../cmps/BoardList'
 // import { BoardFilter } from '../cmps/BoardFilter'
 
 export function BoardIndex() {
-
     const [filterBy, setFilterBy] = useState(boardService.getDefaultFilter())
-    const boards = useSelector(storeState => storeState.boardModule.boards)
+    const boards = useSelector((storeState) => storeState.boardModule.boards)
 
     useEffect(() => {
         loadBoards(filterBy)
@@ -22,7 +21,7 @@ export function BoardIndex() {
     // async function onRemoveBoard(boardId) {
     //     try {
     //         await removeBoard(boardId)
-    //         showSuccessMsg('Board removed')            
+    //         showSuccessMsg('Board removed')
     //     } catch (err) {
     //         showErrorMsg('Cannot remove board')
     //     }
@@ -49,9 +48,9 @@ export function BoardIndex() {
     //         showSuccessMsg(`Board updated, new speed: ${savedBoard.speed}`)
     //     } catch (err) {
     //         showErrorMsg('Cannot update board')
-    //     }        
+    //     }
     // }
-
+    if (!boards) return <div>loading...</div>
     return (
         <main className="board-index">
             <header>
@@ -59,8 +58,7 @@ export function BoardIndex() {
                 {userService.getLoggedinUser() && <button onClick={onAddBoard}>Add a Board</button>}
             </header>
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
-            <BoardList
-                boards={boards} />
+            <BoardList boards={boards} />
         </main>
     )
 }
