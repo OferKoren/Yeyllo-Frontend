@@ -12,7 +12,7 @@
 // *. D & D Guidelines - vue-smooth-dnd / vuedraggable / react-beutiful-dnd
 // *. Same model for Monday style app (do not implement a generic columns feature)
 // *. We do not handle concurrent editing - needs versioning
-
+import { makeId } from '../src/services/util.service.js'
 // Rendering performance:
 // Store Mutation - saveBoard
 // As start - you can replace the entire board
@@ -28,17 +28,15 @@
 
 // Activities are board / group / task related
 // The comment feature can be implemented with activity
-export const boardData = {
-    data,
-}
-const activity = {
+
+/* const activity = {
     id: makeId(),
     txt: 'Changed Color',
     createdAt: Date.now(),
     byMember: userService.getLoggedinUser(),
     group: group, // optional
     task: task, // optional
-}
+} */
 
 // Store - saveTask
 function storeSaveTask(boardId, groupId, task, activity) {
@@ -191,7 +189,9 @@ const board = {
     // For Monday draggable columns (optional)
     cmpsOrder: ['StatusPicker', 'MemberPicker', 'DatePicker'],
 }
-
+export const boardData = {
+    board,
+}
 const user = {
     _id: 'u101',
     fullname: 'Abi Abambi',
@@ -253,7 +253,7 @@ const cmp3 = {
 }
 
 // Code Ideas in React
-export function TaskPreview({ task }) {
+/* export function TaskPreview({ task }) {
     const cmpsOrder = ['StatusPicker', 'MemberPicker', 'DatePicker', 'PriorityPicker']
     return (
         <section>
@@ -285,7 +285,7 @@ export function DynamicCmp({ cmp, info, onUpdate }) {
             return <p>UNKNOWN {cmp}</p>
     }
 }
-
+ */
 // Vue.js Syntax:
 // <TaskPreview> => <tr>
 //    <td v-for="(cmpType) in cmpsOrder">
