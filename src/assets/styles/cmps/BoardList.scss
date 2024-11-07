@@ -1,8 +1,6 @@
-.list {
-    --min-column-size: 220px;
-
+.board-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--min-column-size), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: .5em;
 
     li {

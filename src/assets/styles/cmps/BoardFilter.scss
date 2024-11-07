@@ -1,4 +1,4 @@
-.car-filter {
+.board-filter {
     display: grid;
     grid-template-columns: 1fr 5em 5em auto;
     align-items: center;
@@ -17,11 +17,11 @@
         cursor: pointer;
     }
 
-    input:is([type="text"], [type="number"]){
+    input:is([type="text"], [type="number"]) {
         height: 1.8em;
         border: none;
         border-block-end: 1px solid $gray1;
-    
+
         &:focus {
             outline: none;
             background-color: $gray1;
@@ -33,7 +33,8 @@
         grid-column: 4;
     }
 
-    .sort-field, .sort-dir {
+    .sort-field,
+    .sort-dir {
         display: flex;
         align-items: center;
         gap: 1em;
@@ -58,7 +59,7 @@
             outline: 1px solid $gray1;
         }
 
-        &:has(:checked) span  {
+        &:has(:checked) span {
             background-color: $clr3;
             color: $gray1;
         }

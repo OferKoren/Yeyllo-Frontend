@@ -1,43 +1,66 @@
-import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+
+import { loadBoards, addBoard, updateBoard, removeBoard, addBoardMsg } from '../store/actions/board.actions'
 
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-import { loadCar, addCarMsg } from '../store/actions/car.actions'
+import { boardService } from '../services/board'
+import { userService } from '../services/user'
 
+import { BoardList } from '../cmps/BoardList'
+// import { BoardFilter } from '../cmps/BoardFilter'
 
-export function CarDetails() {
+export function BoardIndex() {
 
-  const {carId} = useParams()
-  const car = useSelector(storeState => storeState.carModule.car)
+    const [filterBy, setFilterBy] = useState(boardService.getDefaultFilter())
+    const boards = useSelector(storeState => storeState.boardModule.boards)
 
-  useEffect(() => {
-    loadCar(carId)
-  }, [carId])
+    useEffect(() => {
+        loadBoards(filterBy)
+    }, [filterBy])
 
-  async function onAddCarMsg(carId) {
-    try {
-        await addCarMsg(carId, 'bla bla ' + parseInt(Math.random()*10))
-        showSuccessMsg(`Car msg added`)
-    } catch (err) {
-        showErrorMsg('Cannot add car msg')
-    }        
+    // async function onRemoveBoard(boardId) {
+    //     try {
+    //         await removeBoard(boardId)
+    //         showSuccessMsg('Board removed')            
+    //     } catch (err) {
+    //         showErrorMsg('Cannot remove board')
+    //     }
+    // }
 
-}
+    async function onAddBoard() {
+        const board = boardService.getEmptyBoard()
+        board.vendor = prompt('Vendor?')
+        try {
+            const savedBoard = await addBoard(board)
+            showSuccessMsg(`Board added (id: ${savedBoard._id})`)
+        } catch (err) {
+            showErrorMsg('Cannot add board')
+        }
+    }
 
-  return (
-    <section className="car-details">
-      <Link to="/car">Back to list</Link>
-      <h1>Car Details</h1>
-      {car && <div>
-        <h3>{car.vendor}</h3>
-        <h4>${car.price}</h4>
-        <pre> {JSON.stringify(car, null, 2)} </pre>
-      </div>
-      }
-      <button onClick={() => { onAddCarMsg(car._id) }}>Add car msg</button>
+    // async function onUpdateBoard(board) {
+    //     const speed = +prompt('New speed?', board.speed)
+    //     if(speed === 0 || speed === board.speed) return
 
-    </section>
-  )
+    //     const boardToSave = { ...board, speed }
+    //     try {
+    //         const savedBoard = await updateBoard(boardToSave)
+    //         showSuccessMsg(`Board updated, new speed: ${savedBoard.speed}`)
+    //     } catch (err) {
+    //         showErrorMsg('Cannot update board')
+    //     }        
+    // }
+
+    return (
+        <main className="board-index">
+            <header>
+                <h2>Boards</h2>
+                {userService.getLoggedinUser() && <button onClick={onAddBoard}>Add a Board</button>}
+            </header>
+            {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
+            <BoardList
+                boards={boards} />
+        </main>
+    )
 }
