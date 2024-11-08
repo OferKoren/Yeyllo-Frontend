@@ -106,12 +106,12 @@ const board = [
             {
                 _id: 'u101',
                 fullname: 'Tal Taltal',
-                imgUrl: 'https://www.google.com',
+                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
             },
             {
                 _id: 'u102',
                 fullname: 'Josh Ga',
-                imgUrl: 'https://www.google.com',
+                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
             },
         ],
         groups: [

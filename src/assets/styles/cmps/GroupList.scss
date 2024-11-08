@@ -1,9 +1,8 @@
 .group-list {
-    height: 80vh;
     display: flex;
     gap: em(12px);
 
-    :first-child {
+    li:first-child {
         margin-inline-start: 1em;
     }
 
@@ -12,5 +11,21 @@
         border-radius: em(12px);
         padding: 1em;
         margin: 1em 0.5em 1em 0;
+    }
+}
+
+.add-group-btn{
+    background-color: hwb(0 100% 0% / 0.24);
+    height: em(44px);
+    font-family: "roboto-bold";
+    font-size: em(16px);
+    width: em(272px);
+    padding: em(12px);
+    
+    transition: 200ms;
+
+    &:hover{
+        background-color: hwb(0 100% 0% / 0.18);
+
     }
 }

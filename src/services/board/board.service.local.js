@@ -47,6 +47,7 @@ async function save(board) {
     var savedBoard
     if (board._id) {
         const boardToSave = {
+            ...board,
             _id: board._id,
         }
         savedBoard = await storageService.put(STORAGE_KEY, boardToSave)

@@ -7,7 +7,7 @@ export function GroupPreview({ group }) {
 
     return (
         <article className="group-preview">
-            <header>
+            <header className="group-header">
                 {title}
             </header>
             <section>
