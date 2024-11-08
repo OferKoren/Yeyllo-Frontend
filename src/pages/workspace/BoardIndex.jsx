@@ -6,13 +6,15 @@ import { loadBoards, addBoard, updateBoard, removeBoard } from '../../store/acti
 import { showSuccessMsg, showErrorMsg } from '../../services/event-bus.service'
 import { boardService } from '../../services/board'
 import { userService } from '../../services/user'
-
+import { Modal } from '../../cmps/Modal'
 import { BoardList } from '../../cmps/workspace/BoardList'
+import { AddBoard } from '../../cmps/workspace/modals/AddBoard'
 // import { BoardFilter } from '../cmps/BoardFilter'
 
 //* boardIndex is the personal workspace of someone in the workspace
 export function BoardIndex() {
     const [filterBy, setFilterBy] = useState(boardService.getDefaultFilter())
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const boards = useSelector((storeState) => storeState.boardModule.boards)
 
     useEffect(() => {
@@ -27,15 +29,25 @@ export function BoardIndex() {
     //         showErrorMsg('Cannot remove board')
     //     }
     // }
+    function onCloseModal() {
+        setIsModalOpen(false)
+    }
+    function onOpenModal() {
+        setIsModalOpen(true)
+    }
+    async function onAddBoard(board) {
+        if (!board) {
+            const board = boardService.getEmptyBoard()
+            board.title = prompt('TITLE?')
+        }
 
-    async function onAddBoard() {
-        const board = boardService.getEmptyBoard()
-        board.vendor = prompt('Vendor?')
         try {
             const savedBoard = await addBoard(board)
             showSuccessMsg(`Board added (id: ${savedBoard._id})`)
         } catch (err) {
             showErrorMsg('Cannot add board')
+        } finally {
+            setIsModalOpen(false)
         }
     }
 
@@ -59,7 +71,10 @@ export function BoardIndex() {
                 {userService.getLoggedinUser() && <button onClick={onAddBoard}>Add a Board</button>}
             </header>
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
-            <BoardList boards={boards} />
+            <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} />
+            <Modal title="Create board" onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false}>
+                <AddBoard onAddBoard={onAddBoard} />
+            </Modal>
         </main>
     )
 }

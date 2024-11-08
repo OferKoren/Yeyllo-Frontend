@@ -4,22 +4,19 @@
     gap: 0.5em;
 
     li {
-        position: relative;
         /*  display: grid;
         grid-template-columns: max-content auto; */
         // padding: 0.5em;
         // background-color: $clr2;
 
         color: $clr6;
-
-        .board-actions {
+        .board-wrapper {
+            border: 1px solid black;
+            position: relative;
             border-radius: 0.5em;
-            position: absolute;
-            background-color: rgb(163, 160, 160);
-            opacity: 0;
-            transition: opacity 0.1s;
-            cursor: pointer;
+            height: 4em;
         }
+
         &:hover .board-actions {
             inset: 0;
             opacity: 0.3;

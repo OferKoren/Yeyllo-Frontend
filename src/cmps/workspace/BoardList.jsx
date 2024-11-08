@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router'
 import { userService } from '../../services/user'
 import { BoardPreview } from './BoardPreview'
 
-export function BoardList({ boards }) {
+export function BoardList({ boards, onAddBoard, onOpenModal }) {
     /* function shouldShowActionBtns(board) {
         const user = userService.getLoggedinUser()
 
@@ -24,8 +24,11 @@ export function BoardList({ boards }) {
                             toBoard(board._id)
                         }}
                     >
-                        <BoardPreview board={board} />
-                        <div className="board-actions"></div>
+                        <div className="board-wrapper" style={board.style}>
+                            <BoardPreview board={board} />
+                            <div className="board-actions"></div>
+                        </div>
+
                         {/* {shouldShowActionBtns(board) && (
                             <div className="actions">
                                 <button>Edit</button>
@@ -34,6 +37,15 @@ export function BoardList({ boards }) {
                         )} */}
                     </li>
                 ))}
+
+                <li key="add-board">
+                    <div className="board-wrapper " onClick={onOpenModal}>
+                        <div className="add-board">
+                            <span>Create new board</span>
+                        </div>
+                        <div className="board-actions"></div>
+                    </div>
+                </li>
             </ul>
         </section>
     )

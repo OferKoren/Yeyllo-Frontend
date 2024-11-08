@@ -1,14 +1,30 @@
-.board-preview {
-    border: 1px solid black;
-    padding: 0 1em;
-    border-radius: 0.5em;
-    height: 4em;
-    a {
-        color: $clr4;
-        padding: 0;
+.board-wrapper {
+    display: grid;
+    .board-preview {
+        padding: 0 1em;
+        // border-radius: 0.5em;
+        height: 100%;
+        a {
+            color: $clr4;
+            padding: 0;
+        }
+        p {
+            margin-block: 0 0.2rem;
+            font-size: 0.85em;
+        }
     }
-    p {
-        margin-block: 0 0.2rem;
-        font-size: 0.85em;
+    .board-actions {
+        border-radius: 0.5em;
+        position: absolute;
+        background-color: rgb(163, 160, 160);
+        opacity: 0;
+        transition: opacity 0.1s;
+        cursor: pointer;
+    }
+    .add-board {
+        color: $clr7;
+        display: flex;
+        align-self: center;
+        justify-self: center;
     }
 }

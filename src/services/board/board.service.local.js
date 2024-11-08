@@ -52,10 +52,8 @@ async function save(board) {
         savedBoard = await storageService.put(STORAGE_KEY, boardToSave)
     } else {
         const boardToSave = {
-            vendor: board.vendor,
-            // Later, owner is set by the backend
-            owner: userService.getLoggedinUser(),
-            msgs: [],
+            ...board,
+            createdAt: Date.now(),
         }
         savedBoard = await storageService.post(STORAGE_KEY, boardToSave)
     }
