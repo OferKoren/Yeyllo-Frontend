@@ -4,11 +4,18 @@ import { useSelector } from 'react-redux'
 import { loadBoards } from '../store/actions/board.actions'
 import { Labels } from '../cmps/Labels.jsx'
 import { Dates } from '../cmps/Dates.jsx'
+import { makeId } from '../services/util.service.js'
+import { Checklist } from '../cmps/Checklist.jsx'
 
 export function TaskDetails() {
     const boards = useSelector((storeState) => storeState.boardModule.boards)
     const [isEditLabels, setIsEditLabels] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
+    const [isAddChecklist, setIsAddChecklist] = useState(false)
+    const [isAddingTodo, setIsAddingTodo] = useState(false)
+    const [newTodoValue, setNewTodoValue] = useState('')
+    const [newChecklist, setChecklist] = useState({ id: '', title: 'Checklist', todos: [] })
+    const [checklistIdToEdit, setChecklistIdToEdit] = useState('')
     const [task, setTask] = useState({})
     const labels = [
         { id: 'l101', color: '#4BCE97', title: '' },
@@ -60,7 +67,48 @@ export function TaskDetails() {
                         onChange={() => changeIsCheckedTodo(item.id, task, checklistId)} />
                     <span className="todo-text">{item.title}</span>
                 </label>)}
+            {(checklistIdToEdit === checklistId) && isAddingTodo ? (
+                <>
+                    <input
+                        type="text"
+                        placeholder="Add an item"
+                        value={newTodoValue}
+                        onChange={handleNewTodoChange}
+                    />
+                    <button className="btn btn-add-todo"
+                        onClick={() => { addTodo(checklistId, newTodoValue); setIsAddingTodo(false); setNewTodoValue('') }}>
+                        Add
+                    </button>
+                    <button onClick={() => { setIsAddingTodo(false); setNewTodoValue('') }}>Cancel</button>
+                </>
+            ) : (
+                <button className="btn btn-open-todo" onClick={() => { setChecklistIdToEdit(checklistId); setIsAddingTodo(true) }}>
+                    Add an item
+                </button>
+            )}
         </div>)
+    }
+
+    function handleNewTodoChange({ target }) {
+        setNewTodoValue(target.value)
+    }
+
+    function addTodo(checklistId, newTodoValue) {
+        // const checklist = task.checklists.filter(checklist => checklist.id === checklistId)
+        const newTodo = {
+            id: makeId(),
+            title: newTodoValue,
+            isDone: false
+        }
+
+        const updatedChecklists = task.checklists.map(checklist => {
+            if (checklist.id === checklistId) {
+                return { ...checklist, todos: [newTodo, ...checklist.todos] }
+            }
+            return checklist
+        })
+        const updatedTask = { ...task, checklists: updatedChecklists }
+        setTask(updatedTask)
     }
 
     function changeIsCheckedTodo(todoId, task, checklistId) {
@@ -69,12 +117,20 @@ export function TaskDetails() {
                 const updatedTodos = checklist.todos.map(todo =>
                     todo.id === todoId ? { ...todo, isDone: !todo.isDone } : todo
                 )
-                return { ...checklist, todos: updatedTodos };
+                return { ...checklist, todos: updatedTodos }
             }
             return checklist
         })
-        const updatedTask = { ...task, checklists: updatedChecklists };
+        const updatedTask = { ...task, checklists: updatedChecklists }
         setTask(updatedTask)
+    }
+
+    function handleChangeChecklistTitle({ target }) {
+        setChecklist(prevChecklist => ({ ...prevChecklist, title: target.value }))
+    }
+    function addChecklist() {
+        const newChecklistToSave = { ...newChecklist, id: makeId() }
+        setTask(prevTask => ({ ...prevTask, checklists: [...prevTask.checklists, newChecklistToSave] }))
     }
 
     if (!boards.length) return <div>Loading...</div>
@@ -113,7 +169,7 @@ export function TaskDetails() {
 
                 {task.dueDate &&
                     <div className="due-date">
-                        <spn>{task.dueDate}</spn>
+                        <span>{task.dueDate}</span>
                     </div>}
 
                 <textarea
@@ -126,14 +182,32 @@ export function TaskDetails() {
                     onChange={handleInfoChange} />
 
                 {task.checklists?.length > 0 && task.checklists.map((checklist) => (
-                    checklist.todos?.length > 0 && renderCheckList(checklist.todos, task, checklist)
+
+                    renderCheckList(checklist.todos, task, checklist)
                 ))}
 
                 <button onClick={() => setIsEditLabels(prev => !prev)}>Labels</button>
                 <button onClick={() => setIsEditDates(prev => !prev)}>Dates</button>
+                <button onClick={() => setIsAddChecklist(prev => !prev)}>Checklist</button>
 
                 {isEditLabels && <Labels task={task} setTask={setTask} handleChange={handleInfoChange} />}
                 {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} />}
+
+                {isAddChecklist &&
+                    <div className="modal-adding-checklist">
+                        <h4>Title</h4>
+                        <input
+                            type="text"
+                            placeholder="Add an item"
+                            value={newChecklist.title}
+                            onChange={handleChangeChecklistTitle}
+                        />
+                        <button className="btn btn-add-checklist"
+                            onClick={() => { addChecklist(); setIsAddChecklist(false); setNewTodoValue(''); setChecklist({ id: '', title: 'Checklist', todos: [] }) }}>
+                            Add
+                        </button>
+                    </div>
+                }
 
                 {console.log(task)}
 
