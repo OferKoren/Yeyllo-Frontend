@@ -1,0 +1,70 @@
+.task-details {
+    width: 55em;
+    background-color: $clr-bg3-light;
+
+    .task-header {
+        display: grid;
+    }
+}
+
+.task-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    color: $gray4;
+    padding: 1em;
+
+    .task-metadata {
+        display: flex;
+        gap: 1em;
+
+        .labels-area {
+            display: flex;
+            flex-direction: column;
+
+            .label-list {
+                display: flex;
+                gap: 0.3em;
+
+                li.label {
+                    padding: 0.3em 1em;
+                    font-size: 0.9rem;
+                    border-radius: 0.2em;
+                }
+            }
+
+            margin-block-end: 1.3em;
+        }
+
+        .due-date-area {
+            display: flex;
+            flex-direction: column;
+
+            .due-date {
+                display: flex;
+            }
+        }
+    }
+
+    .description-header {
+        display: flex;
+        align-items: center;
+        gap: 0.6em;
+        margin-block-end: 0.5em;
+    }
+
+    .list-of-checklists {
+        display: grid;
+        gap: 1em;
+    }
+
+    & .task-options {
+        display: flex;
+        flex-direction: column;
+
+        .btn-option {
+            width: 170px;
+            color: inherit;
+            font-size: 0.9rem;
+        }
+    }
+}

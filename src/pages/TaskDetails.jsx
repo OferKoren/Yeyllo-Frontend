@@ -60,7 +60,7 @@ export function TaskDetails() {
                 {task.imgUrl && <img src={task.imgUrl} />}
             </div>
 
-            <div className="info-area">
+            <div className="task-header">
                 <textarea
                     ref={titleAreaRef}
                     className="textarea-input"
@@ -70,59 +70,83 @@ export function TaskDetails() {
                     placeholder="Title"
                     value={task.title}
                     onChange={handleInfoChange} />
-
-                {task.labelIds && task.labelIds.length !== 0 &&
-                    <div className="label-list">
-                        {task.labelIds.map((labelId, i) => {
-                            const matchingLabel = labels.find(label => label.id === labelId)
-                            if (matchingLabel) {
-                                return <span className="label"
-                                    key={labelId}
-                                    style={{ backgroundColor: matchingLabel.color }}>
-                                    {matchingLabel.txt || 'test'}
-                                </span>
-                            }
-                        })
-                        }
-                    </div>}
-
-                {task.dueDate &&
-                    <div className="due-date">
-                        <span>{task.dueDate}</span>
-                    </div>}
-
-                <textarea
-                    className="textarea-input"
-                    type="text"
-                    name="description"
-                    id="description-update"
-                    placeholder="Description"
-                    value={task.description || ''}
-                    onChange={handleInfoChange} />
-
-                {task.checklists?.length > 0 && task.checklists.map((checklist) => (
-                    <Checklist
-                        key={checklist.id}
-                        todos={checklist.todos}
-                        task={task}
-                        checklist={checklist}
-                        setTask={setTask} />
-                ))}
-
-                <button onClick={() => setIsEditLabels(prev => !prev)}>Labels</button>
-                <button onClick={() => setIsEditDates(prev => !prev)}>Dates</button>
-                <button onClick={() => setIsAddChecklist(prev => !prev)}>Checklist</button>
-
-                {isEditLabels && <Labels task={task} setTask={setTask} handleChange={handleInfoChange} />}
-                {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} />}
-                {isAddChecklist && <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
-
-                {console.log(task)}
-
             </div>
+
+            <section className="task-main">
+                <div className="task-info">
+
+                    <div className="task-metadata">
+                        {task.labelIds && task.labelIds.length !== 0 &&
+                            <div className="labels-area">
+                                <h3>Labels</h3>
+                                <ul className="label-list">
+                                    {task.labelIds.map((labelId, i) => {
+                                        const matchingLabel = labels.find(label => label.id === labelId)
+                                        if (matchingLabel) {
+                                            return <li className="label"
+                                                key={labelId}
+                                                style={{ backgroundColor: matchingLabel.color }}>
+                                                {matchingLabel.txt || 'test'}
+                                            </li>
+                                        }
+                                    })}
+                                </ul>
+                            </div>}
+
+                        {task.dueDate &&
+                            <div className="due-date-area">
+                                <h3>Dou date</h3>
+                                <div className="due-date">
+                                    <span>{task.dueDate}</span>
+                                </div>
+                            </div>}
+                    </div>
+
+                    <div className="description-area">
+                        <div className="description-header">
+                            <img src="img/icons/icon-description.svg" />
+                            <h2 className="task-description">Description</h2>
+                        </div>
+                        <textarea
+                            className="textarea-input"
+                            type="text"
+                            name="description"
+                            id="description-update"
+                            placeholder="Description"
+                            value={task.description || ''}
+                            onChange={handleInfoChange} />
+                    </div>
+
+                    {task.checklists?.length > 0 &&
+                        <div className="list-of-checklists">
+                            {task.checklists.map(checklist => (
+                                <Checklist
+                                    key={checklist.id}
+                                    todos={checklist.todos}
+                                    task={task}
+                                    checklist={checklist}
+                                    setTask={setTask} />
+                            ))}
+                        </div>}
+
+                    {console.log(task)}
+
+                </div>
+
+                <div className="task-options">
+                    <button className="btn btn-option btn-light" onClick={() => setIsEditLabels(prev => !prev)}>Labels</button>
+                    <button className="btn btn-option btn-light" onClick={() => setIsEditDates(prev => !prev)}>Dates</button>
+                    <button className="btn btn-option btn-light" onClick={() => setIsAddChecklist(prev => !prev)}>Checklist</button>
+
+                    {isEditLabels && <Labels task={task} setTask={setTask} handleChange={handleInfoChange} />}
+                    {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} />}
+                    {isAddChecklist && <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
+                </div>
+            </section>
+
             {/* <h1>Task Details</h1>
             <p>{task.id}</p>
             <p>{task.title}</p> */}
-        </article>
+        </article >
     )
 }

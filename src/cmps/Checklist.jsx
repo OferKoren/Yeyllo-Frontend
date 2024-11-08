@@ -9,15 +9,15 @@ export function Checklist({ todos, task, checklist, setTask }) {
     const [newTodoValue, setNewTodoValue] = useState('')
 
 
-    function onUpdateTodo(todoId, task, checklistId, method) {
+    function onUpdateTodo(todoId, task, checklistId, action) {
         const updatedChecklists = task.checklists.map(checklist => {
             if (checklist.id === checklistId) {
                 let updatedTodos = []
-                if (method === 'isDone') {
+                if (action === 'isDone') {
                     updatedTodos = checklist.todos.map(todo =>
                         todo.id === todoId ? { ...todo, isDone: !todo.isDone } : todo)
                 }
-                if (method === 'removeTodo') {
+                if (action === 'removeTodo') {
                     updatedTodos = checklist.todos.filter(todo => todo.id !== todoId)
                 }
                 const doneTodosPercent = getDoneTodosPercent(checklistId, updatedTodos)
@@ -66,18 +66,19 @@ export function Checklist({ todos, task, checklist, setTask }) {
     }
 
     return (
-        <div className="todo-list-preview edit">
+        <div className="checklist-details">
             <div className="checklist-header">
-                <h3>{title}</h3>
-                <button className="btn btn-remove-checklist" onClick={() => onRemoveChecklist(checklistId)}>Delete checklist</button>
+                <div className="checklist-title">
+                    <img src="img/icons/icon-checklist.svg" />
+                    <h2>{title}</h2>
+                </div>
+                <button className="btn btn-remove-checklist btn-light" onClick={() => onRemoveChecklist(checklistId)}>Delete</button>
             </div>
 
             <div className="progress-bar-container">
-                <div className="checklist-progress-bar">
-                    <div className="progress-bar">
-                        <div className="progress" style={{ width: `${checklist.doneTodosPercent || 0}%` }}></div>
-                    </div>
-                    <span>{Math.round(checklist.doneTodosPercent || 0)}%</span>
+                <span>{Math.round(checklist.doneTodosPercent || 0)}%</span>
+                <div className="progress-bar">
+                    <div className="progress" style={{ width: `${checklist.doneTodosPercent || 0}%` }}></div>
                 </div>
             </div>
 
@@ -85,34 +86,38 @@ export function Checklist({ todos, task, checklist, setTask }) {
             {todos.map((item, i) =>
                 item &&
                 <div className="todo-item">
-                    <label className="checkbox-todo edit" key={item.id} >
+                    <div className="checkbox-todo" key={item.id} >
                         <input
                             type="checkbox"
                             checked={item.isDone || false}
                             value={item.title}
                             onChange={() => onUpdateTodo(item.id, task, checklistId, 'isDone')} />
                         <span className="todo-text">{item.title}</span>
-                    </label>
-                    <button className="btn btn-remove-todo" onClick={() => onUpdateTodo(item.id, task, checklistId, 'removeTodo')}>
-                        Delete
+                    </div>
+                    <button className="btn btn-remove-todo btn-light" onClick={() => onUpdateTodo(item.id, task, checklistId, 'removeTodo')}>
+                        <i className="fa-solid fa-xmark"></i>
                     </button>
                 </div>)}
+
             {(checklistIdToEdit === checklistId) && isAddingTodo ? (
-                <>
+                <div className="adding-todo-area">
                     <input
+                        className="adding-todo-title"
                         type="text"
                         placeholder="Add an item"
                         value={newTodoValue}
                         onChange={handleNewTodoChange}
                     />
-                    <button className="btn btn-add-todo"
-                        onClick={() => { onAddTodo(checklistId, newTodoValue); setIsAddingTodo(false); setNewTodoValue('') }}>
-                        Add
-                    </button>
-                    <button onClick={() => { setIsAddingTodo(false); setNewTodoValue('') }}>Cancel</button>
-                </>
+                    <div className="add-todo-actions">
+                        <button className="btn btn-add-todo btn-dark"
+                            onClick={() => { onAddTodo(checklistId, newTodoValue); setIsAddingTodo(false); setNewTodoValue('') }}>
+                            Add
+                        </button>
+                        <button className="btn btn-clear" onClick={() => { setIsAddingTodo(false); setNewTodoValue('') }}>Cancel</button>
+                    </div>
+                </div>
             ) : (
-                <button className="btn btn-open-todo" onClick={() => { setChecklistIdToEdit(checklistId); setIsAddingTodo(true) }}>
+                <button className="btn btn-open-todo btn-light" onClick={() => { setChecklistIdToEdit(checklistId); setIsAddingTodo(true) }}>
                     Add an item
                 </button>
             )}
