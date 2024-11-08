@@ -24,10 +24,8 @@ export function AppHeader() {
                 <NavLink to="workspace/home" className="logo">
                     Yeyllo
                 </NavLink>
-                <NavLink to="about">About</NavLink>
                 <NavLink to="workspace">workspace</NavLink>
-                <NavLink to="chat">Chat</NavLink>
-                <NavLink to="review">Review</NavLink>
+                <NavLink to="task">Tasks</NavLink>
 
                 {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
 

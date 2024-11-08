@@ -3,7 +3,8 @@ import { store } from '../store'
 //removed from the import below ADD_BOARD_MSG
 import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD } from '../reducers/board.reducer'
 
-export async function loadBoards(filterBy) {
+export async function loadBoards() {
+    const filterBy = store.getState().boardModule.filterBy
     try {
         const boards = await boardService.query(filterBy)
         store.dispatch(getCmdSetBoards(boards))

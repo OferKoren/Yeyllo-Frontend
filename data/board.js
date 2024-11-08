@@ -76,7 +76,7 @@ const backgroundPallet = {
 }
 const board = [
     {
-        _id: '1asdasd',
+        _id: 'b101',
         title: 'Robot dev proj',
         isStarred: false,
         archivedAt: null,
@@ -497,9 +497,7 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundSize: 'contain',
-            backgroundImage: 'url(../img/board-background-img/gradiant-ocean.svg)',
-            backgroundColor: 'red',
+            backgroundImage: '',
         },
         labels: [
             {
@@ -517,12 +515,12 @@ const board = [
             {
                 _id: 'u101',
                 fullname: 'Tal Taltal',
-                imgUrl: 'https://www.google.com',
+                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
             },
             {
                 _id: 'u102',
                 fullname: 'Josh Ga',
-                imgUrl: 'https://www.google.com',
+                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
             },
         ],
         groups: [

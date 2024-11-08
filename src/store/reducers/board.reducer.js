@@ -8,6 +8,7 @@ export const UPDATE_BOARD = 'UPDATE_BOARD'
 const initialState = {
     boards: [],
     board: null,
+    filterBy: {}
 }
 
 export function boardReducer(state = initialState, action) {
