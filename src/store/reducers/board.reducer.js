@@ -8,6 +8,7 @@ export const ADD_BOARD_MSG = 'ADD_BOARD_MSG'
 const initialState = {
     boards: [],
     board: null,
+    filterBy: {}
 }
 
 export function boardReducer(state = initialState, action) {

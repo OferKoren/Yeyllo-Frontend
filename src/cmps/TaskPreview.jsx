@@ -1,9 +1,18 @@
 import { Link } from 'react-router-dom'
 
 export function TaskPreview({ task }) {
-    return (
-        <article className="task-preview">
+    return 
+        (
+        <>
+            <article className="task-preview">
             {task.title}
-        </article>
+                </article>
+    
+
+            <Modal>
+
+            </Modal>
+
+        </>
     )
 }
