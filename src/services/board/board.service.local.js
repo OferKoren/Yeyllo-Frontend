@@ -9,7 +9,6 @@ export const boardService = {
     getById,
     save,
     remove,
-    addBoardMsg,
 }
 window.cs = boardService
 
@@ -43,6 +42,7 @@ async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
 }
 
+// todo need to update the save on what to do with board to save
 async function save(board) {
     var savedBoard
     if (board._id) {
@@ -62,7 +62,8 @@ async function save(board) {
     return savedBoard
 }
 
-async function addBoardMsg(boardId, txt) {
+//* think not relevent
+/* async function addBoardMsg(boardId, txt) {
     // Later, this is all done by the backend
     const board = await getById(boardId)
 
@@ -75,8 +76,9 @@ async function addBoardMsg(boardId, txt) {
     await storageService.put(STORAGE_KEY, board)
 
     return msg
-}
+} */
 
+//* only for dev purposes
 function _createBoard() {
     let board = loadFromStorage(STORAGE_KEY)
     if (!board || !board.length) {

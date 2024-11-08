@@ -1,6 +1,7 @@
 import { boardService } from '../../services/board'
 import { store } from '../store'
-import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD, ADD_BOARD_MSG } from '../reducers/board.reducer'
+//removed from the import below ADD_BOARD_MSG
+import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD } from '../reducers/board.reducer'
 
 export async function loadBoards(filterBy) {
     try {
@@ -21,7 +22,6 @@ export async function loadBoard(boardId) {
         throw err
     }
 }
-
 
 export async function removeBoard(boardId) {
     try {
@@ -55,7 +55,7 @@ export async function updateBoard(board) {
     }
 }
 
-export async function addBoardMsg(boardId, txt) {
+/* export async function addBoardMsg(boardId, txt) {
     try {
         const msg = await boardService.addBoardMsg(boardId, txt)
         store.dispatch(getCmdAddBoardMsg(msg))
@@ -65,47 +65,47 @@ export async function addBoardMsg(boardId, txt) {
         throw err
     }
 }
-
+ */
 // Command Creators:
 function getCmdSetBoards(boards) {
     return {
         type: SET_BOARDS,
-        boards
+        boards,
     }
 }
 function getCmdSetBoard(board) {
     return {
         type: SET_BOARD,
-        board
+        board,
     }
 }
 function getCmdRemoveBoard(boardId) {
     return {
         type: REMOVE_BOARD,
-        boardId
+        boardId,
     }
 }
 function getCmdAddBoard(board) {
     return {
         type: ADD_BOARD,
-        board
+        board,
     }
 }
 function getCmdUpdateBoard(board) {
     return {
         type: UPDATE_BOARD,
-        board
+        board,
     }
 }
-function getCmdAddBoardMsg(msg) {
+/* function getCmdAddBoardMsg(msg) {
     return {
         type: ADD_BOARD_MSG,
         msg
     }
-}
+} */
 
 // unitTestActions()
-async function unitTestActions() {
+/* async function unitTestActions() {
     await loadBoards()
     await addBoard(boardService.getEmptyBoard())
     await updateBoard({
@@ -115,3 +115,4 @@ async function unitTestActions() {
     await removeBoard('m1oC7')
     // TODO unit test addBoardMsg
 }
+ */

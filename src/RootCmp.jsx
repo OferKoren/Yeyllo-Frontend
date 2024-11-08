@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
 // import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
-import { BoardIndex } from './pages/BoardIndex.jsx'
+// import { BoardIndex } from './pages/workspace/BoardIndex.jsx'
+import { BoardIndex } from './pages/workspace/BoardIndex.jsx'
 import { ReviewIndex } from './pages/ReviewIndex.jsx'
 import { ChatApp } from './pages/Chat.jsx'
 // import { AdminIndex } from './pages/AdminIndex.jsx'
@@ -18,6 +19,7 @@ import { UserMsg } from './cmps/UserMsg.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
 import { Login } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
+import { Workspace } from './pages/workspace/workspace.jsx'
 
 export function RootCmp() {
     return (
@@ -32,8 +34,10 @@ export function RootCmp() {
                         <Route path="team" element={<AboutTeam />} />
                         <Route path="vision" element={<AboutVision />} />
                     </Route> */}
-                    <Route path="board" element={<BoardIndex />} />
-                    <Route path="board/:boardId" element={<BoardDetails />} >
+                    <Route path="workspace/home" element={<BoardIndex />} />
+                    <Route path="workspace" element={<Workspace />} />
+
+                    <Route path="board/:boardId" element={<BoardDetails />}>
                         <Route path=":taskId" element={<TaskDetails />} />
                     </Route>
 
@@ -51,5 +55,3 @@ export function RootCmp() {
         </div>
     )
 }
-
-

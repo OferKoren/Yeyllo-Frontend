@@ -23,7 +23,7 @@ function getDefaultFilter() {
 }
 
 const service = VITE_LOCAL === 'true' ? local : remote
-if (VITE_LOCAL === 'true') console.log('hiiiii')
+// if (VITE_LOCAL === 'true') console.log('hiiiii')
 export const boardService = { getEmptyBoard, getDefaultFilter, ...service }
 
 // Easy access to this service from the dev tools console

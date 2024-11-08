@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoards, addBoard, updateBoard, removeBoard, addBoardMsg } from '../store/actions/board.actions'
+import { loadBoards, addBoard, updateBoard, removeBoard } from '../../store/actions/board.actions'
 
-import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-import { boardService } from '../services/board'
-import { userService } from '../services/user'
+import { showSuccessMsg, showErrorMsg } from '../../services/event-bus.service'
+import { boardService } from '../../services/board'
+import { userService } from '../../services/user'
 
-import { BoardList } from '../cmps/BoardList'
+import { BoardList } from '../../cmps/workspace/BoardList'
 // import { BoardFilter } from '../cmps/BoardFilter'
 
+//* boardIndex is the personal workspace of someone in the workspace
 export function BoardIndex() {
     const [filterBy, setFilterBy] = useState(boardService.getDefaultFilter())
     const boards = useSelector((storeState) => storeState.boardModule.boards)

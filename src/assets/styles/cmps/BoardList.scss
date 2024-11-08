@@ -1,22 +1,28 @@
 .board-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: .5em;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.5em;
 
     li {
-        display: grid;
-        grid-template-columns: max-content auto;
-        padding: .5em;
-        background-color: $clr2;
+        position: relative;
+        /*  display: grid;
+        grid-template-columns: max-content auto; */
+        // padding: 0.5em;
+        // background-color: $clr2;
 
         color: $clr6;
 
-        .actions {
-            justify-self: end;
-
-            button {
-                padding: .3em .5em;
-            }
+        .board-actions {
+            border-radius: 0.5em;
+            position: absolute;
+            background-color: rgb(163, 160, 160);
+            opacity: 0;
+            transition: opacity 0.1s;
+            cursor: pointer;
+        }
+        &:hover .board-actions {
+            inset: 0;
+            opacity: 0.3;
         }
     }
 }
