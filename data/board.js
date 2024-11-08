@@ -86,8 +86,9 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundImage: '',
-            backgroundColor: 'blue',
+            backgroundSize: 'contain',
+            backgroundImage: 'url(../img/board-background-img/gradiant-snow.svg)',
+            backgroundColor: '',
         },
         labels: [
             {
@@ -222,7 +223,8 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundImage: '',
+            backgroundSize: 'contain',
+            backgroundImage: 'url(../img/board-background-img/starry-night.jpeg)',
             backgroundColor: 'green',
         },
         labels: [
@@ -358,7 +360,8 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundImage: '',
+            backgroundSize: 'contain',
+            backgroundImage: 'url(../img/board-background-img/gradiant-volcano.svg)',
             backgroundColor: 'purple',
         },
         labels: [
@@ -494,7 +497,8 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundImage: '',
+            backgroundSize: 'contain',
+            backgroundImage: 'url(../img/board-background-img/gradiant-ocean.svg)',
             backgroundColor: 'red',
         },
         labels: [
