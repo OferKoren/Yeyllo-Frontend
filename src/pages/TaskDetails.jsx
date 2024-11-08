@@ -3,10 +3,12 @@ import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { loadBoards } from '../store/actions/board.actions'
 import { Labels } from '../cmps/Labels.jsx'
+import { Dates } from '../cmps/Dates.jsx'
 
 export function TaskDetails() {
     const boards = useSelector((storeState) => storeState.boardModule.boards)
     const [isEditLabels, setIsEditLabels] = useState(false)
+    const [isEditDates, setIsEditDates] = useState(false)
     const [task, setTask] = useState({})
     const labels = [
         { id: 'l101', color: '#4BCE97', title: '' },
@@ -45,8 +47,9 @@ export function TaskDetails() {
         setTask((prevTask) => ({ ...prevTask, [field]: value }))
     }
 
-    function renderCheckList(todos, task, checklistId) {
+    function renderCheckList(todos, task, { id: checklistId, title }) {
         return (<div className="todo-list-preview edit">
+            <h3>{title}</h3>
             {todos.map((item, i) =>
                 item &&
                 <label className="checkbox-label-preview edit" key={item.id} >
@@ -83,7 +86,6 @@ export function TaskDetails() {
             </div>
 
             <div className="info-area">
-
                 <textarea
                     ref={titleAreaRef}
                     className="textarea-input"
@@ -92,7 +94,7 @@ export function TaskDetails() {
                     id="title-update"
                     placeholder="Title"
                     value={task.title}
-                    onChange={(ev) => { handleInfoChange(ev) }} />
+                    onChange={handleInfoChange} />
 
                 {task.labelIds && task.labelIds.length !== 0 &&
                     <div className="label-list">
@@ -109,6 +111,11 @@ export function TaskDetails() {
                         }
                     </div>}
 
+                {task.dueDate &&
+                    <div className="due-date">
+                        <spn>{task.dueDate}</spn>
+                    </div>}
+
                 <textarea
                     className="textarea-input"
                     type="text"
@@ -116,22 +123,24 @@ export function TaskDetails() {
                     id="description-update"
                     placeholder="Description"
                     value={task.description || ''}
-                    onChange={(ev) => { handleInfoChange(ev) }} />
+                    onChange={handleInfoChange} />
 
                 {task.checklists?.length > 0 && task.checklists.map((checklist) => (
-                    checklist.todos?.length > 0 && renderCheckList(checklist.todos, task, checklist.id)
+                    checklist.todos?.length > 0 && renderCheckList(checklist.todos, task, checklist)
                 ))}
 
                 <button onClick={() => setIsEditLabels(prev => !prev)}>Labels</button>
+                <button onClick={() => setIsEditDates(prev => !prev)}>Dates</button>
 
-                {isEditLabels && <Labels task={task} setTask={setTask} />}
+                {isEditLabels && <Labels task={task} setTask={setTask} handleChange={handleInfoChange} />}
+                {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} />}
 
                 {console.log(task)}
 
             </div>
-            <h1>Task Details</h1>
+            {/* <h1>Task Details</h1>
             <p>{task.id}</p>
-            <p>{task.title}</p>
+            <p>{task.title}</p> */}
         </article>
     )
 }
