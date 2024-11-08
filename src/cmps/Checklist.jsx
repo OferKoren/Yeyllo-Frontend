@@ -9,11 +9,17 @@ export function Checklist({ todos, task, checklist, setTask }) {
     const [newTodoValue, setNewTodoValue] = useState('')
 
 
-    function changeIsCheckedTodo(todoId, task, checklistId) {
+    function onUpdateTodo(todoId, task, checklistId, method) {
         const updatedChecklists = task.checklists.map(checklist => {
             if (checklist.id === checklistId) {
-                const updatedTodos = checklist.todos.map(todo =>
-                    todo.id === todoId ? { ...todo, isDone: !todo.isDone } : todo)
+                let updatedTodos = []
+                if (method === 'isDone') {
+                    updatedTodos = checklist.todos.map(todo =>
+                        todo.id === todoId ? { ...todo, isDone: !todo.isDone } : todo)
+                }
+                if (method === 'removeTodo') {
+                    updatedTodos = checklist.todos.filter(todo => todo.id !== todoId)
+                }
                 const doneTodosPercent = getDoneTodosPercent(checklistId, updatedTodos)
                 return { ...checklist, todos: updatedTodos, doneTodosPercent }
             }
@@ -37,7 +43,7 @@ export function Checklist({ todos, task, checklist, setTask }) {
         setNewTodoValue(target.value)
     }
 
-    function addTodo(checklistId, newTodoValue) {
+    function onAddTodo(checklistId, newTodoValue) {
         const newTodo = {
             id: makeId(),
             title: newTodoValue,
@@ -54,9 +60,18 @@ export function Checklist({ todos, task, checklist, setTask }) {
         setTask(updatedTask)
     }
 
+    function onRemoveChecklist(checklistId) {
+        const updatedChecklists = task.checklists.filter(checklist => checklist.id !== checklistId)
+        setTask(prevTask => ({ ...prevTask, checklists: updatedChecklists }))
+    }
+
     return (
         <div className="todo-list-preview edit">
-            <h3>{title}</h3>
+            <div className="checklist-header">
+                <h3>{title}</h3>
+                <button className="btn btn-remove-checklist" onClick={() => onRemoveChecklist(checklistId)}>Delete checklist</button>
+            </div>
+
             <div className="progress-bar-container">
                 <div className="checklist-progress-bar">
                     <div className="progress-bar">
@@ -69,14 +84,19 @@ export function Checklist({ todos, task, checklist, setTask }) {
 
             {todos.map((item, i) =>
                 item &&
-                <label className="checkbox-label-preview edit" key={item.id} >
-                    <input
-                        type="checkbox"
-                        checked={item.isDone || false}
-                        value={item.title}
-                        onChange={() => changeIsCheckedTodo(item.id, task, checklistId)} />
-                    <span className="todo-text">{item.title}</span>
-                </label>)}
+                <div className="todo-item">
+                    <label className="checkbox-todo edit" key={item.id} >
+                        <input
+                            type="checkbox"
+                            checked={item.isDone || false}
+                            value={item.title}
+                            onChange={() => onUpdateTodo(item.id, task, checklistId, 'isDone')} />
+                        <span className="todo-text">{item.title}</span>
+                    </label>
+                    <button className="btn btn-remove-todo" onClick={() => onUpdateTodo(item.id, task, checklistId, 'removeTodo')}>
+                        Delete
+                    </button>
+                </div>)}
             {(checklistIdToEdit === checklistId) && isAddingTodo ? (
                 <>
                     <input
@@ -86,7 +106,7 @@ export function Checklist({ todos, task, checklist, setTask }) {
                         onChange={handleNewTodoChange}
                     />
                     <button className="btn btn-add-todo"
-                        onClick={() => { addTodo(checklistId, newTodoValue); setIsAddingTodo(false); setNewTodoValue('') }}>
+                        onClick={() => { onAddTodo(checklistId, newTodoValue); setIsAddingTodo(false); setNewTodoValue('') }}>
                         Add
                     </button>
                     <button onClick={() => { setIsAddingTodo(false); setNewTodoValue('') }}>Cancel</button>
