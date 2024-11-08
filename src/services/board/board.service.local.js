@@ -52,7 +52,7 @@ async function save(board) {
         savedBoard = await storageService.put(STORAGE_KEY, boardToSave)
     } else {
         const boardToSave = {
-            vendor: board.vendor,
+            // vendor: board.vendor,
             // Later, owner is set by the backend
             owner: userService.getLoggedinUser(),
             msgs: [],

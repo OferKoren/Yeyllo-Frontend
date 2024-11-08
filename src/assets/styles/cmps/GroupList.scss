@@ -1,0 +1,16 @@
+.group-list {
+    height: 80vh;
+    display: flex;
+    gap: em(12px);
+
+    :first-child {
+        margin-inline-start: 1em;
+    }
+
+    >* {
+        background-color: $clr-bg1-light;
+        border-radius: em(12px);
+        padding: 1em;
+        margin: 1em 0.5em 1em 0;
+    }
+}

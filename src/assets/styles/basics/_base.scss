@@ -5,14 +5,24 @@
 html {
     line-height: 1.6;
     color: $clr2;
+
+    height: 100%;
 }
 
 body {
     max-width: 1024px;
     margin: 0 auto;
+    
+    min-height: 100%;
+
 
     font-family: 'roboto-regular';
     font-size: rem(18px);
+}
+
+.main-container main{
+    display: flex;
+    flex-direction: column;
 }
 
 h1,
@@ -44,6 +54,7 @@ a:hover {
 ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 input {
