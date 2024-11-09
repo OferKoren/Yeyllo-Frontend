@@ -94,12 +94,12 @@ const board = [
             {
                 id: 'l101',
                 title: 'Done',
-                color: '#61bd4f',
+                color: '#4BCE97',
             },
             {
                 id: 'l102',
                 title: 'Progress',
-                color: '#61bd33',
+                color: '#F5CD47',
             },
         ],
         members: [

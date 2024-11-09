@@ -1,42 +1,42 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { loadBoards } from '../store/actions/board.actions'
+import { loadBoard } from '../store/actions/board.actions'
+import { boardService } from '../services/board'
 import { Labels } from '../cmps/Labels.jsx'
 import { Dates } from '../cmps/Dates.jsx'
 import { makeId } from '../services/util.service.js'
 import { Checklist } from '../cmps/Checklist.jsx'
 import { AddChecklist } from '../cmps/AddChecklist.jsx'
+import { taskService } from '../services/task/task.service.js'
+
 
 export function TaskDetails() {
-    const boards = useSelector((storeState) => storeState.boardModule.boards)
+    // const boards = useSelector((storeState) => storeState.boardModule.boards)
+    const board = useSelector((storeState) => storeState.boardModule.board)
+    const [boardToEdit, setBoardToEdit] = useState(null)
+    // const boardsLabels = useSelector((storeState) => storeState.boardModule.labels)
     const [isEditLabels, setIsEditLabels] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
     const [statusTask, setStatusTask] = useState('')
-
     const [task, setTask] = useState({})
-    const labels = [
-        { id: 'l101', color: '#4BCE97', title: '' },
-        { id: 'l102', color: '#F5CD47', title: '' },
-        { id: 'l103', color: '#FEA362', title: '' },
-        { id: 'l104', color: '#F87168', title: '' },
-        { id: 'l105', color: '#9F8FEF', title: '' },
-        { id: 'l106', color: '#579DFF', title: '' },
-    ]
 
+    // const labels = taskService.getLabels()
     const titleAreaRef = useRef(null)
 
     useEffect(() => {
-        loadBoards()
+        loadBoard('b101')
+        console.log('boardToEdit', boardToEdit)
         console.log('hi2')
     }, [])
 
     useEffect(() => {
-        if (boards?.[0]?.groups?.[1]?.tasks?.[1]) {
-            setTask(boards[0].groups[1].tasks[1])
+        setBoardToEdit(board)
+        if (board?.groups?.[1]?.tasks?.[1]) {
+            setTask(board?.groups[1].tasks[1])
         }
-    }, [boards])
+    }, [board])
 
     useEffect(() => {
         if (task.dueDate) {
@@ -84,7 +84,8 @@ export function TaskDetails() {
         setTask(prevTask => ({ ...prevTask, status: (prevTask.status === 'inProgress') ? 'done' : 'inProgress' }))
     }
 
-    if (!boards.length) return <div>Loading...</div>
+    // if (!boards.length) return <div>Loading...</div>
+    if (!boardToEdit) return <div>Loading...</div>
 
     return (
         <article className="task-details">
@@ -114,14 +115,12 @@ export function TaskDetails() {
                                 <h3>Labels</h3>
                                 <ul className="label-list">
                                     {task.labelIds.map((labelId, i) => {
-                                        const matchingLabel = labels.find(label => label.id === labelId)
-                                        if (matchingLabel) {
-                                            return <li className="label"
-                                                key={labelId}
-                                                style={{ backgroundColor: matchingLabel.color }}>
-                                                {matchingLabel.txt || 'test'}
-                                            </li>
-                                        }
+                                        const labelDetails = boardToEdit.labels?.find(label => label.id === labelId)
+                                        return labelDetails ? (<li className="label"
+                                            key={labelId}
+                                            style={{ backgroundColor: labelDetails.color }}>
+                                            {labelDetails.title}
+                                        </li>) : null
                                     })}
                                 </ul>
                             </div>}
@@ -170,6 +169,7 @@ export function TaskDetails() {
                         </div>}
 
                     {console.log(task)}
+                    {console.log('boardtoedit', boardToEdit.labels)}
 
                 </div>
 
@@ -180,7 +180,8 @@ export function TaskDetails() {
                             className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
                             onClick={() => setIsEditLabels(prev => !prev)}> <img src="img/icons/icon-labels.svg" />Labels</button>
                         {isEditLabels &&
-                            <Labels task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditLabels={setIsEditLabels} />}
+                            <Labels setTask={setTask} handleChange={handleInfoChange} setIsEditLabels={setIsEditLabels}
+                                boardToEdit={boardToEdit} setBoardToEdit={setBoardToEdit} board={board} />}
                     </div>
 
                     <div>

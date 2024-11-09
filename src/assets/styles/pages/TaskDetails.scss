@@ -1,6 +1,7 @@
 .task-details {
     width: 48em;
     background-color: $clr-bg3-light;
+    border-radius: 0.5em;
 
     .task-header {
         display: flex;
@@ -71,6 +72,7 @@
                     padding: 0.3em 1em;
                     font-size: 0.9rem;
                     border-radius: 0.2em;
+                    height: 2.2em;
                 }
             }
 
