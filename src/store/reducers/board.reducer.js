@@ -41,7 +41,7 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, board: { ...state.board, labels: [...(state.board.labels || []), action.label] } }
             break
         case SET_LABELS:
-            newState = { ...state, labels: [state.labels.filter(label => label.id !== action.label.id), action.label] }
+            newState = { ...state, labels: action.labels }
             break
         default:
     }

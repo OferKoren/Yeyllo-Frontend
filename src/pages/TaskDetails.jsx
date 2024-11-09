@@ -15,6 +15,7 @@ export function TaskDetails() {
     // const boards = useSelector((storeState) => storeState.boardModule.boards)
     const board = useSelector((storeState) => storeState.boardModule.board)
     const [boardToEdit, setBoardToEdit] = useState(null)
+    const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     // const boardsLabels = useSelector((storeState) => storeState.boardModule.labels)
     const [isEditLabels, setIsEditLabels] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
@@ -170,6 +171,7 @@ export function TaskDetails() {
 
                     {console.log(task)}
                     {console.log('boardtoedit', boardToEdit.labels)}
+                    {console.log('gLabels', gLabels)}
 
                 </div>
 
