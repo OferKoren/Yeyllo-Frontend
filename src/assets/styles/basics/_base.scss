@@ -99,3 +99,17 @@ input {
         @include btn($type: 'clear');
     }
 }
+
+span.overdue {
+    background-color: $clr-overdue;
+    color: $clr6;
+}
+
+span.complete {
+    background-color: $clr-complete;
+    color: $clr6;
+}
+
+span.duesoon {
+    background-color: $clr-duesoon;
+}

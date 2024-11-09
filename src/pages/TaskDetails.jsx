@@ -13,6 +13,7 @@ export function TaskDetails() {
     const [isEditLabels, setIsEditLabels] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
+    const [statusTask, setStatusTask] = useState('')
 
     const [task, setTask] = useState({})
     const labels = [
@@ -37,6 +38,29 @@ export function TaskDetails() {
         }
     }, [boards])
 
+    useEffect(() => {
+        if (task.dueDate) {
+            const currentDate = new Date()
+            currentDate.setHours(0, 0, 0, 0)
+            const taskDueDate = new Date(task.dueDate)
+            taskDueDate.setHours(0, 0, 0, 0)
+
+            if (taskDueDate < currentDate) {
+                setStatusTask('Overdue')
+            } else if (taskDueDate.getTime() === currentDate.getTime()) {
+                setStatusTask('Due soon')
+            } else {
+                const timeDiff = taskDueDate - currentDate
+                const oneDayInMs = 24 * 60 * 60 * 1000
+                if (timeDiff <= oneDayInMs) {
+                    setStatusTask('Due soon')
+                } else {
+                    setStatusTask('')
+                }
+            }
+        }
+    }, [task.dueDate])
+
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
         switch (type) {
@@ -49,7 +73,15 @@ export function TaskDetails() {
                 value = target.checked
                 break
         }
-        setTask((prevTask) => ({ ...prevTask, [field]: value }))
+        if (field === 'dueDate') {
+            setTask((prevTask) => ({ ...prevTask, [field]: value, status: 'inProgress' }))
+        } else {
+            setTask((prevTask) => ({ ...prevTask, [field]: value }))
+        }
+    }
+
+    function toggleTaskStatus() {
+        setTask(prevTask => ({ ...prevTask, status: (prevTask.status === 'inProgress') ? 'done' : 'inProgress' }))
     }
 
     if (!boards.length) return <div>Loading...</div>
@@ -97,8 +129,17 @@ export function TaskDetails() {
                         {task.dueDate &&
                             <div className="due-date-area">
                                 <h3>Dou date</h3>
-                                <div className="due-date">
+                                <div className="due-date-details">
+                                    <input
+                                        type="checkbox"
+                                        checked={task.status === 'done'}
+                                        onChange={() => toggleTaskStatus(task._id)}
+                                    />
                                     <span>{task.dueDate}</span>
+                                    <span
+                                        className={`due-date-status ${task.status === 'done' ? 'complete' :
+                                            (statusTask === 'Due soon') ? 'duesoon' : 'overdue'}`}>
+                                        {(task.status === 'done') && 'complete' || statusTask}</span>
                                 </div>
                             </div>}
                     </div>

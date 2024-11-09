@@ -81,8 +81,21 @@
             display: flex;
             flex-direction: column;
 
-            .due-date {
+            .due-date-details {
                 display: flex;
+                align-items: center;
+                gap: 0.5em;
+
+                & span {
+                    font-size: 0.9rem;
+                }
+
+                .due-date-status {
+                    font-size: 0.8rem;
+                    line-height: 1.25;
+                    padding-inline-start: 0.3em;
+                    padding-inline-end: 0.3em;
+                }
             }
         }
     }
