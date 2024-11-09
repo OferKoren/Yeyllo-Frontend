@@ -78,7 +78,7 @@ const board = [
     {
         _id: 'b101',
         title: 'Robot dev proj',
-        isStarred: false,
+        isStarred: true,
         archivedAt: null,
         createdBy: {
             _id: 'u101',
@@ -86,7 +86,7 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundSize: 'contain',
+            // backgroundSize: 'contain',
             backgroundImage: 'url(../img/board-background-img/gradiant-snow.svg)',
             backgroundColor: '',
         },
@@ -223,7 +223,7 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundSize: 'contain',
+            // backgroundSize: 'contain',
             backgroundImage: 'url(../img/board-background-img/starry-night.jpeg)',
             backgroundColor: 'green',
         },
@@ -360,7 +360,7 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundSize: 'contain',
+            // backgroundSize: 'contain',
             backgroundImage: 'url(../img/board-background-img/gradiant-volcano.svg)',
             backgroundColor: 'purple',
         },
@@ -497,7 +497,7 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundImage: '',
+            backgroundImage: 'url(../img/board-background-img/gradiant-rainbow.svg)',
         },
         labels: [
             {

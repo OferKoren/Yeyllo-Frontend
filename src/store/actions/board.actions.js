@@ -2,6 +2,7 @@ import { boardService } from '../../services/board'
 import { store } from '../store'
 //removed from the import below ADD_BOARD_MSG
 import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD } from '../reducers/board.reducer'
+import { batch } from 'react-redux'
 
 export async function loadBoards() {
     const filterBy = store.getState().boardModule.filterBy
@@ -46,6 +47,7 @@ export async function addBoard(board) {
 }
 
 export async function updateBoard(board) {
+    console.log(board)
     try {
         const savedBoard = await boardService.save(board)
         store.dispatch(getCmdUpdateBoard(savedBoard))

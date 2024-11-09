@@ -1,3 +1,16 @@
+.board-lists {
+    display: flex;
+    flex-direction: column;
+    // gap: 1em;
+    h2 {
+        display: flex;
+        gap: 0.5em;
+        margin-bottom: 0;
+    }
+    ul {
+        margin-bottom: 1em;
+    }
+}
 .board-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(174px, 1fr));
@@ -17,10 +30,9 @@
             border-radius: 0.15em;
             height: 96px;
         }
-
         &:hover .board-actions {
-            inset: 0;
-            opacity: 0.3;
+            opacity: 1;
+            background-color: rgba(163, 160, 160, 0.279);
         }
     }
 }

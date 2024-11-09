@@ -92,7 +92,7 @@ export function AddBoard({ onAddBoard }) {
                 <label htmlFor="title">
                     Board title <span style={{ color: 'red' }}>*</span>
                 </label>
-                <input type="text" id="title" name="title" value={title} onChange={handleChange} />
+                <input type="text" id="title" required name="title" value={title} onChange={handleChange} />
 
                 <button>Create</button>
             </form>

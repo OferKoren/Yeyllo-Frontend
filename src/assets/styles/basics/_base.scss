@@ -12,15 +12,14 @@ html {
 body {
     max-width: 1024px;
     margin: 0 auto;
-    
+
     min-height: 100%;
 
-
-    font-family: 'roboto-regular';
-    font-size: rem(18px);
+    font-family: 'Segoe UI', 'roboto-regular';
+    font-size: rem(16px);
 }
 
-.main-container main{
+.main-container main {
     display: flex;
     flex-direction: column;
 }

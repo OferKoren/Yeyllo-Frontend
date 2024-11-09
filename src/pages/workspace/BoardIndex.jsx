@@ -51,18 +51,15 @@ export function BoardIndex() {
         }
     }
 
-    // async function onUpdateBoard(board) {
-    //     const speed = +prompt('New speed?', board.speed)
-    //     if(speed === 0 || speed === board.speed) return
-
-    //     const boardToSave = { ...board, speed }
-    //     try {
-    //         const savedBoard = await updateBoard(boardToSave)
-    //         showSuccessMsg(`Board updated, new speed: ${savedBoard.speed}`)
-    //     } catch (err) {
-    //         showErrorMsg('Cannot update board')
-    //     }
-    // }
+    async function onUpdateBoard(board) {
+        const boardToSave = { ...board }
+        try {
+            const savedBoard = await updateBoard(boardToSave)
+            console.log(savedBoard)
+        } catch (err) {
+            showErrorMsg('Cannot update board')
+        }
+    }
     if (!boards) return <div>loading...</div>
     return (
         <main className="board-index">
@@ -71,7 +68,7 @@ export function BoardIndex() {
                 {userService.getLoggedinUser() && <button onClick={onAddBoard}>Add a Board</button>}
             </header>
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
-            <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} />
+            <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} onUpdateBoard={onUpdateBoard} />
             <Modal title="Create board" onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false}>
                 <AddBoard onAddBoard={onAddBoard} />
             </Modal>
