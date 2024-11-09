@@ -61,12 +61,13 @@ export function TaskDetails() {
             </div>
 
             <div className="task-header">
+                <img src="img/icons/icon-task-title.svg" />
                 <textarea
                     ref={titleAreaRef}
-                    className="textarea-input"
+                    className="textarea-input task-title"
                     type="text"
                     name="title"
-                    id="title-update"
+                    id="task-title"
                     placeholder="Title"
                     value={task.title}
                     onChange={handleInfoChange} />
@@ -103,16 +104,14 @@ export function TaskDetails() {
                     </div>
 
                     <div className="description-area">
-                        <div className="description-header">
-                            <img src="img/icons/icon-description.svg" />
-                            <h2 className="task-description">Description</h2>
-                        </div>
+                        <img className="icon-description" src="img/icons/icon-description.svg" />
+                        <h2 className="description-title">Description</h2>
                         <textarea
-                            className="textarea-input"
+                            className="textarea-input task-description"
                             type="text"
                             name="description"
                             id="description-update"
-                            placeholder="Description"
+                            placeholder="Add a more detailed description..."
                             value={task.description || ''}
                             onChange={handleInfoChange} />
                     </div>

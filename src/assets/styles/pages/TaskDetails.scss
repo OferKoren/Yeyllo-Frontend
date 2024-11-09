@@ -1,21 +1,56 @@
 .task-details {
-    width: 55em;
+    width: 48em;
     background-color: $clr-bg3-light;
 
     .task-header {
-        display: grid;
+        display: flex;
+        align-items: center;
+        padding: 0 1em 0;
+        gap: 0.5em;
+        margin-block-start: 1em;
+    }
+
+    .textarea-input {
+        border: none;
+        font-family: inherit;
+
+        width: 100%;
+        padding: 0.5em 0.4em 0;
+
+        overflow: hidden;
+        resize: none;
+
+        line-height: 0.5;
+    }
+
+    .textarea-input:focus {
+        background-color: $clr6;
+    }
+
+    textarea.task-title {
+        font-size: 1.2rem;
+        font-family: 'roboto-medium';
+        background-color: $clr-bg3-light;
+    }
+
+    textarea.task-description {
+        background-color: $clr-btn-1;
+        padding: 1em;
+        border-radius: 0.2em;
     }
 }
 
 .task-main {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 4fr 1fr;
+    gap: 1em;
     color: $gray4;
     padding: 1em;
 
     .task-metadata {
         display: flex;
         gap: 1em;
+        padding-inline-start: 2.3em;
 
         .labels-area {
             display: flex;
@@ -45,11 +80,27 @@
         }
     }
 
-    .description-header {
-        display: flex;
-        align-items: center;
-        gap: 0.6em;
-        margin-block-end: 0.5em;
+    .description-area {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        row-gap: 0.6em;
+        column-gap: 0.6em;
+        grid-template-areas:
+            "icon title"
+            "icon input";
+        margin-block-end: 1em;
+
+        .icon-description {
+            grid-area: icon;
+        }
+
+        .description-title {
+            grid-area: title;
+        }
+
+        .task-description {
+            grid-area: input
+        }
     }
 
     .list-of-checklists {
