@@ -1,22 +1,26 @@
 .add-board {
+    width: 100%;
     .mini-board-preview {
-        width: fit-content;
-        margin: auto;
-        border-radius: 0.5em;
+        width: 200px;
+        height: 120px;
+        margin: 0.05em auto;
+        margin-bottom: 1em;
+        border-radius: 3px;
         padding: 0.2em;
     }
     .photos-list {
         display: flex;
-        gap: 0.2em;
-        li {
+        justify-content: space-between;
+        li > * {
             width: 64px;
             height: 40px;
         }
     }
     .colors-list {
         display: flex;
-        gap: 0.2em;
-        li {
+        justify-content: space-between;
+
+        li > * {
             width: 40px;
             height: 32px;
         }
@@ -32,4 +36,93 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(29, 29, 29); // dark overlay color
+        opacity: 0; // hidden by default
+        transition: opacity 0.15s ease; // smooth transition
+        z-index: 1;
+        border-radius: 0.1em;
+    }
+
+    &:hover::after,
+    &.active::after {
+        opacity: 0.32; // Adjust darkness level
+    }
+}
+.add-board-form {
+    & > * {
+        margin: 0 0 0 0;
+    }
+    span,
+    label {
+        font-size: 12px;
+        font-weight: 600;
+        &::first-letter {
+            text-transform: capitalize;
+        }
+        margin: 0 0 0.25em 0;
+    }
+    .photos-list {
+        padding-block-end: 0.5em;
+    }
+    .colors-list {
+        padding-block-end: 0.7em;
+    }
+    .title-input {
+        margin-block-end: 0.75em;
+    }
+    & > *:last-child {
+        margin-block-end: 0.5em;
+        width: 100%;
+    }
+    button {
+        &::first-letter {
+            text-transform: capitalize;
+        }
+        margin: 0;
+        font-size: 14px;
+        height: 32px;
+        background-color: $btnClr1;
+        border-radius: 0.2em;
+        transition: 0.1s;
+        &:hover {
+            background-color: darken($btnClr1, 10%);
+        }
+        &:disabled {
+            background-color: $btnClrDisabled;
+            color: $btnClrDisabletxt;
+        }
+    }
+    .more-bg-btn {
+        width: 40px;
+        height: 32px;
+        background-color: $btnClrDisabled;
+        color: $btnClrDisabletxt;
+        position: relative;
+        &:hover {
+            background-color: darken($btnClrDisabled, 5);
+        }
+        &::after {
+            content: '...';
+            position: absolute;
+
+            background-color: rgba(0, 0, 0, 0); // Optional: semi-transparent overlay
+            color: #39465d;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transform: translateY(-3px);
+            font-size: em(18px);
+            font-weight: 600;
+        }
+    }
 }

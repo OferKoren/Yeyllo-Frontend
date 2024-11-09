@@ -56,7 +56,7 @@ export function AddBoard({ onAddBoard }) {
                                 <button
                                     type="button"
                                     style={{ backgroundImage: `url('${photo}')` }}
-                                    className="bg-btn"
+                                    className={selected === photo ? 'bg-btn active' : 'bg-btn'}
                                     onClick={() => {
                                         onChangeBg(photo)
                                     }}
@@ -79,22 +79,22 @@ export function AddBoard({ onAddBoard }) {
                                     onClick={() => {
                                         onChangeBg(color)
                                     }}
-                                    className="bg-btn"
+                                    className={selected === color ? 'bg-btn active' : 'bg-btn'}
                                 >
                                     {selected === color && <img src="/img/add-board/v-icon.svg" />}
                                 </button>
                             </li>
                         )
                     })}
+                    <button type="button" className="bg-btn more-bg-btn" onClick={() => {}}></button>
                 </ul>
 
-                {}
                 <label htmlFor="title">
                     Board title <span style={{ color: 'red' }}>*</span>
                 </label>
-                <input type="text" id="title" required name="title" value={title} onChange={handleChange} />
+                <input type="text" className="title-input" id="title" required name="title" value={title} onChange={handleChange} />
 
-                <button>Create</button>
+                <button disabled={title === '' || !title}>Create</button>
             </form>
         </section>
     )

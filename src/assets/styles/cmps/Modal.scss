@@ -12,7 +12,8 @@
 }
 
 .modal-content {
-    border: 1px solid black;
+    box-shadow: var(--ds-shadow-overlay, 0px 8px 12px #091e4226, 0px 0px 1px #091e424f);
+    // border: 1px solid black;
     position: fixed;
     font-size: 1.1em;
     inset: 0;
@@ -20,8 +21,9 @@
     width: fit-content;
     max-width: 36em;
 
-    border-radius: 0.6em;
-    padding: 0 1em;
+    border-radius: 0.4em;
+    width: 304px;
+    padding: 0 0.75em;
     height: max-content;
     color: var(--crl-font);
     background-color: $clr6;
@@ -31,12 +33,52 @@
 
     margin: auto;
     z-index: 3;
+    .modal-header {
+        padding: 0.25em 0;
+        margin-block-end: 0.25em;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 32px 1fr 32px;
+        height: 40px;
+        h3 {
+            font-size: 14px;
+            grid-column: 2;
+            margin: 0;
+            text-align: center;
+            vertical-align: center;
+            color: $modalHeaderClr;
+            font-weight: 600;
+            letter-spacing: -0.003em;
+            line-height: 40px;
+            span {
+                display: block;
+                transform: translateY(-4px);
+            }
+            // margin: 0 32px;
+        }
+    }
 }
 
 .close-btn {
-    position: absolute;
+    /* position: absolute;
     top: 5px;
-    right: 5px;
+    right: 5px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
     background-color: transparent;
     color: var(--crl-font);
+    padding: 0;
+    margin: 0;
+    transition: background-color 0.1s;
+    transform: translateX(3px);
+    border-radius: 0.3em;
+    img {
+        max-width: 16px;
+    }
+    &:hover {
+        background-color: $modalCloseBtn;
+    }
 }

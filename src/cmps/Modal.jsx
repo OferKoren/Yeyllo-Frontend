@@ -5,10 +5,15 @@ export function Modal({ children, isOpen = false, onCloseModal = () => {}, title
         <>
             <section onClick={onCloseModal} className={`modal-backdrop ${blur}`}></section>
             <section className="modal-content">
-                <h3>{title}</h3>
-                <button className="close-btn" onClick={onCloseModal}>
-                    x
-                </button>
+                <header className="modal-header">
+                    <h3>
+                        <span>{title}</span>
+                    </h3>
+                    <button className="close-btn" onClick={onCloseModal}>
+                        <img src="/img/general/x-icon.svg" alt="" />
+                    </button>
+                </header>
+
                 {children}
             </section>
         </>
