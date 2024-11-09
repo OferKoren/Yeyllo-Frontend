@@ -21,8 +21,13 @@
         grid-column: 2;
     }
 
-    & i {
+    & i.left-side {
         padding: 0;
         justify-self: end;
+    }
+
+    & i.right-side {
+        padding: 0;
+        justify-self: start;
     }
 }
