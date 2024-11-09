@@ -21,8 +21,8 @@ export function Labels({ task, setTask, setIsEditLabels }) {
     }
 
     return (
-        <div className="task-labels">
-            <div className="task-labels-header">
+        <div className="modal-option task-labels">
+            <div className="task-labels-header option-modal-header">
                 <h2>Labels</h2>
                 <i className="btn fa-solid fa-xmark" onClick={() => setIsEditLabels(prev => !prev)}></i>
             </div>

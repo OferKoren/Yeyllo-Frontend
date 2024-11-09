@@ -46,6 +46,10 @@ h2 {
         font-family: 'roboto-medium';
         margin: 0;
     }
+
+    .option-modal-header & {
+        font-size: 0.9rem;
+    }
 }
 
 img {
@@ -79,6 +83,7 @@ input {
     padding: 0.5em 1em;
     border: none;
     border-radius: 0.3em;
+    margin-inline-start: 0;
     font-family: inherit;
     cursor: pointer;
 

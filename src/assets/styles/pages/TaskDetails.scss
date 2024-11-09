@@ -10,6 +10,13 @@
         margin-block-start: 1em;
     }
 
+    input:not(input[type="checkbox"]) {
+        padding: 0.8em;
+        width: 100%;
+        border: 1px solid gray;
+        border-radius: 0.2em;
+    }
+
     .textarea-input {
         border: none;
         font-family: inherit;

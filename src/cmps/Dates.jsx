@@ -1,4 +1,4 @@
-export function Dates({ task, handleChange }) {
+export function Dates({ task, handleChange, setIsEditDates }) {
 
     return (
         <input value={task.dueDate || "2024-10-23"}

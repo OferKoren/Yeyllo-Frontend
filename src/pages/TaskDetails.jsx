@@ -138,21 +138,24 @@ export function TaskDetails() {
                         <button
                             className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
                             onClick={() => setIsEditLabels(prev => !prev)}> <img src="img/icons/icon-labels.svg" />Labels</button>
-                        {isEditLabels && <Labels task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditLabels={setIsEditLabels} />}
+                        {isEditLabels &&
+                            <Labels task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditLabels={setIsEditLabels} />}
                     </div>
 
                     <div>
                         <button
-                            className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
+                            className={`btn btn-option btn-light ${isEditDates && 'active'}`}
                             onClick={() => setIsEditDates(prev => !prev)}><img src="img/icons/icon-dates.svg" />Dates</button>
-                        {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} />}
+                        {isEditDates &&
+                            <Dates task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditDates={setIsEditDates} />}
                     </div>
 
                     <div>
                         <button
-                            className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
+                            className={`btn btn-option btn-light ${isAddChecklist && 'active'}`}
                             onClick={() => setIsAddChecklist(prev => !prev)}><img src="img/icons/icon-checklist.svg" />Checklist</button>
-                        {isAddChecklist && <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
+                        {isAddChecklist &&
+                            <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
                     </div>
                 </div>
             </section>
