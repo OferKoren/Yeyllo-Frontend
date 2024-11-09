@@ -133,13 +133,27 @@ export function TaskDetails() {
                 </div>
 
                 <div className="task-options">
-                    <button className="btn btn-option btn-light" onClick={() => setIsEditLabels(prev => !prev)}>Labels</button>
-                    <button className="btn btn-option btn-light" onClick={() => setIsEditDates(prev => !prev)}>Dates</button>
-                    <button className="btn btn-option btn-light" onClick={() => setIsAddChecklist(prev => !prev)}>Checklist</button>
+                    <div>
 
-                    {isEditLabels && <Labels task={task} setTask={setTask} handleChange={handleInfoChange} />}
-                    {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} />}
-                    {isAddChecklist && <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
+                        <button
+                            className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
+                            onClick={() => setIsEditLabels(prev => !prev)}> <img src="img/icons/icon-labels.svg" />Labels</button>
+                        {isEditLabels && <Labels task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditLabels={setIsEditLabels} />}
+                    </div>
+
+                    <div>
+                        <button
+                            className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
+                            onClick={() => setIsEditDates(prev => !prev)}><img src="img/icons/icon-dates.svg" />Dates</button>
+                        {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} />}
+                    </div>
+
+                    <div>
+                        <button
+                            className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
+                            onClick={() => setIsAddChecklist(prev => !prev)}><img src="img/icons/icon-checklist.svg" />Checklist</button>
+                        {isAddChecklist && <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
+                    </div>
                 </div>
             </section>
 

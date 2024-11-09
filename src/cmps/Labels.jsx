@@ -1,5 +1,5 @@
 
-export function Labels({ task, setTask }) {
+export function Labels({ task, setTask, setIsEditLabels }) {
 
     const labels = [
         { id: 'l101', color: '#4BCE97', title: '' },
@@ -22,23 +22,31 @@ export function Labels({ task, setTask }) {
 
     return (
         <div className="task-labels">
-            <h4>Labels</h4>
-            {labels.map((label) => (
-                <div key={label.id} className="checkbox-item">
-                    <input
-                        type="checkbox"
-                        id={label.id}
-                        value={label.txt}
-                        checked={task.labelIds?.includes(label.id) || false}
-                        onChange={() => toggleLabel(label.id)}
-                    />
-                    <label className="task-label"
-                        htmlFor={label.id}
-                        style={{ backgroundColor: label.color }}>
-                        {label.title || 'test'}
-                    </label>
-                </div>
-            ))}
+            <div className="task-labels-header">
+                <h2>Labels</h2>
+                <i className="btn fa-solid fa-xmark" onClick={() => setIsEditLabels(prev => !prev)}></i>
+            </div>
+
+            <div className="labels-container">
+                <h3>Labels</h3>
+                {labels.map((label) => (
+                    <div key={label.id} className="checkbox-label">
+                        <input
+                            type="checkbox"
+                            id={label.id}
+                            value={label.txt}
+                            checked={task.labelIds?.includes(label.id) || false}
+                            onChange={() => toggleLabel(label.id)}
+                        />
+                        <label className="task-label"
+                            htmlFor={label.id}
+                            style={{ backgroundColor: label.color }}>
+                            {label.title || 'test'}
+                        </label>
+                        <img src="img/icons/icon-pencil.svg" />
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

@@ -1,0 +1,45 @@
+.task-labels {
+    position: absolute;
+    padding: 0.5em 1em 1em;
+
+    border-radius: 0.5em;
+    background-color: $clr-bg2-light;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+    .task-labels-header {
+        display: grid;
+        grid-template-columns: 30px 1fr 30px;
+        justify-items: center;
+        align-items: center;
+
+        & h2 {
+            grid-column: 2;
+        }
+    }
+}
+
+.labels-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    width: 14em;
+
+    .checkbox-label {
+        display: flex;
+        gap: 0.5em;
+
+        .task-label {
+            width: 100%;
+            border-radius: 0.2em;
+            font-size: 0.9rem;
+            padding: 0.3em 0.6em;
+        }
+
+        & img {
+            width: 1em;
+
+        }
+    }
+}

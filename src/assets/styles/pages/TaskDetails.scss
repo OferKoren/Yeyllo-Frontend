@@ -113,9 +113,23 @@
         flex-direction: column;
 
         .btn-option {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.6em;
+
             width: 170px;
             color: inherit;
             font-size: 0.9rem;
+
+            & img {
+                height: 1.2em;
+            }
+        }
+
+        .btn-option.active {
+            background-color: #2C3E5D;
+            color: $clr6;
         }
     }
 }
