@@ -1,0 +1,50 @@
+.group-menu {
+    position: absolute;
+    background-color: $clr-bg2-light;
+    left: 0.4em;
+    border-radius: 0.7em;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    display: flex;
+    flex-direction: column;
+
+    header{
+        padding: 1em;
+    }
+
+    :first-child {
+        align-self: center;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: -0.1em;
+        border-radius: 0.5em;
+
+        &:hover {
+            background-color: $clr-bg1-light;
+        }
+    }
+
+    >* {
+        :first-child {
+            align-self: start;
+            font-family: inherit;
+        }
+
+        >* {
+            font-family: inherit;
+        }
+
+        display: flex;
+        flex-direction: column;
+        align-self: start;
+        align-items: start;
+    }
+
+    top: 3em;
+    width: em(288px);
+    padding: em(4px) em(8px);
+
+}

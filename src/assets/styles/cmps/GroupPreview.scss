@@ -4,8 +4,11 @@
 }
 
 .group-header {
+    position: relative;
+
     display: flex;
     justify-content: space-between;
+    margin-bottom: 0.3em;
 
     button {
         background-color: inherit;
@@ -13,7 +16,16 @@
     }
 
     img {
-        width: 1.7em;
+        width: 1.5em;
+    }
+
+    .group-menu-button{
+        transition: 150ms;
+        border-radius: 0.4em;
+        padding: 0.5em;
+        &:hover{
+            background-color: darken($color: $clr-bg1-light, $amount: 10);
+        }
     }
 
     .group-header-btn {
@@ -40,7 +52,7 @@
         outline: none;
 
         &:focus {
-            border: #388BFF solid 3px;
+            border: $clr-blue-border solid 3px;
         }
     }
 }

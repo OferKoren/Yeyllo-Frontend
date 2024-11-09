@@ -5,4 +5,13 @@
     width: 94%;
     margin: 0 em(5px) 0 em(5px);
     border-radius: 0.5em;
+    border: 2px solid $clr-bg1-light;
+
+    transition: 50ms;
+
+    cursor: pointer;
+
+    &:hover{
+        border-color: $clr-blue-border;
+    }
 }
