@@ -3,7 +3,44 @@
     flex-direction: column;
 }
 
-.group-header{
-    font-family: "Roboto-Bold";
-    padding: em(6px) em(8px) em(8px) em(12px);
+.group-header {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        background-color: inherit;
+        color: inherit;
+    }
+
+    img {
+        width: 1.7em;
+    }
+
+    .group-header-btn {
+        font-family: "Roboto-Bold";
+        padding: em(6px) em(8px) em(8px) em(12px);
+        width: 16em;
+
+        text-align: start;
+        font-size: em(16px);
+        margin-bottom: em(10px);
+    }
+
+    input {
+        border-radius: 0.5em;
+        padding: em(6px) em(8px) em(8px) em(12px);
+        margin: 5px;
+        width: 16em;
+        margin-bottom: em(10px);
+
+        border: #ccc solid 3px;
+
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+
+        &:focus {
+            border: #388BFF solid 3px;
+        }
+    }
 }

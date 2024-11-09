@@ -41,11 +41,13 @@ export function GroupList({ onUpdateBoard, board }) {
             board.groups.push(group)
             await onUpdateBoard(board)
             setIsAddGroupClicked(isClicked => !isClicked)
+            setTitle('')
         } catch (err) {
             console.log('err: ', err);
         }
         // updateBoard(newBoard)
     }
+
 
     console.log(isAddGroupClicked);
 
@@ -56,7 +58,7 @@ export function GroupList({ onUpdateBoard, board }) {
                 {groups.map(group =>
                     <li key={group.id}>
                         {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
-                        <GroupPreview group={group} />
+                        <GroupPreview onUpdateBoard={onUpdateBoard} board={board} group={group} />
                     </li>)
                 }
                 {isAddGroupClicked ?

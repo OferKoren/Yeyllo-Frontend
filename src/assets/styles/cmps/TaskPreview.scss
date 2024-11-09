@@ -1,6 +1,8 @@
 .task-preview{
     background-color: $clr-bg2-light;
     padding: em(8px) em(12px) em(4px) em(12px);
-    width: em(256px);
+    // width: em(256px);
+    width: 94%;
+    margin: 0 em(5px) 0 em(5px);
     border-radius: 0.5em;
 }

@@ -1,7 +1,10 @@
 .group-list {
     display: flex;
     gap: em(12px);
+    overflow-x: scroll;
+    height: calc(100vh - 3.5rem - 3.5rem - 4em);
 
+    
     li:first-child {
         margin-inline-start: 1em;
     }
@@ -9,8 +12,11 @@
     >* {
         background-color: $clr-bg1-light;
         border-radius: em(12px);
-        padding: 1em;
+        // padding: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
         margin: 1em 0.5em 1em 0;
+        height: max-content;
     }
 }
 
@@ -19,7 +25,7 @@
     height: em(44px);
     font-family: "roboto-bold";
     font-size: em(16px);
-    width: em(272px);
+    min-width: em(272px);
     padding: em(12px);
     
     transition: 200ms;
