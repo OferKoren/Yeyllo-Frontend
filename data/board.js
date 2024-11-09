@@ -57,6 +57,25 @@ function saveTask(boardId, groupId, task, activity) {
 }
 const backgroundPallet = {
     photos: [
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/mountains_ti0hmy.jpg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/trees_xhkuwr.jpg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/mountain_storm_hlf9te.jpg',
+    ],
+    colors: [
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/gradiant-snow_r7bxjj.svg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-ocean_so8gk6.svg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-crystal_bkqsso.svg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-rainbow_phdwu0.svg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-peach_xpkizy.svg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/gradiant-flower_eij2e0.svg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-earth_aqwhww.svg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-alien_eyltth.svg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/gradiant-volcano_mherm3.svg',
+    ],
+}
+/* const backgroundPallet = {
+    photos: [
         'img/board-background-img/starry-night.jpeg',
         'img/board-background-img/mountains.jpeg',
         'img/board-background-img/trees.jpeg',
@@ -73,7 +92,7 @@ const backgroundPallet = {
         'img/board-background-img/gradiant-alien.svg',
         'img/board-background-img/gradiant-volcano.svg',
     ],
-}
+} */
 const board = [
     {
         _id: 'b101',
@@ -87,7 +106,7 @@ const board = [
         },
         style: {
             // backgroundSize: 'contain',
-            backgroundImage: 'url(../img/board-background-img/gradiant-snow.svg)',
+            backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg)',
             backgroundColor: '',
         },
         labels: [
@@ -224,7 +243,7 @@ const board = [
         },
         style: {
             // backgroundSize: 'contain',
-            backgroundImage: 'url(../img/board-background-img/starry-night.jpeg)',
+            backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/trees_xhkuwr.jpg)',
             backgroundColor: 'green',
         },
         labels: [
@@ -361,7 +380,7 @@ const board = [
         },
         style: {
             // backgroundSize: 'contain',
-            backgroundImage: 'url(../img/board-background-img/gradiant-volcano.svg)',
+            backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-rainbow_phdwu0.svg)',
             backgroundColor: 'purple',
         },
         labels: [
@@ -497,7 +516,7 @@ const board = [
             imgUrl: 'http://some-img',
         },
         style: {
-            backgroundImage: 'url(../img/board-background-img/gradiant-rainbow.svg)',
+            backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/gradiant-volcano_mherm3.svg)',
         },
         labels: [
             {

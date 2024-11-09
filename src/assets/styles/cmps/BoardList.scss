@@ -3,6 +3,9 @@
     flex-direction: column;
     // gap: 1em;
     h2 {
+        ::first-letter {
+            text-transform: capitalize;
+        }
         display: flex;
         gap: 0.5em;
         margin-bottom: 0;

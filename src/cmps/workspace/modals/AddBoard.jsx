@@ -18,7 +18,7 @@ export function AddBoard({ onAddBoard }) {
     function onChangeBg(selectedBg) {
         setBoardBg((prev) => ({ ...prev, selected: selectedBg }))
         setBoardToAdd((prevBoard) => {
-            const style = { ...prevBoard.style, backgroundImage: `url(../${selectedBg})` }
+            const style = { ...prevBoard.style, backgroundImage: `url(${selectedBg})` }
             return { ...prevBoard, style }
         })
     }
@@ -55,7 +55,7 @@ export function AddBoard({ onAddBoard }) {
                             <li key={photo}>
                                 <button
                                     type="button"
-                                    style={{ backgroundImage: `url('../public/${photo}')` }}
+                                    style={{ backgroundImage: `url('${photo}')` }}
                                     className="bg-btn"
                                     onClick={() => {
                                         onChangeBg(photo)
@@ -75,7 +75,7 @@ export function AddBoard({ onAddBoard }) {
                             <li key={color}>
                                 <button
                                     type="button"
-                                    style={{ backgroundImage: `url('../public/${color}')` }}
+                                    style={{ backgroundImage: `url('${color}')` }}
                                     onClick={() => {
                                         onChangeBg(color)
                                     }}
