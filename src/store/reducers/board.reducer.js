@@ -8,11 +8,20 @@ export const ADD_BOARD_LABELS = 'SET_BOARD_LABELS'
 export const SET_LABELS = 'SET_LABELS'
 // export const ADD_BOARD_MSG = 'ADD_BOARD_MSG'
 
+const defaultLabels = [
+    { id: 'l101', color: '#4BCE97', title: '' },
+    { id: 'l102', color: '#F5CD47', title: '' },
+    { id: 'l103', color: '#FEA362', title: '' },
+    { id: 'l104', color: '#F87168', title: '' },
+    { id: 'l105', color: '#9F8FEF', title: '' },
+    { id: 'l106', color: '#579DFF', title: '' },
+]
+
 const initialState = {
     boards: [],
     board: null,
     filterBy: {},
-    labels: []
+    labels: defaultLabels
 }
 
 export function boardReducer(state = initialState, action) {
@@ -23,7 +32,17 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, boards: action.boards }
             break
         case SET_BOARD:
-            newState = { ...state, board: action.board, labels: action.board.labels }
+            const updatedLabels = state.labels.map(label => {
+                const existingLabel = action.board.labels.find(l => l.id === label.id)
+                if (existingLabel) {
+                    return { ...existingLabel }
+                }
+                else {
+                    return label
+                }
+            })
+            newState = { ...state, board: action.board, labels: updatedLabels }
+            // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
             break
         case REMOVE_BOARD:
             const lastRemovedBoard = state.boards.find((board) => board._id === action.boardId)

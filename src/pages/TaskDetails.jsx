@@ -116,12 +116,14 @@ export function TaskDetails() {
                                 <h3>Labels</h3>
                                 <ul className="label-list">
                                     {task.labelIds.map((labelId, i) => {
-                                        const labelDetails = boardToEdit.labels?.find(label => label.id === labelId)
-                                        return labelDetails ? (<li className="label"
-                                            key={labelId}
-                                            style={{ backgroundColor: labelDetails.color }}>
-                                            {labelDetails.title}
-                                        </li>) : null
+                                        const labelDetails = gLabels.find(label => label.id === labelId)
+                                        return (
+                                            <li className="label"
+                                                key={labelId}
+                                                style={{ backgroundColor: labelDetails.color }}>
+                                                {labelDetails.title}
+                                            </li>
+                                        )
                                     })}
                                 </ul>
                             </div>}
@@ -183,7 +185,7 @@ export function TaskDetails() {
                             onClick={() => setIsEditLabels(prev => !prev)}> <img src="img/icons/icon-labels.svg" />Labels</button>
                         {isEditLabels &&
                             <Labels setTask={setTask} handleChange={handleInfoChange} setIsEditLabels={setIsEditLabels}
-                                boardToEdit={boardToEdit} setBoardToEdit={setBoardToEdit} board={board} />}
+                                boardToEdit={boardToEdit} setBoardToEdit={setBoardToEdit} task={task} />}
                     </div>
 
                     <div>
