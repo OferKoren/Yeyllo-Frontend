@@ -1,4 +1,10 @@
-.board-member-list {
+.members {
+    display: grid;
+    gap: 1em;
+}
+
+.board-member-list,
+.task-member-list {
     & img {
         height: 1.6em;
     }
@@ -7,19 +13,25 @@
         display: grid;
         gap: 0.6em;
 
-        & li {
+        & li.member {
             display: flex;
             align-items: center;
             gap: 0.8em;
             padding: 0.3em;
+            margin: 0;
+
             border-radius: 0.2em;
             background-color: $clr-bg3-light;
 
             & .member-name {
                 font-size: 0.9rem;
             }
+
+            & i {
+                margin-inline-start: auto;
+                color: $gray6;
+                padding: 0 0.5em 0 0;
+            }
         }
     }
-
-
 }

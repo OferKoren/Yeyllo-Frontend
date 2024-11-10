@@ -70,6 +70,8 @@ p {
     .label-preview & {
         margin: 0;
         border-radius: 0.2em;
+        height: 2em;
+        line-height: 2;
     }
 }
 
@@ -89,6 +91,15 @@ ul {
 
 input {
     max-width: 100%;
+}
+
+button {
+    .modal-member-preview & {
+        align-self: center;
+        text-align: left;
+        color: $gray5;
+        background-color: transparent;
+    }
 }
 
 .btn {
@@ -126,6 +137,7 @@ span.complete {
 span.duesoon {
     background-color: $clr-duesoon;
 }
+
 hr {
     background-color: var(--ds-border, #091e4224);
     border: 0;
@@ -133,6 +145,14 @@ hr {
     margin: 16px 0;
     padding: 0;
     width: 100%;
+
+    .modal-member-preview & {
+        padding: 0;
+        width: 90%;
+        margin: 0;
+        justify-self: center;
+        align-self: flex-end;
+    }
 }
 .input {
     box-shadow: inset 0 0 0 1px #091e4224;

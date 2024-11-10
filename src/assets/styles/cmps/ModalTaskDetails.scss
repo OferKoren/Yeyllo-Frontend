@@ -1,0 +1,19 @@
+.modal-task-details-content {
+    position: fixed;
+    font-size: 1.1em;
+    inset: 0;
+
+    width: 80vw;
+
+    border-radius: 0.6em;
+
+    height: max-content;
+    color: var(--crl-font);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: auto;
+    z-index: 3;
+}

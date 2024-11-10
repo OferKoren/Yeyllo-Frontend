@@ -122,7 +122,7 @@ const board = [
         createdBy: {
             _id: 'u101',
             fullname: 'Abi Abambi',
-            imgUrl: 'http://some-img',
+            imgUrl: '/img/user/user-default.png',
         },
         style: {
             // backgroundSize: 'contain',
@@ -144,13 +144,13 @@ const board = [
         members: [
             {
                 _id: 'u101',
-                fullname: 'Tal Taltal',
-                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
+                fullname: 'Abi Abambi',
+                imgUrl: '/img/user/user-default.png',
             },
             {
                 _id: 'u102',
                 fullname: 'Josh Ga',
-                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
+                imgUrl: '/img/user/user-default.png',
             },
         ],
         groups: [
@@ -195,7 +195,7 @@ const board = [
                                 byMember: {
                                     _id: 'u101',
                                     fullname: 'Tal Tarablus',
-                                    imgUrl: 'img/user/user-default.png',
+                                    imgUrl: '/img/user/user-default.png',
                                 },
                             },
                         ],
@@ -217,7 +217,7 @@ const board = [
                         byMember: {
                             _id: 'u101',
                             fullname: 'Tal Tarablus',
-                            imgUrl: 'img/user/user-default.png',
+                            imgUrl: '/img/user/user-default.png',
                         },
                         style: {
                             backgroundColor: '#26de81',
@@ -235,7 +235,7 @@ const board = [
                 byMember: {
                     _id: 'u101',
                     fullname: 'Abi Abambi',
-                    imgUrl: 'img/user/user-default.png',
+                    imgUrl: '/img/user/user-default.png',
                 },
                 group: {
                     id: 'g101',
@@ -259,7 +259,7 @@ const board = [
         createdBy: {
             _id: 'u101',
             fullname: 'Abi Abambi',
-            imgUrl: 'img/user/user-default.png',
+            imgUrl: '/img/user/user-default.png',
         },
         style: {
             // backgroundSize: 'contain',
@@ -282,12 +282,12 @@ const board = [
             {
                 _id: 'u101',
                 fullname: 'Tal Taltal',
-                imgUrl: 'img/user/user-default.png',
+                imgUrl: '/img/user/user-default.png',
             },
             {
                 _id: 'u102',
                 fullname: 'Josh Ga',
-                imgUrl: 'img/user/user-default.png',
+                imgUrl: '/img/user/user-default.png',
             },
         ],
         groups: [
@@ -332,7 +332,7 @@ const board = [
                                 byMember: {
                                     _id: 'u101',
                                     fullname: 'Tal Tarablus',
-                                    imgUrl: 'img/user/user-default.png',
+                                    imgUrl: '/img/user/user-default.png',
                                 },
                             },
                         ],
@@ -354,7 +354,7 @@ const board = [
                         byMember: {
                             _id: 'u101',
                             fullname: 'Tal Tarablus',
-                            imgUrl: '',
+                            imgUrl: '/img/user/user-default.png',
                         },
                         style: {
                             backgroundColor: '#26de81',
@@ -372,7 +372,7 @@ const board = [
                 byMember: {
                     _id: 'u101',
                     fullname: 'Abi Abambi',
-                    imgUrl: 'img/user/user-default.png',
+                    imgUrl: '/img/user/user-default.png',
                 },
                 group: {
                     id: 'g101',
@@ -396,7 +396,7 @@ const board = [
         createdBy: {
             _id: 'u101',
             fullname: 'Abi Abambi',
-            imgUrl: 'img/user/user-default.png',
+            imgUrl: '/img/user/user-default.png',
         },
         style: {
             // backgroundSize: 'contain',
@@ -419,12 +419,12 @@ const board = [
             {
                 _id: 'u101',
                 fullname: 'Tal Taltal',
-                imgUrl: 'img/user/user-default.png',
+                imgUrl: '/img/user/user-default.png',
             },
             {
                 _id: 'u102',
                 fullname: 'Josh Ga',
-                imgUrl: 'img/user/user-default.png',
+                imgUrl: '/img/user/user-default.png',
             },
         ],
         groups: [
@@ -469,7 +469,7 @@ const board = [
                                 byMember: {
                                     _id: 'u101',
                                     fullname: 'Tal Tarablus',
-                                    imgUrl: 'img/user/user-default.png',
+                                    imgUrl: '/img/user/user-default.png',
                                 },
                             },
                         ],
@@ -491,7 +491,7 @@ const board = [
                         byMember: {
                             _id: 'u101',
                             fullname: 'Tal Tarablus',
-                            imgUrl: 'img/user/user-default.png',
+                            imgUrl: '/img/user/user-default.png',
                         },
                         style: {
                             backgroundColor: '#26de81',
@@ -509,7 +509,7 @@ const board = [
                 byMember: {
                     _id: 'u101',
                     fullname: 'Abi Abambi',
-                    imgUrl: 'img/user/user-default.png',
+                    imgUrl: '/img/user/user-default.png',
                 },
                 group: {
                     id: 'g101',
@@ -533,7 +533,7 @@ const board = [
         createdBy: {
             _id: 'u101',
             fullname: 'Abi Abambi',
-            imgUrl: 'img/user/user-default.png',
+            imgUrl: '/img/user/user-default.png',
         },
         style: {
             backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/gradiant-volcano_mherm3.svg)',
@@ -554,12 +554,12 @@ const board = [
             {
                 _id: 'u101',
                 fullname: 'Tal Taltal',
-                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
+                imgUrl: '/img/user/user-default.png',
             },
             {
                 _id: 'u102',
                 fullname: 'Josh Ga',
-                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
+                imgUrl: '/img/user/user-default.png',
             },
         ],
         groups: [
@@ -604,7 +604,7 @@ const board = [
                                 byMember: {
                                     _id: 'u101',
                                     fullname: 'Tal Tarablus',
-                                    imgUrl: '',
+                                    imgUrl: '/img/user/user-default.png',
                                 },
                             },
                         ],
@@ -626,7 +626,7 @@ const board = [
                         byMember: {
                             _id: 'u101',
                             fullname: 'Tal Tarablus',
-                            imgUrl: '',
+                            imgUrl: '/img/user/user-default.png',
                         },
                         style: {
                             backgroundColor: '#26de81',
@@ -644,7 +644,7 @@ const board = [
                 byMember: {
                     _id: 'u101',
                     fullname: 'Abi Abambi',
-                    imgUrl: 'img/user/user-default.png',
+                    imgUrl: '/img/user/user-default.png',
                 },
                 group: {
                     id: 'g101',
@@ -671,7 +671,7 @@ const user = {
     fullname: 'Abi Abambi',
     username: 'abi@ababmi.com',
     password: 'aBambi123',
-    imgUrl: 'http://some-img.jpg',
+    imgUrl: '/img/user/user-default.png',
     mentions: [
         {
             //optional

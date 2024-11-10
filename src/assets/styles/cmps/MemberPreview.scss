@@ -1,0 +1,55 @@
+.modal-member-preview {
+    position: absolute;
+    display: grid;
+
+    height: 9em;
+    border-radius: 0.5em;
+    overflow: hidden;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    background-color: $clr-bg2-light;
+    z-index: 1;
+}
+
+.member-preview-header {
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    padding: 1em;
+    background-color: $clr-btn-2;
+    height: 5em;
+    color: $clr6;
+}
+
+.member-details {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+
+    display: flex;
+    gap: 1em;
+    color: $clr6;
+
+    .details {
+        display: flex;
+        flex-direction: column;
+
+        & span {
+            font-size: 0.9rem;
+            line-height: 1.2;
+        }
+    }
+
+    .member-preview-photo {
+        width: 4em;
+
+        & img {
+            width: 100%;
+            border-radius: 50%;
+        }
+    }
+
+
+}

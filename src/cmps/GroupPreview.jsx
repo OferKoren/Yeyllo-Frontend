@@ -10,6 +10,11 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
     const [isGroupHeaderEdit, setIsGroupHeaderEdit] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+    const [isCopyGroupClicked, setIsCopyGroupClicked] = useState(false)
+    const [isAddTaskClicked, setIsAddTaskClicked] = useState(false)
+    const [taskTitle, setTaskTitle] = useState('')
+
+
     useEffect(() => {
 
     }, [isMenuOpen])
@@ -36,7 +41,7 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
     }
 
     async function onEditTitleGroup(ev) {
-        ev.preventDefault()
+        if(ev) ev.preventDefault()
         if (!currTitle) return alert('Text field is required')
         try {
             const currGroup = board.groups.find(group => group.id === id)
@@ -48,6 +53,7 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
         }
     }
     function toggleMenu() {
+        setIsCopyGroupClicked(isOpen => isOpen =false)
         setIsMenuOpen(isOpen => !isOpen)
     }
 
@@ -65,8 +71,9 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
     }
 
     function onBlurInput() {
-        setIsGroupHeaderEdit(false)
-        setCurrTitle(title)
+        onEditTitleGroup()
+        // setIsGroupHeaderEdit(false)
+        // setCurrTitle(currTitle)
     }
 
 
@@ -81,11 +88,11 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
                     </form>
                     : <button onClick={onEditGroupHeader} className="group-header-btn">{title}</button>
                 }
-                {isMenuOpen ? <GroupMenu setIsMenuOpen={setIsMenuOpen} onRemoveGroup={onRemoveGroup} /> : ''}
+                {isMenuOpen ? <GroupMenu onUpdateBoard={onUpdateBoard} board={board} group={group} isCopyGroupClicked={isCopyGroupClicked} setIsCopyGroupClicked={setIsCopyGroupClicked} setIsAddTaskClicked={setIsAddTaskClicked}  setIsMenuOpen={setIsMenuOpen} onRemoveGroup={onRemoveGroup} /> : ''}
                 <button className='group-menu-button' onClick={toggleMenu} ><img src="/img/menu-group/group-menu-icon.png" alt="" /></button>
             </header>
             <section>
-                <TaskList groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
+                <TaskList taskTitle={taskTitle} setTaskTitle={setTaskTitle} isAddTaskClicked={isAddTaskClicked} setIsAddTaskClicked={setIsAddTaskClicked} groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
             </section>
         </article>
     )

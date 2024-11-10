@@ -1,4 +1,4 @@
-export function Modal({ children, isOpen = false, onCloseModal = () => {}, title, isBlur = true }) {
+export function Modal({ children, isOpen = false, onCloseModal = () => { }, title = '', isBlur = true }) {
     if (!isOpen) return null
     const blur = isBlur ? 'blur' : ''
     return (
