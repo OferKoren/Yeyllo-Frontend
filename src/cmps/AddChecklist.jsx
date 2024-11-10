@@ -9,7 +9,7 @@ export function AddChecklist({ setTask, setIsAddChecklist }) {
     }
     function addChecklist() {
         const newChecklistToSave = { ...newChecklist, id: makeId() }
-        setTask(prevTask => ({ ...prevTask, checklists: [...prevTask.checklists, newChecklistToSave] }))
+        setTask(prevTask => ({ ...prevTask, checklists: (!prevTask.checklists) ? [newChecklistToSave] : [...prevTask.checklists, newChecklistToSave] }))
     }
 
     return (

@@ -14,12 +14,12 @@ export function Labels({ task, setTask, setIsEditLabels, boardToEdit, setBoardTo
 
     function toggleLabel(label) {
         setTask((prevTask) => {
-            if (prevTask.labelIds.includes(label.id)) {
+            if (prevTask.labelIds?.includes(label.id)) {
                 // setBoardToEdit(prevBoard => ({ ...prevBoard, labels: prevBoard.labels.filter(l => l.id !== label.id) }))
                 return { ...prevTask, labelIds: prevTask.labelIds.filter(item => item !== label.id) }
             } else {
                 // setBoardToEdit(prevBoard => ({ ...prevBoard, labels: [...prevBoard.labels, label] }))
-                return { ...prevTask, labelIds: [...prevTask.labelIds, label.id] }
+                return { ...prevTask, labelIds: (!prevTask.labelIds) ? [label.id] : [...prevTask.labelIds, label.id] }
             }
         })
     }
@@ -55,7 +55,7 @@ export function Labels({ task, setTask, setIsEditLabels, boardToEdit, setBoardTo
                     <h3>Labels</h3>
                     {gLabels.map((label) => {
                         // const boardLabel = boardToEdit.labels.find(l => l.id === label.id)
-                        const taskLabel = task.labelIds.find(labelId => labelId === label.id)
+                        const taskLabel = task.labelIds?.find(labelId => labelId === label.id)
                         const gLabel = gLabels.find(l => l.id === label.id)
                         return (<div key={label.id} className="checkbox-label">
                             <input

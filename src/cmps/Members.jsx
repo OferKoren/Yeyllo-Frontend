@@ -6,7 +6,8 @@ export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemov
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
 
     function onAddMember(memberId) {
-        setTask(prevTask => ({ ...prevTask, memberIds: [...prevTask.memberIds, memberId] }))
+
+        setTask(prevTask => ({ ...prevTask, memberIds: (!prevTask.memberIds) ? [memberId] : [...prevTask.memberIds, memberId] }))
     }
 
     return (
@@ -39,9 +40,9 @@ export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemov
                 }
 
                 {
-                    task.memberIds && task.memberIds.length !== gMembers.length &&
+                    // task.memberIds && task.memberIds.length !== gMembers.length &&
                     <div className="board-member-list">
-                        <h3>Board members</h3>
+                        {task.memberIds && task.memberIds.length !== gMembers.length && <h3>Board members</h3>}
                         <ul className="member-list">
                             {boardMembers && boardMembers.map(member => {
                                 if (task.memberIds && task.memberIds.length !== 0 && task.memberIds.includes(member._id)) return
