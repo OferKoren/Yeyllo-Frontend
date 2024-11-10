@@ -43,7 +43,7 @@ export function LabelEdit({ setIsEditLabels, labelToEdit, setLabelToEdit, setBoa
             </div>
 
             <div className="label-preview">
-                <p className="label-preview-details" style={{ background: labelToEdit.color }}>{labelToEdit.title}</p>
+                <p className="label-preview-details" style={{ background: labelToEdit.color }}>{labelToEdit.title || ''}</p>
             </div>
 
             <div className="add-checklist-container">

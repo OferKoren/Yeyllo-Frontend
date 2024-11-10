@@ -58,7 +58,7 @@
 
     .task-metadata {
         display: flex;
-        gap: 1em;
+        gap: 1.5em;
         padding-inline-start: 2.3em;
 
         .labels-area {
@@ -101,6 +101,25 @@
                 }
             }
         }
+
+        .members-area {
+            display: flex;
+            flex-direction: column;
+
+            & img {
+                width: 2em;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+
+            .photo-member-list {
+                display: flex;
+                gap: 0.2em;
+            }
+        }
     }
 
     .description-area {
@@ -134,6 +153,7 @@
     & .task-options {
         display: flex;
         flex-direction: column;
+        gap: 0.5em;
 
         .btn-option {
             position: relative;

@@ -122,7 +122,7 @@ const board = [
         createdBy: {
             _id: 'u101',
             fullname: 'Abi Abambi',
-            imgUrl: 'http://some-img',
+            imgUrl: 'img/user/user-default.png',
         },
         style: {
             // backgroundSize: 'contain',
@@ -144,13 +144,13 @@ const board = [
         members: [
             {
                 _id: 'u101',
-                fullname: 'Tal Taltal',
-                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
+                fullname: 'Abi Abambi',
+                imgUrl: 'img/user/user-default.png',
             },
             {
                 _id: 'u102',
                 fullname: 'Josh Ga',
-                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
+                imgUrl: 'img/user/user-default.png',
             },
         ],
         groups: [
@@ -354,7 +354,7 @@ const board = [
                         byMember: {
                             _id: 'u101',
                             fullname: 'Tal Tarablus',
-                            imgUrl: '',
+                            imgUrl: 'img/user/user-default.png',
                         },
                         style: {
                             backgroundColor: '#26de81',
@@ -554,12 +554,12 @@ const board = [
             {
                 _id: 'u101',
                 fullname: 'Tal Taltal',
-                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
+                imgUrl: 'img/user/user-default.png',
             },
             {
                 _id: 'u102',
                 fullname: 'Josh Ga',
-                imgUrl: 'https://res.cloudinary.com/dw6sluje4/image/upload/v1731063220/person-icon_uctjec.png',
+                imgUrl: 'img/user/user-default.png',
             },
         ],
         groups: [
@@ -604,7 +604,7 @@ const board = [
                                 byMember: {
                                     _id: 'u101',
                                     fullname: 'Tal Tarablus',
-                                    imgUrl: '',
+                                    imgUrl: 'img/user/user-default.png',
                                 },
                             },
                         ],
@@ -626,7 +626,7 @@ const board = [
                         byMember: {
                             _id: 'u101',
                             fullname: 'Tal Tarablus',
-                            imgUrl: '',
+                            imgUrl: 'img/user/user-default.png',
                         },
                         style: {
                             backgroundColor: '#26de81',
@@ -671,7 +671,7 @@ const user = {
     fullname: 'Abi Abambi',
     username: 'abi@ababmi.com',
     password: 'aBambi123',
-    imgUrl: 'http://some-img.jpg',
+    imgUrl: 'img/user/user-default.png',
     mentions: [
         {
             //optional

@@ -70,6 +70,8 @@ p {
     .label-preview & {
         margin: 0;
         border-radius: 0.2em;
+        height: 2em;
+        line-height: 2;
     }
 }
 
@@ -126,6 +128,7 @@ span.complete {
 span.duesoon {
     background-color: $clr-duesoon;
 }
+
 hr {
     background-color: var(--ds-border, #091e4224);
     border: 0;

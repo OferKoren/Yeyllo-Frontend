@@ -114,28 +114,29 @@ export function TaskDetails() {
                 <div className="task-info">
 
                     <div className="task-metadata">
-                        {/* {task.memberIds && task.memberIds.length !== 0 &&
-                            <div className="labels-area">
+                        {task.memberIds && task.memberIds.length !== 0 &&
+                            <div className="members-area">
                                 <h3>Members</h3>
-                                <ul className="label-list">
-                                    {task.memberIds.map((memberId, i) => {
-                                        const memberDetails = gMembers.find(member => member.id === memberId)
+                                <ul className="photo-member-list">
+                                    {task.memberIds.map(memberId => {
+                                        const memberDetails = gMembers.find(member => member._id === memberId)
                                         return (
-                                            <li className="label"
-                                                key={memberId}
-                                            >
+                                            <li
+                                                title={memberDetails.fullname}
+                                                className="member"
+                                                key={memberId}>
                                                 <img src={memberDetails.imgUrl} />
                                             </li>
                                         )
                                     })}
                                 </ul>
-                            </div>} */}
+                            </div>}
 
                         {task.labelIds && task.labelIds.length !== 0 &&
                             <div className="labels-area">
                                 <h3>Labels</h3>
                                 <ul className="label-list">
-                                    {task.labelIds.map((labelId, i) => {
+                                    {task.labelIds.map(labelId => {
                                         const labelDetails = gLabels.find(label => label.id === labelId)
                                         return (
                                             <li className="label"
