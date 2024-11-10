@@ -13,7 +13,7 @@ import { MemberPreview } from '../cmps/MemberPreview'
 import { taskService } from '../services/task/task.service.js'
 
 
-export function TaskDetails({ groupId, currTask }) {
+export function TaskDetails({ currTask }) {
     // const boards = useSelector((storeState) => storeState.boardModule.boards)
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
@@ -29,7 +29,8 @@ export function TaskDetails({ groupId, currTask }) {
     const [task, setTask] = useState({})
 
     const { boardId } = useParams()
-    const taskId = currTask.id
+    const { groupId } = useParams()
+    const { taskId } = useParams()
 
     // const labels = taskService.getLabels()
     const titleAreaRef = useRef(null)
