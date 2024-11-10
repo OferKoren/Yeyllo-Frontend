@@ -1,44 +1,82 @@
+import { taskService } from '../services/task/task.service.js'
+import { useState, useEffect, useRef } from 'react'
+import { LabelEdit } from '../cmps/LabelEdit.jsx'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateBoard } from '../store/actions/board.actions'
+import { SET_LABELS } from '../store/reducers/board.reducer.js'
 
-export function Labels({ task, setTask }) {
+export function Labels({ task, setTask, setIsEditLabels, boardToEdit, setBoardToEdit }) {
 
-    const labels = [
-        { id: 'l101', color: '#4BCE97', title: '' },
-        { id: 'l102', color: '#F5CD47', title: '' },
-        { id: 'l103', color: '#FEA362', title: '' },
-        { id: 'l104', color: '#F87168', title: '' },
-        { id: 'l105', color: '#9F8FEF', title: '' },
-        { id: 'l106', color: '#579DFF', title: '' },
-    ]
+    const [isEditLabel, setIsEditLabel] = useState(false)
+    const [labelToEdit, setLabelToEdit] = useState(false)
+    const gLabels = useSelector((storeState) => storeState.boardModule.labels || [])
+    const dispatch = useDispatch()
 
-    function toggleLabel(labelId) {
+    function toggleLabel(label) {
         setTask((prevTask) => {
-            if (prevTask.labelIds.includes(labelId)) {
-                return { ...prevTask, labelIds: prevTask.labelIds.filter(item => item !== labelId) }
+            if (prevTask.labelIds.includes(label.id)) {
+                // setBoardToEdit(prevBoard => ({ ...prevBoard, labels: prevBoard.labels.filter(l => l.id !== label.id) }))
+                return { ...prevTask, labelIds: prevTask.labelIds.filter(item => item !== label.id) }
             } else {
-                return { ...prevTask, labelIds: [...prevTask.labelIds, labelId] }
+                // setBoardToEdit(prevBoard => ({ ...prevBoard, labels: [...prevBoard.labels, label] }))
+                return { ...prevTask, labelIds: [...prevTask.labelIds, label.id] }
             }
         })
     }
 
+    useEffect(() => {
+        const updatedLabels = gLabels.map(label => {
+            const existingLabel = boardToEdit.labels.find(l => l.id === label.id)
+            if (existingLabel) {
+                return { ...existingLabel }
+            }
+            else {
+                return label
+            }
+        })
+
+        if (boardToEdit?.labels) {
+            dispatch({
+                type: SET_LABELS,
+                labels: updatedLabels,
+            })
+        }
+    }, [boardToEdit?.labels, dispatch])
+
     return (
-        <div className="task-labels">
-            <h4>Labels</h4>
-            {labels.map((label) => (
-                <div key={label.id} className="checkbox-item">
-                    <input
-                        type="checkbox"
-                        id={label.id}
-                        value={label.txt}
-                        checked={task.labelIds?.includes(label.id) || false}
-                        onChange={() => toggleLabel(label.id)}
-                    />
-                    <label className="task-label"
-                        htmlFor={label.id}
-                        style={{ backgroundColor: label.color }}>
-                        {label.title || 'test'}
-                    </label>
+        <>
+            <div className="modal-option task-labels">
+                <div className="task-labels-header option-modal-header">
+                    <h2>Labels</h2>
+                    <i className="btn fa-solid fa-xmark left-side" onClick={() => setIsEditLabels(prev => !prev)}></i>
                 </div>
-            ))}
-        </div>
+
+                <div className="labels-container">
+                    <h3>Labels</h3>
+                    {gLabels.map((label) => {
+                        // const boardLabel = boardToEdit.labels.find(l => l.id === label.id)
+                        const taskLabel = task.labelIds.find(labelId => labelId === label.id)
+                        const gLabel = gLabels.find(l => l.id === label.id)
+                        return (<div key={label.id} className="checkbox-label">
+                            <input
+                                type="checkbox"
+                                id={label.id}
+                                checked={taskLabel || false}
+                                onChange={() => toggleLabel({ ...label, title: (gLabel?.title || '') })}
+                            />
+                            <label className="task-label"
+                                htmlFor={label.id}
+                                style={{ backgroundColor: label.color }}>
+                                {<div>{gLabel?.title || ''}</div>}
+                            </label>
+                            <img src="img/icons/icon-pencil.svg" onClick={() => { setIsEditLabel(prev => !prev); setLabelToEdit({ ...label, title: (gLabel?.title || '') }) }} />
+                        </div>)
+                    })}
+                </div>
+            </div>
+            {isEditLabel &&
+                <LabelEdit setIsEditLabels={setIsEditLabels} labelToEdit={labelToEdit} setIsEditLabel={setIsEditLabel}
+                    setLabelToEdit={setLabelToEdit} setBoardToEdit={setBoardToEdit} setTask={setTask} />}
+        </>
     )
 }

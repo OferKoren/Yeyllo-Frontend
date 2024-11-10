@@ -1,0 +1,158 @@
+.task-details {
+    width: 48em;
+    background-color: $clr-bg3-light;
+    border-radius: 0.5em;
+    margin-block-start: 1em;
+
+    .task-header {
+        display: flex;
+        align-items: center;
+        padding: 0 1em 0;
+        gap: 0.5em;
+        margin-block-start: 1em;
+    }
+
+    input:not(input[type="checkbox"]) {
+        padding: 0.8em;
+        width: 100%;
+        border: 1px solid gray;
+        border-radius: 0.2em;
+    }
+
+    .textarea-input {
+        border: none;
+        font-family: inherit;
+
+        width: 100%;
+        padding: 0.5em 0.4em 0;
+
+        overflow: hidden;
+        resize: none;
+
+        line-height: 0.5;
+    }
+
+    .textarea-input:focus {
+        background-color: $clr6;
+    }
+
+    textarea.task-title {
+        font-size: 1.2rem;
+        font-family: 'roboto-medium';
+        background-color: $clr-bg3-light;
+    }
+
+    textarea.task-description {
+        background-color: $clr-btn-1;
+        padding: 1em;
+        border-radius: 0.2em;
+    }
+}
+
+.task-main {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 1em;
+    color: $gray4;
+    padding: 1em;
+
+    .task-metadata {
+        display: flex;
+        gap: 1em;
+        padding-inline-start: 2.3em;
+
+        .labels-area {
+            display: flex;
+            flex-direction: column;
+
+            .label-list {
+                display: flex;
+                gap: 0.3em;
+
+                li.label {
+                    padding: 0.3em 1em;
+                    font-size: 0.9rem;
+                    border-radius: 0.2em;
+                    height: 2.2em;
+                }
+            }
+
+            margin-block-end: 1.3em;
+        }
+
+        .due-date-area {
+            display: flex;
+            flex-direction: column;
+
+            .due-date-details {
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+
+                & span {
+                    font-size: 0.9rem;
+                }
+
+                .due-date-status {
+                    font-size: 0.8rem;
+                    line-height: 1.25;
+                    padding-inline-start: 0.3em;
+                    padding-inline-end: 0.3em;
+                }
+            }
+        }
+    }
+
+    .description-area {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        row-gap: 0.6em;
+        column-gap: 0.6em;
+        grid-template-areas:
+            "icon title"
+            "icon input";
+        margin-block-end: 1em;
+
+        .icon-description {
+            grid-area: icon;
+        }
+
+        .description-title {
+            grid-area: title;
+        }
+
+        .task-description {
+            grid-area: input
+        }
+    }
+
+    .list-of-checklists {
+        display: grid;
+        gap: 1em;
+    }
+
+    & .task-options {
+        display: flex;
+        flex-direction: column;
+
+        .btn-option {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.6em;
+
+            width: 170px;
+            color: inherit;
+            font-size: 0.9rem;
+
+            & img {
+                height: 1.2em;
+            }
+        }
+
+        .btn-option.active {
+            background-color: #2C3E5D;
+            color: $clr6;
+        }
+    }
+}

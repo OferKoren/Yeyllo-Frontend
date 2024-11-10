@@ -3,12 +3,26 @@ export const SET_BOARD = 'SET_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
+
+export const ADD_BOARD_LABELS = 'SET_BOARD_LABELS'
+export const SET_LABELS = 'SET_LABELS'
 // export const ADD_BOARD_MSG = 'ADD_BOARD_MSG'
+
+const defaultLabels = [
+    { id: 'l101', color: '#4BCE97', title: '' },
+    { id: 'l102', color: '#F5CD47', title: '' },
+    { id: 'l103', color: '#FEA362', title: '' },
+    { id: 'l104', color: '#F87168', title: '' },
+    { id: 'l105', color: '#9F8FEF', title: '' },
+    { id: 'l106', color: '#579DFF', title: '' },
+]
 
 const initialState = {
     boards: [],
     board: null,
-    filterBy: {}
+    filterBy: {},
+    labels: defaultLabels,
+    members: []
 }
 
 export function boardReducer(state = initialState, action) {
@@ -19,7 +33,17 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, boards: action.boards }
             break
         case SET_BOARD:
-            newState = { ...state, board: action.board }
+            const updatedLabels = state.labels.map(label => {
+                const existingLabel = action.board.labels.find(l => l.id === label.id)
+                if (existingLabel) {
+                    return { ...existingLabel }
+                }
+                else {
+                    return label
+                }
+            })
+            newState = { ...state, board: action.board, labels: updatedLabels, members: action.board.members || [] }
+            // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
             break
         case REMOVE_BOARD:
             const lastRemovedBoard = state.boards.find((board) => board._id === action.boardId)
@@ -31,11 +55,14 @@ export function boardReducer(state = initialState, action) {
             break
         case UPDATE_BOARD:
             boards = state.boards.map((board) => (board._id === action.board._id ? action.board : board))
-            newState = { ...state, boards }
+            newState = { ...state, boards, board: action.board }
             break
-        /* case ADD_BOARD_MSG:
-            newState = { ...state, board: { ...state.board, msgs: [...(state.board.msgs || []), action.msg] } }
-            break */
+        case ADD_BOARD_LABELS:
+            newState = { ...state, board: { ...state.board, labels: [...(state.board.labels || []), action.label] } }
+            break
+        case SET_LABELS:
+            newState = { ...state, labels: action.labels }
+            break
         default:
     }
     return newState
