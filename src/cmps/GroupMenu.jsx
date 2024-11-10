@@ -1,10 +1,24 @@
 import { useState } from "react"
 import { makeId } from "../services/util.service"
+import ClickOutside from "./ClickOutside"
 
 export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemoveGroup, setIsAddTaskClicked, isCopyGroupClicked, setIsCopyGroupClicked }) {
 
     const [newTitle, setNewTitle] = useState(group.title)
 
+    // const groupColorPalette = {
+    //     green: '#4BCE97',
+    //     yellow: '#4BCE97',
+    //     orange: '#FEC195',
+    //     red: '#f87168',
+    //     purple: '#9f8fef',
+    //     blue: '#579dff',
+    //     teal: '#6cc3e0',
+    //     lime: '#94c748',
+    //     magenta: '#e774bb',
+    //     gray: '#8590a2',
+
+    // }
 
     function onAddTaskMenu() {
         setIsAddTaskClicked(isOpen => !isOpen)
@@ -57,7 +71,9 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
     }
 
     return (
-        <>
+        <ClickOutside
+            onClick={() => setIsMenuOpen(false)}
+        >
             {isCopyGroupClicked ?
                 <div className="group-menu">
                     <header >Copy list</header>
@@ -82,9 +98,19 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
                         <hr style={{
                             borderColor: "gray", width: "16em"
                         }} />
+                        {/* <h5>Change list color</h5>
+                        <div>
+                            {groupColorPalette?.map(color =>
+                                <div className="group-palette-color" style={{ backgroundColor: color }}></div>
+                            )}
+                        </div>
+                        <hr style={{
+                            borderColor: "gray", width: "16em"
+                        }} /> */}
                         <button onClick={onRemoveGroup}>Delete this list</button>
                     </section>
                 </div>}
-        </>
+        </ClickOutside>
+
     )
 }

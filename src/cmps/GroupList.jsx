@@ -55,7 +55,6 @@ export function GroupList({ onUpdateBoard, board }) {
         setTitle('')
     }
 
-
     console.log(isAddGroupClicked);
 
     if (!board) return <div>Loading...</div>
@@ -71,7 +70,7 @@ export function GroupList({ onUpdateBoard, board }) {
                 {isAddGroupClicked ?
                     <div className="add-group-container">
                         <form onSubmit={onAddGroup}>
-                            <input autoFocus type="text" id="title" name="title" value={title} placeholder="Enter list name..." onChange={handleChange} />
+                            <input  autoFocus type="text" id="title" name="title" value={title} placeholder="Enter list name..." onChange={handleChange} />
                             <div className="add-group-btns">
                                 <button>Add list</button>
                                 <button className="close-btn-x" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon.png" alt="" /></button>

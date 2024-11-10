@@ -64,7 +64,7 @@ export function TaskList({ isAddTaskClicked, setIsAddTaskClicked, tasks, board, 
                 <>
                     <section className="task-list">
                         {tasks.map(task =>
-                            <TaskPreview key={task.id} task={task} />
+                            <TaskPreview key={task.id} groupId={groupId} task={task} />
                         )}
                     </section>
                     <section>
@@ -76,9 +76,9 @@ export function TaskList({ isAddTaskClicked, setIsAddTaskClicked, tasks, board, 
                 :
                     <section className="task-list">
                         {tasks.map(task =>
-                            <TaskPreview key={task.id} task={task} />
+                            <TaskPreview key={task.id} task={task} groupId={groupId} />
                         )}
-
+                        
                         <div className="add-task-container">
                             <form onSubmit={onAddTask}>
                                 <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} />

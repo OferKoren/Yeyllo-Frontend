@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { loadBoard } from '../store/actions/board.actions'
@@ -12,7 +12,7 @@ import { Members } from '../cmps/Members.jsx'
 import { taskService } from '../services/task/task.service.js'
 
 
-export function TaskDetails() {
+export function TaskDetails({groupId, currTask}) {
     // const boards = useSelector((storeState) => storeState.boardModule.boards)
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
@@ -26,20 +26,30 @@ export function TaskDetails() {
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
 
+    const { boardId } = useParams()
+    // const { boardId, taskId } = useParams()
+    const taskId = currTask.id
+
     // const labels = taskService.getLabels()
     const titleAreaRef = useRef(null)
 
     useEffect(() => {
-        loadBoard('b101')
+        loadBoard(boardId)
         console.log('boardToEdit', boardToEdit)
         console.log('hi2')
     }, [])
 
     useEffect(() => {
         setBoardToEdit(board)
-        if (board?.groups?.[1]?.tasks?.[1]) {
-            setTask(board?.groups[1].tasks[1])
+        const currGroup = board?.groups.find(group => group.id === groupId)
+        const currTask = currGroup?.tasks.find(task => task.id === taskId)
+        if (currTask) {
+            setTask(currTask)
         }
+        // if (board?.groups?.[1]?.tasks?.[1]) {
+        //     setTask(board?.groups[1].tasks[1])
+        // }
+        
     }, [board])
 
     useEffect(() => {
