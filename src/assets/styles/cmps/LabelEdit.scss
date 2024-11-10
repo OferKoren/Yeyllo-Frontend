@@ -1,0 +1,20 @@
+.label-preview {
+    padding: 1em;
+    text-align: center;
+}
+
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5em;
+
+    &>* {
+        height: 1.5em;
+        border-radius: 2px;
+    }
+
+    .outlined {
+        outline: 2px solid blue;
+        outline-offset: 2px;
+    }
+}

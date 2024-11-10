@@ -1,0 +1,19 @@
+.task-preview{
+    background-color: $clr-bg2-light;
+    padding: em(8px) em(12px) em(4px) em(12px);
+    // width: em(256px);
+    width: 94%;
+    margin: 0 em(5px) 0 em(5px);
+    border-radius: 0.5em;
+    border: 2px solid $clr-bg1-light;
+
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+
+    transition: 50ms;
+
+    cursor: pointer;
+
+    &:hover{
+        border-color: $clr-blue-border;
+    }
+}

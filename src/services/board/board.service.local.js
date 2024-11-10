@@ -34,6 +34,7 @@ async function query(filterBy = { txt: '' }) {
 }
 
 function getById(boardId) {
+    console.log('hi-get')
     return storageService.get(STORAGE_KEY, boardId)
 }
 
@@ -44,11 +45,13 @@ async function remove(boardId) {
 
 // todo need to update the save on what to do with board to save
 async function save(board) {
+    console.log('hi save board')
     var savedBoard
     if (board._id) {
         const boardToSave = {
             ...board,
-            // _id: board._id,
+            _id: board._id,
+            labels: board.labels,
         }
         savedBoard = await storageService.put(STORAGE_KEY, boardToSave)
     } else {

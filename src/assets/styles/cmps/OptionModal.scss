@@ -1,0 +1,33 @@
+.modal-option {
+    position: absolute;
+    padding: 0.5em 1em 1em;
+
+    border-radius: 0.5em;
+    background-color: $clr-bg2-light;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.option-modal-header {
+    display: grid;
+    grid-template-columns: 30px 1fr 30px;
+    justify-items: center;
+    align-items: center;
+    font-size: 0.9rem;
+    width: 16em;
+
+    & h2 {
+        grid-column: 2;
+    }
+
+    & i.left-side {
+        padding: 0;
+        justify-self: end;
+    }
+
+    & i.right-side {
+        padding: 0;
+        justify-self: start;
+    }
+}

@@ -9,6 +9,14 @@ html {
     height: 100%;
 }
 
+header {
+    margin-left: 0;
+}
+
+article {
+    margin-left: 0;
+}
+
 body {
     max-width: 1024px;
     margin: 0 auto;
@@ -33,6 +41,24 @@ h6 {
     margin: 0 0 0.6em;
 }
 
+h3 {
+    .task-details & {
+        font-size: 0.8rem;
+    }
+}
+
+h2 {
+    .task-main & {
+        font-size: 1.05rem;
+        font-family: 'roboto-medium';
+        margin: 0;
+    }
+
+    .option-modal-header & {
+        font-size: 0.9rem;
+    }
+}
+
 img {
     display: block;
     max-width: 100%;
@@ -40,6 +66,11 @@ img {
 
 p {
     margin: 0 0 1em;
+
+    .label-preview & {
+        margin: 0;
+        border-radius: 0.2em;
+    }
 }
 
 a {
@@ -58,6 +89,42 @@ ul {
 
 input {
     max-width: 100%;
+}
+
+.btn {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 0.3em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-family: inherit;
+    cursor: pointer;
+
+    &-dark {
+        @include btn($type: dark);
+    }
+
+    &-light {
+        @include btn($type: light);
+    }
+
+    &-clear {
+        @include btn($type: 'clear');
+    }
+}
+
+span.overdue {
+    background-color: $clr-overdue;
+    color: $clr6;
+}
+
+span.complete {
+    background-color: $clr-complete;
+    color: $clr6;
+}
+
+span.duesoon {
+    background-color: $clr-duesoon;
 }
 hr {
     background-color: var(--ds-border, #091e4224);

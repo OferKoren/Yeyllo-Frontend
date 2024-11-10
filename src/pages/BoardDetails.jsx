@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { loadBoard } from '../store/actions/board.actions'
+import { loadBoard, updateBoard } from '../store/actions/board.actions'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { GroupList } from '../cmps/GroupList'
@@ -12,7 +12,11 @@ export function BoardDetails() {
     useEffect(() => {
         loadBoard(boardId)
     }, [boardId])
-
+    
+    function onUpdateBoard(board){  
+        updateBoard(board)
+    }
+    
     // style={{backgroundImage:`url(${board.style.backgroundImage})`}}
     if (!board) return <div>Loading...</div>
     return (
@@ -26,7 +30,7 @@ export function BoardDetails() {
                 </div>
             </header>
             <section className="board-details">
-                <GroupList board={board} />
+                <GroupList onUpdateBoard={onUpdateBoard} board={board} />
             </section>
         </article>
     )

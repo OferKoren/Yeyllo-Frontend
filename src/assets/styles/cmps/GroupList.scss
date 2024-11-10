@@ -1,16 +1,99 @@
 .group-list {
-    height: 80vh;
     display: flex;
     gap: em(12px);
+    overflow-x: scroll;
+    height: calc(100vh - 3.5rem - 3.5rem - 4em);
 
-    :first-child {
+
+    li:first-child {
         margin-inline-start: 1em;
     }
 
     >* {
         background-color: $clr-bg1-light;
         border-radius: em(12px);
-        padding: 1em;
+        // padding: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
         margin: 1em 0.5em 1em 0;
+        height: max-content;
+    }
+
+    input {
+        border-radius: 0.5em;
+        padding: em(6px) em(8px) em(8px) em(12px);
+        margin: 5px;
+        width: 16em;
+        // margin-bottom: em(10px);
+
+        border: #ccc solid 3px;
+
+        font-family: "roboto-bold";
+
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+
+        &:focus {
+            border: $clr-blue-border solid 3px;
+        }
+    }
+}
+
+.add-group-container{
+    &:first-child{
+        margin-inline-start: 1em;
+    }
+}
+
+.add-group-btn {
+    &:first-child{
+        margin-inline-start: 1em;
+    }
+    background-color: hwb(0 100% 0% / 0.24);
+    height: em(44px);
+    font-family: "roboto-bold";
+    font-size: em(16px);
+    min-width: em(272px);
+    padding: em(12px);
+
+    transition: 200ms;
+
+    &:hover {
+        background-color: hwb(0 100% 0% / 0.18);
+
+    }
+
+
+}
+
+.add-group-btns {
+    display: flex;
+    margin: 0;
+
+    :first-child {
+        background-color: #0C66E4;
+        padding: 0.2em 0.8em;
+        border-radius: 0.3em;
+        font-family: "roboto-bold";
+        transition: 150ms;
+
+        &:hover {
+            background-color: darken($color: #0C66E4, $amount: 20);
+        }
+    }
+
+    :nth-child(2) {
+        background-color: $clr-bg1-light;
+        color: rgb(99, 99, 99);
+        font-size: 20px;
+        border-radius: 0.5em;
+
+        &:hover {
+            background-color: hsla(218, 76%, 15%, 0.144);
+
+        }
+
+
     }
 }

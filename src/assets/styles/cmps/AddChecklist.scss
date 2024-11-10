@@ -1,0 +1,8 @@
+.add-checklist-container {
+    display: grid;
+    gap: 0.5em;
+
+    .btn-add-checklist {
+        justify-self: start;
+    }
+}
