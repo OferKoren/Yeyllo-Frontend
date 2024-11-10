@@ -26,7 +26,7 @@ export function TaskPreview({ groupId, task }) {
                 {task.title}
             </article>
             <ModalTaskDetails onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true}>
-                <Outlet />
+                <Outlet context={{ onCloseModal }} />
                 {/* <TaskDetails groupId={groupId} setIsOpenTaskDetails={setIsOpenTaskDetails} currTask={task} /> */}
             </ModalTaskDetails>
             {/* <Modal>

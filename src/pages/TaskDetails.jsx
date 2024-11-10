@@ -1,19 +1,16 @@
-import { Link, useParams } from 'react-router-dom'
-
+import { Link, useParams, useOutletContext } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { loadBoard } from '../store/actions/board.actions'
-import { boardService } from '../services/board'
 import { Labels } from '../cmps/Labels.jsx'
 import { Dates } from '../cmps/Dates.jsx'
-import { makeId } from '../services/util.service.js'
 import { Checklist } from '../cmps/Checklist.jsx'
 import { AddChecklist } from '../cmps/AddChecklist.jsx'
 import { Members } from '../cmps/Members.jsx'
 import { MemberPreview } from '../cmps/MemberPreview'
-import { taskService } from '../services/task/task.service.js'
+import { Cover } from '../cmps/Cover.jsx'
 
-export function TaskDetails({ currTask }) {
+export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
@@ -26,8 +23,11 @@ export function TaskDetails({ currTask }) {
     const [isEditMembers, setIsEditMembers] = useState(false)
     const [isEditMembersPlusBtn, setIsEditMembersPlusBtn] = useState(false)
     const [isShowMemberPreview, setIsShowMemberPreview] = useState(false)
+    const [isEditCover, setIsEditCover] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
+
+    const { onCloseModal } = useOutletContext()
 
     const { boardId } = useParams()
     const { groupId } = useParams()
@@ -130,7 +130,7 @@ export function TaskDetails({ currTask }) {
     }
 
     function onSaveTask() {
-        setBoardToEdit((prevBoard) => ({ ...prevBoard }))
+        onCloseModal()
     }
 
     if (!boardToEdit) return <div>Loading...</div>
@@ -140,7 +140,8 @@ export function TaskDetails({ currTask }) {
             <div className="btn-save-task" onClick={onSaveTask}>
                 <i className="btn fa-solid fa-xmark"></i>
             </div>
-            <div className="cover">{task.imgUrl && <img src={task.imgUrl} />}</div>
+
+            {task.style?.backgroundColor && <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}></div>}
 
             <div className="task-header">
                 <img src="/img/icons/icon-task-title.svg" />
@@ -294,10 +295,12 @@ export function TaskDetails({ currTask }) {
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditDates && 'active'}`}>
+                        <button className={`btn btn-option btn-light ${isEditDates && 'active'}`}
+                            onClick={() => setIsEditCover(prev => !prev)}>
                             <img src="/img/icons/icon-cover.svg" />
                             Cover
                         </button>
+                        {isEditCover && <Cover setTask={setTask} setIsEditCover={setIsEditCover} />}
                     </div>
                 </div>
             </section>
