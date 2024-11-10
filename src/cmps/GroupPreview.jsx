@@ -35,7 +35,7 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
         setCurrTitle(value)
     }
 
-    async function onEditGroup(ev) {
+    async function onEditTitleGroup(ev) {
         ev.preventDefault()
         if (!currTitle) return alert('Text field is required')
         try {
@@ -67,15 +67,16 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
     function onBlurInput() {
         setIsGroupHeaderEdit(false)
         setCurrTitle(title)
-
     }
+
+
 
 
     return (
         <article className="group-preview">
             <header className="group-header">
                 {isGroupHeaderEdit ?
-                    <form onSubmit={onEditGroup}>
+                    <form onSubmit={onEditTitleGroup}>
                         <input autoFocus onBlur={onBlurInput} className="group-title-input" type="text" id="title" name="title" value={currTitle} onChange={handleChange} />
                     </form>
                     : <button onClick={onEditGroupHeader} className="group-header-btn">{title}</button>
@@ -84,7 +85,7 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
                 <button className='group-menu-button' onClick={toggleMenu} ><img src="/img/menu-group/group-menu-icon.png" alt="" /></button>
             </header>
             <section>
-                <TaskList tasks={tasks} />
+                <TaskList groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
             </section>
         </article>
     )

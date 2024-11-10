@@ -40,7 +40,16 @@
     }
 }
 
+.add-group-container{
+    &:first-child{
+        margin-inline-start: 1em;
+    }
+}
+
 .add-group-btn {
+    &:first-child{
+        margin-inline-start: 1em;
+    }
     background-color: hwb(0 100% 0% / 0.24);
     height: em(44px);
     font-family: "roboto-bold";

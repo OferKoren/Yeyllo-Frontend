@@ -5,8 +5,8 @@ export function GroupMenu({ setIsMenuOpen, onRemoveGroup }) {
             <header>List actions</header>
             <button className="close-btn" onClick={() => setIsMenuOpen(isOpen => !isOpen)}>X</button>
             <section>
-                <button>Add card</button>
-                <button>Copy list</button>
+                {/* <button>Add card</button>
+                <button>Copy list</button> */}
                 <hr style={{
                     borderColor: "gray",
                 }} />
