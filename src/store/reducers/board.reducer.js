@@ -21,7 +21,8 @@ const initialState = {
     boards: [],
     board: null,
     filterBy: {},
-    labels: defaultLabels
+    labels: defaultLabels,
+    members: []
 }
 
 export function boardReducer(state = initialState, action) {
@@ -41,7 +42,7 @@ export function boardReducer(state = initialState, action) {
                     return label
                 }
             })
-            newState = { ...state, board: action.board, labels: updatedLabels }
+            newState = { ...state, board: action.board, labels: updatedLabels, members: action.board.members || [] }
             // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
             break
         case REMOVE_BOARD:

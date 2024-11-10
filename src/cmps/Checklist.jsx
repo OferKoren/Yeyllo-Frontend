@@ -83,10 +83,10 @@ export function Checklist({ todos, task, checklist, setTask }) {
             </div>
 
 
-            {todos.map((item, i) =>
+            {todos && todos.map((item, i) =>
                 item &&
-                <div className="todo-item">
-                    <div className="checkbox-todo" key={item.id} >
+                <div className="todo-item" key={item.id}>
+                    <div className="checkbox-todo"  >
                         <input
                             type="checkbox"
                             checked={item.isDone || false}

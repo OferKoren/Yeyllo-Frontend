@@ -8,18 +8,21 @@ import { Dates } from '../cmps/Dates.jsx'
 import { makeId } from '../services/util.service.js'
 import { Checklist } from '../cmps/Checklist.jsx'
 import { AddChecklist } from '../cmps/AddChecklist.jsx'
+import { Members } from '../cmps/Members.jsx'
 import { taskService } from '../services/task/task.service.js'
 
 
 export function TaskDetails() {
     // const boards = useSelector((storeState) => storeState.boardModule.boards)
     const board = useSelector((storeState) => storeState.boardModule.board)
-    const [boardToEdit, setBoardToEdit] = useState(null)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
-    // const boardsLabels = useSelector((storeState) => storeState.boardModule.labels)
+    const gMembers = useSelector((storeState) => storeState.boardModule.members)
+
+    const [boardToEdit, setBoardToEdit] = useState(null)
     const [isEditLabels, setIsEditLabels] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
+    const [isEditMembers, setIsEditMembers] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
 
@@ -111,6 +114,23 @@ export function TaskDetails() {
                 <div className="task-info">
 
                     <div className="task-metadata">
+                        {/* {task.memberIds && task.memberIds.length !== 0 &&
+                            <div className="labels-area">
+                                <h3>Members</h3>
+                                <ul className="label-list">
+                                    {task.memberIds.map((memberId, i) => {
+                                        const memberDetails = gMembers.find(member => member.id === memberId)
+                                        return (
+                                            <li className="label"
+                                                key={memberId}
+                                            >
+                                                <img src={memberDetails.imgUrl} />
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>} */}
+
                         {task.labelIds && task.labelIds.length !== 0 &&
                             <div className="labels-area">
                                 <h3>Labels</h3>
@@ -174,12 +194,20 @@ export function TaskDetails() {
                     {console.log(task)}
                     {console.log('boardtoedit', boardToEdit.labels)}
                     {console.log('gLabels', gLabels)}
+                    {console.log('gMembers', gMembers)}
 
                 </div>
 
                 <div className="task-options">
                     <div>
-
+                        <button
+                            className={`btn btn-option btn-light ${isEditMembers && 'active'}`}
+                            onClick={() => setIsEditMembers(prev => !prev)}><img src="img/icons/icon-members.svg" />Members</button>
+                        {isEditMembers &&
+                            <Members task={task} setTask={setTask} handleChange={handleInfoChange}
+                                setIsEditMembers={setIsEditMembers} boardMembers={boardToEdit.members} />}
+                    </div>
+                    <div>
                         <button
                             className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
                             onClick={() => setIsEditLabels(prev => !prev)}> <img src="img/icons/icon-labels.svg" />Labels</button>
