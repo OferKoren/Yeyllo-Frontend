@@ -14,7 +14,6 @@ import { MemberPreview } from '../cmps/MemberPreview'
 import { taskService } from '../services/task/task.service.js'
 
 export function TaskDetails({ currTask }) {
-    // const boards = useSelector((storeState) => storeState.boardModule.boards)
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
@@ -24,6 +23,7 @@ export function TaskDetails({ currTask }) {
     const [isEditDates, setIsEditDates] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
     const [isEditMembers, setIsEditMembers] = useState(false)
+    const [isEditMembersPlusBtn, setIsEditMembersPlusBtn] = useState(false)
     const [isShowMemberPreview, setIsShowMemberPreview] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
@@ -32,7 +32,6 @@ export function TaskDetails({ currTask }) {
     const { groupId } = useParams()
     const { taskId } = useParams()
 
-    // const labels = taskService.getLabels()
     const titleAreaRef = useRef(null)
 
     useEffect(() => {
@@ -50,9 +49,6 @@ export function TaskDetails({ currTask }) {
             setTask(currTask)
         }
 
-        // if (board?.groups?.[1]?.tasks?.[1]) {
-        //     setTask(board?.groups[1].tasks[1])
-        // }
     }, [board])
 
     useEffect(() => {
@@ -105,11 +101,23 @@ export function TaskDetails({ currTask }) {
         setTask((prevTask) => ({ ...prevTask, memberIds: prevTask.memberIds.filter((mId) => mId !== memberId) }))
     }
 
+    function renderMembersModal() {
+        return (
+            <Members
+                task={task}
+                setTask={setTask}
+                setIsEditMembers={setIsEditMembers}
+                boardMembers={boardToEdit.members}
+                onRemoveMember={onRemoveMember}
+                setIsEditMembersPlusBtn={setIsEditMembersPlusBtn}
+            />
+        )
+    }
+
     function onSaveTask() {
         setBoardToEdit((prevBoard) => ({ ...prevBoard }))
     }
 
-    // if (!boards.length) return <div>Loading...</div>
     if (!boardToEdit) return <div>Loading...</div>
 
     return (
@@ -147,8 +155,8 @@ export function TaskDetails({ currTask }) {
                                                 className="member"
                                                 title={memberDetails.fullname}
                                                 onClick={() => setIsShowMemberPreview((prev) => !prev)}
-                                                key={memberId}
-                                            >
+                                                key={memberId}>
+
                                                 <img className="member-area-photo" src={memberDetails.imgUrl} />
 
                                                 {isShowMemberPreview && (
@@ -158,9 +166,14 @@ export function TaskDetails({ currTask }) {
                                                         onRemoveMember={onRemoveMember}
                                                     />
                                                 )}
+
+                                                {isEditMembersPlusBtn && renderMembersModal()}
                                             </li>
                                         )
                                     })}
+                                    <div className="add-task-member" onClick={() => setIsEditMembersPlusBtn(prev => !prev)}>
+                                        <i className="fa-solid fa-plus"></i>
+                                    </div>
                                 </ul>
                             </div>
                         )}
@@ -188,10 +201,8 @@ export function TaskDetails({ currTask }) {
                                     <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
                                     <span>{task.dueDate}</span>
                                     <span
-                                        className={`due-date-status ${
-                                            task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
-                                        }`}
-                                    >
+                                        className={`due-date-status ${task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
+                                            }`}>
                                         {(task.status === 'done' && 'complete') || statusTask}
                                     </span>
                                 </div>
@@ -233,16 +244,9 @@ export function TaskDetails({ currTask }) {
                             <img src="/img/icons/icon-members.svg" />
                             Members
                         </button>
-                        {isEditMembers && (
-                            <Members
-                                task={task}
-                                setTask={setTask}
-                                setIsEditMembers={setIsEditMembers}
-                                boardMembers={boardToEdit.members}
-                                onRemoveMember={onRemoveMember}
-                            />
-                        )}
+                        {isEditMembers && renderMembersModal()}
                     </div>
+
                     <div>
                         <button className={`btn btn-option btn-light ${isEditLabels && 'active'}`} onClick={() => setIsEditLabels((prev) => !prev)}>
                             {' '}
@@ -264,8 +268,7 @@ export function TaskDetails({ currTask }) {
                     <div>
                         <button
                             className={`btn btn-option btn-light ${isAddChecklist && 'active'}`}
-                            onClick={() => setIsAddChecklist((prev) => !prev)}
-                        >
+                            onClick={() => setIsAddChecklist((prev) => !prev)}>
                             <img src="/img/icons/icon-checklist.svg" />
                             Checklist
                         </button>

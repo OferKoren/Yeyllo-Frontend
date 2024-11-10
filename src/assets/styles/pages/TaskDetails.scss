@@ -82,7 +82,7 @@
         .labels-area {
             display: flex;
             flex-direction: column;
-
+            margin-block-end: 1.3em;
 
             .label-list {
                 display: flex;
@@ -96,13 +96,12 @@
                     margin: 0;
                 }
             }
-
-            margin-block-end: 1.3em;
         }
 
         .due-date-area {
             display: flex;
             flex-direction: column;
+            margin-block-end: 1.3em;
 
             .due-date-details {
                 display: flex;
@@ -125,6 +124,7 @@
         .members-area {
             display: flex;
             flex-direction: column;
+            margin-block-end: 1.3em;
 
             & .member-area-photo {
                 width: 2em;
@@ -143,6 +143,19 @@
                 & li.member {
                     position: relative;
                     margin: 0;
+                }
+
+                .add-task-member {
+                    width: 2em;
+                    height: 2em;
+                    border-radius: 50%;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    padding: 0.5em;
+                    background-color: $clr-btn-1;
                 }
             }
         }
