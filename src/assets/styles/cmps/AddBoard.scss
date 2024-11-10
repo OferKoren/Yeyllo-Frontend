@@ -1,12 +1,17 @@
 .add-board {
     width: 100%;
     .mini-board-preview {
+        background-size: 100% 100%;
         width: 200px;
         height: 120px;
         margin: 0.05em auto;
         margin-bottom: 1em;
         border-radius: 3px;
         padding: 0.2em;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .photos-list {
         display: flex;
@@ -26,13 +31,15 @@
         }
     }
     li > * {
-        background-size: contain;
+        // background-size: contain;
         border-radius: 0.2em;
         height: 100%;
         width: 100%;
     }
 }
 .bg-btn {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,9 +83,35 @@
         padding-block-end: 0.7em;
     }
     .title-input {
-        margin-block-end: 0.75em;
+        border: none;
+
+        width: 100%;
+        height: 36px;
+        padding: 8px 12px;
+        border-radius: 3px;
+        font-size: 14px;
+        box-shadow: inset 0 0 0 1px #e34935;
+        &:active,
+        &:focus {
+            outline: none;
+            border: none;
+        }
+        &.has-title:focus {
+            box-shadow: inset 0 0 0 2px #388bff;
+        }
+        &.has-title {
+            box-shadow: inset 0 0 0 1px #091e4224;
+        }
+    }
+    .field-error {
+        span {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+        }
     }
     & > *:last-child {
+        margin-block-start: 0.75em;
         margin-block-end: 0.5em;
         width: 100%;
     }
@@ -103,11 +136,11 @@
     .more-bg-btn {
         width: 40px;
         height: 32px;
-        background-color: $btnClrDisabled;
+        background-color: darken($btnClrDisabled, 4);
         color: $btnClrDisabletxt;
         position: relative;
         &:hover {
-            background-color: darken($btnClrDisabled, 5);
+            background-color: darken($btnClrDisabled, 20);
         }
         &::after {
             content: '...';

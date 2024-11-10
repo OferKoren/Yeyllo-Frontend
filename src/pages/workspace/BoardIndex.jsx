@@ -9,6 +9,7 @@ import { userService } from '../../services/user'
 import { Modal } from '../../cmps/Modal'
 import { BoardList } from '../../cmps/workspace/BoardList'
 import { AddBoard } from '../../cmps/workspace/modals/AddBoard'
+import { useNavigate } from 'react-router'
 // import { BoardFilter } from '../cmps/BoardFilter'
 
 //* boardIndex is the personal workspace of someone in the workspace
@@ -16,7 +17,7 @@ export function BoardIndex() {
     const [filterBy, setFilterBy] = useState(boardService.getDefaultFilter())
     const [isModalOpen, setIsModalOpen] = useState(false)
     const boards = useSelector((storeState) => storeState.boardModule.boards)
-
+    const navigate = useNavigate()
     useEffect(() => {
         loadBoards(filterBy)
     }, [filterBy])
@@ -43,11 +44,13 @@ export function BoardIndex() {
 
         try {
             const savedBoard = await addBoard(board)
-            showSuccessMsg(`Board added (id: ${savedBoard._id})`)
+            navigate(`/board/${savedBoard._id}`)
+            // showSuccessMsg(`Board added (id: ${savedBoard._id})`)
         } catch (err) {
             showErrorMsg('Cannot add board')
         } finally {
             setIsModalOpen(false)
+            // nav
         }
     }
 
@@ -65,8 +68,9 @@ export function BoardIndex() {
         <main className="board-index">
             <header>
                 <h2>Boards</h2>
-                {userService.getLoggedinUser() && <button onClick={onAddBoard}>Add a Board</button>}
+                {/* {userService.getLoggedinUser() && <button onClick={onAddBoard}>Add a Board</button>} */}
             </header>
+            <hr />
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
             <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} onUpdateBoard={onUpdateBoard} />
             <Modal title="Create board" onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false}>

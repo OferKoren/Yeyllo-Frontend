@@ -54,31 +54,10 @@
                 display: block;
                 transform: translateY(-4px);
             }
+            span::first-letter {
+                text-transform: capitalize;
+            }
             // margin: 0 32px;
         }
-    }
-}
-
-.close-btn {
-    /* position: absolute;
-    top: 5px;
-    right: 5px; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background-color: transparent;
-    color: var(--crl-font);
-    padding: 0;
-    margin: 0;
-    transition: background-color 0.1s;
-    transform: translateX(3px);
-    border-radius: 0.3em;
-    img {
-        max-width: 16px;
-    }
-    &:hover {
-        background-color: $modalCloseBtn;
     }
 }

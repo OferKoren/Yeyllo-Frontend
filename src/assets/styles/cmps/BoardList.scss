@@ -9,6 +9,7 @@
         display: flex;
         gap: 0.5em;
         margin-bottom: 0;
+        font-size: em(16px);
     }
     ul {
         margin-bottom: 1em;
@@ -28,14 +29,14 @@
 
         color: $clr6;
         .board-wrapper {
-            border: 1px solid black;
+            // border: 1px solid black;
             position: relative;
             border-radius: 0.15em;
             height: 96px;
         }
         &:hover .board-actions {
             opacity: 1;
-            background-color: rgba(163, 160, 160, 0.279);
+            background-color: rgba(67, 67, 67, 0.162);
         }
     }
 }

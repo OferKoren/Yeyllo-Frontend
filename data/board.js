@@ -61,6 +61,8 @@ const backgroundPallet = {
         'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/mountains_ti0hmy.jpg',
         'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/trees_xhkuwr.jpg',
         'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/mountain_storm_hlf9te.jpg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731216492/single_tree_h1h5fd.jpg',
+        'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731216497/sand_pvhh3h.jpg',
     ],
     colors: [
         'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/gradiant-snow_r7bxjj.svg',
@@ -72,8 +74,26 @@ const backgroundPallet = {
         'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-earth_aqwhww.svg',
         'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-alien_eyltth.svg',
         'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/gradiant-volcano_mherm3.svg',
+        'rgb(0, 121, 191)',
+        'rgb(210, 144, 52)',
+        'rgb(81, 152, 57)',
+        'rgb(176, 70, 50)',
+        'rgb(137, 96, 158)',
+        'rgb(205, 90, 145)',
+        'rgb(75, 191, 107)',
+        'rgb(0, 174, 204)',
+        'rgb(131, 140, 145)',
     ],
 }
+/* $bbgClr1: rgb(0, 121, 191)
+$bbgClr2: rgb(210, 144, 52)
+$bbgClr3: rgb(81, 152, 57)
+$bbgClr4: rgb(176, 70, 50)
+$bbgClr5: rgb(137, 96, 158)
+$bbgClr6: rgb(205, 90, 145)
+$bbgClr7: rgb(75, 191, 107)
+$bbgClr8: rgb(0, 174, 204)
+$bbgClr9: rgb(131, 140, 145) */
 /* const backgroundPallet = {
     photos: [
         'img/board-background-img/starry-night.jpeg',

@@ -3,12 +3,47 @@ button {
     background-color: $clr1;
     color: whitesmoke;
     padding: 5px 10px;
-    margin: 5px;
+    // margin: 5px;
     cursor: pointer;
+    border-radius: 3px;
     &.btn {
-        padding: 0;
+        padding: 0.2em;
         margin: 0;
         background-color: transparent;
+    }
+    &.btn1 {
+        color: inherit;
+        background-color: darken($btnClrDisabled, 5);
+        padding: 6px 12px;
+        height: 100%;
+        font-weight: 600;
+        &:hover {
+            background-color: darken($color: $btnClrDisabled, $amount: 15);
+        }
+    }
+    &.modal-btn {
+        /* position: absolute;
+    top: 5px;
+    right: 5px; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background-color: transparent;
+        // color: var(--crl-font);
+        color: $modalHeaderClr;
+        padding: 0;
+        margin: 0;
+        transition: background-color 0.1s;
+        transform: translateX(3px);
+        border-radius: 0.3em;
+        img {
+            max-width: 16px;
+        }
+        &:hover {
+            background-color: $modalCloseBtn;
+        }
     }
 }
 

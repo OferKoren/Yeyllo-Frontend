@@ -81,7 +81,7 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
                             <BoardPreview board={board} />
                             <div className={board.isStarred ? 'board-actions shown' : 'board-actions'}>
                                 <button className="star-btn btn" onClick={(ev) => onStarBoard(ev, board)}>
-                                    <img className={board.isStarred ? 'active' : ''} src={board.isStarred ? starFullGold : starEmpty} alt="" />
+                                    <img className={board.isStarred ? 'active' : 'empty'} src={board.isStarred ? starFullGold : starEmpty} alt="" />
                                 </button>
                             </div>
                         </div>
