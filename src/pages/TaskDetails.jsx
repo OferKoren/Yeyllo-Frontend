@@ -248,10 +248,6 @@ export function TaskDetails() {
                     </div>
                 </div>
             </section>
-
-            {/* <h1>Task Details</h1>
-            <p>{task.id}</p>
-            <p>{task.title}</p> */}
         </article >
     )
 }

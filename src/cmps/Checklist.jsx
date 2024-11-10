@@ -78,7 +78,11 @@ export function Checklist({ todos, task, checklist, setTask }) {
             <div className="progress-bar-container">
                 <span>{Math.round(checklist.doneTodosPercent || 0)}%</span>
                 <div className="progress-bar">
-                    <div className="progress" style={{ width: `${checklist.doneTodosPercent || 0}%` }}></div>
+                    <div className="progress"
+                        style={{
+                            width: `${checklist.doneTodosPercent || 0}%`,
+                            backgroundColor: (checklist.doneTodosPercent === 100) ? '#4caf50' : '#44546F'
+                        }}></div>
                 </div>
             </div>
 
@@ -92,7 +96,7 @@ export function Checklist({ todos, task, checklist, setTask }) {
                             checked={item.isDone || false}
                             value={item.title}
                             onChange={() => onUpdateTodo(item.id, task, checklistId, 'isDone')} />
-                        <span className="todo-text">{item.title}</span>
+                        <span className={`todo-text ${item.isDone ? 'todo-done' : ''}`}>{item.title}</span>
                     </div>
                     <button className="btn btn-remove-todo btn-light" onClick={() => onUpdateTodo(item.id, task, checklistId, 'removeTodo')}>
                         <i className="fa-solid fa-xmark"></i>
