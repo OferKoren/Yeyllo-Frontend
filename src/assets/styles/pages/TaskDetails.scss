@@ -144,20 +144,28 @@
                     position: relative;
                     margin: 0;
                 }
-
-                .add-task-member {
-                    width: 2em;
-                    height: 2em;
-                    border-radius: 50%;
-
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    padding: 0.5em;
-                    background-color: $clr-btn-1;
-                }
             }
+        }
+    }
+
+    .add-task-action {
+        width: 2em;
+        height: 2em;
+
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0.5em;
+        background-color: $clr-btn-1;
+
+        &.circle {
+            border-radius: 50%;
+        }
+
+        &.square {
+            border-radius: 0.2em;
         }
     }
 

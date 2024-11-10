@@ -20,6 +20,7 @@ export function TaskDetails({ currTask }) {
 
     const [boardToEdit, setBoardToEdit] = useState(null)
     const [isEditLabels, setIsEditLabels] = useState(false)
+    const [isEditLabelsPlusBtn, setIsEditLabelsPlusBtn] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
     const [isEditMembers, setIsEditMembers] = useState(false)
@@ -114,6 +115,20 @@ export function TaskDetails({ currTask }) {
         )
     }
 
+    function renderLabelsModal() {
+        return (
+            <Labels
+                setTask={setTask}
+                handleChange={handleInfoChange}
+                setIsEditLabels={setIsEditLabels}
+                boardToEdit={boardToEdit}
+                setBoardToEdit={setBoardToEdit}
+                setIsEditLabelsPlusBtn={setIsEditLabelsPlusBtn}
+                task={task}
+            />
+        )
+    }
+
     function onSaveTask() {
         setBoardToEdit((prevBoard) => ({ ...prevBoard }))
     }
@@ -171,7 +186,7 @@ export function TaskDetails({ currTask }) {
                                             </li>
                                         )
                                     })}
-                                    <div className="add-task-member" onClick={() => setIsEditMembersPlusBtn(prev => !prev)}>
+                                    <div className="add-task-action circle" onClick={() => setIsEditMembersPlusBtn(prev => !prev)}>
                                         <i className="fa-solid fa-plus"></i>
                                     </div>
                                 </ul>
@@ -190,6 +205,10 @@ export function TaskDetails({ currTask }) {
                                             </li>
                                         )
                                     })}
+                                    {isEditLabelsPlusBtn && renderLabelsModal()}
+                                    <div className="add-task-action square" onClick={() => setIsEditLabelsPlusBtn(prev => !prev)}>
+                                        <i className="fa-solid fa-plus"></i>
+                                    </div>
                                 </ul>
                             </div>
                         )}
@@ -253,16 +272,7 @@ export function TaskDetails({ currTask }) {
                             <img src="/img/icons/icon-labels.svg" />
                             Labels
                         </button>
-                        {isEditLabels && (
-                            <Labels
-                                setTask={setTask}
-                                handleChange={handleInfoChange}
-                                setIsEditLabels={setIsEditLabels}
-                                boardToEdit={boardToEdit}
-                                setBoardToEdit={setBoardToEdit}
-                                task={task}
-                            />
-                        )}
+                        {isEditLabels && renderLabelsModal()}
                     </div>
 
                     <div>

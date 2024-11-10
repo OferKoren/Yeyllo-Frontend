@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { updateBoard } from '../store/actions/board.actions'
 import { SET_LABELS } from '../store/reducers/board.reducer.js'
 
-export function Labels({ task, setTask, setIsEditLabels, boardToEdit, setBoardToEdit }) {
+export function Labels({ task, setTask, setIsEditLabels, boardToEdit, setBoardToEdit, setIsEditLabelsPlusBtn }) {
 
     const [isEditLabel, setIsEditLabel] = useState(false)
     const [labelToEdit, setLabelToEdit] = useState(false)
@@ -48,7 +48,7 @@ export function Labels({ task, setTask, setIsEditLabels, boardToEdit, setBoardTo
             <div className="modal-option task-labels">
                 <div className="task-labels-header option-modal-header">
                     <h2>Labels</h2>
-                    <i className="btn fa-solid fa-xmark left-side" onClick={() => setIsEditLabels(prev => !prev)}></i>
+                    <i className="btn fa-solid fa-xmark left-side" onClick={() => { setIsEditLabels(false); setIsEditLabelsPlusBtn(false) }}></i>
                 </div>
 
                 <div className="labels-container">
