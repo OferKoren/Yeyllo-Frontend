@@ -1,4 +1,4 @@
-.task-preview{
+.task-preview {
     background-color: $clr-bg2-light;
     padding: em(8px) em(12px) em(4px) em(12px);
     // width: em(256px);
@@ -13,7 +13,19 @@
 
     cursor: pointer;
 
-    &:hover{
+    img {
+        width: 1.3em;
+    }
+
+    &:hover {
         border-color: $clr-blue-border;
+    }
+
+    .labels-task-preview {
+        >* {
+            &:hover {
+                opacity: 0.8;
+            }
+        }
     }
 }

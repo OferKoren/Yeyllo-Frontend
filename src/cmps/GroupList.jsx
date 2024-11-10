@@ -2,6 +2,7 @@ import { useState } from "react"
 import { GroupPreview } from "./GroupPreview";
 import { makeId } from "../services/util.service";
 import { updateBoard } from "../store/actions/board.actions";
+import ClickOutside from "./ClickOutside";
 
 export function GroupList({ onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
@@ -68,15 +69,17 @@ export function GroupList({ onUpdateBoard, board }) {
                     </li>)
                 }
                 {isAddGroupClicked ?
-                    <div className="add-group-container">
-                        <form onSubmit={onAddGroup}>
-                            <input  autoFocus type="text" id="title" name="title" value={title} placeholder="Enter list name..." onChange={handleChange} />
-                            <div className="add-group-btns">
-                                <button>Add list</button>
-                                <button className="close-btn-x" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon.png" alt="" /></button>
-                            </div>
-                        </form>
-                    </div>
+                    <ClickOutside onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
+                        <div className="add-group-container">
+                            <form onSubmit={onAddGroup}>
+                                <input autoFocus type="text" id="title" name="title" value={title} placeholder="Enter list name..." onChange={handleChange} />
+                                <div className="add-group-btns">
+                                    <button>Add list</button>
+                                    <button className="close-btn-x" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon.png" alt="" /></button>
+                                </div>
+                            </form>
+                        </div>
+                    </ClickOutside>
                     : <button onClick={() => setIsAddGroupClicked(isClicked => !isClicked)} className="add-group-btn flex align-center"><img style={{ width: "1.5em", marginRight: "0.5em" }} src="/img/add-group/plus-icon.png" alt="" />Add another list</button>}
             </ul>
         </section >
