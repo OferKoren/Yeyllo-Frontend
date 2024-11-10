@@ -26,15 +26,7 @@ export function TaskPreview({ groupId, task }) {
             <article onClick={onOpenModal} className="task-preview">
                 {task.title}
             </article>
-            <ModalTaskDetails onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true}>
-                <Outlet />
-                {/* <TaskDetails groupId={groupId} setIsOpenTaskDetails={setIsOpenTaskDetails} currTask={task} /> */}
-            </ModalTaskDetails>
-            {/* <article className="task-preview">
-                <Link to={`${groupId}/${task.id}`}>
-                    {task.title}
-                </Link>
-            </article> */}
+            
             {/* <Modal>
             </Modal> */}
         </>

@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { loadBoard } from '../store/actions/board.actions'
@@ -36,6 +37,7 @@ export function TaskDetails({ currTask }) {
     const titleAreaRef = useRef(null)
 
     useEffect(() => {
+        loadBoard(boardId)
         loadBoard(boardId)
         console.log('boardToEdit', boardToEdit)
         console.log('hi2')

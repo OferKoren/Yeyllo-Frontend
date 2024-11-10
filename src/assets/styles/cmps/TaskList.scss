@@ -1,33 +1,70 @@
-.task-list{
+.task-list {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: em(9px);
-    .add-task-btn-container{
-        width: 94%;
-    }
-    .add-task-btn{
-        display: flex;
-        gap: 1em;
-        align-items: center;
-        justify-items: start;
-        width: 95%;
 
-        text-align: start;
-        background-color: inherit;
-        border-radius: 0.7em;
-        
-        color: inherit;
-        font-family: "roboto-bold";
-        font-size: em(16px);
-        
-        :first-child{
+    max-height: calc(100vh - 3.5rem - 3.5rem - 15em);
+    // @include  scroll(calc(100vh - 3.5rem - 3.5rem - 15em));
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+
+    .add-task-container {
+        input {
             font-family: "roboto-regular";
-            font-size: 1.5em;
-        }
-        
-        &:hover{
-            background-color: darken($color: $clr-bg1-light, $amount: 10);
+            border: none;
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+            padding-top: 0.7em;
+            padding-bottom: 2em;
+
+            &:focus {
+                border: none;
+            }
         }
     }
+
+    button.add-card-close {
+           border-radius: 0.3em;
+           width: 1.9em;
+           height: 1.7em;
+        
+    }
+}
+
+
+.add-task-btn-container {
+    margin-inline-start: 0.4em;
+    width: 94%;
+
+}
+
+
+.add-task-btn {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-items: start;
+    width: 100%;
+
+    text-align: start;
+    background-color: inherit;
+    border-radius: 0.7em;
+
+    color: inherit;
+    font-family: "roboto-bold";
+    font-size: em(16px);
+
+    :first-child {
+        font-family: "roboto-regular";
+        font-size: 1.5em;
+    }
+
+    &:hover {
+        background-color: darken($color: $clr-bg1-light, $amount: 10);
+    }
+
+
 }
