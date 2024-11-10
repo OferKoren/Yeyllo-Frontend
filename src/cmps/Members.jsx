@@ -26,7 +26,7 @@ export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemov
 
                                 const memberDetails = gMembers.find(m => m._id === memberId)
                                 return (
-                                    <li key={memberDetails._id}>
+                                    <li key={memberDetails._id} className="member">
                                         <img src={memberDetails.imgUrl} />
                                         <span className="member-name">{memberDetails.fullname}</span>
                                         <i className="btn fa-solid fa-xmark left-side" onClick={() => onRemoveMember(memberId)}></i>
@@ -47,7 +47,7 @@ export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemov
                                 if (task.memberIds && task.memberIds.length !== 0 && task.memberIds.includes(member._id)) return
                                 else {
                                     return (
-                                        <li key={member._id} onClick={() => onAddMember(member._id)}>
+                                        <li className="member" key={member._id} onClick={() => onAddMember(member._id)}>
                                             <img src={member.imgUrl} />
                                             <span className="member-name">{member.fullname}</span>
                                         </li>

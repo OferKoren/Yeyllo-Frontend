@@ -13,7 +13,7 @@ import { MemberPreview } from '../cmps/MemberPreview'
 import { taskService } from '../services/task/task.service.js'
 
 
-export function TaskDetails() {
+export function TaskDetails({ groupId, currTask }) {
     // const boards = useSelector((storeState) => storeState.boardModule.boards)
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
@@ -29,21 +29,28 @@ export function TaskDetails() {
     const [task, setTask] = useState({})
 
     const { boardId } = useParams()
+    const taskId = currTask.id
 
     // const labels = taskService.getLabels()
     const titleAreaRef = useRef(null)
 
     useEffect(() => {
-        loadBoard('b101')
+        loadBoard(boardId)
         console.log('boardToEdit', boardToEdit)
         console.log('hi2')
     }, [])
 
     useEffect(() => {
         setBoardToEdit(board)
-        if (board?.groups?.[1]?.tasks?.[1]) {
-            setTask(board?.groups[1].tasks[1])
+        const currGroup = board?.groups.find(group => group.id === groupId)
+        const currTask = currGroup?.tasks.find(task => task.id === taskId)
+        if (currTask) {
+            setTask(currTask)
         }
+
+        // if (board?.groups?.[1]?.tasks?.[1]) {
+        //     setTask(board?.groups[1].tasks[1])
+        // }
     }, [board])
 
     useEffect(() => {
@@ -113,7 +120,7 @@ export function TaskDetails() {
             </div>
 
             <div className="task-header">
-                <img src="img/icons/icon-task-title.svg" />
+                <img src="/img/icons/icon-task-title.svg" />
                 <textarea
                     ref={titleAreaRef}
                     className="textarea-input task-title"
@@ -137,9 +144,9 @@ export function TaskDetails() {
                                         const memberDetails = gMembers.find(member => member._id === memberId)
                                         return (
                                             <li
+                                                className="member"
                                                 title={memberDetails.fullname}
                                                 onClick={() => setIsShowMemberPreview(prev => !prev)}
-                                                className="member"
                                                 key={memberId}>
                                                 <img className="member-area-photo" src={memberDetails.imgUrl} />
 
@@ -191,7 +198,7 @@ export function TaskDetails() {
                     </div>
 
                     <div className="description-area">
-                        <img className="icon-description" src="img/icons/icon-description.svg" />
+                        <img className="icon-description" src="/img/icons/icon-description.svg" />
                         <h2 className="description-title">Description</h2>
                         <textarea
                             className="textarea-input task-description"
@@ -226,7 +233,7 @@ export function TaskDetails() {
                     <div>
                         <button
                             className={`btn btn-option btn-light ${isEditMembers && 'active'}`}
-                            onClick={() => setIsEditMembers(prev => !prev)}><img src="img/icons/icon-members.svg" />Members</button>
+                            onClick={() => setIsEditMembers(prev => !prev)}><img src="/img/icons/icon-members.svg" />Members</button>
                         {isEditMembers &&
                             <Members task={task} setTask={setTask} setIsEditMembers={setIsEditMembers}
                                 boardMembers={boardToEdit.members} onRemoveMember={onRemoveMember} />}
@@ -234,7 +241,7 @@ export function TaskDetails() {
                     <div>
                         <button
                             className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
-                            onClick={() => setIsEditLabels(prev => !prev)}> <img src="img/icons/icon-labels.svg" />Labels</button>
+                            onClick={() => setIsEditLabels(prev => !prev)}> <img src="/img/icons/icon-labels.svg" />Labels</button>
                         {isEditLabels &&
                             <Labels setTask={setTask} handleChange={handleInfoChange} setIsEditLabels={setIsEditLabels}
                                 boardToEdit={boardToEdit} setBoardToEdit={setBoardToEdit} task={task} />}
@@ -243,7 +250,7 @@ export function TaskDetails() {
                     <div>
                         <button
                             className={`btn btn-option btn-light ${isAddChecklist && 'active'}`}
-                            onClick={() => setIsAddChecklist(prev => !prev)}><img src="img/icons/icon-checklist.svg" />Checklist</button>
+                            onClick={() => setIsAddChecklist(prev => !prev)}><img src="/img/icons/icon-checklist.svg" />Checklist</button>
                         {isAddChecklist &&
                             <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
                     </div>
@@ -251,7 +258,7 @@ export function TaskDetails() {
                     <div>
                         <button
                             className={`btn btn-option btn-light ${isEditDates && 'active'}`}
-                            onClick={() => setIsEditDates(prev => !prev)}><img src="img/icons/icon-dates.svg" />Dates</button>
+                            onClick={() => setIsEditDates(prev => !prev)}><img src="/img/icons/icon-dates.svg" />Dates</button>
                         {isEditDates &&
                             <Dates task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditDates={setIsEditDates} />}
                     </div>
@@ -259,7 +266,7 @@ export function TaskDetails() {
                     <div>
                         <button
                             className={`btn btn-option btn-light ${isEditDates && 'active'}`}>
-                            <img src="img/icons/icon-cover.svg" />Cover</button>
+                            <img src="/img/icons/icon-cover.svg" />Cover</button>
                     </div>
                 </div>
             </section>

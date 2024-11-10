@@ -1,8 +1,9 @@
 .modal-backdrop {
     &.blur {
-        background-color: rgba(0, 0, 0, 0.209);
+        background-color: rgba(0, 0, 0, 0.541);
         backdrop-filter: blur(2px);
     }
+
     position: fixed;
 
     inset: 0;
@@ -33,6 +34,7 @@
 
     margin: auto;
     z-index: 3;
+
     .modal-header {
         padding: 0.25em 0;
         margin-block-end: 0.25em;
@@ -40,6 +42,7 @@
         display: grid;
         grid-template-columns: 32px 1fr 32px;
         height: 40px;
+
         h3 {
             font-size: 14px;
             grid-column: 2;
@@ -50,13 +53,16 @@
             font-weight: 600;
             letter-spacing: -0.003em;
             line-height: 40px;
+
             span {
                 display: block;
                 transform: translateY(-4px);
             }
+
             span::first-letter {
                 text-transform: capitalize;
             }
+
             // margin: 0 32px;
         }
     }

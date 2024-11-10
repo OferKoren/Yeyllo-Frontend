@@ -38,10 +38,11 @@ export function RootCmp() {
                     <Route path="workspace" element={<Workspace />} />
 
                     <Route path="board/:boardId" element={<BoardDetails />}>
-                        {/* <Route path=":taskId" element={<TaskDetails />} /> */}
+                        <Route path=":taskId" element={<TaskDetails />} />
                     </Route>
-
-                    <Route path="task" element={<TaskDetails />} />
+                    {/* <Route path="board/:boardId" element={<BoardDetails />}/>
+                        <Route path="board/:boardId/:groupId/:taskId" element={<TaskDetails />} /> */}
+                    {/* <Route path="task" element={<TaskDetails />} /> */}
 
                     <Route path="user/:id" element={<UserDetails />} />
                     <Route path="review" element={<ReviewIndex />} />

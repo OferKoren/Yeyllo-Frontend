@@ -69,7 +69,7 @@ export function Labels({ task, setTask, setIsEditLabels, boardToEdit, setBoardTo
                                 style={{ backgroundColor: label.color }}>
                                 {<div>{gLabel?.title || ''}</div>}
                             </label>
-                            <img src="img/icons/icon-pencil.svg" onClick={() => { setIsEditLabel(prev => !prev); setLabelToEdit({ ...label, title: (gLabel?.title || '') }) }} />
+                            <img src="/img/icons/icon-pencil.svg" onClick={() => { setIsEditLabel(prev => !prev); setLabelToEdit({ ...label, title: (gLabel?.title || '') }) }} />
                         </div>)
                     })}
                 </div>

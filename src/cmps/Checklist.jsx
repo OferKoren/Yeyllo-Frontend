@@ -69,7 +69,7 @@ export function Checklist({ todos, task, checklist, setTask }) {
         <div className="checklist-details">
             <div className="checklist-header">
                 <div className="checklist-title">
-                    <img src="img/icons/icon-checklist.svg" />
+                    <img src="/img/icons/icon-checklist.svg" />
                     <h2>{title}</h2>
                 </div>
                 <button className="btn btn-remove-checklist btn-light" onClick={() => onRemoveChecklist(checklistId)}>Delete</button>

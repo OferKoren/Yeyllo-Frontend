@@ -13,11 +13,13 @@
         display: grid;
         gap: 0.6em;
 
-        & li {
+        & li.member {
             display: flex;
             align-items: center;
             gap: 0.8em;
             padding: 0.3em;
+            margin: 0;
+
             border-radius: 0.2em;
             background-color: $clr-bg3-light;
 
