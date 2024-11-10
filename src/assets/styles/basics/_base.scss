@@ -93,6 +93,15 @@ input {
     max-width: 100%;
 }
 
+button {
+    .modal-member-preview & {
+        align-self: center;
+        text-align: left;
+        color: $gray5;
+        background-color: transparent;
+    }
+}
+
 .btn {
     padding: 0.5em 1em;
     border: none;
@@ -136,4 +145,12 @@ hr {
     margin: 16px 0;
     padding: 0;
     width: 100%;
+
+    .modal-member-preview & {
+        padding: 0;
+        width: 90%;
+        margin: 0;
+        justify-self: center;
+        align-self: flex-end;
+    }
 }

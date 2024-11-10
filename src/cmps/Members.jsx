@@ -1,13 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
-export function Members({ task, setTask, setIsEditMembers, boardMembers }) {
+export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemoveMember }) {
 
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
-
-    function onRemoveMember(memberId) {
-        setTask(prevTask => ({ ...prevTask, memberIds: prevTask.memberIds.filter(mId => mId !== memberId) }))
-    }
 
     function onAddMember(memberId) {
         setTask(prevTask => ({ ...prevTask, memberIds: [...prevTask.memberIds, memberId] }))

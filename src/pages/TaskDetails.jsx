@@ -9,6 +9,7 @@ import { makeId } from '../services/util.service.js'
 import { Checklist } from '../cmps/Checklist.jsx'
 import { AddChecklist } from '../cmps/AddChecklist.jsx'
 import { Members } from '../cmps/Members.jsx'
+import { MemberPreview } from '../cmps/MemberPreview'
 import { taskService } from '../services/task/task.service.js'
 
 
@@ -23,6 +24,7 @@ export function TaskDetails() {
     const [isEditDates, setIsEditDates] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
     const [isEditMembers, setIsEditMembers] = useState(false)
+    const [isShowMemberPreview, setIsShowMemberPreview] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
 
@@ -88,6 +90,10 @@ export function TaskDetails() {
         setTask(prevTask => ({ ...prevTask, status: (prevTask.status === 'inProgress') ? 'done' : 'inProgress' }))
     }
 
+    function onRemoveMember(memberId) {
+        setTask(prevTask => ({ ...prevTask, memberIds: prevTask.memberIds.filter(mId => mId !== memberId) }))
+    }
+
     // if (!boards.length) return <div>Loading...</div>
     if (!boardToEdit) return <div>Loading...</div>
 
@@ -123,9 +129,17 @@ export function TaskDetails() {
                                         return (
                                             <li
                                                 title={memberDetails.fullname}
+                                                onClick={() => setIsShowMemberPreview(prev => !prev)}
                                                 className="member"
                                                 key={memberId}>
-                                                <img src={memberDetails.imgUrl} />
+                                                <img className="member-area-photo" src={memberDetails.imgUrl} />
+
+                                                {isShowMemberPreview &&
+                                                    <MemberPreview
+                                                        member={memberDetails}
+                                                        setIsShowMemberPreview={setIsShowMemberPreview}
+                                                        onRemoveMember={onRemoveMember} />
+                                                }
                                             </li>
                                         )
                                     })}
@@ -205,8 +219,8 @@ export function TaskDetails() {
                             className={`btn btn-option btn-light ${isEditMembers && 'active'}`}
                             onClick={() => setIsEditMembers(prev => !prev)}><img src="img/icons/icon-members.svg" />Members</button>
                         {isEditMembers &&
-                            <Members task={task} setTask={setTask} handleChange={handleInfoChange}
-                                setIsEditMembers={setIsEditMembers} boardMembers={boardToEdit.members} />}
+                            <Members task={task} setTask={setTask} setIsEditMembers={setIsEditMembers}
+                                boardMembers={boardToEdit.members} onRemoveMember={onRemoveMember} />}
                     </div>
                     <div>
                         <button

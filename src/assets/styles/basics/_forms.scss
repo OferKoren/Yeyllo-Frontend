@@ -6,6 +6,7 @@ button {
     // margin: 5px;
     cursor: pointer;
     border-radius: 3px;
+
     /*  &.btn {
         padding: 0.2em;
         margin: 0;
@@ -17,10 +18,12 @@ button {
         padding: 6px 12px;
         height: 100%;
         font-weight: 600;
+
         &:hover {
             background-color: darken($color: $btnClrDisabled, $amount: 15);
         }
     }
+
     &.modal-btn {
         /* position: absolute;
     top: 5px;
@@ -38,16 +41,18 @@ button {
         transition: background-color 0.1s;
         transform: translateX(3px);
         border-radius: 0.3em;
+
         img {
             max-width: 16px;
         }
+
         &:hover {
             background-color: $modalCloseBtn;
         }
     }
 }
 
-form > * {
+form>* {
     display: block;
     // width: 200px;
     margin: 10px 0px;
@@ -59,6 +64,7 @@ form > * {
     // text-decoration: underline;
     transition: 0.5s;
 }
+
 .btn-link:hover {
     background-color: $clr1;
 }
