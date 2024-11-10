@@ -41,8 +41,9 @@ export function GroupList({ onUpdateBoard, board }) {
         try {
             board.groups.push(group)
             await onUpdateBoard(board)
+            // setTitle('')
+            onCloseEditTitle()
             setIsAddGroupClicked(isClicked => !isClicked)
-            setTitle('')
         } catch (err) {
             console.log('err: ', err);
         }
@@ -73,7 +74,7 @@ export function GroupList({ onUpdateBoard, board }) {
                             <input autoFocus type="text" id="title" name="title" value={title} placeholder="Enter list name..." onChange={handleChange} />
                             <div className="add-group-btns">
                                 <button>Add list</button>
-                                <button onClick={onCloseEditTitle} type="button">X</button>
+                                <button className="close-btn-x" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon.png" alt="" /></button>
                             </div>
                         </form>
                     </div>
