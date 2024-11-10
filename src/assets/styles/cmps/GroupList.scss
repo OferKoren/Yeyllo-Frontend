@@ -72,6 +72,7 @@
 
 .add-group-btns {
     display: flex;
+    align-items: center;
     margin: 0;
     margin-left: 0.5em;
     .close-btn-x{
@@ -93,7 +94,9 @@
 
     >*:first-child {
         background-color: #0C66E4;
-        padding: 0.2em 0.8em;
+        padding: 0em 0.8em;
+        height: 2.5em;
+
         border-radius: 0.3em;
         font-family: "roboto-bold";
         transition: 150ms;

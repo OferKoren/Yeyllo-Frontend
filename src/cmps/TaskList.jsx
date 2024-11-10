@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { TaskPreview } from "./TaskPreview";
 import { makeId } from "../services/util.service";
+import ClickOutside from "./ClickOutside";
 
-export function TaskList({ isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
-    const [taskTitle, setTaskTitle] = useState('')
+export function TaskList({ taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
 
     const { groups } = board
@@ -53,9 +53,9 @@ export function TaskList({ isAddTaskClicked, setIsAddTaskClicked, tasks, board, 
     function onBlurAddTaskInput() {
         if (!taskTitle) return onCloseEditTitle()
         onAddTask()
-
     }
 
+    console.log('title:', taskTitle);
 
     return (
         <>
@@ -74,21 +74,33 @@ export function TaskList({ isAddTaskClicked, setIsAddTaskClicked, tasks, board, 
                     </section>
                 </>
                 :
-                    <section className="task-list">
-                        {tasks.map(task =>
-                            <TaskPreview key={task.id} task={task} groupId={groupId} />
-                        )}
-                        
+                <section className="task-list">
+                    {tasks.map(task =>
+                        <TaskPreview key={task.id} task={task} groupId={groupId} />
+                    )}
+
+                    {/* <ClickOutside
+                        onClick={() => {
+                            if (taskTitle) {
+                                onAddTask()
+                            } else {
+                                onCloseEditTitle()
+                            }
+                        }
+                        }
+                    > */}
                         <div className="add-task-container">
                             <form onSubmit={onAddTask}>
-                                <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} />
+                                {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
+                                <input autoFocus onBlur={onBlurAddTaskInput} type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
                                 <div className="add-group-btns">
-                                    <button>Add list</button>
-                                    <button className="close-btn-x" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon.png" alt="" /></button>
+                                    <button>Add card</button>
+                                    <button className="close-btn-x add-card-close" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon-dark.png" alt="" /></button>
                                 </div>
                             </form>
                         </div>
-                    </section>
+                    {/* </ClickOutside> */}
+                </section>
             }
 
         </>

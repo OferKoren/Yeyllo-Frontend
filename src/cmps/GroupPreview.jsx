@@ -11,8 +11,9 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const [isCopyGroupClicked, setIsCopyGroupClicked] = useState(false)
-
     const [isAddTaskClicked, setIsAddTaskClicked] = useState(false)
+    const [taskTitle, setTaskTitle] = useState('')
+
 
     useEffect(() => {
 
@@ -91,7 +92,7 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
                 <button className='group-menu-button' onClick={toggleMenu} ><img src="/img/menu-group/group-menu-icon.png" alt="" /></button>
             </header>
             <section>
-                <TaskList isAddTaskClicked={isAddTaskClicked} setIsAddTaskClicked={setIsAddTaskClicked} groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
+                <TaskList taskTitle={taskTitle} setTaskTitle={setTaskTitle} isAddTaskClicked={isAddTaskClicked} setIsAddTaskClicked={setIsAddTaskClicked} groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
             </section>
         </article>
     )
