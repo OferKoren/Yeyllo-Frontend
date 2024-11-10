@@ -16,7 +16,7 @@ export function AddChecklist({ setTask, setIsAddChecklist }) {
         <div className="modal-option modal-adding-checklist">
             <div className="option-modal-header">
                 <h2>Add checklist</h2>
-                <i className="btn fa-solid fa-xmark" onClick={() => setIsAddChecklist(false)}></i>
+                <i className="btn fa-solid fa-xmark left-side" onClick={() => setIsAddChecklist(false)}></i>
             </div>
 
             <div className="add-checklist-container">

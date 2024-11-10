@@ -1,9 +1,10 @@
 .task-details {
     position: relative;
-    width: 60em;
+    width: 53em;
     background-color: $clr-bg3-light;
     border-radius: 0.5em;
     margin-block-start: 1em;
+    padding-block-end: 2em;
 
     .btn-save-task {
         position: absolute;
@@ -55,6 +56,7 @@
     }
 
     textarea.task-title {
+        width: 90%;
         font-size: 1.2rem;
         font-family: 'roboto-medium';
         background-color: $clr-bg3-light;
@@ -76,7 +78,8 @@
 
     .task-metadata {
         display: flex;
-        gap: 1.5em;
+        flex-wrap: wrap;
+        column-gap: 1.5em;
         padding-inline-start: 2.3em;
 
         .labels-area {
@@ -177,7 +180,8 @@
         grid-template-areas:
             "icon title"
             "icon input";
-        margin-block-end: 1em;
+        margin-block-end: 2em;
+        margin-block-start: 1.3em;
 
         .icon-description {
             grid-area: icon;
@@ -185,6 +189,7 @@
 
         .description-title {
             grid-area: title;
+            margin-block-start: -0.15em;
         }
 
         .task-description {
@@ -194,7 +199,7 @@
 
     .list-of-checklists {
         display: grid;
-        gap: 1em;
+        gap: 2.5em;
     }
 
     & .task-options {

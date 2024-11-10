@@ -42,6 +42,10 @@
         }
     }
 
+    .btn-open-todo {
+        margin-block-start: 1em;
+    }
+
     .adding-todo-area {
         display: flex;
         flex-direction: column;

@@ -45,6 +45,12 @@ h3 {
     .task-details & {
         font-size: 0.8rem;
     }
+
+    .add-checklist-container & {
+        margin-block-end: 0.1em;
+        font-family: 'roboto-medium';
+        padding-inline-start: 0.1em;
+    }
 }
 
 h2 {
@@ -154,6 +160,7 @@ hr {
         align-self: flex-end;
     }
 }
+
 .input {
     box-shadow: inset 0 0 0 1px #091e4224;
     @include input();
