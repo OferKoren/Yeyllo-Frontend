@@ -8,6 +8,7 @@ export function GroupList({ onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
     const [title, setTitle] = useState('')
     const [isGroupDeleted, setIsGroupDeleted] = useState(false)
+    const [isLabelsClicked, setIsLabelsClicked] = useState(false)
 
     const { groups } = board
     console.log(groups);
@@ -65,7 +66,7 @@ export function GroupList({ onUpdateBoard, board }) {
                 {groups.map(group =>
                     <li key={group.id}>
                         {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
-                        <GroupPreview setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
+                        <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
                     </li>)
                 }
                 {isAddGroupClicked ?

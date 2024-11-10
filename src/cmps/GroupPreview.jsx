@@ -3,7 +3,7 @@ import { TaskList } from './TaskList'
 import { useEffect, useState } from 'react'
 import { GroupMenu } from './GroupMenu'
 
-export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted }) {
+export function GroupPreview({ isLabelsClicked, setIsLabelsClicked, onUpdateBoard, board, group, setIsGroupDeleted }) {
     const { title, tasks, id } = group
 
     const [currTitle, setCurrTitle] = useState(title)
@@ -92,7 +92,7 @@ export function GroupPreview({ onUpdateBoard, board, group, setIsGroupDeleted })
                 <button className='group-menu-button' onClick={toggleMenu} ><img src="/img/menu-group/group-menu-icon.png" alt="" /></button>
             </header>
             <section>
-                <TaskList taskTitle={taskTitle} setTaskTitle={setTaskTitle} isAddTaskClicked={isAddTaskClicked} setIsAddTaskClicked={setIsAddTaskClicked} groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
+                <TaskList isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} taskTitle={taskTitle} setTaskTitle={setTaskTitle} isAddTaskClicked={isAddTaskClicked} setIsAddTaskClicked={setIsAddTaskClicked} groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
             </section>
         </article>
     )

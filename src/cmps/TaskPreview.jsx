@@ -5,10 +5,9 @@ import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-export function TaskPreview({ groupId, task }) {
+export function TaskPreview({ isLabelsClicked, setIsLabelsClicked, groupId, task }) {
     const [isOpenTaskDetails, setIsOpenTaskDetails] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [isLabelsClicked, setIsLabelsClicked] = useState(false)
 
     const navigate = useNavigate()
 
@@ -72,7 +71,7 @@ export function TaskPreview({ groupId, task }) {
                     <div className='date-btn flex align-center' style={{gap:'0.5em'}}>
                         <img src="\img\board-details\clock.png" alt="" />
                         {
-                            formatDate(new Date(task.dueDate))
+                            <span style={{fontSize:'0.8em'}}>{formatDate(new Date(task.dueDate))}</span>
                         }
                     </div> : ''}
                     {task.description ? <img title='This card has a description' src="\img\board-details\description-icon.png" alt="" /> : ''}
