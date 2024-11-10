@@ -6,11 +6,11 @@ button {
     // margin: 5px;
     cursor: pointer;
     border-radius: 3px;
-    &.btn {
+    /*  &.btn {
         padding: 0.2em;
         margin: 0;
         background-color: transparent;
-    }
+    } */
     &.btn1 {
         color: inherit;
         background-color: darken($btnClrDisabled, 5);
