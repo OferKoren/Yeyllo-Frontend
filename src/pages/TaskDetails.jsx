@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { loadBoard } from '../store/actions/board.actions'
@@ -27,6 +27,8 @@ export function TaskDetails() {
     const [isShowMemberPreview, setIsShowMemberPreview] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
+
+    const { boardId } = useParams()
 
     // const labels = taskService.getLabels()
     const titleAreaRef = useRef(null)
@@ -94,11 +96,18 @@ export function TaskDetails() {
         setTask(prevTask => ({ ...prevTask, memberIds: prevTask.memberIds.filter(mId => mId !== memberId) }))
     }
 
+    function onSaveTask() {
+        setBoardToEdit(prevBoard => ({ ...prevBoard }))
+    }
+
     // if (!boards.length) return <div>Loading...</div>
     if (!boardToEdit) return <div>Loading...</div>
 
     return (
         <article className="task-details">
+            <div className="btn-save-task" onClick={onSaveTask}>
+                <i className="btn fa-solid fa-xmark" ></i>
+            </div>
             <div className="cover">
                 {task.imgUrl && <img src={task.imgUrl} />}
             </div>
@@ -233,6 +242,14 @@ export function TaskDetails() {
 
                     <div>
                         <button
+                            className={`btn btn-option btn-light ${isAddChecklist && 'active'}`}
+                            onClick={() => setIsAddChecklist(prev => !prev)}><img src="img/icons/icon-checklist.svg" />Checklist</button>
+                        {isAddChecklist &&
+                            <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
+                    </div>
+
+                    <div>
+                        <button
                             className={`btn btn-option btn-light ${isEditDates && 'active'}`}
                             onClick={() => setIsEditDates(prev => !prev)}><img src="img/icons/icon-dates.svg" />Dates</button>
                         {isEditDates &&
@@ -241,10 +258,8 @@ export function TaskDetails() {
 
                     <div>
                         <button
-                            className={`btn btn-option btn-light ${isAddChecklist && 'active'}`}
-                            onClick={() => setIsAddChecklist(prev => !prev)}><img src="img/icons/icon-checklist.svg" />Checklist</button>
-                        {isAddChecklist &&
-                            <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
+                            className={`btn btn-option btn-light ${isEditDates && 'active'}`}>
+                            <img src="img/icons/icon-cover.svg" />Cover</button>
                     </div>
                 </div>
             </section>

@@ -1,8 +1,15 @@
 .task-details {
+    position: relative;
     width: 48em;
     background-color: $clr-bg3-light;
     border-radius: 0.5em;
     margin-block-start: 1em;
+
+    .btn-save-task {
+        position: absolute;
+        right: 5px;
+        padding-block-start: 0.5em;
+    }
 
     .task-header {
         display: flex;
@@ -108,6 +115,7 @@
 
             & .member-area-photo {
                 width: 2em;
+                border-radius: 50%;
                 cursor: pointer;
 
                 &:hover {

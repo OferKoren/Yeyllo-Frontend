@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { updateBoard } from '../store/actions/board.actions'
 
 export function LabelEdit({ setIsEditLabels, labelToEdit, setLabelToEdit, setBoardToEdit, setIsEditLabel }) {
 
