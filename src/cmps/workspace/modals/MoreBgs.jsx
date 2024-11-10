@@ -33,7 +33,7 @@ export function MoreBgs({ boardBg, menu, onChangeBg, onSetMenu }) {
                                 <button
                                     type="button"
                                     style={{ backgroundImage: `url('${photo}')` }}
-                                    className={selected === photo ? 'bg-btn active' : 'bg-btn'}
+                                    className={selected === photo ? 'bg-btn btn2 active' : 'bg-btn btn2'}
                                     onClick={() => {
                                         onChangeBg(photo)
                                     }}

@@ -1,26 +1,45 @@
 .app-header {
     display: flex;
-    min-height: 3.5rem;
+    height: 3em;
 
-    background-color: $clr4;
-    padding: rem(10px) 1rem;
-    
+    background-color: $clr6;
+    // padding: rem(10px) 0;
+
     nav {
         display: flex;
         width: 100%;
         align-items: center;
-        gap: 1em;
-        
-        font-size: .8em;
+        // justify-content: center;
+        gap: 0.2em;
+        padding-inline: 2.5em 0.5em;
+        font-size: 0.875em;
+        font-weight: 500;
+        // line-height: 2em;
+        border-bottom: 1px solid rgba(23, 45, 79, 0.16);
+        a {
+            &::first-letter {
+                text-transform: capitalize;
+            }
+            text-decoration: none;
+            color: $headerClr;
+            padding: 5px 0.75em;
+            // height: 32px;
 
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        a:hover {
+            background-color: lightgray;
+        }
         .active {
-            color: $clr1;
+            // color: $clr1;p
         }
 
         .logo {
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: bold;
-            margin-inline-end: 2em;
+            // margin-inline-end: 2em;
+            padding: 1.5px 0.6em;
         }
 
         .login-link {
@@ -53,7 +72,7 @@
             aspect-ratio: 1;
             border-radius: 50%;
         }
-        
+
         .btn-link {
             color: $clr2;
         }

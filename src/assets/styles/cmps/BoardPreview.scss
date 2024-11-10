@@ -1,7 +1,8 @@
 .board-wrapper {
     display: grid;
     background-size: 100% 100%;
-
+    background-position: 50%;
+    background-size: cover;
     .board-preview {
         padding: 0.5em;
         // border-radius: 0.5em;
@@ -58,11 +59,15 @@
             content: url('/public/img/workspace/star-empty-gold.svg');
         }
     }
-    /* img.empty {
+    &:has(img.empty) {
         transform: translateX(50px);
         transition: 0.1s;
     }
-    img.empty {
-        transform: translateX(auto);
-    } */
+}
+.board-wrapper:hover {
+    .star-btn {
+        &:has(img.empty) {
+            transform: translateX(0);
+        }
+    }
 }

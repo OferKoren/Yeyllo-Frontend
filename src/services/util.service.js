@@ -67,13 +67,22 @@ export function randomPastTime() {
     return Date.now() - pastTime
 }
 
-export function debounce(func, timeout = 300) {
+/* export function debounce(func, timeout = 300) {
     let timer
     return (...args) => {
         clearTimeout(timer)
         timer = setTimeout(() => {
             func.apply(this, args)
         }, timeout)
+    }
+} */
+export function debounce(func, delay = 300) {
+    let timeoutId
+    return (...args) => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, delay)
     }
 }
 

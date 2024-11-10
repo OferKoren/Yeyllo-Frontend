@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Routes, Route } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
@@ -22,12 +22,13 @@ import { Signup } from './pages/Signup.jsx'
 import { Workspace } from './pages/workspace/workspace.jsx'
 
 export function RootCmp() {
+    const rootRef = useRef()
     return (
-        <div className="main-container">
+        <div ref={rootRef} className="main-container root">
             <AppHeader />
             {/* <UserMsg /> */}
 
-            <main>
+            <main className="main-container full">
                 <Routes>
                     <Route path="" element={<HomePage />} />
                     {/* <Route path="about" element={<AboutUs />}>
@@ -37,7 +38,7 @@ export function RootCmp() {
                     <Route path="workspace/home" element={<BoardIndex />} />
                     <Route path="workspace" element={<Workspace />} />
 
-                    <Route path="board/:boardId" element={<BoardDetails />}>
+                    <Route path="board/:boardId" element={<BoardDetails rootRef={rootRef} />}>
                         {/* <Route path=":taskId" element={<TaskDetails />} /> */}
                     </Route>
 

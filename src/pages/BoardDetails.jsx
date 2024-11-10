@@ -4,23 +4,30 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { GroupList } from '../cmps/GroupList'
 
-export function BoardDetails() {
+export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
     const board = useSelector((storeState) => storeState.boardModule.board)
     console.log(board)
-
+    useEffect(() => {
+        if (rootRef.current && board) {
+            Object.assign(rootRef.current.style, board.style)
+        }
+        return () => {
+            rootRef.current.style.cssText = ''
+        }
+    }, [board])
     useEffect(() => {
         loadBoard(boardId)
     }, [boardId])
-    
-    function onUpdateBoard(board){  
+
+    function onUpdateBoard(board) {
         updateBoard(board)
     }
-    
+
     // style={{backgroundImage:`url(${board.style.backgroundImage})`}}
     if (!board) return <div>Loading...</div>
     return (
-        <article className="board-details" style={board.style}>
+        <article className="board-details full" /* style={board.style} */>
             <header className="board-header flex">
                 <div>{board.title}</div>
                 <div>

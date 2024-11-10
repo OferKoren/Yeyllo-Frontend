@@ -49,7 +49,7 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
                                 <BoardPreview board={board} />
                                 <div className="board-actions shown">
                                     <button
-                                        className="star-btn btn"
+                                        className="star-btn btn2"
                                         onClick={(ev) => onStarBoard(ev, board)}
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}
@@ -80,7 +80,7 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
                         <div className="board-wrapper" style={board.style}>
                             <BoardPreview board={board} />
                             <div className={board.isStarred ? 'board-actions shown' : 'board-actions'}>
-                                <button className="star-btn btn" onClick={(ev) => onStarBoard(ev, board)}>
+                                <button className="star-btn btn2" onClick={(ev) => onStarBoard(ev, board)}>
                                     <img className={board.isStarred ? 'active' : 'empty'} src={board.isStarred ? starFullGold : starEmpty} alt="" />
                                 </button>
                             </div>

@@ -12,8 +12,8 @@ function getEmptyBoard() {
         isStarred: false,
         createdBy: {},
         style: {
-            backgroundSize: 'contain',
-            backgroundImage: 'url(../img/board-background-img/starry-night.jpeg)',
+            // backgroundSize: '100% 100%',
+            backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg)',
             // backgroundColor: 'green',
         },
         labels: [],

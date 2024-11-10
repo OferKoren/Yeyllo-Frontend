@@ -24,8 +24,7 @@
     }
 }
 
-@mixin btn ($type: regular) {
-
+@mixin btn($type: regular) {
     @if $type ==dark {
         background-color: $clr-btn-2;
         color: $clr6;
@@ -33,18 +32,14 @@
         &:hover {
             background-color: darken($clr-btn-2, 5%);
         }
-    }
-
-    @else if $type ==light {
+    } @else if $type ==light {
         background-color: $clr-btn-1;
         color: $gray4;
 
         &:hover {
             background-color: darken($clr-btn-1, 5%);
         }
-    }
-
-    @else if $type =='clear' {
+    } @else if $type == 'clear' {
         background-color: $clr-bg3-light;
         color: $gray4;
 
@@ -54,7 +49,20 @@
     }
 }
 
+@mixin input() {
+    border: none;
 
+    width: 100%;
+    height: 36px;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 14px;
+    &:active,
+    &:focus {
+        outline: none;
+        border: none;
+    }
+}
 
 /* Media  Mixins */
 @mixin aspect-ratio($width, $height) {
@@ -63,12 +71,12 @@
 
     &::before {
         display: block;
-        content: "";
+        content: '';
         width: 100%;
         padding-top: calc(($height / $width) * 100%);
     }
 
-    >* {
+    > * {
         position: absolute;
         top: 0;
         left: 0;
@@ -76,7 +84,7 @@
         bottom: 0;
     }
 
-    >img {
+    > img {
         height: 100%;
         object-fit: cover;
     }
