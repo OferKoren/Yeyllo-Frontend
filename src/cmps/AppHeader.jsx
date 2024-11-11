@@ -3,9 +3,13 @@ import { useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { logout } from '../store/actions/user.actions'
+import ColorThief from 'colorthief'
+import { useEffect, useRef } from 'react'
 
 export function AppHeader() {
     const user = useSelector((storeState) => storeState.userModule.user)
+    const board = useSelector((storeState) => storeState.boardModule.board)
+    const headerRef = useRef()
     const navigate = useNavigate()
 
     async function onLogout() {
@@ -18,8 +22,31 @@ export function AppHeader() {
         }
     }
 
+    useEffect(() => {
+        if (board && board.urls) {
+            setHeaderColorFromImage(board.urls.regular)
+        } else {
+            headerRef.current.style.cssText = ''
+        }
+    }, [board])
+
+    function setHeaderColorFromImage(imgSrc) {
+        const img = new Image()
+        img.crossOrigin = 'anonymous'
+        img.src = imgSrc
+
+        img.onload = () => {
+            const colorThief = new ColorThief()
+            const [r, g, b] = colorThief.getColor(img)
+
+            // Set as header background color with some transparency
+            const style = { backgroundColor: `rgba(${r}, ${g}, ${b}, 0.9)` }
+            Object.assign(headerRef.current.style, style)
+        }
+    }
+
     return (
-        <header className="app-header full">
+        <header ref={headerRef} className="app-header full">
             <nav>
                 <NavLink to="workspace/home" className="logo">
                     Yeyllo

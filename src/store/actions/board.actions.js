@@ -1,7 +1,7 @@
 import { boardService } from '../../services/board'
 import { store } from '../store'
 //removed from the import below ADD_BOARD_MSG
-import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD } from '../reducers/board.reducer'
+import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD, UNLOAD_BOARD } from '../reducers/board.reducer'
 import { batch } from 'react-redux'
 
 export async function loadBoards() {
@@ -23,6 +23,9 @@ export async function loadBoard(boardId) {
         console.log('Cannot load board', err)
         throw err
     }
+}
+export function unloadBoard() {
+    store.dispatch(getCmdUnloadBoard())
 }
 
 export async function removeBoard(boardId) {
@@ -80,6 +83,11 @@ function getCmdSetBoard(board) {
     return {
         type: SET_BOARD,
         board,
+    }
+}
+function getCmdUnloadBoard() {
+    return {
+        type: UNLOAD_BOARD,
     }
 }
 function getCmdRemoveBoard(boardId) {

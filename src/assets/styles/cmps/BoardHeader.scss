@@ -1,0 +1,55 @@
+.board-header {
+    height: 54px;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    padding: 0.75em 0.625em 0.75em 1em;
+    .title-wrapper {
+        // position: relative;
+        display: inline-block;
+        & > * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.125em;
+            line-height: 32px;
+        }
+        .title-input {
+            position: absolute;
+            top: 9px /*  */;
+            left: 16px;
+            // width: 50px;
+            font-weight: 700;
+            border: 1px solid #ccc; // Show a border for the input
+            outline: none;
+            border-radius: 4px;
+            padding-inline-start: 8px;
+
+            outline: 3px solid $btnClr1;
+            // transition: all 0.2s ease;
+        }
+        .title-text {
+            letter-spacing: 1px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 0;
+            width: fit-content;
+            padding: 0 0.4em;
+            border-radius: 4px;
+            transition: 0.1s;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.256);
+            }
+            // transition: all 0.2s ease; // Smooth transition
+        }
+    }
+    .text-measurer {
+        position: absolute;
+        visibility: hidden;
+        letter-spacing: 1.07px;
+        top: 40px;
+        left: 25px;
+        white-space: pre;
+        font-size: inherit;
+        font-weight: bold;
+        font-family: inherit;
+    }
+}

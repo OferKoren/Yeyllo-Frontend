@@ -4,7 +4,8 @@
 
     background-color: $clr6;
     // padding: rem(10px) 0;
-
+    backdrop-filter: blur(6px);
+    // background-color: hsl(5, 4.9%, 30.8%);
     nav {
         display: flex;
         width: 100%;

@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { Routes, Route } from 'react-router'
+import React, { useEffect, useRef } from 'react'
+import { Routes, Route, useLocation } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
 // import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
@@ -23,6 +23,10 @@ import { Workspace } from './pages/workspace/workspace.jsx'
 
 export function RootCmp() {
     const rootRef = useRef()
+    const location = useLocation()
+    useEffect(() => {
+        console.log(location)
+    }, [location])
     return (
         <div ref={rootRef} className="main-container root">
             <AppHeader />
@@ -54,7 +58,7 @@ export function RootCmp() {
                     </Route>
                 </Routes>
             </main>
-            <AppFooter />
+            {!location.pathname.includes('board') && <AppFooter />}
         </div>
     )
 }

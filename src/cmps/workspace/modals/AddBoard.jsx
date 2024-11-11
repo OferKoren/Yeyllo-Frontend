@@ -21,7 +21,8 @@ export function AddBoard({ onAddBoard }) {
         setBoardBg((prev) => ({ ...prev, selected: selectedBg }))
         setBoardToAdd((prevBoard) => {
             const style = isSingleColor ? { backgroundColor: selectedBg } : { ...prevBoard.style, backgroundImage: `url(${selectedBg})` }
-            return { ...prevBoard, style }
+            const urls = { regular: selectedBg }
+            return { ...prevBoard, style, urls }
         })
     }
     function handleChange(ev) {

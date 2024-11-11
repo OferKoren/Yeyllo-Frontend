@@ -16,6 +16,7 @@ function getEmptyBoard() {
             backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg)',
             // backgroundColor: 'green',
         },
+        urls: { regular: 'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg' },
         labels: [],
         members: [],
         groups: [],

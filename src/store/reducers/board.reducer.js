@@ -1,5 +1,6 @@
 export const SET_BOARDS = 'SET_BOARDS'
 export const SET_BOARD = 'SET_BOARD'
+export const UNLOAD_BOARD = 'UNLOAD_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
@@ -22,7 +23,7 @@ const initialState = {
     board: null,
     filterBy: {},
     labels: defaultLabels,
-    members: []
+    members: [],
 }
 
 export function boardReducer(state = initialState, action) {
@@ -33,16 +34,19 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, boards: action.boards }
             break
         case SET_BOARD:
-            const updatedLabels = state.labels.map(label => {
-                const existingLabel = action.board.labels.find(l => l.id === label.id)
+            const updatedLabels = state.labels.map((label) => {
+                const existingLabel = action.board.labels.find((l) => l.id === label.id)
                 if (existingLabel) {
                     return { ...existingLabel }
-                }
-                else {
+                } else {
                     return label
                 }
             })
             newState = { ...state, board: action.board, labels: updatedLabels, members: action.board.members || [] }
+            // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
+            break
+        case UNLOAD_BOARD:
+            newState = { ...state, board: null }
             // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
             break
         case REMOVE_BOARD:
