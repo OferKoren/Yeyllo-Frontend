@@ -48,14 +48,6 @@ export function TaskDetails() {
 
     }, [board])
 
-    // useEffect(() => {
-    //     if (isEditDates) {
-    //         document.body.style.overflow = 'hidden';
-    //     } else {
-    //         document.body.style.overflow = 'auto';
-    //     }
-    // }, [isEditDates])
-
     useEffect(() => {
         if (task.dueDate) {
             const currentDate = new Date()

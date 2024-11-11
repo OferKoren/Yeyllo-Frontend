@@ -41,19 +41,6 @@ h6 {
     margin: 0 0 0.6em;
 }
 
-h3 {
-    .task-details & {
-        font-size: 0.8rem;
-    }
-
-    .add-checklist-container &,
-    .cover-colors & {
-        margin-block-end: 0.1em;
-        font-family: 'roboto-medium';
-        padding-inline-start: 0.1em;
-    }
-}
-
 h2 {
     .task-main & {
         font-size: 1.05rem;
@@ -63,6 +50,18 @@ h2 {
 
     .option-modal-header & {
         font-size: 0.9rem;
+    }
+}
+
+h3 {
+    .task-details & {
+        font-size: 0.8rem;
+    }
+
+    .task-options & {
+        margin-block-end: 0.4em;
+        font-family: 'roboto-medium';
+        padding-inline-start: 0.1em;
     }
 }
 
