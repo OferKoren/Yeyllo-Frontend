@@ -1,9 +1,18 @@
+.modal-task-details {
+    max-height: 80vh;
+    /* Adjust this value based on your design */
+    overflow-y: auto;
+}
+
 .modal-task-details-content {
     position: fixed;
     font-size: 1.1em;
     inset: 0;
 
-    width: 80vw;
+    display: flex;
+    justify-content: center;
+
+    width: max-content;
 
     border-radius: 0.6em;
 

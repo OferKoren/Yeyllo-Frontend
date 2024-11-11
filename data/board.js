@@ -113,7 +113,7 @@ $bbgClr9: rgb(131, 140, 145) */
         'img/board-background-img/gradiant-volcano.svg',
     ],
 } */
-const board = [
+let board = [
     {
         _id: 'b101',
         title: 'Robot dev proj',

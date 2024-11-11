@@ -10,6 +10,8 @@ import { Members } from '../cmps/Members.jsx'
 import { MemberPreview } from '../cmps/MemberPreview'
 import { Cover } from '../cmps/Cover.jsx'
 import dayjs from 'dayjs'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
 
 export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
@@ -20,6 +22,7 @@ export function TaskDetails() {
     const [isEditLabels, setIsEditLabels] = useState(false)
     const [isEditLabelsPlusBtn, setIsEditLabelsPlusBtn] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
+    const [isEditDatesChevronBtn, setIsEditDatesChevronBtn] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
     const [isEditMembers, setIsEditMembers] = useState(false)
     const [isEditMembersPlusBtn, setIsEditMembersPlusBtn] = useState(false)
@@ -52,6 +55,14 @@ export function TaskDetails() {
 
     }, [board])
 
+    // useEffect(() => {
+    //     if (isEditDates) {
+    //         document.body.style.overflow = 'hidden';
+    //     } else {
+    //         document.body.style.overflow = 'auto';
+    //     }
+    // }, [isEditDates])
+
     useEffect(() => {
         if (task.dueDate) {
             const currentDate = new Date()
@@ -77,6 +88,7 @@ export function TaskDetails() {
 
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
+
         switch (type) {
             case 'number':
             case 'range':
@@ -126,6 +138,18 @@ export function TaskDetails() {
                 setIsEditLabelsPlusBtn={setIsEditLabelsPlusBtn}
                 task={task}
             />
+        )
+    }
+
+    function renderDatesModal() {
+        return (
+            <Dates
+                task={task}
+                setTask={setTask}
+                handleChange={handleInfoChange}
+                setIsEditDates={setIsEditDates}
+                setIsEditDatesChevronBtn={setIsEditDatesChevronBtn}
+                isEditDates={isEditDates} />
         )
     }
 
@@ -237,6 +261,11 @@ export function TaskDetails() {
                                                 }`}>
                                             {(task.status === 'done' && 'complete') || statusTask}
                                         </span>
+                                        {isEditDatesChevronBtn && renderDatesModal()}
+
+                                        <div className="add-task-action chevron" onClick={() => setIsEditDatesChevronBtn(prev => !prev)}>
+                                            <i className="fa-solid fa-chevron-down"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -300,11 +329,11 @@ export function TaskDetails() {
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditDates && 'active'}`} onClick={() => setIsEditDates((prev) => !prev)}>
+                        <button className={`btn btn-option btn-light btn-date-picker ${isEditDates && 'active'}`} onClick={() => setIsEditDates((prev) => !prev)}>
                             <img src="/img/icons/icon-dates.svg" />
                             Dates
                         </button>
-                        {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditDates={setIsEditDates} />}
+                        {isEditDates && renderDatesModal()}
                     </div>
 
                     <div>
