@@ -27,9 +27,9 @@
         padding: 0.5em;
         margin-inline-end: 0.5em;
         margin-inline-start: 0.5em;
-        height: 2.3em;
-
-        scale: 0.9;
+        width: 2.5em;
+        height: 2.5em;
+        // scale: 0.9;
         
         &:hover {
             background-color: darken($color: $clr-bg1-light, $amount: 10);
@@ -50,7 +50,7 @@
 
     form{
         height:3em;
-        width: 16.5em;
+        width: 14.5em;
         margin-left: 0.5em;
         padding-bottom: 0.55em;
         margin-inline-end: 0.03em;

@@ -76,7 +76,7 @@ export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTa
                 :
                 <section className="task-list">
                     {tasks.map(task =>
-                        <TaskPreview onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
+                        <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
                     )}
 
                     {/* <ClickOutside

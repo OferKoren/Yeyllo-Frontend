@@ -4,22 +4,27 @@
     align-items: center;
     gap: em(9px);
 
-    max-height: calc(100vh - 3.5rem - 3.5rem - 15em);
+    max-height: calc(100vh - 3.5rem - 3.5rem - 9.8em);
     // @include  scroll(calc(100vh - 3.5rem - 3.5rem - 15em));
     overflow-y: auto;
     overflow-x: hidden;
 
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-
+    
     .add-task-container {
+        width: 100%;
+        form{
+            margin-inline-start: 0.2em;
+            width: 94%;
+        }
         input {
             font-family: "roboto-regular";
             border: none;
             box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
             padding-top: 0.7em;
             padding-bottom: 2em;
-
+            width: 100%;
             &:focus {
                 border: none;
             }

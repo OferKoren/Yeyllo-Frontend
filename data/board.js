@@ -199,6 +199,10 @@ let board = [
                                 },
                             },
                         ],
+                        attachments: [
+                            'https://fonts.google.com/',
+                            'https://trello.com/'
+                        ],
                         checklists: [
                             {
                                 id: 'YEhmF',

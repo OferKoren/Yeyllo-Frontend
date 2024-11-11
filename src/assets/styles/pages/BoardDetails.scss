@@ -2,20 +2,36 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    // height: calc(100vh - 3.5rem - 3.5rem);
+
     height: calc(100vh - 3rem);
-    // height: 95vh;
+
     font-size: rem(14px);
 
-    // :first-child{
-    //     height: 4em;
-    //     align-items: center;
-    //     align-content: center;
+    /* Works on Firefox */
+    * {
+        scrollbar-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.15);
+    }
 
+    /* Works on Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.15);
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.15);
+
+        border-radius: 10px;
+        border: 0px solid rgba(255, 255, 255, 0.15);
+    }
+
+    // *::-webkit-scrollbar-track {
+    //     background-color: transparent !important;
     // }
-    // :nth-child(2){
-    //     height: 40vh;
-    // }
+
 }
 
 .board-header {
@@ -30,7 +46,7 @@
 
     // justify-content: space-between;
 
-    > * {
+    >* {
         display: flex;
         align-items: center;
     }
