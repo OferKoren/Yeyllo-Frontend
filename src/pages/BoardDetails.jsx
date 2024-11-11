@@ -10,7 +10,7 @@ export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
     const board = useSelector((storeState) => storeState.boardModule.board)
     const [isMenuOpen, setMenuOpen] = useState(false)
-
+    const [isShrink, setIsShrink] = useState(false)
     const [isAsideOpen, setAsideOpen] = useState(false)
     // console.log(board)
     useEffect(() => {
@@ -32,7 +32,13 @@ export function BoardDetails({ rootRef }) {
         updateBoard(board)
     }
     function onToggleMenu() {
-        setMenuOpen((prev) => !prev)
+        if (isMenuOpen) {
+            setIsShrink(true)
+            setTimeout(() => {
+                setMenuOpen((prev) => !prev)
+                setIsShrink(false)
+            }, 600)
+        } else setMenuOpen((prev) => !prev)
     }
     // style={{backgroundImage:`url(${board.style.backgroundImage})`}}
     if (!board) return <div>Loading...</div>
@@ -46,12 +52,18 @@ export function BoardDetails({ rootRef }) {
         <section className="full horizontal-container">
             {isAsideOpen && <div style={{ width: '200px' }}>aside</div>}
             <article className={`board-details ${dynamicClass}`} /* style={board.style} */>
-                <BoardHeader board={board} onUpdateBoard={onUpdateBoard} isMenuOpen={isMenuOpen} onToggleMenu={onToggleMenu} />
+                <BoardHeader
+                    board={board}
+                    onUpdateBoard={onUpdateBoard}
+                    isMenuOpen={isMenuOpen}
+                    onToggleMenu={onToggleMenu}
+                    setIsShrink={setIsShrink}
+                />
                 <section className="board-details">
                     <GroupList onUpdateBoard={onUpdateBoard} board={board} />
                 </section>
             </article>
-            {isMenuOpen && <BoardMenu />}
+            {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} />}
             {/* <BoardMenu /> */}
         </section>
     )

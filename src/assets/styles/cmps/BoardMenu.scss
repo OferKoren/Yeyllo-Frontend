@@ -1,3 +1,17 @@
 .board-menu {
-    transition: 0.5s;
+    width: 340px;
+    position: absolute;
+    transition: 0.4s;
+    background-color: white;
+    padding: 0 8px;
+    &.shrink {
+        transform: translateX(340px);
+    }
+}
+.placeholder-div {
+    transition: 0.4s;
+}
+.board-menu-wrapper {
+    position: relative;
+    background-color: white;
 }

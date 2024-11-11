@@ -25,7 +25,7 @@ export function RootCmp() {
     const rootRef = useRef()
     const location = useLocation()
     useEffect(() => {
-        // console.log(location)
+        console.log(location)
     }, [location])
     return (
         <div ref={rootRef} className="main-container root">
@@ -58,7 +58,7 @@ export function RootCmp() {
                     </Route>
                 </Routes>
             </main>
-            {!location.pathname.includes('home') && <AppFooter />}
+            {location.pathname === '/home' && <AppFooter />}
         </div>
     )
 }

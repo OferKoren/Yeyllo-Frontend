@@ -5,6 +5,7 @@
     height: 3em;
     padding: 8px 0px;
     background-color: $clr6;
+
     // padding: rem(10px) 0;
     backdrop-filter: blur(6px);
     // background-color: hsl(5, 4.9%, 30.8%);
@@ -52,6 +53,8 @@
 
         button {
             margin-inline: 1em 0;
+            font-family: 'Segoe UI', 'roboto-regular';
+            font-size: 14px;
             &.btn1 {
                 &::first-letter {
                     text-transform: capitalize;

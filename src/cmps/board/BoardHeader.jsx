@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 const starEmpty = '/img/workspace/star-empty-small.svg'
 const starEmptyGold = '/img/workspace/star-empty-gold.svg'
 const starFullGold = '/img/workspace/star-full-gold.svg'
-export function BoardHeader({ board, onUpdateBoard, onToggleMenu }) {
+export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, isMenuOpen }) {
     const [isEditing, setIsEditing] = useState(false)
     const [text, setText] = useState() // Initial text for the header
     const inputRef = useRef(null)
@@ -101,7 +101,13 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu }) {
                 ))}
             </div>
 
-            <button className="header-btn btn2" onClick={onToggleMenu}>
+            <button
+                className="header-btn btn2"
+                onClick={() => {
+                    onToggleMenu()
+                    // if (isMenuOpen) setIsShrink(true)
+                }}
+            >
                 <svg width="20" height="20" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                         fill-rule="evenodd"

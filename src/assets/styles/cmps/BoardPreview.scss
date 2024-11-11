@@ -4,6 +4,9 @@
     background-position: 50%;
     background-size: cover;
     .board-preview {
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
         padding: 0.5em;
         // border-radius: 0.5em;
         height: 100%;
@@ -43,11 +46,12 @@
         }
     }
     &:has(.add-board) {
-        background-color: darken(#f1f2f4, 5);
+        background-color: darken(#f1f2f4, 7);
+        font-size: em(14px);
     }
     .add-board {
         border: none;
-        color: $clr7;
+        color: $add-board-btn-Clr;
         display: flex;
         align-self: center;
         justify-content: center;
