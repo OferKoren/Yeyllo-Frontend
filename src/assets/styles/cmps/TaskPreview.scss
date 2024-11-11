@@ -18,10 +18,11 @@
 
     &:hover {
         border-color: $clr-blue-border;
-        .task-color{
-            border-top: 2px  $clr-blue-border solid;
-            border-right: 2px  $clr-blue-border solid;
-            border-left: 2px  $clr-blue-border solid;
+
+        .task-color {
+            border-top: 2px $clr-blue-border solid;
+            border-right: 2px $clr-blue-border solid;
+            border-left: 2px $clr-blue-border solid;
         }
     }
 
@@ -51,15 +52,51 @@
     }
 
     .left-side-btns {
+        
+
         .date-btn {
-            padding: 0.3em;
-            padding-left: 0.3em;
+            position: relative;
+            padding: 0.25em;
+            padding-right: 0.4em;
             border-radius: em(3px);
             line-height: em(20px);
+            
+            .checkbox {
+                position: absolute;
+                top: 0.05em;
+                left: -0.1em;
+                background-color: inherit;
+                scale: 0.75;
+                opacity: 0;
+            }
+
             :nth-child(2) {
                 padding-left: em(2px);
                 padding-right: em(4px);
             }
+
+            &:hover {
+                opacity: 0.8;
+                
+                .checkbox {
+                    opacity: 1;
+                }
+                // &::before {
+
+                //     content: url('/img/board-details/checkbox-empty.svg');
+                //     position: absolute;
+                //     scale: 0.7;
+                //     top: 0em;
+                //     left: 0.1em;
+                //     background-color: inherit;
+                // }
+            }
+        }
+    }
+    
+    .right-side-members {
+        img {
+            width: 2em;
         }
     }
 }

@@ -11,7 +11,7 @@
     align-items: center;
     // margin-bottom: em(10px);
 
-
+    height: 2.5em;
     button {
         background-color: inherit;
         color: inherit;
@@ -25,9 +25,12 @@
         transition: 150ms;
         border-radius: 0.4em;
         padding: 0.5em;
-        margin-inline-end: 0.4em;
+        margin-inline-end: 0.5em;
+        margin-inline-start: 0.5em;
         height: 2.3em;
 
+        scale: 0.9;
+        
         &:hover {
             background-color: darken($color: $clr-bg1-light, $amount: 10);
         }
@@ -35,25 +38,45 @@
 
     .group-header-btn {
         font-family: "Roboto-Bold";
-        padding: em(6px) em(8px) em(8px) em(12px);
+        // padding: em(6px) em(8px) em(8px) em(12px);
         width: 16em;
-
+        border: none solid 3px;
+        height:3em;
         text-align: start;
         font-size: em(16px);
+        margin-inline-start: 1.03em;
+
+    }
+
+    form{
+        height:3em;
+        width: 16.5em;
+        margin-left: 0.5em;
+        padding-bottom: 0.55em;
+        margin-inline-end: 0.03em;
+        // margin-bottom: 1em;
     }
 
     input {
+        font-family: "Roboto-Bold";
+        font-size: em(16px);
+        
         border-radius: 0.5em;
+        height: 100%;
+        width: 100%;
         padding: em(6px) em(8px) em(8px) em(12px);
+        // margin-inline-start: 1em;
         margin: 5px;
-        width: 15em;
-        margin-bottom: em(10px);
+        // margin-bottom: em(10px);
 
         border: #ccc solid 3px;
 
         -webkit-transition: 0.5s;
         transition: 0.5s;
         outline: none;
+
+        border: none solid 3px;
+
 
         &:focus {
             border: $clr-blue-border solid 3px;
