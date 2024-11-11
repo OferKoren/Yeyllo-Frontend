@@ -1,11 +1,14 @@
 .app-header {
+    position: relative;
+    z-index: 1;
     display: flex;
     height: 3em;
-
+    padding: 8px 0px;
     background-color: $clr6;
     // padding: rem(10px) 0;
     backdrop-filter: blur(6px);
     // background-color: hsl(5, 4.9%, 30.8%);
+    border-bottom: 1px solid rgba(23, 45, 79, 0.16);
     nav {
         display: flex;
         width: 100%;
@@ -16,7 +19,7 @@
         font-size: 0.875em;
         font-weight: 500;
         // line-height: 2em;
-        border-bottom: 1px solid rgba(23, 45, 79, 0.16);
+
         a {
             &::first-letter {
                 text-transform: capitalize;
@@ -48,7 +51,18 @@
         }
 
         button {
-            margin-inline-end: 0;
+            margin-inline: 1em 0;
+            &.btn1 {
+                &::first-letter {
+                    text-transform: capitalize;
+                }
+                color: white;
+                background-color: $btnClr1;
+                transition: 0.1s;
+                &:hover {
+                    background-color: darken($color: $btnClr1, $amount: 10);
+                }
+            }
         }
     }
 

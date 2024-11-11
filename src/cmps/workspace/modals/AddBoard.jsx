@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { boardService } from '../../../services/board'
 import { MoreBgs } from './MoreBgs'
 import { Modal } from '../../Modal'
-export function AddBoard({ onAddBoard }) {
+export function AddBoard({ onAddBoard, position = null }) {
     const [boardToAdd, setBoardToAdd] = useState(boardService.getEmptyBoard())
     const [boardBg, setBoardBg] = useState({ options: boardService.getBackgroundPallet(), type: 'photos', selected: '' })
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -121,7 +121,7 @@ export function AddBoard({ onAddBoard }) {
                 )}
                 <button disabled={title === '' || !title}>Create</button>
             </form>
-            <Modal title={menu} onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false}>
+            <Modal title={menu} onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false} position={position}>
                 <MoreBgs boardBg={boardBg} onChangeBg={onChangeBg} menu={menu} onSetMenu={onSetMenu} />
             </Modal>
         </section>

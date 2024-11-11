@@ -9,6 +9,12 @@
         &.full {
             grid-column: 1 / -1;
         }
+        &.full-left {
+            grid-column: 1 / span 2;
+        }
+        &.full-right {
+            grid-column: 2 / span 2;
+        }
     }
 
     // @include for-narrow-layout {
@@ -30,7 +36,26 @@
     //         minmax(20px, 1fr);
     // }
 }
-
+.horizontal-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: minmax(1em, 260px) minmax(auto, 1fr) minmax(1em, auto);
+    transition: 0.5s ease;
+    > * {
+        &.full {
+            grid-column: 1 / -1;
+            transition: 0.5s;
+        }
+        &.full-left {
+            grid-column: 1 / span 2;
+            transition: 0.5s;
+        }
+        &.full-right {
+            grid-column: 2 / span 2;
+            transition: 0.5s;
+        }
+    }
+}
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

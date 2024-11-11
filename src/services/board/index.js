@@ -10,7 +10,11 @@ function getEmptyBoard() {
     return {
         title: '',
         isStarred: false,
-        createdBy: {},
+        createdBy: {
+            _id: 'u101',
+            fullname: 'Abi Abambi',
+            imgUrl: 'http://some-img',
+        },
         style: {
             // backgroundSize: '100% 100%',
             backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg)',

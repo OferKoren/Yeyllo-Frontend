@@ -25,7 +25,7 @@ export function RootCmp() {
     const rootRef = useRef()
     const location = useLocation()
     useEffect(() => {
-        console.log(location)
+        // console.log(location)
     }, [location])
     return (
         <div ref={rootRef} className="main-container root">
@@ -34,7 +34,7 @@ export function RootCmp() {
 
             <main className="main-container full">
                 <Routes>
-                    <Route path="" element={<HomePage />} />
+                    <Route path="/home" element={<HomePage />} />
                     {/* <Route path="about" element={<AboutUs />}>
                         <Route path="team" element={<AboutTeam />} />
                         <Route path="vision" element={<AboutVision />} />
@@ -58,7 +58,7 @@ export function RootCmp() {
                     </Route>
                 </Routes>
             </main>
-            {!location.pathname.includes('board') && <AppFooter />}
+            {!location.pathname.includes('home') && <AppFooter />}
         </div>
     )
 }
