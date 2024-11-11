@@ -184,7 +184,7 @@ let board = [
                         title: 'Help me',
                         status: 'inProgress', // monday / both
                         priority: 'high', // monday / both
-                        dueDate: '2024-09-24',
+                        dueDate: '2024-11-11',
                         description: 'description',
                         comments: [
                             // in Trello this is easier implemented as an activity

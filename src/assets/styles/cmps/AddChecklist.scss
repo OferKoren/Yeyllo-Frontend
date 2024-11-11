@@ -1,8 +1,13 @@
 .add-checklist-container {
+    margin-block-start: 1em;
     display: grid;
-    gap: 0.5em;
+    gap: 0.9em;
 
     .btn-add-checklist {
         justify-self: start;
+    }
+
+    & input[type="text"] {
+        margin: 0;
     }
 }
