@@ -42,6 +42,8 @@
         border: 1px solid gray;
         border-radius: 0.2em;
         width: 1em;
+        transform: scale(1.2);
+        transform-origin: center;
     }
 
     .textarea-input {
@@ -119,6 +121,15 @@
 
                 & span {
                     font-size: 0.9rem;
+                }
+
+                .format-date-and-status {
+                    background-color: $clr-btn-1;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5em;
+                    padding: 0.3em 0.8em;
+                    border-radius: 0.2em;
                 }
 
                 .due-date-status {

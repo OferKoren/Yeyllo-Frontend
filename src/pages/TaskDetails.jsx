@@ -9,6 +9,7 @@ import { AddChecklist } from '../cmps/AddChecklist.jsx'
 import { Members } from '../cmps/Members.jsx'
 import { MemberPreview } from '../cmps/MemberPreview'
 import { Cover } from '../cmps/Cover.jsx'
+import dayjs from 'dayjs'
 
 export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
@@ -128,6 +129,10 @@ export function TaskDetails() {
         )
     }
 
+    function formatDate(dateStr) {
+        return dayjs(dateStr).format('MMM D')
+    }
+
     function onSaveTask() {
         console.log('currGroup', currGroupRef.current)
         const updatedTasks = currGroupRef.current.tasks.map(groupTask => groupTask.id === taskId ? task : groupTask)
@@ -225,12 +230,14 @@ export function TaskDetails() {
                                 <h3>Dou date</h3>
                                 <div className="due-date-details">
                                     <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
-                                    <span>{task.dueDate}</span>
-                                    <span
-                                        className={`due-date-status ${task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
-                                            }`}>
-                                        {(task.status === 'done' && 'complete') || statusTask}
-                                    </span>
+                                    <div className="format-date-and-status">
+                                        <span>{formatDate(task.dueDate)}</span>
+                                        <span
+                                            className={`due-date-status ${task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
+                                                }`}>
+                                            {(task.status === 'done' && 'complete') || statusTask}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         )}

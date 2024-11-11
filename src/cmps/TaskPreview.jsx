@@ -18,7 +18,7 @@ export function TaskPreview({ groupId, task }) {
     }
     function onOpenModal() {
         setIsModalOpen(true)
-        navigate(`/board/${boardId}/${groupId}/${task.id}`)
+        navigate(`/board/${boardId}/${groupId}/task/${task.id}`)
     }
     return (
         <>
