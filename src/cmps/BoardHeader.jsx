@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { updateBoard } from '../store/actions/board.actions.js'
+
+const starEmpty = '/img/workspace/star-empty-small.svg'
+const starEmptyGold = '/img/workspace/star-empty-gold.svg'
+const starFullGold = '/img/workspace/star-full-gold.svg'
 export function BoardHeader({ board, onUpdateBoard }) {
     const [isEditing, setIsEditing] = useState(false)
     const [text, setText] = useState() // Initial text for the header
@@ -44,6 +47,13 @@ export function BoardHeader({ board, onUpdateBoard }) {
         }
     }
 
+    function onStarBoard(ev) {
+        ev.stopPropagation()
+        const boardToUpdate = { ...board }
+        boardToUpdate.isStarred = !boardToUpdate.isStarred
+        onUpdateBoard(boardToUpdate)
+        console.log('click on star')
+    }
     useEffect(() => {
         updateTextWidht(text)
     }, [isEditing, text])
@@ -80,6 +90,11 @@ export function BoardHeader({ board, onUpdateBoard }) {
                 )}
             </div>
             <span ref={spanRef} className="text-measurer" />
+
+            <button className="star-btn2 btn2" onClick={(ev) => onStarBoard(ev, board)}>
+                <img className={board.isStarred ? 'active' : 'empty'} src={board.isStarred ? starFullGold : starEmpty} alt="" />
+            </button>
+
             <div>
                 {board.members.map((member) => (
                     <img className="member-img" key={member._id} src={member.imgUrl} alt="" />

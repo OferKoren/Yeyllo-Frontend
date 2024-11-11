@@ -66,10 +66,7 @@ export function BoardIndex() {
     if (!boards) return <div>loading...</div>
     return (
         <main className="board-index">
-            <header>
-                <h2>Boards</h2>
-                {/* {userService.getLoggedinUser() && <button onClick={onAddBoard}>Add a Board</button>} */}
-            </header>
+            <header>{/* <h2>Boards</h2> */}</header>
             <hr />
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
             <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} onUpdateBoard={onUpdateBoard} />

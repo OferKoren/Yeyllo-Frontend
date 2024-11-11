@@ -32,14 +32,6 @@ export function BoardDetails({ rootRef }) {
     if (!board) return <div>Loading...</div>
     return (
         <article className="board-details full" /* style={board.style} */>
-            {/* <header className="board-header flex">
-                <div>{board.title}</div>
-                <div>
-                    {board.members.map((member) => (
-                        <img className="member-img" key={member._id} src={member.imgUrl} alt="" />
-                    ))}
-                </div>
-            </header> */}
             <BoardHeader board={board} onUpdateBoard={onUpdateBoard} />
             <section className="board-details">
                 <GroupList onUpdateBoard={onUpdateBoard} board={board} />
