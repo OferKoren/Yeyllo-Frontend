@@ -149,8 +149,15 @@ export function TaskDetails() {
         )
     }
 
-    function formatDate(dateStr) {
-        return dayjs(dateStr).format('MMM D')
+    function formatDate(dueDate, dueTime) {
+        if (dueTime) {
+            const dateTimeStr = `${dueDate} ${dueTime}`
+            return dayjs(dateTimeStr).format('MMM D, hh:mm A')
+        } else {
+            return dayjs(dueDate).format('MMM D, hh:mm A')
+        }
+
+
     }
 
     function onRemoveTask() {
@@ -260,7 +267,7 @@ export function TaskDetails() {
                                 <div className="due-date-details">
                                     <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
                                     <div className="format-date-and-status">
-                                        <span>{formatDate(task.dueDate)}</span>
+                                        <span>{formatDate(task.dueDate, task.dueTime)}</span>
                                         <span
                                             className={`due-date-status ${task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
                                                 }`}>
