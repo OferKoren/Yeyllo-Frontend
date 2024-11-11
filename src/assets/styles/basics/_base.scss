@@ -80,6 +80,10 @@ p {
         height: 2em;
         line-height: 2;
     }
+
+    .delete-task-modal-container & {
+        font-size: 0.9rem;
+    }
 }
 
 a {
@@ -129,6 +133,10 @@ button {
     &-clear {
         @include btn($type: 'clear');
     }
+
+    &-delete {
+        @include btn($type: 'delete');
+    }
 }
 
 span.overdue {
@@ -159,6 +167,10 @@ hr {
         margin: 0;
         justify-self: center;
         align-self: flex-end;
+    }
+
+    .task-options & {
+        margin: 0;
     }
 }
 

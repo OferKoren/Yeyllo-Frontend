@@ -20,7 +20,7 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
         <div className="modal-option">
             <div className="option-modal-header">
                 <h2>Dates</h2>
-                <i className="btn fa-solid fa-xmark" onClick={handleCloseModal}></i>
+                <i className="btn fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>
             </div>
 
             <DatePicker

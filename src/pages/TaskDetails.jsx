@@ -9,6 +9,7 @@ import { AddChecklist } from '../cmps/AddChecklist.jsx'
 import { Members } from '../cmps/Members.jsx'
 import { MemberPreview } from '../cmps/MemberPreview'
 import { Cover } from '../cmps/Cover.jsx'
+import { DeleteTaskModal } from '../cmps/DeleteTaskModal.jsx'
 import dayjs from 'dayjs'
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -160,10 +161,19 @@ export function TaskDetails() {
         return dayjs(dateStr).format('MMM D')
     }
 
+    function onRemoveTask() {
+        const updatedTasks = currGroupRef.current.tasks.filter(groupTask => groupTask.id !== taskId)
+        saveBoard(updatedTasks)
+    }
+
     function onSaveTask() {
         console.log('currGroup', currGroupRef.current)
         const updatedTasks = currGroupRef.current.tasks.map(groupTask => groupTask.id === taskId ? task : groupTask)
-        const updatedGroup = { ...currGroupRef.current, tasks: updatedTasks }
+        saveBoard(updatedTasks)
+    }
+
+    function saveBoard(tasksToSave) {
+        const updatedGroup = { ...currGroupRef.current, tasks: tasksToSave }
         const updatedGroups = boardToEdit.groups.map(group => group.id === groupId ? updatedGroup : group)
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
         console.log('boardToSave', boardToSave)
@@ -346,6 +356,30 @@ export function TaskDetails() {
                             Cover
                         </button>
                         {openModal === "cover" && <Cover setTask={setTask} handleCloseModal={handleCloseModal} />}
+                    </div>
+
+                    <hr />
+
+                    <div>
+                        <button className={`btn btn-option btn-light`}
+                            onClick={() => handleToggleModal('archive')}>
+                            <img src={`/img/icons/icon-${openModal === "archive" || openModal === "deleteTask" ? 'back-to-board' : 'archive'}.svg`} />
+                            {openModal === "archive" || openModal === "deleteTask" ? 'Send to board' : 'Archive'}
+                        </button>
+                    </div>
+
+                    <div className="archive-actions">
+                        {(openModal === "archive" || openModal === "deleteTask") &&
+                            <>
+                                <div>
+                                    <button className={`btn btn-option btn-delete`} onClick={() => handleOpenModal('deleteTask')}>
+                                        <img src="/img/icons/icon-minus.svg" />
+                                        Delete
+                                    </button>
+                                </div>
+                            </>
+                        }
+                        {openModal === "deleteTask" && <DeleteTaskModal handleCloseModal={handleCloseModal} handleOpenModal={handleOpenModal} />}
                     </div>
                 </div>
             </section>
