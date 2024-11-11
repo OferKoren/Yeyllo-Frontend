@@ -40,7 +40,7 @@ export function TaskPreview({ board, isLabelsClicked, setIsLabelsClicked, groupI
 
     const { boardId } = useParams()
     const labels = useSelector(storeState => storeState.boardModule.labels)
-    console.log(labels);
+    // console.log(labels);
 
     // function openTaskDetails() {
     //     setIsOpenTaskDetails(true)
@@ -76,10 +76,11 @@ export function TaskPreview({ board, isLabelsClicked, setIsLabelsClicked, groupI
         const today = new Date
         const currDate = date.getDate()
 
-        console.log(date, date + 2);
+        // console.log(date, date + 2);
 
 
-        if ((today === date && (today.getDate() === currDate && date.xmas95.getHours() <= today.xmas95.getHours()) || today.getDate() - 1 === currDate)) return { backgroundColor: '#c9372c', color: 'white' }
+        if ((today.getDate() === date.getDate() || today.getDate() - 1 === date.getDate() && today.getMonth() === date.getMonth())) return { backgroundColor: '#c9372c', color: 'white' }
+        // if ((today === date && (today.getDate() === currDate && date.xmas95.getHours() <= today.xmas95.getHours()) || today.getDate() - 1 === currDate)) return { backgroundColor: '#c9372c', color: 'white' }
         if (date >= today && date <= today.setTime(today.getTime() + 24 * 60 * 60 * 1000)) return { backgroundColor: '#f5cd47', color: '#172b4d' }
         if (date < today) return { backgroundColor: '#ffd5d2', color: '#ae2e24' }
 
@@ -122,7 +123,7 @@ export function TaskPreview({ board, isLabelsClicked, setIsLabelsClicked, groupI
                     </section>
                     : ''}
                 {task.title}
-                <div className="icons-list" style={{ display: 'flex', flexDirection: getCountIcons() < 6 ? 'row' : 'column', gap: '0.4em' }}>
+                <div className="icons-list" style={{ paddingBottom: '0.4em', display: 'flex', flexDirection: getCountIcons() <= 6 ? 'row' : 'column', gap: '0.6em' }}>
                     <section className="left-side-btns flex align-center" style={{ marginTop: '0.5em', gap: '0.6em' }}>
                         {task.dueDate ?
 
@@ -136,10 +137,10 @@ export function TaskPreview({ board, isLabelsClicked, setIsLabelsClicked, groupI
                         {task.comments ? <div className="flex align-center"><img title='comments' src="\img\board-details\chat-icon.svg" alt="comments" /> {<span style={{ marginInlineStart: "0.3em", fontSize: "0.9em" }}>{task.comments.length}</span>} </div> : ''}
                         {task.checklists ? <div className="flex align-center"><img src="\img\board-details\checkbox-icon.svg" alt="checkbox" /><span style={{ marginInlineStart: "0.3em", fontSize: "0.9em" }}>{`${getDoneTodosCount(task)}/${getTodosCount(task)}`}</span></div> : ''}
                     </section>
-                    <section className="right-side-members flex align-center" style={{ marginTop: '0.5em', gap: '0.6em', alignContent: 'right', justifyContent: 'right', paddingBottom:'0.2em' }}>
+                    <section className="right-side-members flex align-center" style={{ marginTop: '0.5em', gap: '0.6em', alignContent: 'right', justifyContent: 'right', paddingBottom: '0.2em', paddingLeft: '0.4em' }}>
                         {task.memberIds?.map(memberId => {
-                            const currMember = board.members.find(members => members._id === memberId)
-                            return <img key={currMember._id} src={currMember.imgUrl} alt="" />
+                            const currMember = board?.members?.find(member => member._id === memberId)                            
+                            return <img  key={currMember?._id} src={currMember?.imgUrl} alt="" />
                         }
                         )}
                     </section>
