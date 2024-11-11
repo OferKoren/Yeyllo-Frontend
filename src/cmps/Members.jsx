@@ -1,19 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
-export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemoveMember }) {
+export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemoveMember, setIsEditMembersPlusBtn }) {
 
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
 
     function onAddMember(memberId) {
-        setTask(prevTask => ({ ...prevTask, memberIds: [...prevTask.memberIds, memberId] }))
+
+        setTask(prevTask => ({ ...prevTask, memberIds: (!prevTask.memberIds) ? [memberId] : [...prevTask.memberIds, memberId] }))
     }
 
     return (
         <div className="modal-option task-members">
             <div className="task-members-header option-modal-header">
                 <h2>Members</h2>
-                <i className="btn fa-solid fa-xmark left-side" onClick={() => setIsEditMembers(prev => !prev)}></i>
+                <i className="btn fa-solid fa-xmark left-side" onClick={() => { setIsEditMembers(false); setIsEditMembersPlusBtn(false) }}></i>
             </div>
 
             <div className="members">
@@ -39,9 +40,9 @@ export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemov
                 }
 
                 {
-                    task.memberIds && task.memberIds.length !== gMembers.length &&
+                    // task.memberIds && task.memberIds.length !== gMembers.length &&
                     <div className="board-member-list">
-                        <h3>Board members</h3>
+                        {task.memberIds && task.memberIds.length !== gMembers.length && <h3>Board members</h3>}
                         <ul className="member-list">
                             {boardMembers && boardMembers.map(member => {
                                 if (task.memberIds && task.memberIds.length !== 0 && task.memberIds.includes(member._id)) return

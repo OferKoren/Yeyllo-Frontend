@@ -3,7 +3,7 @@ import { TaskPreview } from "./TaskPreview";
 import { makeId } from "../services/util.service";
 import ClickOutside from "./ClickOutside";
 
-export function TaskList({ taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
+export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
 
     const { groups } = board
@@ -64,7 +64,7 @@ export function TaskList({ taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTa
                 <>
                     <section className="task-list">
                         {tasks.map(task =>
-                            <TaskPreview key={task.id} groupId={groupId} task={task} />
+                            <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
                         )}
                     </section>
                     <section>

@@ -45,6 +45,13 @@ h3 {
     .task-details & {
         font-size: 0.8rem;
     }
+
+    .add-checklist-container &,
+    .cover-colors & {
+        margin-block-end: 0.1em;
+        font-family: 'roboto-medium';
+        padding-inline-start: 0.1em;
+    }
 }
 
 h2 {
@@ -125,8 +132,8 @@ button {
 }
 
 span.overdue {
-    background-color: $clr-overdue;
-    color: $clr6;
+    background-color: $clr-overdue-2;
+    color: $clr8;
 }
 
 span.complete {
@@ -154,6 +161,7 @@ hr {
         align-self: flex-end;
     }
 }
+
 .input {
     box-shadow: inset 0 0 0 1px #091e4224;
     @include input();

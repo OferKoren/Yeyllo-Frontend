@@ -56,9 +56,9 @@ export function LabelEdit({ setIsEditLabels, labelToEdit, setLabelToEdit, setBoa
                         onChange={handleChangeLabelTitle}
                     />
                 </div>
+
                 <div>
                     <h3>Select a color</h3>
-
                     <div className="color-palette">
                         {colorPalette.map(color =>
                             <div className={color === labelToEdit.color ? 'outlined' : ''} key={color} style={{ backgroundColor: color }}
@@ -66,6 +66,7 @@ export function LabelEdit({ setIsEditLabels, labelToEdit, setLabelToEdit, setBoa
                         )}
                     </div>
                 </div>
+
                 <button className="btn btn-remove-label-color btn-clear" onClick={() => setLabelToEdit(prevLabel => ({ ...prevLabel, color: '#E7E9EB' }))}>
                     <i className="btn fa-solid fa-xmark"></i>Remove color
                 </button>

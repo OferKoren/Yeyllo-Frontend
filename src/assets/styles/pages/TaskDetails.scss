@@ -1,14 +1,21 @@
 .task-details {
     position: relative;
-    width: 60em;
+    width: 53em;
     background-color: $clr-bg3-light;
-    border-radius: 0.5em;
+    border-radius: 11px;
     margin-block-start: 1em;
+    padding-block-end: 2em;
 
     .btn-save-task {
         position: absolute;
         right: 5px;
         padding-block-start: 0.5em;
+    }
+
+    .cover {
+        height: 8em;
+        border-top-left-radius: 11px;
+        border-top-right-radius: 11px;
     }
 
     .task-header {
@@ -35,6 +42,8 @@
         border: 1px solid gray;
         border-radius: 0.2em;
         width: 1em;
+        transform: scale(1.2);
+        transform-origin: center;
     }
 
     .textarea-input {
@@ -55,6 +64,7 @@
     }
 
     textarea.task-title {
+        width: 90%;
         font-size: 1.2rem;
         font-family: 'roboto-medium';
         background-color: $clr-bg3-light;
@@ -76,13 +86,14 @@
 
     .task-metadata {
         display: flex;
-        gap: 1.5em;
+        flex-wrap: wrap;
+        column-gap: 1.5em;
         padding-inline-start: 2.3em;
 
         .labels-area {
             display: flex;
             flex-direction: column;
-
+            margin-block-end: 1.3em;
 
             .label-list {
                 display: flex;
@@ -96,13 +107,12 @@
                     margin: 0;
                 }
             }
-
-            margin-block-end: 1.3em;
         }
 
         .due-date-area {
             display: flex;
             flex-direction: column;
+            margin-block-end: 1.3em;
 
             .due-date-details {
                 display: flex;
@@ -111,6 +121,15 @@
 
                 & span {
                     font-size: 0.9rem;
+                }
+
+                .format-date-and-status {
+                    background-color: $clr-btn-1;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5em;
+                    padding: 0.1em 0.8em;
+                    border-radius: 0.2em;
                 }
 
                 .due-date-status {
@@ -125,6 +144,7 @@
         .members-area {
             display: flex;
             flex-direction: column;
+            margin-block-end: 1.3em;
 
             & .member-area-photo {
                 width: 2em;
@@ -148,6 +168,33 @@
         }
     }
 
+    .add-task-action {
+        width: 2em;
+        height: 2em;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        background-color: $clr-btn-1;
+
+        &.circle {
+            border-radius: 50%;
+            padding: 0.5em;
+        }
+
+        &.square {
+            border-radius: 0.2em;
+            padding: 0.5em;
+        }
+
+        &.chevron {
+            font-size: 0.8rem;
+            padding: 0;
+        }
+    }
+
     .description-area {
         display: grid;
         grid-template-columns: max-content 1fr;
@@ -156,7 +203,8 @@
         grid-template-areas:
             "icon title"
             "icon input";
-        margin-block-end: 1em;
+        margin-block-end: 2em;
+        margin-block-start: 1.3em;
 
         .icon-description {
             grid-area: icon;
@@ -164,6 +212,7 @@
 
         .description-title {
             grid-area: title;
+            margin-block-start: -0.15em;
         }
 
         .task-description {
@@ -173,7 +222,7 @@
 
     .list-of-checklists {
         display: grid;
-        gap: 1em;
+        gap: 2.5em;
     }
 
     & .task-options {
@@ -195,6 +244,10 @@
                 height: 1.2em;
             }
         }
+
+        // .btn-date-picker {
+        //     position: static;
+        // }
 
         .btn-option.active {
             background-color: #2C3E5D;
