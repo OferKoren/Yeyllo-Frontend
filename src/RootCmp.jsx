@@ -39,7 +39,7 @@ export function RootCmp() {
                     <Route path="workspace" element={<Workspace />} />
 
                     <Route path="board/:boardId" element={<BoardDetails rootRef={rootRef} />}>
-                        <Route path=":groupId/:taskId" element={<TaskDetails />} />
+                        <Route path=":groupId/task/:taskId" element={<TaskDetails />} />
                     </Route>
 
                     <Route path="task" element={<TaskDetails />} />

@@ -1,42 +1,44 @@
-import { Link, useParams } from 'react-router-dom'
-
+import { Link, useParams, useOutletContext } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { loadBoard } from '../store/actions/board.actions'
-import { boardService } from '../services/board'
+import { loadBoard, updateBoard } from '../store/actions/board.actions'
 import { Labels } from '../cmps/Labels.jsx'
 import { Dates } from '../cmps/Dates.jsx'
-import { makeId } from '../services/util.service.js'
 import { Checklist } from '../cmps/Checklist.jsx'
 import { AddChecklist } from '../cmps/AddChecklist.jsx'
 import { Members } from '../cmps/Members.jsx'
 import { MemberPreview } from '../cmps/MemberPreview'
-import { taskService } from '../services/task/task.service.js'
+import { Cover } from '../cmps/Cover.jsx'
+import dayjs from 'dayjs'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
 
-export function TaskDetails({ currTask }) {
-    // const boards = useSelector((storeState) => storeState.boardModule.boards)
+export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
 
     const [boardToEdit, setBoardToEdit] = useState(null)
     const [isEditLabels, setIsEditLabels] = useState(false)
+    const [isEditLabelsPlusBtn, setIsEditLabelsPlusBtn] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
+    const [isEditDatesChevronBtn, setIsEditDatesChevronBtn] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
     const [isEditMembers, setIsEditMembers] = useState(false)
+    const [isEditMembersPlusBtn, setIsEditMembersPlusBtn] = useState(false)
     const [isShowMemberPreview, setIsShowMemberPreview] = useState(false)
+    const [isEditCover, setIsEditCover] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
+
+    const { onCloseModal } = useOutletContext()
+    const currGroupRef = useRef(null)
 
     const { boardId } = useParams()
     const { groupId } = useParams()
     const { taskId } = useParams()
 
-    // const labels = taskService.getLabels()
-    const titleAreaRef = useRef(null)
-
     useEffect(() => {
-        loadBoard(boardId)
         loadBoard(boardId)
         console.log('boardToEdit', boardToEdit)
         console.log('hi2')
@@ -44,16 +46,22 @@ export function TaskDetails({ currTask }) {
 
     useEffect(() => {
         setBoardToEdit(board)
-        const currGroup = board?.groups.find((group) => group.id === groupId)
-        const currTask = currGroup?.tasks.find((task) => task.id === taskId)
+        const foundGroup = board?.groups.find((group) => group.id === groupId)
+        currGroupRef.current = foundGroup
+        const currTask = foundGroup?.tasks.find((task) => task.id === taskId)
         if (currTask) {
             setTask(currTask)
         }
 
-        // if (board?.groups?.[1]?.tasks?.[1]) {
-        //     setTask(board?.groups[1].tasks[1])
-        // }
     }, [board])
+
+    // useEffect(() => {
+    //     if (isEditDates) {
+    //         document.body.style.overflow = 'hidden';
+    //     } else {
+    //         document.body.style.overflow = 'auto';
+    //     }
+    // }, [isEditDates])
 
     useEffect(() => {
         if (task.dueDate) {
@@ -80,6 +88,7 @@ export function TaskDetails({ currTask }) {
 
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
+
         switch (type) {
             case 'number':
             case 'range':
@@ -105,11 +114,61 @@ export function TaskDetails({ currTask }) {
         setTask((prevTask) => ({ ...prevTask, memberIds: prevTask.memberIds.filter((mId) => mId !== memberId) }))
     }
 
-    function onSaveTask() {
-        setBoardToEdit((prevBoard) => ({ ...prevBoard }))
+    function renderMembersModal() {
+        return (
+            <Members
+                task={task}
+                setTask={setTask}
+                setIsEditMembers={setIsEditMembers}
+                boardMembers={boardToEdit.members}
+                onRemoveMember={onRemoveMember}
+                setIsEditMembersPlusBtn={setIsEditMembersPlusBtn}
+            />
+        )
     }
 
-    // if (!boards.length) return <div>Loading...</div>
+    function renderLabelsModal() {
+        return (
+            <Labels
+                setTask={setTask}
+                handleChange={handleInfoChange}
+                setIsEditLabels={setIsEditLabels}
+                boardToEdit={boardToEdit}
+                setBoardToEdit={setBoardToEdit}
+                setIsEditLabelsPlusBtn={setIsEditLabelsPlusBtn}
+                task={task}
+            />
+        )
+    }
+
+    function renderDatesModal() {
+        return (
+            <Dates
+                task={task}
+                setTask={setTask}
+                handleChange={handleInfoChange}
+                setIsEditDates={setIsEditDates}
+                setIsEditDatesChevronBtn={setIsEditDatesChevronBtn}
+                isEditDates={isEditDates} />
+        )
+    }
+
+    function formatDate(dateStr) {
+        return dayjs(dateStr).format('MMM D')
+    }
+
+    function onSaveTask() {
+        console.log('currGroup', currGroupRef.current)
+        const updatedTasks = currGroupRef.current.tasks.map(groupTask => groupTask.id === taskId ? task : groupTask)
+        const updatedGroup = { ...currGroupRef.current, tasks: updatedTasks }
+        const updatedGroups = boardToEdit.groups.map(group => group.id === groupId ? updatedGroup : group)
+        const boardToSave = { ...boardToEdit, groups: updatedGroups }
+        console.log('boardToSave', boardToSave)
+        updateBoard(boardToSave)
+
+        onCloseModal()
+    }
+
     if (!boardToEdit) return <div>Loading...</div>
 
     return (
@@ -117,12 +176,12 @@ export function TaskDetails({ currTask }) {
             <div className="btn-save-task" onClick={onSaveTask}>
                 <i className="btn fa-solid fa-xmark"></i>
             </div>
-            <div className="cover">{task.imgUrl && <img src={task.imgUrl} />}</div>
+
+            {task.style?.backgroundColor && <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}></div>}
 
             <div className="task-header">
                 <img src="/img/icons/icon-task-title.svg" />
                 <textarea
-                    ref={titleAreaRef}
                     className="textarea-input task-title"
                     type="text"
                     name="title"
@@ -147,8 +206,8 @@ export function TaskDetails({ currTask }) {
                                                 className="member"
                                                 title={memberDetails.fullname}
                                                 onClick={() => setIsShowMemberPreview((prev) => !prev)}
-                                                key={memberId}
-                                            >
+                                                key={memberId}>
+
                                                 <img className="member-area-photo" src={memberDetails.imgUrl} />
 
                                                 {isShowMemberPreview && (
@@ -158,9 +217,14 @@ export function TaskDetails({ currTask }) {
                                                         onRemoveMember={onRemoveMember}
                                                     />
                                                 )}
+
+                                                {isEditMembersPlusBtn && renderMembersModal()}
                                             </li>
                                         )
                                     })}
+                                    <div className="add-task-action circle" onClick={() => setIsEditMembersPlusBtn(prev => !prev)}>
+                                        <i className="fa-solid fa-plus"></i>
+                                    </div>
                                 </ul>
                             </div>
                         )}
@@ -177,6 +241,10 @@ export function TaskDetails({ currTask }) {
                                             </li>
                                         )
                                     })}
+                                    {isEditLabelsPlusBtn && renderLabelsModal()}
+                                    <div className="add-task-action square" onClick={() => setIsEditLabelsPlusBtn(prev => !prev)}>
+                                        <i className="fa-solid fa-plus"></i>
+                                    </div>
                                 </ul>
                             </div>
                         )}
@@ -186,14 +254,19 @@ export function TaskDetails({ currTask }) {
                                 <h3>Dou date</h3>
                                 <div className="due-date-details">
                                     <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
-                                    <span>{task.dueDate}</span>
-                                    <span
-                                        className={`due-date-status ${
-                                            task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
-                                        }`}
-                                    >
-                                        {(task.status === 'done' && 'complete') || statusTask}
-                                    </span>
+                                    <div className="format-date-and-status">
+                                        <span>{formatDate(task.dueDate)}</span>
+                                        <span
+                                            className={`due-date-status ${task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
+                                                }`}>
+                                            {(task.status === 'done' && 'complete') || statusTask}
+                                        </span>
+                                        {isEditDatesChevronBtn && renderDatesModal()}
+
+                                        <div className="add-task-action chevron" onClick={() => setIsEditDatesChevronBtn(prev => !prev)}>
+                                            <i className="fa-solid fa-chevron-down"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -233,39 +306,22 @@ export function TaskDetails({ currTask }) {
                             <img src="/img/icons/icon-members.svg" />
                             Members
                         </button>
-                        {isEditMembers && (
-                            <Members
-                                task={task}
-                                setTask={setTask}
-                                setIsEditMembers={setIsEditMembers}
-                                boardMembers={boardToEdit.members}
-                                onRemoveMember={onRemoveMember}
-                            />
-                        )}
+                        {isEditMembers && renderMembersModal()}
                     </div>
+
                     <div>
                         <button className={`btn btn-option btn-light ${isEditLabels && 'active'}`} onClick={() => setIsEditLabels((prev) => !prev)}>
                             {' '}
                             <img src="/img/icons/icon-labels.svg" />
                             Labels
                         </button>
-                        {isEditLabels && (
-                            <Labels
-                                setTask={setTask}
-                                handleChange={handleInfoChange}
-                                setIsEditLabels={setIsEditLabels}
-                                boardToEdit={boardToEdit}
-                                setBoardToEdit={setBoardToEdit}
-                                task={task}
-                            />
-                        )}
+                        {isEditLabels && renderLabelsModal()}
                     </div>
 
                     <div>
                         <button
                             className={`btn btn-option btn-light ${isAddChecklist && 'active'}`}
-                            onClick={() => setIsAddChecklist((prev) => !prev)}
-                        >
+                            onClick={() => setIsAddChecklist((prev) => !prev)}>
                             <img src="/img/icons/icon-checklist.svg" />
                             Checklist
                         </button>
@@ -273,18 +329,20 @@ export function TaskDetails({ currTask }) {
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditDates && 'active'}`} onClick={() => setIsEditDates((prev) => !prev)}>
+                        <button className={`btn btn-option btn-light btn-date-picker ${isEditDates && 'active'}`} onClick={() => setIsEditDates((prev) => !prev)}>
                             <img src="/img/icons/icon-dates.svg" />
                             Dates
                         </button>
-                        {isEditDates && <Dates task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditDates={setIsEditDates} />}
+                        {isEditDates && renderDatesModal()}
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditDates && 'active'}`}>
+                        <button className={`btn btn-option btn-light ${isEditDates && 'active'}`}
+                            onClick={() => setIsEditCover(prev => !prev)}>
                             <img src="/img/icons/icon-cover.svg" />
                             Cover
                         </button>
+                        {isEditCover && <Cover setTask={setTask} setIsEditCover={setIsEditCover} />}
                     </div>
                 </div>
             </section>

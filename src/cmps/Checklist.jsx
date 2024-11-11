@@ -9,7 +9,7 @@ export function Checklist({ todos, task, checklist, setTask }) {
     const [newTodoValue, setNewTodoValue] = useState('')
 
 
-    function onUpdateTodo(todoId, task, checklistId, action) {
+    function onUpdateTodo(todoId, task, checklistId, action, newTodoValue) {
         const updatedChecklists = task.checklists.map(checklist => {
             if (checklist.id === checklistId) {
                 let updatedTodos = []
@@ -19,6 +19,14 @@ export function Checklist({ todos, task, checklist, setTask }) {
                 }
                 if (action === 'removeTodo') {
                     updatedTodos = checklist.todos.filter(todo => todo.id !== todoId)
+                }
+                if (action === 'addTodo') {
+                    const newTodo = {
+                        id: makeId(),
+                        title: newTodoValue,
+                        isDone: false
+                    }
+                    updatedTodos = [...checklist.todos, newTodo]
                 }
                 const doneTodosPercent = getDoneTodosPercent(checklistId, updatedTodos)
                 return { ...checklist, todos: updatedTodos, doneTodosPercent }
@@ -41,23 +49,6 @@ export function Checklist({ todos, task, checklist, setTask }) {
 
     function handleNewTodoChange({ target }) {
         setNewTodoValue(target.value)
-    }
-
-    function onAddTodo(checklistId, newTodoValue) {
-        const newTodo = {
-            id: makeId(),
-            title: newTodoValue,
-            isDone: false
-        }
-
-        const updatedChecklists = task.checklists.map(checklist => {
-            if (checklist.id === checklistId) {
-                return { ...checklist, todos: [newTodo, ...checklist.todos] }
-            }
-            return checklist
-        })
-        const updatedTask = { ...task, checklists: updatedChecklists }
-        setTask(updatedTask)
     }
 
     function onRemoveChecklist(checklistId) {
@@ -86,7 +77,6 @@ export function Checklist({ todos, task, checklist, setTask }) {
                 </div>
             </div>
 
-
             {todos && todos.map((item, i) =>
                 item &&
                 <div className="todo-item" key={item.id}>
@@ -114,7 +104,7 @@ export function Checklist({ todos, task, checklist, setTask }) {
                     />
                     <div className="add-todo-actions">
                         <button className="btn btn-add-todo btn-dark"
-                            onClick={() => { onAddTodo(checklistId, newTodoValue); setIsAddingTodo(false); setNewTodoValue('') }}>
+                            onClick={() => { onUpdateTodo(undefined, task, checklistId, 'addTodo', newTodoValue); setIsAddingTodo(false); setNewTodoValue('') }}>
                             Add
                         </button>
                         <button className="btn btn-clear" onClick={() => { setIsAddingTodo(false); setNewTodoValue('') }}>Cancel</button>

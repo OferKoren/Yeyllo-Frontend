@@ -9,14 +9,14 @@ export function AddChecklist({ setTask, setIsAddChecklist }) {
     }
     function addChecklist() {
         const newChecklistToSave = { ...newChecklist, id: makeId() }
-        setTask(prevTask => ({ ...prevTask, checklists: [...prevTask.checklists, newChecklistToSave] }))
+        setTask(prevTask => ({ ...prevTask, checklists: (!prevTask.checklists) ? [newChecklistToSave] : [...prevTask.checklists, newChecklistToSave] }))
     }
 
     return (
         <div className="modal-option modal-adding-checklist">
             <div className="option-modal-header">
                 <h2>Add checklist</h2>
-                <i className="btn fa-solid fa-xmark" onClick={() => setIsAddChecklist(false)}></i>
+                <i className="btn fa-solid fa-xmark left-side" onClick={() => setIsAddChecklist(false)}></i>
             </div>
 
             <div className="add-checklist-container">

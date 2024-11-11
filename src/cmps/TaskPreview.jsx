@@ -51,7 +51,7 @@ export function TaskPreview({ board, isLabelsClicked, setIsLabelsClicked, groupI
     }
     function onOpenModal() {
         setIsModalOpen(true)
-        navigate(`/board/${boardId}/${groupId}/${task.id}`)
+        navigate(`/board/${boardId}/${groupId}/task/${task.id}`)
     }
 
     function formatDate(date) {
@@ -148,7 +148,7 @@ export function TaskPreview({ board, isLabelsClicked, setIsLabelsClicked, groupI
 
             </article>
             <ModalTaskDetails onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true}>
-                <Outlet />
+                <Outlet context={{ onCloseModal }} />
                 {/* <TaskDetails groupId={groupId} setIsOpenTaskDetails={setIsOpenTaskDetails} currTask={task} /> */}
             </ModalTaskDetails>
             {/* <Modal>
