@@ -136,7 +136,7 @@ export function TaskPreview({ board, isLabelsClicked, setIsLabelsClicked, groupI
                         {task.comments ? <div className="flex align-center"><img title='comments' src="\img\board-details\chat-icon.svg" alt="comments" /> {<span style={{ marginInlineStart: "0.3em", fontSize: "0.9em" }}>{task.comments.length}</span>} </div> : ''}
                         {task.checklists ? <div className="flex align-center"><img src="\img\board-details\checkbox-icon.svg" alt="checkbox" /><span style={{ marginInlineStart: "0.3em", fontSize: "0.9em" }}>{`${getDoneTodosCount(task)}/${getTodosCount(task)}`}</span></div> : ''}
                     </section>
-                    <section className="right-side-members flex align-center" style={{ marginTop: '0.5em', gap: '0.6em', alignContent: 'right', justifyContent: 'right', paddingTop:'0.2em', paddingRight:'0.2em' }}>
+                    <section className="right-side-members flex align-center" style={{ marginTop: '0.5em', gap: '0.6em', alignContent: 'right', justifyContent: 'right', paddingBottom:'0.2em' }}>
                         {task.memberIds?.map(memberId => {
                             const currMember = board.members.find(members => members._id === memberId)
                             return <img key={currMember._id} src={currMember.imgUrl} alt="" />
