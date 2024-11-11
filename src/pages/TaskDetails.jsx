@@ -1,7 +1,7 @@
 import { Link, useParams, useOutletContext } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { loadBoard } from '../store/actions/board.actions'
+import { loadBoard, updateBoard } from '../store/actions/board.actions'
 import { Labels } from '../cmps/Labels.jsx'
 import { Dates } from '../cmps/Dates.jsx'
 import { Checklist } from '../cmps/Checklist.jsx'
@@ -28,15 +28,13 @@ export function TaskDetails() {
     const [task, setTask] = useState({})
 
     const { onCloseModal } = useOutletContext()
+    const currGroupRef = useRef(null)
 
     const { boardId } = useParams()
     const { groupId } = useParams()
     const { taskId } = useParams()
 
-    const titleAreaRef = useRef(null)
-
     useEffect(() => {
-        loadBoard(boardId)
         loadBoard(boardId)
         console.log('boardToEdit', boardToEdit)
         console.log('hi2')
@@ -44,8 +42,9 @@ export function TaskDetails() {
 
     useEffect(() => {
         setBoardToEdit(board)
-        const currGroup = board?.groups.find((group) => group.id === groupId)
-        const currTask = currGroup?.tasks.find((task) => task.id === taskId)
+        const foundGroup = board?.groups.find((group) => group.id === groupId)
+        currGroupRef.current = foundGroup
+        const currTask = foundGroup?.tasks.find((task) => task.id === taskId)
         if (currTask) {
             setTask(currTask)
         }
@@ -130,6 +129,14 @@ export function TaskDetails() {
     }
 
     function onSaveTask() {
+        console.log('currGroup', currGroupRef.current)
+        const updatedTasks = currGroupRef.current.tasks.map(groupTask => groupTask.id === taskId ? task : groupTask)
+        const updatedGroup = { ...currGroupRef.current, tasks: updatedTasks }
+        const updatedGroups = boardToEdit.groups.map(group => group.id === groupId ? updatedGroup : group)
+        const boardToSave = { ...boardToEdit, groups: updatedGroups }
+        console.log('boardToSave', boardToSave)
+        updateBoard(boardToSave)
+
         onCloseModal()
     }
 
@@ -146,7 +153,6 @@ export function TaskDetails() {
             <div className="task-header">
                 <img src="/img/icons/icon-task-title.svg" />
                 <textarea
-                    ref={titleAreaRef}
                     className="textarea-input task-title"
                     type="text"
                     name="title"
