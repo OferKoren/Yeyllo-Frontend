@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
-export function Dates({ task, setIsEditDates, setTask, isEditDates, setIsEditDatesChevronBtn }) {
+export function Dates({ task, setTask, handleCloseModal, openModal }) {
 
     function onRemoveDueDate() {
         const { dueDate, status, ...updatedTask } = task
@@ -20,7 +20,7 @@ export function Dates({ task, setIsEditDates, setTask, isEditDates, setIsEditDat
         <div className="modal-option">
             <div className="option-modal-header">
                 <h2>Dates</h2>
-                <i className="btn fa-solid fa-xmark" onClick={() => { setIsEditDates(false); setIsEditDatesChevronBtn(false) }}></i>
+                <i className="btn fa-solid fa-xmark" onClick={handleCloseModal}></i>
             </div>
 
             <DatePicker
@@ -33,7 +33,7 @@ export function Dates({ task, setIsEditDates, setTask, isEditDates, setIsEditDat
                 timeIntervals={15}
                 dateFormat="yyyy-MM-dd"
                 placeholderText="Select due date"
-                open={isEditDates}
+                open={openModal === 'dates'}
                 selectsRange
                 inline
             />

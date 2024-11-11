@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { makeId } from '../services/util.service.js'
 
-export function AddChecklist({ setTask, setIsAddChecklist }) {
+export function AddChecklist({ setTask, handleCloseModal }) {
     const [newChecklist, setChecklist] = useState({ id: '', title: 'Checklist', todos: [] })
 
     function handleChangeChecklistTitle({ target }) {
@@ -16,7 +16,7 @@ export function AddChecklist({ setTask, setIsAddChecklist }) {
         <div className="modal-option modal-adding-checklist">
             <div className="option-modal-header">
                 <h2>Add checklist</h2>
-                <i className="btn fa-solid fa-xmark left-side" onClick={() => setIsAddChecklist(false)}></i>
+                <i className="btn fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>
             </div>
 
             <div className="add-checklist-container">
@@ -30,7 +30,7 @@ export function AddChecklist({ setTask, setIsAddChecklist }) {
                     />
                 </div>
                 <button className="btn btn-dark btn-add-checklist"
-                    onClick={() => { addChecklist(); setIsAddChecklist(false); setChecklist({ id: '', title: 'Checklist', todos: [] }) }}>
+                    onClick={() => { addChecklist(); handleCloseModal(); setChecklist({ id: '', title: 'Checklist', todos: [] }) }}>
                     Add
                 </button>
             </div>

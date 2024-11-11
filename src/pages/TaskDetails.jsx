@@ -10,7 +10,6 @@ import { Members } from '../cmps/Members.jsx'
 import { MemberPreview } from '../cmps/MemberPreview'
 import { Cover } from '../cmps/Cover.jsx'
 import dayjs from 'dayjs'
-import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
 export function TaskDetails() {
@@ -19,15 +18,8 @@ export function TaskDetails() {
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
 
     const [boardToEdit, setBoardToEdit] = useState(null)
+    const [openModal, setOpenModal] = useState(null)
     const [isEditLabels, setIsEditLabels] = useState(false)
-    const [isEditLabelsPlusBtn, setIsEditLabelsPlusBtn] = useState(false)
-    const [isEditDates, setIsEditDates] = useState(false)
-    const [isEditDatesChevronBtn, setIsEditDatesChevronBtn] = useState(false)
-    const [isAddChecklist, setIsAddChecklist] = useState(false)
-    const [isEditMembers, setIsEditMembers] = useState(false)
-    const [isEditMembersPlusBtn, setIsEditMembersPlusBtn] = useState(false)
-    const [isShowMemberPreview, setIsShowMemberPreview] = useState(false)
-    const [isEditCover, setIsEditCover] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
 
@@ -86,6 +78,19 @@ export function TaskDetails() {
         }
     }, [task.dueDate])
 
+    function handleOpenModal(modalName) {
+        setOpenModal(modalName)
+    }
+
+    function handleCloseModal() {
+        setOpenModal(null)
+    }
+
+    function handleToggleModal(modalName) {
+        setOpenModal((prevModal) => (prevModal === modalName ? null : modalName))
+    }
+
+
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
 
@@ -119,10 +124,9 @@ export function TaskDetails() {
             <Members
                 task={task}
                 setTask={setTask}
-                setIsEditMembers={setIsEditMembers}
+                handleCloseModal={handleCloseModal}
                 boardMembers={boardToEdit.members}
                 onRemoveMember={onRemoveMember}
-                setIsEditMembersPlusBtn={setIsEditMembersPlusBtn}
             />
         )
     }
@@ -132,10 +136,10 @@ export function TaskDetails() {
             <Labels
                 setTask={setTask}
                 handleChange={handleInfoChange}
-                setIsEditLabels={setIsEditLabels}
                 boardToEdit={boardToEdit}
                 setBoardToEdit={setBoardToEdit}
-                setIsEditLabelsPlusBtn={setIsEditLabelsPlusBtn}
+                handleCloseModal={handleCloseModal}
+                setIsEditLabels={setIsEditLabels}
                 task={task}
             />
         )
@@ -147,9 +151,8 @@ export function TaskDetails() {
                 task={task}
                 setTask={setTask}
                 handleChange={handleInfoChange}
-                setIsEditDates={setIsEditDates}
-                setIsEditDatesChevronBtn={setIsEditDatesChevronBtn}
-                isEditDates={isEditDates} />
+                handleCloseModal={handleCloseModal}
+                openModal={openModal} />
         )
     }
 
@@ -205,24 +208,24 @@ export function TaskDetails() {
                                             <li
                                                 className="member"
                                                 title={memberDetails.fullname}
-                                                onClick={() => setIsShowMemberPreview((prev) => !prev)}
+                                                onClick={() => handleToggleModal(`member-preview-${memberDetails.fullname}`)}
                                                 key={memberId}>
 
                                                 <img className="member-area-photo" src={memberDetails.imgUrl} />
 
-                                                {isShowMemberPreview && (
+                                                {openModal === `member-preview-${memberDetails.fullname}` && (
                                                     <MemberPreview
                                                         member={memberDetails}
-                                                        setIsShowMemberPreview={setIsShowMemberPreview}
+                                                        handleCloseModal={handleCloseModal}
                                                         onRemoveMember={onRemoveMember}
                                                     />
                                                 )}
-
-                                                {isEditMembersPlusBtn && renderMembersModal()}
                                             </li>
                                         )
                                     })}
-                                    <div className="add-task-action circle" onClick={() => setIsEditMembersPlusBtn(prev => !prev)}>
+                                    {openModal === "members-plusBtn" && renderMembersModal()}
+
+                                    <div className="add-task-action circle" onClick={() => handleToggleModal('members-plusBtn')}>
                                         <i className="fa-solid fa-plus"></i>
                                     </div>
                                 </ul>
@@ -241,8 +244,8 @@ export function TaskDetails() {
                                             </li>
                                         )
                                     })}
-                                    {isEditLabelsPlusBtn && renderLabelsModal()}
-                                    <div className="add-task-action square" onClick={() => setIsEditLabelsPlusBtn(prev => !prev)}>
+                                    {openModal === "labels-plusBtn" && renderLabelsModal()}
+                                    <div className="add-task-action square" onClick={() => handleToggleModal('labels-plusBtn')}>
                                         <i className="fa-solid fa-plus"></i>
                                     </div>
                                 </ul>
@@ -261,9 +264,9 @@ export function TaskDetails() {
                                                 }`}>
                                             {(task.status === 'done' && 'complete') || statusTask}
                                         </span>
-                                        {isEditDatesChevronBtn && renderDatesModal()}
+                                        {openModal === "dates-chevronBtn" && renderDatesModal()}
 
-                                        <div className="add-task-action chevron" onClick={() => setIsEditDatesChevronBtn(prev => !prev)}>
+                                        <div className="add-task-action chevron" onClick={() => handleToggleModal('dates-chevronBtn')}>
                                             <i className="fa-solid fa-chevron-down"></i>
                                         </div>
                                     </div>
@@ -302,47 +305,47 @@ export function TaskDetails() {
 
                 <div className="task-options">
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditMembers && 'active'}`} onClick={() => setIsEditMembers((prev) => !prev)}>
+                        <button className={`btn btn-option btn-light ${openModal === "members" && 'active'}`} onClick={() => handleToggleModal('members')}>
                             <img src="/img/icons/icon-members.svg" />
                             Members
                         </button>
-                        {isEditMembers && renderMembersModal()}
+                        {openModal === "members" && renderMembersModal()}
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditLabels && 'active'}`} onClick={() => setIsEditLabels((prev) => !prev)}>
-                            {' '}
+                        <button className={`btn btn-option btn-light ${openModal === "labels" && 'active'}`} onClick={() => handleToggleModal('labels')}>
                             <img src="/img/icons/icon-labels.svg" />
                             Labels
                         </button>
-                        {isEditLabels && renderLabelsModal()}
+                        {openModal === "labels" && renderLabelsModal()}
                     </div>
 
                     <div>
                         <button
-                            className={`btn btn-option btn-light ${isAddChecklist && 'active'}`}
-                            onClick={() => setIsAddChecklist((prev) => !prev)}>
+                            className={`btn btn-option btn-light ${openModal === "checklist" && 'active'}`}
+                            onClick={() => handleToggleModal('checklist')}>
                             <img src="/img/icons/icon-checklist.svg" />
                             Checklist
                         </button>
-                        {isAddChecklist && <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
+                        {openModal === "checklist" && <AddChecklist setTask={setTask} handleCloseModal={handleCloseModal} />}
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light btn-date-picker ${isEditDates && 'active'}`} onClick={() => setIsEditDates((prev) => !prev)}>
+                        <button className={`btn btn-option btn-light btn-date-picker ${openModal === "dates" && 'active'}`}
+                            onClick={() => handleToggleModal('dates')}>
                             <img src="/img/icons/icon-dates.svg" />
                             Dates
                         </button>
-                        {isEditDates && renderDatesModal()}
+                        {openModal === "dates" && renderDatesModal()}
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditDates && 'active'}`}
-                            onClick={() => setIsEditCover(prev => !prev)}>
+                        <button className={`btn btn-option btn-light ${openModal === "cover" && 'active'}`}
+                            onClick={() => handleToggleModal('cover')}>
                             <img src="/img/icons/icon-cover.svg" />
                             Cover
                         </button>
-                        {isEditCover && <Cover setTask={setTask} setIsEditCover={setIsEditCover} />}
+                        {openModal === "cover" && <Cover setTask={setTask} handleCloseModal={handleCloseModal} />}
                     </div>
                 </div>
             </section>
