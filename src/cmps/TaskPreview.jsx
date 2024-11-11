@@ -108,9 +108,12 @@ export function TaskPreview({ onUpdateBoard, board, isLabelsClicked, setIsLabels
         // task.status = 'done'
         setIsDone(isDone => !isDone)
         try {
-            board.groups[currGroupIdx].tasks[currTaskIdx].status = 'done'
+            isDone? board.groups[currGroupIdx].tasks[currTaskIdx].status = 'inProgress': board.groups[currGroupIdx].tasks[currTaskIdx].status = 'done'
+            // board.groups[currGroupIdx].tasks[currTaskIdx].status === 'done'? board.groups[currGroupIdx].tasks[currTaskIdx].status = 'inProgress' : board.groups[currGroupIdx].tasks[currTaskIdx].status = 'done'
             console.log(board);
             await updateBoard(board)
+            console.log(board);
+            
             // await onUpdateBoard(board)
             // setTitle('')
         } catch (err) {
