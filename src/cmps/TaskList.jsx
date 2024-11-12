@@ -3,7 +3,7 @@ import { TaskPreview } from "./TaskPreview";
 import { makeId } from "../services/util.service";
 import ClickOutside from "./ClickOutside";
 
-export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
+export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
     // const { groups } = board
 
@@ -25,7 +25,7 @@ export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTa
 
     async function onAddTask(ev) {
         if (ev) ev.preventDefault()
-        if (!taskTitle) return alert('Text field is required')
+        // if (!taskTitle) return alert('Text field is required')
 
         try {
             const currGroupIdx = board.groups.findIndex(group => group.id === groupId)
@@ -51,7 +51,8 @@ export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTa
         if (!taskTitle) return onCloseEditTitle()
         onAddTask()
     }
-
+    console.log(group);
+    
     return (
         <>
 
@@ -63,8 +64,8 @@ export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTa
                         )}
                     </section>
                     <section>
-                        <div className="add-task-btn-container">
-                            <button onClick={() => setIsAddTaskClicked(isClicked => !isClicked)} className="add-task-btn"><span>+</span><span>Add a card</span></button>
+                        <div className='add-task-btn-container' >
+                            <button onClick={() => setIsAddTaskClicked(isClicked => !isClicked)} className={`add-task-btn  ${group?.style?.backgroundColor?.substr(1)}`}><span>+</span><span>Add a card</span></button>
                         </div>
                     </section>
                 </>

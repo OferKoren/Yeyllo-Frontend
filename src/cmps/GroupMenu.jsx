@@ -51,7 +51,7 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
 
     async function onCopyGroup(ev) {
         ev.preventDefault()
-        if (!newTitle) return alert('Text field is required')
+        if (!newTitle) return /*alert('Text field is required')*/
         const newGroup = {
             id: makeId(),
             style: group.style,
@@ -91,11 +91,12 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
                 <div className="group-menu">
                     <header >Copy list</header>
                     <button className="close-btn" onClick={() => setIsMenuOpen(isOpen => !isOpen)}><img src="\img\board-details\close-icon.png" alt="" /></button>
-                    <h4>Name</h4>
+                    <h5>Name</h5>
                     <div className="group-menu-copy">
-                        {/* <textarea name="" id="" value=""></textarea> */}
                         <form onSubmit={onCopyGroup}>
-                            <input autoFocus className="group-title-input" type="text" id="title" name="title" value={newTitle} onChange={handleChange} />
+                            <textarea autoFocus className="group-copy-input" type="text" id="title" name="title" value={newTitle} onChange={handleChange}></textarea>
+                            {/* <input autoFocus className="group-copy-input" type="text" id="title" name="title" value={newTitle} onChange={handleChange} /> */}
+                            <button>Create list</button>
                         </form>
                     </div>
 
