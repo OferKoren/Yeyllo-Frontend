@@ -51,7 +51,7 @@ export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTa
         if (!taskTitle) return onCloseEditTitle()
         onAddTask()
     }
-    
+
     return (
         <>
 
@@ -69,7 +69,7 @@ export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTa
                     </section>
                 </>
                 :
-                <section className="task-list">
+                <section className="task-list add-task-option">
                     {tasks.map(task =>
                         <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
                     )}
