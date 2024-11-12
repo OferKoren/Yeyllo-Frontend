@@ -1,0 +1,26 @@
+.reach-editor-container {
+    outline: 2px solid blue;
+    background-color: $clr-bg2-light;
+}
+
+.text-editor-buttons {
+    margin-block-start: 1em;
+}
+
+.ql-toolbar {
+    background-color: $clr-bg2-light;
+}
+
+.output-container {
+    background-color: $clr-btn-1;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
