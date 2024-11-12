@@ -13,6 +13,7 @@ import { DeleteTaskModal } from '../cmps/DeleteTaskModal.jsx'
 import dayjs from 'dayjs'
 import "react-datepicker/dist/react-datepicker.css"
 import { Description } from '../cmps/Description.jsx'
+import { makeId } from '../services/util.service.js'
 
 export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
@@ -175,6 +176,17 @@ export function TaskDetails() {
         }
     }
 
+    function onCopyTask() {
+        const updatedTasks = [...currGroupRef.current.tasks]
+        currGroupRef.current.tasks.forEach((item, i) => {
+            if (item.id === taskId) {
+                updatedTasks.splice(i, 0, { ...task, id: makeId() })
+            }
+        })
+
+        saveBoard(updatedTasks)
+    }
+
     function onRemoveTask() {
         const updatedTasks = currGroupRef.current.tasks.filter(groupTask => groupTask.id !== taskId)
         saveBoard(updatedTasks)
@@ -191,7 +203,7 @@ export function TaskDetails() {
         const updatedGroups = boardToEdit.groups.map(group => group.id === groupId ? updatedGroup : group)
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
         console.log('boardToSave', boardToSave)
-        updateBoard(boardToSave)
+        updateBoard(boardToSave) //add try catch
 
         onCloseModal()
     }
@@ -403,6 +415,18 @@ export function TaskDetails() {
                             <span>Cover</span>
                         </button>
                         {openModal === "cover" && renderCoverModal()}
+                    </div>
+
+                    <div className="task-actions-area">
+                        <h3>Actions</h3>
+                        <div>
+                            <button className="btn btn-option btn-light" onClick={() => onCopyTask()}>
+                                <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M5 16V4.99188C5 3.8918 5.90195 3 7.00853 3H14.9915L15 3.00002V5H7V16H5ZM8 19C8 20.1046 8.89543 21 10 21H18C19.1046 21 20 20.1046 20 19V8C20 6.89543 19.1046 6 18 6H10C8.89543 6 8 6.89543 8 8V19ZM10 8V19H18V8H10Z" fill="currentColor" />
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
                     </div>
 
                     <hr />
