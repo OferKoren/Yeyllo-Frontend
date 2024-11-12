@@ -9,7 +9,6 @@
 
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
 
-
     cursor: pointer;
 
     img {
@@ -18,10 +17,11 @@
 
     &:hover {
         border-color: $clr-blue-border;
-        .task-color{
-            border-top: 2px  $clr-blue-border solid;
-            border-right: 2px  $clr-blue-border solid;
-            border-left: 2px  $clr-blue-border solid;
+
+        .task-color {
+            border-top: 2px $clr-blue-border solid;
+            border-right: 2px $clr-blue-border solid;
+            border-left: 2px $clr-blue-border solid;
         }
     }
 
@@ -36,9 +36,9 @@
     }
 
     .task-color {
-        width: calc(100% + 1.5em + 3.25px);
+        width: calc(100% + 1.5em + 3.5px);
         height: 2.5em;
-        margin-left: calc(-0.75em - 1.5px);
+        margin-left: calc(-0.75em - 1.75px);
         margin-top: calc(-0.5em - 2px);
         border-radius: 0.5em 0.5em 0 0;
         margin-bottom: 0.5em;
@@ -52,14 +52,41 @@
 
     .left-side-btns {
         .date-btn {
-            padding: 0.3em;
-            padding-left: 0.3em;
+            position: relative;
+            padding: 0.25em;
+            padding-right: 0.4em;
             border-radius: em(3px);
             line-height: em(20px);
+            min-width:5.2em;
+
+            .checkbox {
+                position: absolute;
+                top: 0.025em;
+                left: -0.1em;
+                background-color: inherit;
+                scale: 0.75;
+                opacity: 0;
+            }
+
             :nth-child(2) {
                 padding-left: em(2px);
                 padding-right: em(4px);
             }
+
+            &:hover {
+                opacity: 0.8;
+                
+                .checkbox {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    
+    .right-side-members {
+        img {
+            width: 2em;
+            border-radius: 50%;
         }
     }
 }

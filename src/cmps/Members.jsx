@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
-export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemoveMember, setIsEditMembersPlusBtn }) {
+export function Members({ task, setTask, boardMembers, onRemoveMember, handleCloseModal }) {
 
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
 
@@ -10,14 +10,24 @@ export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemov
         setTask(prevTask => ({ ...prevTask, memberIds: (!prevTask.memberIds) ? [memberId] : [...prevTask.memberIds, memberId] }))
     }
 
+    function handleFilterByMember() {
+
+    }
+
     return (
         <div className="modal-option task-members">
             <div className="task-members-header option-modal-header">
                 <h2>Members</h2>
-                <i className="btn fa-solid fa-xmark left-side" onClick={() => { setIsEditMembers(false); setIsEditMembersPlusBtn(false) }}></i>
+                <i className="btn fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>
             </div>
 
             <div className="members">
+                <input
+                    type="text"
+                    value={''}
+                    onChange={handleFilterByMember}
+                    placeholder="Search members"
+                />
                 {
                     task.memberIds && task.memberIds.length !== 0 &&
                     <div className="task-member-list">
@@ -40,7 +50,6 @@ export function Members({ task, setTask, setIsEditMembers, boardMembers, onRemov
                 }
 
                 {
-                    // task.memberIds && task.memberIds.length !== gMembers.length &&
                     <div className="board-member-list">
                         {task.memberIds && task.memberIds.length !== gMembers.length && <h3>Board members</h3>}
                         <ul className="member-list">

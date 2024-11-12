@@ -12,7 +12,7 @@ export function BoardDetails({ rootRef }) {
     const [isMenuOpen, setMenuOpen] = useState(false)
     const [isShrink, setIsShrink] = useState(false)
     const [isAsideOpen, setAsideOpen] = useState(false)
-    // console.log(board)
+
     useEffect(() => {
         if (rootRef.current && board) {
             Object.assign(rootRef.current.style, board.style)

@@ -4,22 +4,31 @@
     align-items: center;
     gap: em(9px);
 
-    max-height: calc(100vh - 3.5rem - 3.5rem - 15em);
+    max-height: calc(100vh - 3.5rem - 3.5rem - 9.8em);
     // @include  scroll(calc(100vh - 3.5rem - 3.5rem - 15em));
+    &.add-task-option{
+        max-height: calc(100vh - 3.5rem - 1.25rem - 9.8em);
+
+    }
     overflow-y: auto;
     overflow-x: hidden;
 
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-
+    
     .add-task-container {
+        width: 100%;
+        form{
+            margin-inline-start: 0.2em;
+            width: 94%;
+        }
         input {
             font-family: "roboto-regular";
             border: none;
             box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
             padding-top: 0.7em;
             padding-bottom: 2em;
-
+            width: 100%;
             &:focus {
                 border: none;
             }
@@ -27,10 +36,10 @@
     }
 
     button.add-card-close {
-           border-radius: 0.3em;
-           width: 1.9em;
-           height: 1.7em;
-        
+        border-radius: 0.3em;
+        width: 1.9em;
+        height: 1.7em;
+
     }
 }
 
@@ -38,9 +47,7 @@
 .add-task-btn-container {
     margin-inline-start: 0.4em;
     width: 94%;
-
 }
-
 
 .add-task-btn {
     display: flex;
@@ -54,6 +61,48 @@
     border-radius: 0.7em;
 
     color: inherit;
+    opacity: 0.8;
+
+
+    transition: 150ms;
+
+    &.BAF3DB{
+        color: darken($color: #BAF3DB, $amount: 55 );
+        opacity: 0.85;
+    }
+    &.DFD8FD{
+        color: darken($color: #DFD8FD, $amount: 55 );
+        opacity: 0.85;
+    }
+    &.F8E6A0{
+        color: darken($color: #F8E6A0, $amount: 60 );
+        opacity: 0.85;
+    }
+    &.FEDEC8{
+        color: darken($color: #FEDEC8, $amount: 55 );
+        opacity: 0.85;
+    }
+    &.FFD5D2{
+        color: darken($color: #FFD5D2, $amount: 55 );
+        opacity: 0.85;
+    }
+    &.CCE0FF{
+        color: darken($color: #CCE0FF, $amount: 55 );
+        opacity: 0.85;
+    }
+    &.C6EDFB{
+        color: darken($color: #C6EDFB, $amount: 55 );
+        opacity: 0.85;
+    }
+    &.D3F1A7{
+        color: darken($color: #D3F1A7, $amount: 55 );
+        opacity: 0.85;
+    }
+    &.FDD0EC{
+        color: darken($color: #FDD0EC, $amount: 55 );
+        opacity: 0.85;
+    }
+
     font-family: "roboto-bold";
     font-size: em(16px);
 
@@ -64,7 +113,49 @@
 
     &:hover {
         background-color: darken($color: $clr-bg1-light, $amount: 10);
+        opacity: 1;
+        
+        &.BAF3DB{
+            background-color: darken($color: #BAF3DB, $amount: 15 );
+            opacity: 1;
+        }
+        &.DFD8FD{
+            background-color: darken($color: #DFD8FD, $amount: 15 );
+            opacity: 1;
+        }
+        &.F8E6A0{
+            background-color: darken($color: #F8E6A0, $amount: 15 );
+            opacity: 1;
+        }
+        &.FEDEC8{
+            background-color: darken($color: #FEDEC8, $amount: 15 );
+            opacity: 1;
+        }
+        &.FFD5D2{
+            background-color: darken($color: #FFD5D2, $amount: 15 );
+            opacity: 1;
+        }
+        &.CCE0FF{
+            background-color: darken($color: #CCE0FF, $amount: 15 );
+            opacity: 1;
+        }
+        &.C6EDFB{
+            background-color: darken($color: #C6EDFB, $amount: 15 );
+            opacity: 1;
+        }
+        &.D3F1A7{
+            background-color: darken($color: #D3F1A7, $amount: 15 );
+            opacity: 1;
+        }
+        &.FDD0EC{
+            background-color: darken($color: #FDD0EC, $amount: 15 );
+            opacity: 1;
+        }
+        // &.8590a2{
+        //     background-color: darken($color: #8590a2, $amount: 10 );
+        // }     
     }
+
 
 
 }

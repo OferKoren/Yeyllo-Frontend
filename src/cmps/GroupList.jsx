@@ -11,7 +11,6 @@ export function GroupList({ onUpdateBoard, board }) {
     const [isLabelsClicked, setIsLabelsClicked] = useState(false)
 
     const { groups } = board
-    console.log(groups);
 
     function handleChange(ev) {
         const type = ev.target.type
@@ -26,7 +25,6 @@ export function GroupList({ onUpdateBoard, board }) {
                 break
             }
         }
-        console.log(value)
         setTitle(value)
     }
 
@@ -57,14 +55,12 @@ export function GroupList({ onUpdateBoard, board }) {
         setTitle('')
     }
 
-    console.log(isAddGroupClicked);
-
     if (!board) return <div>Loading...</div>
     return (
         <section>
             <ul className="group-list flex">
                 {groups.map(group =>
-                    <li key={group.id}>
+                    <li style={{...group.style}} key={group.id}>
                         {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
                         <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
                     </li>)

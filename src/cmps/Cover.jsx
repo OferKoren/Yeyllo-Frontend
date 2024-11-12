@@ -1,5 +1,5 @@
 
-export function Cover({ setIsEditCover, setTask }) {
+export function Cover({ setTask, handleCloseModal }) {
 
     const colorPalette = [
         '#4BCE97', '#F5CD47', '#FEA362', '#F87168', '#9F8FEF',
@@ -11,7 +11,8 @@ export function Cover({ setIsEditCover, setTask }) {
 
     function onRemoveCover() {
         setTask(prevTask => {
-            const updatedTask = delete { ...prevTask }.style
+            const updatedTask = { ...prevTask }
+            delete updatedTask.style
             return updatedTask
         })
     }
@@ -21,7 +22,7 @@ export function Cover({ setIsEditCover, setTask }) {
         <div className="modal-option task-labels">
             <div className="task-labels-header option-modal-header">
                 <h2>Cover</h2>
-                <i className="btn fa-solid fa-xmark left-side" onClick={() => setIsEditCover(false)}></i>
+                <i className="btn fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>
             </div>
 
             <div className="cover-colors">

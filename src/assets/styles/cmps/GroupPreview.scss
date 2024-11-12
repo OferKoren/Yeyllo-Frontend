@@ -11,7 +11,7 @@
     align-items: center;
     // margin-bottom: em(10px);
 
-
+    height: 2.5em;
     button {
         background-color: inherit;
         color: inherit;
@@ -20,40 +20,121 @@
     img {
         width: 1.5em;
     }
+    
 
     .group-menu-button {
         transition: 150ms;
         border-radius: 0.4em;
         padding: 0.5em;
-        margin-inline-end: 0.4em;
-        height: 2.3em;
-
+        margin-inline-end: 0.5em;
+        margin-inline-start: 0.5em;
+        width: 2.5em;
+        height: 2.5em;
+        // scale: 0.9;
+        
         &:hover {
-            background-color: darken($color: $clr-bg1-light, $amount: 10);
+            background-color: darken($color: $clr-bg1-light, $amount: 15);
+
+            &.BAF3DB{
+                background-color: darken($color: #BAF3DB, $amount: 15 );
+            }
+            &.DFD8FD{
+                background-color: darken($color: #DFD8FD, $amount: 15 );
+            }
+            &.F8E6A0{
+                background-color: darken($color: #F8E6A0, $amount: 15 );
+            }
+            &.FEDEC8{
+                background-color: darken($color: #FEDEC8, $amount: 15 );
+            }
+            &.FFD5D2{
+                background-color: darken($color: #FFD5D2, $amount: 15 );
+            }
+            &.CCE0FF{
+                background-color: darken($color: #CCE0FF, $amount: 15 );
+            }
+            &.C6EDFB{
+                background-color: darken($color: #C6EDFB, $amount: 15 );
+            }
+            &.D3F1A7{
+                background-color: darken($color: #D3F1A7, $amount: 15 );
+            }
+            &.FDD0EC{
+                background-color: darken($color: #FDD0EC, $amount: 15 );
+            }
         }
     }
 
     .group-header-btn {
         font-family: "Roboto-Bold";
-        padding: em(6px) em(8px) em(8px) em(12px);
+        // padding: em(6px) em(8px) em(8px) em(12px);
         width: 16em;
-
+        border: none solid 3px;
+        height:3em;
         text-align: start;
         font-size: em(16px);
+        margin-inline-start: 1.03em;
+
+        &.BAF3DB{
+            color: darken($color: #BAF3DB, $amount: 65 );
+        }
+        &.DFD8FD{
+            color: darken($color: #DFD8FD, $amount: 65 );
+        }
+        &.F8E6A0{
+            color: darken($color: #F8E6A0, $amount: 65 );
+        }
+        &.FEDEC8{
+            color: darken($color: #FEDEC8, $amount: 65 );
+        }
+        &.FFD5D2{
+            color: darken($color: #FFD5D2, $amount: 65 );
+        }
+        &.CCE0FF{
+            color: darken($color: #CCE0FF, $amount: 65 );
+        }
+        &.C6EDFB{
+            color: darken($color: #C6EDFB, $amount: 65 );
+        }
+        &.D3F1A7{
+            color: darken($color: #D3F1A7, $amount: 65 );
+        }
+        &.FDD0EC{
+            color: darken($color: #FDD0EC, $amount: 65 );
+        }
+    
+
+    }
+    
+    form{
+        height:3em;
+        width: 15.13em;
+        margin-left: 0.5em;
+        padding-bottom: 0.55em;
+        margin-inline-end: 0.03em;
+        // margin-bottom: 1em;
     }
 
     input {
+        font-family: "Roboto-Bold";
+        font-size: em(16px);
+        
         border-radius: 0.5em;
+        height: 100%;
+        width: 100%;
         padding: em(6px) em(8px) em(8px) em(12px);
+        // margin-inline-start: 1em;
         margin: 5px;
-        width: 15em;
-        margin-bottom: em(10px);
+        // margin-bottom: em(10px);
 
         border: #ccc solid 3px;
 
         -webkit-transition: 0.5s;
         transition: 0.5s;
         outline: none;
+
+        border: none solid 3px;
+
 
         &:focus {
             border: $clr-blue-border solid 3px;

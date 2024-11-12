@@ -1,16 +1,41 @@
 .group-list {
     display: flex;
-    gap: em(12px);
+    gap: em(8px);
     overflow-x: scroll;
+
+    /* Works on Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.15) rgba(128, 128, 128, 0.15);
+
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: rgba(128, 128, 128, 0.15);
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.15);
+
+        border-radius: 10px;
+        border: 0px solid rgba(0, 0, 0, 0.15);
+    }
+
     // height: calc(100vh - 3.5rem - 3.5rem - 4em);
-    height: calc(100vh - 3.5rem);
+    height: calc(100vh - 3.5rem - 50px);
     // height: 100%;
 
     li:first-child {
         margin-inline-start: 1em;
     }
 
-    > * {
+    >* {
+        width: rem(264px);
         box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
 
         background-color: $clr-bg1-light;
@@ -20,7 +45,7 @@
         padding-bottom: 0.5em;
         margin: 1em 0.5em 1em 0;
         height: max-content;
-        max-height: calc(100vh - 3.5rem - 3.5rem - 7em);
+        max-height: calc(100vh - 3.5rem - 2.5rem);
     }
 
     input {
@@ -44,23 +69,18 @@
     }
 }
 
-.add-group-container {
-    &:first-child {
-        margin-inline-start: 1em;
-    }
-}
-
 .add-group-btn {
     &:first-child {
         margin-inline-start: 1em;
     }
+    
     background-color: hwb(0 100% 0% / 0.24);
     height: em(44px);
     font-family: 'roboto-bold';
     font-size: em(16px);
     min-width: em(272px);
     padding: em(12px);
-
+    padding: 1.7em 0em 1.7em 1em;
     transition: 200ms;
 
     &:hover {
@@ -73,22 +93,27 @@
     align-items: center;
     margin: 0;
     margin-left: 0.5em;
+
     .close-btn-x {
-        border-radius: 0.1em;
+        border-radius: 0.2em;
         margin-inline-start: 0.2em;
-        width: 2.3em;
-        height: 2em;
+        width: 1.7em;
+        height: 1.7em;
         padding: 0;
+
         display: grid;
         justify-content: center;
         align-items: center;
+
+        transition: 200ms;
+
         img {
             width: 1.2em;
             height: 1.2em;
         }
     }
 
-    > *:first-child {
+    >*:first-child {
         background-color: #0c66e4;
         padding: 0em 0.8em;
         height: 2.5em;
@@ -106,7 +131,6 @@
         background-color: $clr-bg1-light;
         color: rgb(99, 99, 99);
         font-size: 20px;
-        border-radius: 0.5em;
 
         &:hover {
             background-color: hsla(218, 76%, 15%, 0.144);
