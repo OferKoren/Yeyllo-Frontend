@@ -19,7 +19,6 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
         boardToUpdate.isStarred = !boardToUpdate.isStarred
         console.log(boardToUpdate.isStarred)
         onUpdateBoard(boardToUpdate)
-        console.log('click on star')
     }
     function handleMouseEnter() {
         setStarSrc(starEmptyGold)

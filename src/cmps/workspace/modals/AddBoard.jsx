@@ -38,7 +38,6 @@ export function AddBoard({ onAddBoard, position = null }) {
                 break
             }
         }
-        console.log(type)
         setBoardToAdd({ ...boardToAdd, [field]: value })
     }
     function onCloseModal() {

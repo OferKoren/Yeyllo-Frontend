@@ -16,12 +16,12 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
             setText(board.title)
         }
     }, [])
-    const handleHeaderClick = () => {
+    function handleHeaderClick() {
         setIsEditing(true)
     }
 
     // Update text and exit edit mode
-    const handleBlur = () => {
+    function handleBlur() {
         setIsEditing(false)
         const boardToUpdate = { ...board }
         if (text !== '') {
@@ -32,7 +32,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
         }
     }
 
-    const handleInputChange = () => {
+    function handleInputChange() {
         // Get the width of the input's text
         if (inputRef.current) {
             setTextWidth(inputRef.current.scrollWidth)
@@ -52,7 +52,6 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
         const boardToUpdate = { ...board }
         boardToUpdate.isStarred = !boardToUpdate.isStarred
         onUpdateBoard(boardToUpdate)
-        console.log('click on star')
     }
     useEffect(() => {
         updateTextWidht(text)

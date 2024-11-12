@@ -12,21 +12,19 @@ export function EndlessPhotos({ boardBg, onChangeBg }) {
     const [loading, setLoading] = useState(false)
     const modalRef = useRef(null)
     const [query, setQuery] = useState('')
-    // Function to fetch photos from Unsplash
+
     function search(query) {
-        console.log('boom')
         setPhotos([])
         setPage(1)
         if (page === 1) {
             fetchPhotos(query)
-        } else console.log('df')
+        }
     }
     const debouncedFetchPhotos = useRef(debounce(search, 1000))
     async function fetchPhotos(query) {
         if (loading) return
         setLoading(true)
-        console.log('fetching ', query)
-        console.log('fetching ', page)
+
         try {
             const response = await axios.get(UNSPLASH_SEARCH_URL, {
                 params: {
@@ -46,21 +44,19 @@ export function EndlessPhotos({ boardBg, onChangeBg }) {
         }
     }
     function handleChange({ target }) {
-        // console.log(target.value)
         setQuery(() => target.value)
         /* setPhotos([])
         setPage(1)
     } */
     }
-    // Fetch photos on component mount and when page changes
+
     useEffect(() => {
         fetchPhotos()
-        console.log('herhe')
     }, [page])
     useEffect(() => {
         debouncedFetchPhotos.current(query)
     }, [query])
-    // Handle scroll event to detect if at bottom
+
     const handleScroll = () => {
         if (modalRef.current) {
             const { scrollTop, scrollHeight, clientHeight } = modalRef.current
@@ -74,7 +70,6 @@ export function EndlessPhotos({ boardBg, onChangeBg }) {
         }
     }
 
-    // Add scroll event listener when the component mounts
     useEffect(() => {
         const modalElement = modalRef.current
         if (modalElement) {
@@ -86,8 +81,8 @@ export function EndlessPhotos({ boardBg, onChangeBg }) {
             }
         }
     }, [])
-    const { selected } = boardBg
 
+    const { selected } = boardBg
     return (
         <div className="more-bgs ">
             <div className="photo-search-wrapper">

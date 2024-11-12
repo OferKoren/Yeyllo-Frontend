@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Routes, Route, useLocation } from 'react-router'
+import { Routes, Route, useLocation, Navigate } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
 // import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
@@ -13,7 +13,7 @@ import { BoardDetails } from './pages/BoardDetails'
 import { TaskDetails } from './pages/TaskDetails'
 import { UserDetails } from './pages/UserDetails'
 
-import { AppHeader } from './cmps/AppHeader'
+import { AppHeader } from './cmps/appheader/AppHeader.jsx'
 import { AppFooter } from './cmps/AppFooter'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
@@ -25,7 +25,7 @@ export function RootCmp() {
     const rootRef = useRef()
     const location = useLocation()
     useEffect(() => {
-        console.log(location)
+        // console.log(location)
     }, [location])
     return (
         <div ref={rootRef} className="main-container root">
@@ -34,6 +34,7 @@ export function RootCmp() {
 
             <main className="main-container full">
                 <Routes>
+                    <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/home" element={<HomePage />} />
                     {/* <Route path="about" element={<AboutUs />}>
                         <Route path="team" element={<AboutTeam />} />
