@@ -149,6 +149,12 @@ export function TaskDetails() {
         )
     }
 
+    function renderCoverModal() {
+        return (
+            <Cover setTask={setTask} handleCloseModal={handleCloseModal} />
+        )
+    }
+
     function formatDate(dueDate, dueTime) {
         if (dueTime) {
             const dateTimeStr = `${dueDate} ${dueTime}`
@@ -203,10 +209,11 @@ export function TaskDetails() {
 
             {task.style?.backgroundColor &&
                 <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}>
-                    <div className="btn cover-options">
+                    <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
                         <img src="/img/icons/icon-cover.svg" />
                         <span>Cover</span>
                     </div>
+                    {openModal === 'cover-topBtn' && renderCoverModal()}
                 </div>}
 
             {task.archivedAt &&
@@ -405,7 +412,7 @@ export function TaskDetails() {
                             </svg>
                             <span>Cover</span>
                         </button>
-                        {openModal === "cover" && <Cover setTask={setTask} handleCloseModal={handleCloseModal} />}
+                        {openModal === "cover" && renderCoverModal()}
                     </div>
 
                     <hr />
