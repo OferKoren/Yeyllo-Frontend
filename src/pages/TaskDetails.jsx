@@ -1,11 +1,9 @@
 import { useParams, useOutletContext } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { loadBoard } from '../store/actions/board.actions'
-import { boardService } from '../services/board'
+import { loadBoard, updateBoard } from '../store/actions/board.actions'
 import { Labels } from '../cmps/Labels.jsx'
 import { Dates } from '../cmps/Dates.jsx'
-import { makeId } from '../services/util.service.js'
 import { Checklist } from '../cmps/Checklist.jsx'
 import { AddChecklist } from '../cmps/AddChecklist.jsx'
 import { Members } from '../cmps/Members.jsx'
@@ -15,8 +13,7 @@ import { DeleteTaskModal } from '../cmps/DeleteTaskModal.jsx'
 import dayjs from 'dayjs'
 import "react-datepicker/dist/react-datepicker.css"
 
-export function TaskDetails({ currTask }) {
-    // const boards = useSelector((storeState) => storeState.boardModule.boards)
+export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
@@ -27,12 +24,12 @@ export function TaskDetails({ currTask }) {
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
 
+    const { onCloseModal } = useOutletContext()
+    const currGroupRef = useRef(null)
+
     const { boardId } = useParams()
     const { groupId } = useParams()
     const { taskId } = useParams()
-
-    // const labels = taskService.getLabels()
-    const titleAreaRef = useRef(null)
 
     useEffect(() => {
         loadBoard(boardId)
@@ -40,15 +37,13 @@ export function TaskDetails({ currTask }) {
 
     useEffect(() => {
         setBoardToEdit(board)
-        const currGroup = board?.groups.find(group => group.id === groupId)
-        const currTask = currGroup?.tasks.find(task => task.id === taskId)
+        const foundGroup = board?.groups.find((group) => group.id === groupId)
+        currGroupRef.current = foundGroup
+        const currTask = foundGroup?.tasks.find((task) => task.id === taskId)
         if (currTask) {
             setTask(currTask)
         }
 
-        // if (board?.groups?.[1]?.tasks?.[1]) {
-        //     setTask(board?.groups[1].tasks[1])
-        // }
     }, [board])
 
     useEffect(() => {
@@ -89,11 +84,12 @@ export function TaskDetails({ currTask }) {
 
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
+
         switch (type) {
             case 'number':
             case 'range':
                 value = +value
-                break;
+                break
 
             case 'checkbox':
                 value = target.checked
@@ -107,7 +103,7 @@ export function TaskDetails({ currTask }) {
     }
 
     function toggleTaskStatus() {
-        setTask(prevTask => ({ ...prevTask, status: (prevTask.status === 'inProgress') ? 'done' : 'inProgress' }))
+        setTask((prevTask) => ({ ...prevTask, status: prevTask.status === 'inProgress' ? 'done' : 'inProgress' }))
     }
 
     function onRemoveMember(memberId) {
@@ -244,20 +240,20 @@ export function TaskDetails({ currTask }) {
 
             <section className="task-main">
                 <div className="task-info">
-
                     <div className="task-metadata">
-                        {task.memberIds && task.memberIds.length !== 0 &&
+                        {task.memberIds && task.memberIds.length !== 0 && (
                             <div className="members-area">
                                 <h3>Members</h3>
                                 <ul className="photo-member-list">
-                                    {task.memberIds.map(memberId => {
-                                        const memberDetails = gMembers.find(member => member._id === memberId)
+                                    {task.memberIds.map((memberId) => {
+                                        const memberDetails = gMembers.find((member) => member._id === memberId)
                                         return (
                                             <li
                                                 className="member"
                                                 title={memberDetails.fullname}
                                                 onClick={() => handleToggleModal(`member-preview-${memberDetails.fullname}`)}
                                                 key={memberId}>
+
                                                 <img className="member-area-photo" src={memberDetails.imgUrl} />
 
                                                 {openModal === `member-preview-${memberDetails.fullname}` && (
@@ -276,18 +272,17 @@ export function TaskDetails({ currTask }) {
                                         <i className="fa-solid fa-plus"></i>
                                     </div>
                                 </ul>
-                            </div>}
+                            </div>
+                        )}
 
-                        {task.labelIds && task.labelIds.length !== 0 &&
+                        {task.labelIds && task.labelIds.length !== 0 && (
                             <div className="labels-area">
                                 <h3>Labels</h3>
                                 <ul className="label-list">
-                                    {task.labelIds.map(labelId => {
-                                        const labelDetails = gLabels.find(label => label.id === labelId)
+                                    {task.labelIds.map((labelId) => {
+                                        const labelDetails = gLabels.find((label) => label.id === labelId)
                                         return (
-                                            <li className="label"
-                                                key={labelId}
-                                                style={{ backgroundColor: labelDetails.color }}>
+                                            <li className="label" key={labelId} style={{ backgroundColor: labelDetails.color }}>
                                                 {labelDetails.title}
                                             </li>
                                         )
@@ -297,9 +292,10 @@ export function TaskDetails({ currTask }) {
                                         <i className="fa-solid fa-plus"></i>
                                     </div>
                                 </ul>
-                            </div>}
+                            </div>
+                        )}
 
-                        {task.dueDate &&
+                        {task.dueDate && (
                             <div className="due-date-area">
                                 <h3>Dou date</h3>
                                 <div className="due-date-details">
@@ -318,7 +314,8 @@ export function TaskDetails({ currTask }) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>}
+                            </div>
+                        )}
                     </div>
 
                     <div className="description-area">
@@ -336,7 +333,7 @@ export function TaskDetails({ currTask }) {
                         />
                     </div>
 
-                    {task.checklists?.length > 0 &&
+                    {task.checklists?.length > 0 && (
                         <div className="list-of-checklists">
                             {task.checklists.map((checklist) => (
                                 <Checklist
@@ -349,13 +346,13 @@ export function TaskDetails({ currTask }) {
                                     openModal={openModal}
                                     handleCloseModal={handleCloseModal} />
                             ))}
-                        </div>}
+                        </div>
+                    )}
 
                     {console.log(task)}
                     {console.log('boardtoedit', boardToEdit.labels)}
                     {console.log('gLabels', gLabels)}
                     {console.log('gMembers', gMembers)}
-
                 </div>
 
                 <div className="task-options">
@@ -369,6 +366,7 @@ export function TaskDetails({ currTask }) {
                         </button>
                         {openModal === "members" && renderMembersModal()}
                     </div>
+
                     <div>
                         <button className={`btn btn-option btn-light ${openModal === "labels" && 'active'}`} onClick={() => handleToggleModal('labels')}>
                             <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -453,6 +451,6 @@ export function TaskDetails({ currTask }) {
                     </div>
                 </div>
             </section>
-        </article >
+        </article>
     )
 }
