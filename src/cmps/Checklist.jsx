@@ -51,11 +51,8 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
         setNewTodoValue(target.value)
     }
 
-    function handleToggleButtons() {
-        setIsButtonsVisible(prevState => {
-            if (prevState) handleCloseModal()
-            return !prevState
-        })
+    function handleToggleButtons(todoName) {
+        setIsButtonsVisible(prevState => prevState ? null : todoName)
     }
 
     function onRemoveChecklist(checklistId) {
@@ -96,10 +93,10 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
                     </div>
                     <div className="todo-content">
                         <span className={`todo-text ${item.isDone ? 'todo-done' : ''}`}>{item.title}</span>
-                        <div className={`todo-content-buttons ${isButtonsVisible ? 'visible' : ''}`}>
+                        <div className={`todo-content-buttons ${isButtonsVisible === `todoActions-${item.id}` ? 'visible' : ''}`}>
                             <div>
                                 <button className={"btn btn-item-actions btn-action"}
-                                    onClick={() => { handleToggleModal(`todoActions-${item.id}`); handleToggleButtons() }}>
+                                    onClick={() => { handleToggleModal(`todoActions-${item.id}`); handleToggleButtons(`todoActions-${item.id}`) }}>
                                     <i className="fa-solid fa-ellipsis"></i>
                                 </button>
                                 {openModal === `todoActions-${item.id}` &&
@@ -108,7 +105,7 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
                                         itemId={item.id}
                                         task={task}
                                         checklistId={checklistId}
-                                        method={'removeTodo'}
+                                        action={'removeTodo'}
                                         handleCloseModal={handleCloseModal} />}
                             </div>
                         </div>

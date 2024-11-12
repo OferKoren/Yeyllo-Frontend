@@ -1,4 +1,4 @@
-import { Link, useParams, useOutletContext } from 'react-router-dom'
+import { useParams, useOutletContext } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { loadBoard, updateBoard } from '../store/actions/board.actions'
@@ -33,8 +33,6 @@ export function TaskDetails() {
 
     useEffect(() => {
         loadBoard(boardId)
-        console.log('boardToEdit', boardToEdit)
-        console.log('hi2')
     }, [])
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
-export function Members({ task, setTask, boardMembers, onRemoveMember, setIsEditMembersPlusBtn, handleCloseModal }) {
+export function Members({ task, setTask, boardMembers, onRemoveMember, handleCloseModal }) {
 
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
 
@@ -50,7 +50,6 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, setIsEdit
                 }
 
                 {
-                    // task.memberIds && task.memberIds.length !== gMembers.length &&
                     <div className="board-member-list">
                         {task.memberIds && task.memberIds.length !== gMembers.length && <h3>Board members</h3>}
                         <ul className="member-list">

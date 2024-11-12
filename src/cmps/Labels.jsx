@@ -51,7 +51,6 @@ export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleClose
                 <div className="labels-container">
                     <h3>Labels</h3>
                     {gLabels.map((label) => {
-                        // const boardLabel = boardToEdit.labels.find(l => l.id === label.id)
                         const taskLabel = task.labelIds?.find(labelId => labelId === label.id)
                         const gLabel = gLabels.find(l => l.id === label.id)
                         return (<div key={label.id} className="checkbox-label">

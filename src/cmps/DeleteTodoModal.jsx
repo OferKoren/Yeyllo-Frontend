@@ -1,5 +1,5 @@
 
-export function DeleteTodoModal({ onUpdateTodo, itemId, task, checklistId, method, handleCloseModal }) {
+export function DeleteTodoModal({ onUpdateTodo, itemId, task, checklistId, action, handleCloseModal }) {
     return (
         <div className="modal-option">
             <div className="option-modal-header">
@@ -8,7 +8,7 @@ export function DeleteTodoModal({ onUpdateTodo, itemId, task, checklistId, metho
             </div>
 
             <div className="delete-todo-modal-container">
-                <button className="btn btn-remove-todo" onClick={() => onUpdateTodo(itemId, task, checklistId, method)}>
+                <button className="btn btn-remove-todo" onClick={() => onUpdateTodo(itemId, task, checklistId, action)}>
                     Delete
                 </button>
             </div>
