@@ -27,8 +27,8 @@
 
     .todo-item {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        gap: 0.3em;
         font-size: 0.9rem;
 
         .checkbox-todo {
@@ -40,8 +40,48 @@
             }
         }
 
-        .todo-done {
-            text-decoration: line-through
+        .todo-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            width: 100%;
+            height: 2.5em;
+            border-radius: 0.9em;
+
+            padding-inline-start: 0.8em;
+
+            .todo-done {
+                text-decoration: line-through
+            }
+
+            .todo-content-buttons {
+                display: flex;
+                margin-inline-end: 0.5em;
+                opacity: 0;
+
+                .btn-action {
+                    display: flex;
+                    justify-content: center;
+                    padding: 0.3em;
+                    height: 1.5em;
+                    border-radius: 50%;
+                    color: $gray5;
+                }
+            }
+
+            &:hover {
+                background-color: $clr-btn-1;
+
+                &:hover .todo-content-buttons {
+                    opacity: 1;
+                }
+            }
+
+            .todo-content:hover .todo-content-buttons,
+            .todo-content-buttons.visible {
+                opacity: 1;
+            }
         }
     }
 
@@ -93,5 +133,23 @@
     & span {
         font-size: 0.8rem;
         padding-inline-start: 0.5em;
+    }
+}
+
+.delete-todo-modal-container {
+    display: grid;
+    width: 100%;
+
+    .btn-remove-todo {
+        background-color: transparent;
+        padding: 0.5em;
+
+        font-size: 0.95rem;
+        text-align: left;
+        color: $gray5;
+
+        &:hover {
+            background-color: $clr-btn-1;
+        }
     }
 }

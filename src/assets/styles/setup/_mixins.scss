@@ -60,6 +60,14 @@
             background-color: darken($clr-btn-4, 5%);
         }
     }
+
+    @else if $type =='action' {
+        background-color: darken($clr-btn-1, 5%);
+
+        &:hover {
+            background-color: darken($clr-btn-1, 10%);
+        }
+    }
 }
 
 

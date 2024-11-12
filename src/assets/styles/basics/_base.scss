@@ -148,6 +148,10 @@ button {
     &-delete {
         @include btn($type: 'delete');
     }
+
+    &-action {
+        @include btn($type: 'action');
+    }
 }
 
 span.overdue {

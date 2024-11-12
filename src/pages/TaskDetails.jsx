@@ -325,7 +325,15 @@ export function TaskDetails() {
                     {task.checklists?.length > 0 && (
                         <div className="list-of-checklists">
                             {task.checklists.map((checklist) => (
-                                <Checklist key={checklist.id} todos={checklist.todos} task={task} checklist={checklist} setTask={setTask} />
+                                <Checklist
+                                    key={checklist.id}
+                                    todos={checklist.todos}
+                                    task={task}
+                                    checklist={checklist}
+                                    setTask={setTask}
+                                    handleToggleModal={handleToggleModal}
+                                    openModal={openModal}
+                                    handleCloseModal={handleCloseModal} />
                             ))}
                         </div>
                     )}
@@ -367,7 +375,8 @@ export function TaskDetails() {
                             </svg>
                             <span> Checklist</span>
                         </button>
-                        {openModal === "checklist" && <AddChecklist setTask={setTask} handleCloseModal={handleCloseModal} />}
+                        {openModal === "checklist" &&
+                            <AddChecklist setTask={setTask} handleCloseModal={handleCloseModal} />}
                     </div>
 
                     <div>
