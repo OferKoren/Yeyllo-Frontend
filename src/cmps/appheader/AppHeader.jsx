@@ -10,14 +10,19 @@ import { addBoard } from '../../store/actions/board.actions'
 import { boardService } from '../../services/board'
 import { AddBoard } from '../workspace/modals/AddBoard'
 import { Dropdown } from './Dropdown'
+import { lightenColor } from '../../services/util.service'
 
 export function AppHeader() {
     const user = useSelector((storeState) => storeState.userModule.user)
     const board = useSelector((storeState) => storeState.boardModule.board)
     const headerRef = useRef()
+    const inputRef = useRef()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [whichModal, setWhichModal] = useState('')
     const [position, setPosition] = useState()
+    const [inputClass, setInputClass] = useState('')
+    const [bgClr, setBgClr] = useState()
+
     const navigate = useNavigate()
     function onCloseModal() {
         setIsModalOpen(false)
@@ -62,7 +67,12 @@ export function AppHeader() {
 
             // Set as header background color with some transparency
             const style = { backgroundColor: `rgba(${r}, ${g}, ${b}, 0.9)` }
+            const ligherColor = lightenColor(`rgba(${r}, ${g}, ${b}, 0.9)`, 20)
+            console.log(ligherColor)
+            const inputStyle = { backgroundColor: ligherColor }
+            setBgClr(`rgba(${r}, ${g}, ${b}, 0.9)`)
             Object.assign(headerRef.current.style, style)
+            Object.assign(inputRef.current.style, inputStyle)
         }
     }
     async function onAddBoard(board) {
@@ -99,6 +109,18 @@ export function AppHeader() {
                 return <Dropdown title={whichModal} />
         }
     }
+    function handleBlur() {
+        setInputClass('')
+    }
+    function handleFocus() {
+        setInputClass('enlarged')
+    }
+    /*  let inputStyle = ''
+    if (bgClr) {
+        inputStyle = inputClass ? { backgroundColor: 'white' } : { backgroundColor: lightenColor(bgClr) }
+    }
+    if (!inputClass) return */
+    // const inputStyle = ''
     return (
         <header ref={headerRef} className="app-header full">
             <nav>
@@ -175,9 +197,19 @@ export function AppHeader() {
                     </div>
                 )} */}
             </nav>
-            <div className="header-search-wrapper">
-                <input type="text" className="input header-search" placeholder="search" />
-                <img src="/img/general/search-icon.svg" alt="" />
+            <div className={`header-search-wrapper ${inputClass}`}>
+                <span className="search-icon">
+                    <img src="/img/general/search-icon.svg" alt="" />
+                </span>
+                <input
+                    type="text"
+                    className={`input header-search `}
+                    placeholder="search"
+                    ref={inputRef}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    // style={inputStyle}
+                />
             </div>
             <Modal title={whichModal} onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false} position={position} /* isBackDrop={false} */>
                 {getModalContent()}

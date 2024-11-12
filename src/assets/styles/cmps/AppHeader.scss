@@ -2,7 +2,7 @@
     position: relative;
     z-index: 3;
     display: flex;
-    // justify-content: space-between;
+    justify-content: space-between;
     height: 3em;
     padding: 8px 0px;
     background-color: $clr6;
@@ -13,7 +13,7 @@
     border-bottom: 1px solid rgba(23, 45, 79, 0.16);
     nav {
         display: flex;
-        width: 100%;
+        // width: 100%;s
         align-items: center;
         // justify-content: center;
         gap: 0.2em;
@@ -56,7 +56,7 @@
             font-family: 'Segoe UI', 'roboto-regular';
             font-size: 14px;
             transition: 0.1s;
-            background-color: $clr6;
+            background-color: inherit;
             color: $headerClr;
             &::first-letter {
                 text-transform: capitalize;
@@ -83,7 +83,27 @@
         }
     }
     .header-search-wrapper {
-        margin-inline-end: 1em;
+        // display: flex;
+        position: relative;
+        margin-inline-end: 2em;
+        transition: 0.3s;
+        &.enlarged {
+            transition: 0.3s;
+            width: 95%;
+        }
+        .header-search {
+            // background-color: lighten($color: inherit, $amount: 5);
+            padding-inline-start: rem(32px);
+            border-radius: rem(5px);
+            &:focus {
+                border: 1px solid $clr-blue-border;
+            }
+        }
+        .search-icon {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+        }
     }
     .user-info {
         display: flex;

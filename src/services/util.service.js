@@ -94,3 +94,23 @@ export function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return data ? JSON.parse(data) : undefined
 }
+export function lightenColor(color, percent) {
+    // Match the color in rgba or rgb format
+    const rgbaMatch = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+),?\s*(\d*\.?\d+)?\)/)
+
+    if (!rgbaMatch) return color // Return original color if format isn't matched
+
+    // Extract RGB channels and optional alpha channel
+    const [_, r, g, b, a] = rgbaMatch.map(Number)
+
+    // Calculate the new RGB values by lightening the color
+    const newR = Math.min(255, Math.floor(r + (255 - r) * (percent / 100)))
+    const newG = Math.min(255, Math.floor(g + (255 - g) * (percent / 100)))
+    const newB = Math.min(255, Math.floor(b + (255 - b) * (percent / 100)))
+
+    // Preserve alpha if it exists, otherwise default to 1 (opaque)
+    const newA = a !== undefined ? a : 1
+
+    // Return new color in rgba format
+    return `rgba(${newR}, ${newG}, ${newB}, ${newA})`
+}

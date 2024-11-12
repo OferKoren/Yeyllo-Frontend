@@ -701,6 +701,413 @@ let board = [
         createdAt: 1731412138862,
         _id: 'EkXjV',
     },
+    {
+        title: 'Demo trello',
+        isStarred: true,
+        createdBy: {
+            _id: 'u101',
+            fullname: 'Abi Abambi',
+            imgUrl: '/img/user/gal.png',
+        },
+        style: {
+            backgroundImage:
+                'url(https://images.unsplash.com/photo-1547483238-f400e65ccd56?crop=entropy&cs=srgb&fm=jpg&ixid=M3w2NzM1Nzl8MHwxfHNlYXJjaHw1fHxwYXRhZ29uaWF8ZW58MHx8fHwxNzMxNDEyOTk3fDA&ixlib=rb-4.0.3&q=85)',
+        },
+        urls: {
+            regular:
+                'https://images.unsplash.com/photo-1547483238-f400e65ccd56?crop=entropy&cs=srgb&fm=jpg&ixid=M3w2NzM1Nzl8MHwxfHNlYXJjaHw1fHxwYXRhZ29uaWF8ZW58MHx8fHwxNzMxNDEyOTk3fDA&ixlib=rb-4.0.3&q=85',
+        },
+        labels: [],
+        members: [
+            {
+                _id: 'u101',
+                fullname: 'Abi Abambi',
+                imgUrl: '/img/user/gal.png',
+            },
+        ],
+        groups: [
+            {
+                id: 'lOJYox',
+                style: {},
+                tasks: [
+                    {
+                        id: '8pj5Fw',
+                        title: 'Create backend services',
+                    },
+                    {
+                        id: '9Cb5A2',
+                        title: 'Routing Directory',
+                        dueDate: '11/28/2024',
+                        dueTime: '02:10 PM',
+                        status: 'inProgress',
+                        labelIds: ['l105'],
+                        description: 'decasdkasdasdasdas',
+                        memberIds: ['u101'],
+                    },
+                    {
+                        id: 'RSnLHo',
+                        title: 'Database implemention',
+                        description: 'asdasdasdas',
+                        labelIds: ['l102', 'l104'],
+                        checklists: [
+                            {
+                                id: 'HTeaQl',
+                                title: 'Checklist',
+                                todos: [
+                                    {
+                                        id: '9wJbMJ',
+                                        title: 'asdasd',
+                                        isDone: false,
+                                    },
+                                ],
+                                doneTodosPercent: 0,
+                            },
+                        ],
+                    },
+                    {
+                        id: 'MhEmBr',
+                        title: 'Data model approvel',
+                        dueDate: '11/21/2024',
+                        dueTime: '02:12 PM',
+                        status: 'done',
+                        checklists: [
+                            {
+                                id: 'W5ORF7',
+                                title: 'Checklissadt',
+                                todos: [
+                                    {
+                                        id: 'MY9Mdr',
+                                        title: 'asd',
+                                        isDone: true,
+                                    },
+                                    {
+                                        id: 'kPvV2T',
+                                        title: 'asfdasfsdafas',
+                                        isDone: false,
+                                    },
+                                    {
+                                        id: 'bpWksA',
+                                        title: 'asdasdasdasd',
+                                        isDone: false,
+                                    },
+                                ],
+                                doneTodosPercent: 33.33333333333333,
+                            },
+                        ],
+                    },
+                    {
+                        id: 'v6HQXx',
+                        title: 'Create a server with expresss',
+                    },
+                    {
+                        id: '32dzTA',
+                        title: 'implement Sass',
+                        memberIds: ['u101'],
+                    },
+                    {
+                        id: 'gl96s1',
+                        title: 'more stuff to do',
+                        memberIds: ['u101'],
+                    },
+                ],
+                title: 'Backlog-server',
+            },
+            {
+                id: 'wo1iMD',
+                style: {
+                    backgroundColor: '#F8E6A0',
+                },
+                tasks: [
+                    {
+                        id: 'dXuCti',
+                        title: 'Planning the components tree',
+                        style: {
+                            backgroundColor: '#4BCE97',
+                        },
+                        labelIds: ['l101', 'l102', 'l104'],
+                        dueDate: '11/24/2024',
+                        dueTime: '02:15 PM',
+                        status: 'inProgress',
+                    },
+                    {
+                        id: 'ngNJ3Q',
+                        title: 'Add taskDetails',
+                        checklists: [
+                            {
+                                id: '419fSR',
+                                title: 'Checklist',
+                                todos: [
+                                    {
+                                        id: 'qJAExJ',
+                                        title: 'sdasd',
+                                        isDone: false,
+                                    },
+                                    {
+                                        id: 'L8fvtw',
+                                        title: 'asda',
+                                        isDone: false,
+                                    },
+                                    {
+                                        id: 'U8J4xD',
+                                        title: 'asdasd',
+                                        isDone: true,
+                                    },
+                                    {
+                                        id: 'hgDzqp',
+                                        title: 'asdasd',
+                                        isDone: false,
+                                    },
+                                    {
+                                        id: '4kmo3O',
+                                        title: 'vsv',
+                                        isDone: true,
+                                    },
+                                    {
+                                        id: 'DQmICe',
+                                        title: 'wewe',
+                                        isDone: false,
+                                    },
+                                ],
+                                doneTodosPercent: 33.33333333333333,
+                            },
+                        ],
+                        memberIds: ['u101'],
+                    },
+                    {
+                        id: 'EGFoNf',
+                        title: 'Adding npm libararies',
+                    },
+                    {
+                        id: 'jR0Fuf',
+                        title: 'Build basic temlate',
+                    },
+                    {
+                        id: 'EepCsp',
+                        title: 'Connect sockets',
+                    },
+                ],
+                title: 'Backlog-client',
+            },
+            {
+                id: 'AFWVnp',
+                style: {
+                    backgroundColor: '#D3F1A7',
+                },
+                tasks: [
+                    {
+                        id: 'hMUm67',
+                        title: 'Sanity test for new componenet',
+                        labelIds: ['l102'],
+                        dueDate: '11/07/2024',
+                        dueTime: '02:35 PM',
+                        status: 'inProgress',
+                        style: {
+                            backgroundColor: '#4BCE97',
+                        },
+                    },
+                    {
+                        id: 'qZSPMN',
+                        title: 'function testing for app header',
+                        style: {
+                            backgroundColor: '#F5CD47',
+                        },
+                        dueDate: '12/01/2024',
+                        dueTime: '02:35 PM',
+                        status: 'done',
+                        description: 'asdasd',
+                        labelIds: ['l102', 'l103'],
+                    },
+                    {
+                        id: 'lJKkIh',
+                        title: 'connect to pwa',
+                        description: 'asasdas',
+                        style: {
+                            backgroundColor: '#E774BB',
+                        },
+                        checklists: [
+                            {
+                                id: 'e4pyoS',
+                                title: 'Checklistas',
+                                todos: [
+                                    {
+                                        id: 'nEwHRt',
+                                        title: 'ad',
+                                        isDone: false,
+                                    },
+                                    {
+                                        id: '29gBJi',
+                                        title: 'asdasd',
+                                        isDone: false,
+                                    },
+                                    {
+                                        id: 'R8LJz5',
+                                        title: 'asdasd',
+                                        isDone: false,
+                                    },
+                                ],
+                                doneTodosPercent: 0,
+                            },
+                        ],
+                    },
+                    {
+                        id: 'OwGCCv',
+                        title: 'more stuff ',
+                    },
+                ],
+                title: 'In Development',
+            },
+            {
+                id: 'AaddpC',
+                style: {},
+                tasks: [
+                    {
+                        id: 'rZbRMb',
+                        title: 'Css variables',
+                        style: {
+                            backgroundColor: '#579DFF',
+                        },
+                        labelIds: ['l102', 'l103'],
+                        memberIds: ['u101'],
+                        description: 'asdasd',
+                    },
+                    {
+                        id: 'e9FZ4o',
+                        title: 'Making functions and mixins',
+                        checklists: [
+                            {
+                                id: 'o00Hhj',
+                                title: 'Checklist',
+                                todos: [
+                                    {
+                                        id: 'HSA8j3',
+                                        title: 'dw',
+                                        isDone: true,
+                                    },
+                                    {
+                                        id: 'cRisLn',
+                                        title: 'two',
+                                        isDone: true,
+                                    },
+                                    {
+                                        id: 'kPY8BI',
+                                        title: 'three',
+                                        isDone: true,
+                                    },
+                                ],
+                                doneTodosPercent: 100,
+                            },
+                        ],
+                        description: 'asasdasdasd',
+                        style: {
+                            backgroundColor: '#8590A2',
+                        },
+                    },
+                    {
+                        id: 'BU3rIw',
+                        title: 'Css directory',
+                        dueDate: '11/12/2024',
+                        dueTime: '02:37 PM',
+                        status: 'inProgress',
+                        description: 'more stiff\n',
+                        memberIds: ['u101'],
+                    },
+                    {
+                        id: '6T8kBL',
+                        title: 'Creating node.js server',
+                    },
+                    {
+                        id: 'sLc4ao',
+                        title: 'https://www.npmjs.com/package/@material-ui/core',
+                    },
+                ],
+                title: 'Done',
+            },
+            {
+                id: 'iWgacm',
+                style: {
+                    backgroundColor: '#CCE0FF',
+                },
+                tasks: [
+                    {
+                        id: 'PksJtR',
+                        title: 'Metting with head manager for planning the code progress',
+                        labelIds: ['l106', 'l104'],
+                    },
+                    {
+                        id: 'BRHjLp',
+                        title: 'End day code review with all member',
+                        labelIds: ['l103'],
+                        dueDate: '11/26/2024',
+                        dueTime: '02:39 PM',
+                        status: 'inProgress',
+                    },
+                    {
+                        id: 'UNXZv2',
+                        title: 'taking a break in the woods',
+                        style: {
+                            backgroundColor: '#9F8FEF',
+                        },
+                    },
+                    {
+                        id: 'UwjTvd',
+                        title: 'Advice from head manager',
+                        checklists: [
+                            {
+                                id: 'TKJSdB',
+                                title: 'Checklist',
+                                todos: [
+                                    {
+                                        id: 'LfI4tN',
+                                        title: 'ds',
+                                        isDone: false,
+                                    },
+                                    {
+                                        id: 'lDJNW0',
+                                        title: 'sdss',
+                                        isDone: true,
+                                    },
+                                ],
+                                doneTodosPercent: 50,
+                            },
+                        ],
+                    },
+                ],
+                title: 'QA',
+            },
+            {
+                id: 'lqb7Ei',
+                style: {},
+                tasks: [
+                    {
+                        id: 'xc4e1r',
+                        title: 'Creating db with mongo',
+                        style: {
+                            backgroundColor: '#F5CD47',
+                        },
+                    },
+                    {
+                        id: 'yrJaSn',
+                        title: 'App header',
+                        style: {
+                            backgroundColor: '#94C748',
+                        },
+                    },
+                ],
+                title: 'Ready for production',
+            },
+            {
+                id: 'xnk4Hm',
+                style: {
+                    backgroundColor: '#BAF3DB',
+                },
+                tasks: [],
+                title: 'Sales',
+            },
+        ],
+        activites: [],
+        createdAt: 1731413007790,
+        _id: 'xHEdg',
+    },
 ]
 
 export const boardData = {
