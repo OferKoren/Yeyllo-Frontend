@@ -8,7 +8,7 @@
     border: 2px solid $clr-bg1-light;
 
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
-
+    overflow-wrap:anywhere;
     cursor: pointer;
 
     img {
@@ -27,8 +27,14 @@
 
     .labels-task-preview {
         display: flex;
-
+        max-width: 17em;
+        flex-wrap: wrap;
+        // height: auto;
+        // gap: 0.3em;
         >* {
+            margin-bottom: 0.3em;
+
+            // font-family: 'roboto-regular';
             &:hover {
                 opacity: 0.8;
             }
@@ -46,6 +52,8 @@
         border-right: 2px solid inherit;
         border-left: 2px solid inherit;
 
+
+        
         box-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.2), 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.19);
 
     }

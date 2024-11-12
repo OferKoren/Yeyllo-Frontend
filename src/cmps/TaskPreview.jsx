@@ -116,7 +116,7 @@ export function TaskPreview({ onUpdateBoard, board, isLabelsClicked, setIsLabels
                                 : <div key={labelId} onClick={(ev) => {
                                     ev.stopPropagation()
                                     setIsLabelsClicked(isClicked => !isClicked)
-                                }} style={{ textAlign: 'center', transition: '200ms', fontFamily: 'roboto-bold', fontSize: '0.8em', marginRight: '0.3em', backgroundColor: currLabel.color, width: '60px', height: '17px', padding: '0px 8px', borderRadius: '4px' }}>
+                                }} style={{ textAlign: 'center', transition: '200ms', fontFamily: 'roboto-bold', fontSize: '0.8em', marginRight: '0.3em', backgroundColor: currLabel.color,minWidth: '60px', maxWidth:'max-content' , height: '17px', padding: '0px 8px', borderRadius: '4px', justifyContent:'center' }}>
                                     {currLabel.title}
                                 </div>
 
