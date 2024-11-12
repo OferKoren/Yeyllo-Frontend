@@ -45,6 +45,15 @@ function getDefaultFilter() {
     }
 }
 
+export function getEmptyGroup() {
+    return {
+        id: makeId(),
+        style: {},
+        tasks: [],
+        title: ''
+    }
+}
+
 const service = VITE_LOCAL === 'true' ? local : remote
 // if (VITE_LOCAL === 'true') console.log('hiiiii')
 export const boardService = { getEmptyBoard, getDefaultFilter, getBackgroundPallet, ...service }

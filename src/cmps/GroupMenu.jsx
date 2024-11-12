@@ -40,16 +40,28 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
     async function onCopyGroup(ev) {
         ev.preventDefault()
         if (!newTitle) return /*alert('Text field is required')*/
+
+        const newTasks = group.tasks.map(task => {
+            return task = { ...task, id: makeId() }
+        })
+        console.log(board);
+
         const newGroup = {
+            ...group,
             id: makeId(),
             style: group.style,
-            tasks: group.tasks,
+            tasks: newTasks,
             title: newTitle
         }
+
         try {
             const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
-            board.groups.splice(groupIdx + 1, 0, newGroup)
-            await onUpdateBoard(board)
+            const changeBoard = board
+            // changeBoard.groups.push(newGroup)
+            changeBoard.groups.splice(groupIdx + 1, 0, newGroup)
+
+            // changeBoard.groups.map(currGroup => currGroup.id === group.id? newGroup )
+            await onUpdateBoard(changeBoard)
             setNewTitle('')
             setIsMenuOpen(isOpen => !isOpen)
         } catch (err) {
@@ -62,9 +74,12 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
 
         try {
             const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
-            board.groups[groupIdx].style.backgroundColor = color
+            console.log(groupIdx);
+            
+            const changeBoard = board
+            changeBoard.groups[groupIdx].style.backgroundColor = color
             // group.style.backgroundColor = color
-            await onUpdateBoard(board)
+            await onUpdateBoard(changeBoard)
             // setIsMenuOpen(isOpen => !isOpen)
         } catch (err) {
             console.log('err: ', err);
