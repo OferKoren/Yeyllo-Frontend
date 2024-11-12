@@ -11,7 +11,8 @@ export function Cover({ setTask, handleCloseModal }) {
 
     function onRemoveCover() {
         setTask(prevTask => {
-            const updatedTask = delete { ...prevTask }.style
+            const updatedTask = { ...prevTask }
+            delete updatedTask.style
             return updatedTask
         })
     }

@@ -156,8 +156,18 @@ export function TaskDetails() {
         } else {
             return dayjs(dueDate).format('MMM D, hh:mm A')
         }
+    }
 
-
+    function onToggleArchivedTask() {
+        if (task.archivedAt) {
+            setTask(prevTask => {
+                const updatedTask = { ...prevTask }
+                delete updatedTask.archivedAt
+                return updatedTask
+            })
+        } else {
+            setTask((prevTask) => ({ ...prevTask, archivedAt: Date.now() }))
+        }
     }
 
     function onRemoveTask() {
@@ -192,6 +202,14 @@ export function TaskDetails() {
             </div>
 
             {task.style?.backgroundColor && <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}></div>}
+
+            {task.archivedAt &&
+                <div className="archive-banner"
+                    style={{ borderTopLeftRadius: task.style?.backgroundColor ? 0 : '11px', borderTopRightRadius: task.style?.backgroundColor ? 0 : '11px' }}>
+                    <img src="/img/icons/icon-archive.svg" />
+                    <p>This card is archived.</p>
+                </div>
+            }
 
             <div className="task-header">
                 <img src="/img/icons/icon-task-title.svg" />
@@ -379,7 +397,7 @@ export function TaskDetails() {
 
                     <div>
                         <button className={`btn btn-option btn-light`}
-                            onClick={() => handleToggleModal('archive')}>
+                            onClick={() => { handleToggleModal('archive'); onToggleArchivedTask() }}>
                             {
                                 (openModal === "archive" || openModal === "deleteTask") ?
                                     <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -400,7 +418,7 @@ export function TaskDetails() {
                         {(openModal === "archive" || openModal === "deleteTask") &&
                             <>
                                 <div>
-                                    <button className={`btn btn-option btn-delete`} onClick={() => handleOpenModal('deleteTask')}>
+                                    <button className={`btn btn-option btn-delete`} onClick={() => { handleOpenModal('deleteTask') }}>
                                         <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <rect x="3" y="11" width="18" height="2" rx="1" style={{ fill: '#ffffff' }} />
                                         </svg>
@@ -409,7 +427,7 @@ export function TaskDetails() {
                                 </div>
                             </>
                         }
-                        {openModal === "deleteTask" && <DeleteTaskModal handleCloseModal={handleCloseModal} handleOpenModal={handleOpenModal} />}
+                        {openModal === "deleteTask" && <DeleteTaskModal handleCloseModal={handleCloseModal} handleOpenModal={handleOpenModal} onRemoveTask={onRemoveTask} />}
                     </div>
                 </div>
             </section>

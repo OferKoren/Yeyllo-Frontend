@@ -27,6 +27,16 @@
         }
     }
 
+    .archive-banner {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        padding: 1.3em;
+        margin-inline-start: 0.1em;
+
+        background-color: $clr-bg3-archive;
+    }
+
     .cover {
         height: 8em;
         border-top-left-radius: 11px;
