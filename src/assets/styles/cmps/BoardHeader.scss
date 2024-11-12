@@ -69,6 +69,12 @@
 
     .board-members {
         margin-inline-end: 0.2em;
+        .member-img {
+            width: rem(28px);
+            height: rem(28px);
+            border: none;
+            padding: 0;
+        }
     }
     & > button.star {
         margin-inline-end: auto;

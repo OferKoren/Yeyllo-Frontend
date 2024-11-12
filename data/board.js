@@ -199,10 +199,7 @@ let board = [
                                 },
                             },
                         ],
-                        attachments: [
-                            'https://fonts.google.com/',
-                            'https://trello.com/'
-                        ],
+                        attachments: ['https://fonts.google.com/', 'https://trello.com/'],
                         checklists: [
                             {
                                 id: 'YEhmF',
@@ -663,6 +660,46 @@ let board = [
 
         // For Monday draggable columns (optional)
         cmpsOrder: ['StatusPicker', 'MemberPicker', 'DatePicker'],
+    },
+    {
+        title: "gal's board 2.0",
+        isStarred: false,
+        createdBy: {
+            _id: 'u101',
+            fullname: 'Abi Abambi',
+            imgUrl: '/img/user/gal.png',
+        },
+        style: {
+            backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-crystal_bkqsso.svg)',
+        },
+        urls: {
+            regular: 'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148742/gradiant-crystal_bkqsso.svg',
+        },
+        labels: [],
+        members: [
+            {
+                _id: 'u101',
+                fullname: 'Abi Abambi',
+                imgUrl: '/img/user/gal.png',
+            },
+        ],
+        groups: [
+            {
+                id: '5vULUA',
+                style: {},
+                tasks: [
+                    {
+                        id: 'U5fuzk',
+                        title: 'sds',
+                        memberIds: ['u101'],
+                    },
+                ],
+                title: 'asda',
+            },
+        ],
+        activites: [],
+        createdAt: 1731412138862,
+        _id: 'EkXjV',
     },
 ]
 

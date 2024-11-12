@@ -13,7 +13,7 @@ function getEmptyBoard() {
         createdBy: {
             _id: 'u101',
             fullname: 'Abi Abambi',
-            imgUrl: 'http://some-img',
+            imgUrl: '/img/user/gal.png',
         },
         style: {
             // backgroundSize: '100% 100%',
@@ -22,7 +22,13 @@ function getEmptyBoard() {
         },
         urls: { regular: 'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg' },
         labels: [],
-        members: [],
+        members: [
+            {
+                _id: 'u101',
+                fullname: 'Abi Abambi',
+                imgUrl: '/img/user/gal.png',
+            },
+        ],
         groups: [],
         activites: [],
     }
