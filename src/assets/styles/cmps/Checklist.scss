@@ -9,6 +9,8 @@
 }
 
 .checklist-details {
+    margin-inline-start: 0.3em;
+
     .checklist-header {
         grid-area: header;
         display: flex;
@@ -19,7 +21,7 @@
         .checklist-title {
             display: flex;
             align-items: center;
-            gap: 0.8em;
+            gap: 1em;
         }
     }
 
@@ -45,7 +47,7 @@
 
     .btn-open-todo {
         margin-block-start: 1em;
-        margin-inline-start: 2.1em;
+        margin-inline-start: 2.5em;
         font-family: 'roboto-medium';
         font-size: 0.95rem;
     }
@@ -69,7 +71,7 @@
 
 .progress-bar-container {
     display: flex;
-    gap: 0.5em;
+    gap: 0.8em;
     width: 100%;
     align-items: center;
 

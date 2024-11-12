@@ -10,6 +10,10 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, setIsEdit
         setTask(prevTask => ({ ...prevTask, memberIds: (!prevTask.memberIds) ? [memberId] : [...prevTask.memberIds, memberId] }))
     }
 
+    function handleFilterByMember() {
+
+    }
+
     return (
         <div className="modal-option task-members">
             <div className="task-members-header option-modal-header">
@@ -18,6 +22,12 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, setIsEdit
             </div>
 
             <div className="members">
+                <input
+                    type="text"
+                    value={''}
+                    onChange={handleFilterByMember}
+                    placeholder="Search members"
+                />
                 {
                     task.memberIds && task.memberIds.length !== 0 &&
                     <div className="task-member-list">

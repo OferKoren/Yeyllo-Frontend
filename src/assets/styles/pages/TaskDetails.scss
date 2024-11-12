@@ -11,12 +11,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        right: 5px;
-        width: 2em;
-        height: 2em;
+        right: 10px;
+        top: 10px;
 
-        margin-block-start: 0.3em;
+        padding: 0.3em;
         border-radius: 50%;
+
+        & svg {
+            width: 1.5em;
+            height: 1.5em;
+        }
 
         &:hover {
             background-color: $clr-btn-1;
@@ -31,10 +35,22 @@
 
     .task-header {
         display: flex;
-        align-items: center;
+        align-items: start;
         padding: 0 1em 0;
         gap: 0.5em;
-        margin-block-start: 1em;
+        margin-block-start: 1.5em;
+        margin-inline-start: 0.3em;
+
+        & img {
+            margin-block-start: 0.2em;
+        }
+
+        .task-header-left-side {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3em;
+            width: 100%;
+        }
     }
 
     input[type="text"] {
@@ -62,7 +78,6 @@
         font-family: inherit;
 
         width: 100%;
-        padding: 0.5em 0.4em 0;
 
         overflow: hidden;
         resize: none;
@@ -76,6 +91,7 @@
 
     textarea.task-title {
         width: 90%;
+        padding: 0.5em 0 0 0.5em;
         font-size: 1.2rem;
         font-family: 'roboto-medium';
         background-color: $clr-bg3-light;
@@ -98,7 +114,7 @@
         display: flex;
         flex-wrap: wrap;
         column-gap: 1.5em;
-        padding-inline-start: 2.3em;
+        padding-inline-start: 3em;
 
         .labels-area {
             display: flex;
@@ -209,12 +225,13 @@
         display: grid;
         grid-template-columns: max-content 1fr;
         row-gap: 0.6em;
-        column-gap: 0.6em;
+        column-gap: 1.1em;
         grid-template-areas:
             "icon title"
             "icon input";
         margin-block-end: 2em;
         margin-block-start: 1.3em;
+        margin-inline-start: 0.3em;
 
         .icon-description {
             grid-area: icon;

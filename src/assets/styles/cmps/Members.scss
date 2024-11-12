@@ -1,12 +1,17 @@
 .members {
     display: grid;
     gap: 1em;
+
+
+    & input[type="text"] {
+        margin: 0;
+    }
 }
 
 .board-member-list,
 .task-member-list {
     & img {
-        height: 1.6em;
+        width: 2em;
         border-radius: 50%;
     }
 
@@ -17,12 +22,12 @@
         & li.member {
             display: flex;
             align-items: center;
-            gap: 0.8em;
+            gap: 0.7em;
             padding: 0.3em;
             margin: 0;
 
             border-radius: 0.2em;
-            background-color: $clr-bg3-light;
+
 
             & .member-name {
                 font-size: 0.9rem;
