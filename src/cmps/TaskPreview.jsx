@@ -83,21 +83,16 @@ export function TaskPreview({ onUpdateBoard, board, isLabelsClicked, setIsLabels
 
     async function onDateClick(e) {
         e.stopPropagation()
+
         const currGroupIdx = board.groups.findIndex(group => group.id === groupId)
         const currGroup = board.groups.find(group => group.id === groupId)
         const currTaskIdx = currGroup.tasks.findIndex(thisTask => thisTask.id === task.id)
-        // currTask.status = 'done'
-        // task.status = 'done'
+        
         setIsDone(isDone => !isDone)
+
         try {
             isDone ? board.groups[currGroupIdx].tasks[currTaskIdx].status = 'inProgress' : board.groups[currGroupIdx].tasks[currTaskIdx].status = 'done'
-            // board.groups[currGroupIdx].tasks[currTaskIdx].status === 'done'? board.groups[currGroupIdx].tasks[currTaskIdx].status = 'inProgress' : board.groups[currGroupIdx].tasks[currTaskIdx].status = 'done'
-            console.log(board);
             await updateBoard(board)
-            console.log(board);
-
-            // await onUpdateBoard(board)
-            // setTitle('')
         } catch (err) {
             setIsDone(isDone => !isDone)
             console.log('err: ', err);

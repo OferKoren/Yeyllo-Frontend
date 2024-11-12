@@ -36,7 +36,6 @@ export function GroupPreview({ isLabelsClicked, setIsLabelsClicked, onUpdateBoar
                 break
             }
         }
-        console.log(value)
         setCurrTitle(value)
     }
 

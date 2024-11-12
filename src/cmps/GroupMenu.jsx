@@ -46,11 +46,10 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
                 break
             }
         }
-        console.log(value)
         setNewTitle(value)
     }
 
-    async function onCopyTitle(ev) {
+    async function onCopyGroup(ev) {
         ev.preventDefault()
         if (!newTitle) return alert('Text field is required')
         const newGroup = {
@@ -60,7 +59,8 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
             title: newTitle
         }
         try {
-            board.groups.push(newGroup)
+            const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
+            board.groups.splice(groupIdx + 1, 0, newGroup)
             await onUpdateBoard(board)
             setNewTitle('')
             setIsMenuOpen(isOpen => !isOpen)
@@ -71,7 +71,7 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
 
     async function onChangeGroupColor(ev, color) {
         // ev.preventDefault()
-     
+
         try {
             const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
             board.groups[groupIdx].style.backgroundColor = color
@@ -94,7 +94,7 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
                     <h4>Name</h4>
                     <div className="group-menu-copy">
                         {/* <textarea name="" id="" value=""></textarea> */}
-                        <form onSubmit={onCopyTitle}>
+                        <form onSubmit={onCopyGroup}>
                             <input autoFocus className="group-title-input" type="text" id="title" name="title" value={newTitle} onChange={handleChange} />
                         </form>
                     </div>
@@ -114,7 +114,7 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
                         <h5>Change list color</h5>
                         <div className="group-palette-colors">
                             {groupColorPalette?.map(colorObj =>
-                                <div onClick={() => onChangeGroupColor(event, colorObj.realColor)} className="group-palette-color" title={colorObj.title} style={{ outline:group.style.backgroundColor ===  colorObj.realColor?'#0C66E4 solid 2px':'', border:group.style.backgroundColor ===  colorObj.realColor?'solid white 2px':'' ,backgroundColor: colorObj.color, width: '50px', height: '32px', padding: '6px 12px'}}></div>
+                                <div key={colorObj.title} onClick={() => onChangeGroupColor(event, colorObj.realColor)} className="group-palette-color" title={colorObj.title} style={{ outline: group.style.backgroundColor === colorObj.realColor ? '#0C66E4 solid 2px' : '', border: group.style.backgroundColor === colorObj.realColor ? 'solid white 2px' : '', backgroundColor: colorObj.color, width: '50px', height: '32px', padding: '6px 12px' }}></div>
                             )}
                         </div>
                         <hr style={{

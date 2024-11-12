@@ -11,7 +11,6 @@ export function GroupList({ onUpdateBoard, board }) {
     const [isLabelsClicked, setIsLabelsClicked] = useState(false)
 
     const { groups } = board
-    console.log(groups);
 
     function handleChange(ev) {
         const type = ev.target.type
@@ -26,7 +25,6 @@ export function GroupList({ onUpdateBoard, board }) {
                 break
             }
         }
-        console.log(value)
         setTitle(value)
     }
 
@@ -56,8 +54,6 @@ export function GroupList({ onUpdateBoard, board }) {
         setIsAddGroupClicked(isClicked => !isClicked)
         setTitle('')
     }
-
-    console.log(isAddGroupClicked);
 
     if (!board) return <div>Loading...</div>
     return (

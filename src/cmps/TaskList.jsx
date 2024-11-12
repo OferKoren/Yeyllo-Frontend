@@ -5,9 +5,7 @@ import ClickOutside from "./ClickOutside";
 
 export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
-
-    const { groups } = board
-    console.log(groups);
+    // const { groups } = board
 
     function handleChange(ev) {
         const type = ev.target.type
@@ -22,7 +20,6 @@ export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTa
                 break
             }
         }
-        console.log(value)
         setTaskTitle(value)
     }
 
@@ -54,9 +51,7 @@ export function TaskList({ isLabelsClicked, setIsLabelsClicked, taskTitle, setTa
         if (!taskTitle) return onCloseEditTitle()
         onAddTask()
     }
-
-    console.log('title:', taskTitle);
-
+    
     return (
         <>
 

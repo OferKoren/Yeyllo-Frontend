@@ -8,7 +8,7 @@ import { BoardHeader } from '../cmps/BoardHeader'
 export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
     const board = useSelector((storeState) => storeState.boardModule.board)
-    // console.log(board)
+
     useEffect(() => {
         if (rootRef.current && board) {
             Object.assign(rootRef.current.style, board.style)
