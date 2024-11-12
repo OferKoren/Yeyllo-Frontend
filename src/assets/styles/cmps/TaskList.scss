@@ -19,8 +19,8 @@
     .add-task-container {
         width: 17.7em;
         form{
-            margin-inline-start: 0.2em;
-            width: 94%;
+            // margin-inline-start: 0.2em;
+            width: 100%;
         }
         input {
             font-family: "roboto-regular";
@@ -29,6 +29,7 @@
             padding-top: 0.7em;
             padding-bottom: 2em;
             width: 100%;
+            margin-left: 0;
             &:focus {
                 border: none;
             }

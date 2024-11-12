@@ -58,7 +58,7 @@
     input {
         border-radius: 0.5em;
         padding: em(6px) em(8px) em(8px) em(12px);
-        margin: 5px;
+        margin-top: 0px;
         width: 17em;
         // margin-bottom: em(10px);
 
@@ -99,7 +99,6 @@
     display: flex;
     align-items: center;
     margin: 0;
-    margin-left: 0.5em;
 
     .close-btn-x {
         border-radius: 0.2em;
@@ -135,7 +134,7 @@
     }
 
     :nth-child(2) {
-        background-color: $clr-bg1-light;
+        background-color: inherit;
         color: rgb(99, 99, 99);
         font-size: 20px;
 
