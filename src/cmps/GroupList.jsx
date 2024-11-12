@@ -3,6 +3,7 @@ import { GroupPreview } from "./GroupPreview";
 import { makeId } from "../services/util.service";
 import { updateBoard } from "../store/actions/board.actions";
 import ClickOutside from "./ClickOutside";
+import { getEmptyGroup } from "../services/board";
 
 export function GroupList({ onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
@@ -32,22 +33,25 @@ export function GroupList({ onUpdateBoard, board }) {
         ev.preventDefault()
         if (!title) return alert('Text field is required')
 
-        const group = {
-            id: makeId(),
-            style: {},
-            tasks: [],
-            title: title
-        }
+        const group = getEmptyGroup()
+        group.title = title
+        
+        // const group = {
+        //     id: makeId(),
+        //     style: {},
+        //     tasks: [],
+        //     title: title
+        // }
+
         try {
-            board.groups.push(group)
-            await onUpdateBoard(board)
-            // setTitle('')
+            const changeBoard = board
+            changeBoard.groups.push(group)
+            await onUpdateBoard(changeBoard)
             onCloseEditTitle()
             setIsAddGroupClicked(isClicked => !isClicked)
         } catch (err) {
             console.log('err: ', err);
         }
-        // updateBoard(newBoard)
     }
 
     function onCloseEditTitle() {
@@ -60,13 +64,13 @@ export function GroupList({ onUpdateBoard, board }) {
         <section>
             <ul className="group-list flex">
                 {groups.map(group =>
-                    <li style={{...group.style}} key={group.id}>
+                    <li style={{ ...group.style }} key={group.id}>
                         {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
                         <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
                     </li>)
                 }
                 {isAddGroupClicked ?
-                    <ClickOutside onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
+                    <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
                         <div className="add-group-container">
                             <form onSubmit={onAddGroup}>
                                 <input autoFocus type="text" id="title" name="title" value={title} placeholder="Enter list name..." onChange={handleChange} />

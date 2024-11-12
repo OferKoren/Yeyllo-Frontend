@@ -1,23 +1,11 @@
 import { useState } from "react"
 import { makeId } from "../services/util.service"
 import ClickOutside from "./ClickOutside"
+import { groupColorPalette } from "../store/reducers/board.reducer"
 
 export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemoveGroup, setIsAddTaskClicked, isCopyGroupClicked, setIsCopyGroupClicked }) {
 
     const [newTitle, setNewTitle] = useState(group.title)
-
-    const groupColorPalette = [
-        { color: '#4BCE97', realColor: '#BAF3DB', title: 'green' },
-        { color: '#f5cd47', realColor: '#F8E6A0', title: 'yellow' },
-        { color: '#fea362', realColor: '#FEDEC8', title: 'orange' },
-        { color: '#f87168', realColor: '#FFD5D2', title: 'red' },
-        { color: '#9f8fef', realColor: '#DFD8FD', title: 'purple' },
-        { color: '#579dff', realColor: '#CCE0FF', title: 'blue' },
-        { color: '#6cc3e0', realColor: '#C6EDFB', title: 'teal' },
-        { color: '#94c748', realColor: '#D3F1A7', title: 'lime' },
-        { color: '#e774bb', realColor: '#FDD0EC', title: 'magenta' },
-        { color: '#8590a2', realColor: '', title: 'gray (Default)' }
-    ]
 
     function onAddTaskMenu() {
         setIsAddTaskClicked(isOpen => !isOpen)
@@ -52,16 +40,28 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
     async function onCopyGroup(ev) {
         ev.preventDefault()
         if (!newTitle) return /*alert('Text field is required')*/
+
+        const newTasks = group.tasks.map(task => {
+            return task = { ...task, id: makeId() }
+        })
+        console.log(board);
+
         const newGroup = {
+            ...group,
             id: makeId(),
             style: group.style,
-            tasks: group.tasks,
+            tasks: newTasks,
             title: newTitle
         }
+
         try {
             const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
-            board.groups.splice(groupIdx + 1, 0, newGroup)
-            await onUpdateBoard(board)
+            const changeBoard = board
+            // changeBoard.groups.push(newGroup)
+            changeBoard.groups.splice(groupIdx + 1, 0, newGroup)
+
+            // changeBoard.groups.map(currGroup => currGroup.id === group.id? newGroup )
+            await onUpdateBoard(changeBoard)
             setNewTitle('')
             setIsMenuOpen(isOpen => !isOpen)
         } catch (err) {
@@ -74,9 +74,12 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
 
         try {
             const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
-            board.groups[groupIdx].style.backgroundColor = color
+            console.log(groupIdx);
+            
+            const changeBoard = board
+            changeBoard.groups[groupIdx].style.backgroundColor = color
             // group.style.backgroundColor = color
-            await onUpdateBoard(board)
+            await onUpdateBoard(changeBoard)
             // setIsMenuOpen(isOpen => !isOpen)
         } catch (err) {
             console.log('err: ', err);

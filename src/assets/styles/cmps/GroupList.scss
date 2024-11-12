@@ -33,6 +33,13 @@
     li:first-child {
         margin-inline-start: 1em;
     }
+    .container-first-add-group:first-child{
+        margin-inline-start: 1em;
+        width: 17em;
+        .add-group-container{
+            margin-inline-start: 0;
+        }
+    }
 
     >* {
         width: rem(264px);
