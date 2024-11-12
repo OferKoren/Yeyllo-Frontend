@@ -1,42 +1,39 @@
-import { Link, useParams, useOutletContext } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { loadBoard, updateBoard } from '../store/actions/board.actions'
+import { loadBoard } from '../store/actions/board.actions'
+import { boardService } from '../services/board'
 import { Labels } from '../cmps/Labels.jsx'
 import { Dates } from '../cmps/Dates.jsx'
+import { makeId } from '../services/util.service.js'
 import { Checklist } from '../cmps/Checklist.jsx'
 import { AddChecklist } from '../cmps/AddChecklist.jsx'
 import { Members } from '../cmps/Members.jsx'
 import { MemberPreview } from '../cmps/MemberPreview'
-import { Cover } from '../cmps/Cover.jsx'
-import dayjs from 'dayjs'
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
+import { taskService } from '../services/task/task.service.js'
 
-export function TaskDetails() {
+
+export function TaskDetails({ currTask }) {
+    // const boards = useSelector((storeState) => storeState.boardModule.boards)
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
 
     const [boardToEdit, setBoardToEdit] = useState(null)
     const [isEditLabels, setIsEditLabels] = useState(false)
-    const [isEditLabelsPlusBtn, setIsEditLabelsPlusBtn] = useState(false)
     const [isEditDates, setIsEditDates] = useState(false)
-    const [isEditDatesChevronBtn, setIsEditDatesChevronBtn] = useState(false)
     const [isAddChecklist, setIsAddChecklist] = useState(false)
     const [isEditMembers, setIsEditMembers] = useState(false)
-    const [isEditMembersPlusBtn, setIsEditMembersPlusBtn] = useState(false)
     const [isShowMemberPreview, setIsShowMemberPreview] = useState(false)
-    const [isEditCover, setIsEditCover] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
-
-    const { onCloseModal } = useOutletContext()
-    const currGroupRef = useRef(null)
 
     const { boardId } = useParams()
     const { groupId } = useParams()
     const { taskId } = useParams()
+
+    // const labels = taskService.getLabels()
+    const titleAreaRef = useRef(null)
 
     useEffect(() => {
         loadBoard(boardId)
@@ -46,22 +43,16 @@ export function TaskDetails() {
 
     useEffect(() => {
         setBoardToEdit(board)
-        const foundGroup = board?.groups.find((group) => group.id === groupId)
-        currGroupRef.current = foundGroup
-        const currTask = foundGroup?.tasks.find((task) => task.id === taskId)
+        const currGroup = board?.groups.find(group => group.id === groupId)
+        const currTask = currGroup?.tasks.find(task => task.id === taskId)
         if (currTask) {
             setTask(currTask)
         }
 
+        // if (board?.groups?.[1]?.tasks?.[1]) {
+        //     setTask(board?.groups[1].tasks[1])
+        // }
     }, [board])
-
-    // useEffect(() => {
-    //     if (isEditDates) {
-    //         document.body.style.overflow = 'hidden';
-    //     } else {
-    //         document.body.style.overflow = 'auto';
-    //     }
-    // }, [isEditDates])
 
     useEffect(() => {
         if (task.dueDate) {
@@ -88,12 +79,11 @@ export function TaskDetails() {
 
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
-
         switch (type) {
             case 'number':
             case 'range':
                 value = +value
-                break
+                break;
 
             case 'checkbox':
                 value = target.checked
@@ -107,169 +97,105 @@ export function TaskDetails() {
     }
 
     function toggleTaskStatus() {
-        setTask((prevTask) => ({ ...prevTask, status: prevTask.status === 'inProgress' ? 'done' : 'inProgress' }))
+        setTask(prevTask => ({ ...prevTask, status: (prevTask.status === 'inProgress') ? 'done' : 'inProgress' }))
     }
 
     function onRemoveMember(memberId) {
-        setTask((prevTask) => ({ ...prevTask, memberIds: prevTask.memberIds.filter((mId) => mId !== memberId) }))
-    }
-
-    function renderMembersModal() {
-        return (
-            <Members
-                task={task}
-                setTask={setTask}
-                setIsEditMembers={setIsEditMembers}
-                boardMembers={boardToEdit.members}
-                onRemoveMember={onRemoveMember}
-                setIsEditMembersPlusBtn={setIsEditMembersPlusBtn}
-            />
-        )
-    }
-
-    function renderLabelsModal() {
-        return (
-            <Labels
-                setTask={setTask}
-                handleChange={handleInfoChange}
-                setIsEditLabels={setIsEditLabels}
-                boardToEdit={boardToEdit}
-                setBoardToEdit={setBoardToEdit}
-                setIsEditLabelsPlusBtn={setIsEditLabelsPlusBtn}
-                task={task}
-            />
-        )
-    }
-
-    function renderDatesModal() {
-        return (
-            <Dates
-                task={task}
-                setTask={setTask}
-                handleChange={handleInfoChange}
-                setIsEditDates={setIsEditDates}
-                setIsEditDatesChevronBtn={setIsEditDatesChevronBtn}
-                isEditDates={isEditDates} />
-        )
-    }
-
-    function formatDate(dateStr) {
-        return dayjs(dateStr).format('MMM D')
+        setTask(prevTask => ({ ...prevTask, memberIds: prevTask.memberIds.filter(mId => mId !== memberId) }))
     }
 
     function onSaveTask() {
-        console.log('currGroup', currGroupRef.current)
-        const updatedTasks = currGroupRef.current.tasks.map(groupTask => groupTask.id === taskId ? task : groupTask)
-        const updatedGroup = { ...currGroupRef.current, tasks: updatedTasks }
-        const updatedGroups = boardToEdit.groups.map(group => group.id === groupId ? updatedGroup : group)
-        const boardToSave = { ...boardToEdit, groups: updatedGroups }
-        console.log('boardToSave', boardToSave)
-        updateBoard(boardToSave)
-
-        onCloseModal()
+        setBoardToEdit(prevBoard => ({ ...prevBoard }))
     }
 
+    // if (!boards.length) return <div>Loading...</div>
     if (!boardToEdit) return <div>Loading...</div>
 
     return (
         <article className="task-details">
             <div className="btn-save-task" onClick={onSaveTask}>
-                <i className="btn fa-solid fa-xmark"></i>
+                <i className="btn fa-solid fa-xmark" ></i>
             </div>
-
-            {task.style?.backgroundColor && <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}></div>}
+            <div className="cover">
+                {task.imgUrl && <img src={task.imgUrl} />}
+            </div>
 
             <div className="task-header">
                 <img src="/img/icons/icon-task-title.svg" />
                 <textarea
+                    ref={titleAreaRef}
                     className="textarea-input task-title"
                     type="text"
                     name="title"
                     id="task-title"
                     placeholder="Title"
                     value={task.title}
-                    onChange={handleInfoChange}
-                />
+                    onChange={handleInfoChange} />
             </div>
 
             <section className="task-main">
                 <div className="task-info">
+
                     <div className="task-metadata">
-                        {task.memberIds && task.memberIds.length !== 0 && (
+                        {task.memberIds && task.memberIds.length !== 0 &&
                             <div className="members-area">
                                 <h3>Members</h3>
                                 <ul className="photo-member-list">
-                                    {task.memberIds.map((memberId) => {
-                                        const memberDetails = gMembers.find((member) => member._id === memberId)
+                                    {task.memberIds.map(memberId => {
+                                        const memberDetails = gMembers.find(member => member._id === memberId)
                                         return (
                                             <li
                                                 className="member"
                                                 title={memberDetails.fullname}
-                                                onClick={() => setIsShowMemberPreview((prev) => !prev)}
+                                                onClick={() => setIsShowMemberPreview(prev => !prev)}
                                                 key={memberId}>
-
                                                 <img className="member-area-photo" src={memberDetails.imgUrl} />
 
-                                                {isShowMemberPreview && (
+                                                {isShowMemberPreview &&
                                                     <MemberPreview
                                                         member={memberDetails}
                                                         setIsShowMemberPreview={setIsShowMemberPreview}
-                                                        onRemoveMember={onRemoveMember}
-                                                    />
-                                                )}
-
-                                                {isEditMembersPlusBtn && renderMembersModal()}
+                                                        onRemoveMember={onRemoveMember} />
+                                                }
                                             </li>
                                         )
                                     })}
-                                    <div className="add-task-action circle" onClick={() => setIsEditMembersPlusBtn(prev => !prev)}>
-                                        <i className="fa-solid fa-plus"></i>
-                                    </div>
                                 </ul>
-                            </div>
-                        )}
+                            </div>}
 
-                        {task.labelIds && task.labelIds.length !== 0 && (
+                        {task.labelIds && task.labelIds.length !== 0 &&
                             <div className="labels-area">
                                 <h3>Labels</h3>
                                 <ul className="label-list">
-                                    {task.labelIds.map((labelId) => {
-                                        const labelDetails = gLabels.find((label) => label.id === labelId)
+                                    {task.labelIds.map(labelId => {
+                                        const labelDetails = gLabels.find(label => label.id === labelId)
                                         return (
-                                            <li className="label" key={labelId} style={{ backgroundColor: labelDetails.color }}>
+                                            <li className="label"
+                                                key={labelId}
+                                                style={{ backgroundColor: labelDetails.color }}>
                                                 {labelDetails.title}
                                             </li>
                                         )
                                     })}
-                                    {isEditLabelsPlusBtn && renderLabelsModal()}
-                                    <div className="add-task-action square" onClick={() => setIsEditLabelsPlusBtn(prev => !prev)}>
-                                        <i className="fa-solid fa-plus"></i>
-                                    </div>
                                 </ul>
-                            </div>
-                        )}
+                            </div>}
 
-                        {task.dueDate && (
+                        {task.dueDate &&
                             <div className="due-date-area">
                                 <h3>Dou date</h3>
                                 <div className="due-date-details">
-                                    <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
-                                    <div className="format-date-and-status">
-                                        <span>{formatDate(task.dueDate)}</span>
-                                        <span
-                                            className={`due-date-status ${task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
-                                                }`}>
-                                            {(task.status === 'done' && 'complete') || statusTask}
-                                        </span>
-                                        {isEditDatesChevronBtn && renderDatesModal()}
-
-                                        <div className="add-task-action chevron" onClick={() => setIsEditDatesChevronBtn(prev => !prev)}>
-                                            <i className="fa-solid fa-chevron-down"></i>
-                                        </div>
-                                    </div>
+                                    <input
+                                        type="checkbox"
+                                        checked={task.status === 'done'}
+                                        onChange={() => toggleTaskStatus(task._id)}
+                                    />
+                                    <span>{task.dueDate}</span>
+                                    <span
+                                        className={`due-date-status ${task.status === 'done' ? 'complete' :
+                                            (statusTask === 'Due soon') ? 'duesoon' : 'overdue'}`}>
+                                        {(task.status === 'done') && 'complete' || statusTask}</span>
                                 </div>
-                            </div>
-                        )}
+                            </div>}
                     </div>
 
                     <div className="description-area">
@@ -282,70 +208,69 @@ export function TaskDetails() {
                             id="description-update"
                             placeholder="Add a more detailed description..."
                             value={task.description || ''}
-                            onChange={handleInfoChange}
-                        />
+                            onChange={handleInfoChange} />
                     </div>
 
-                    {task.checklists?.length > 0 && (
+                    {task.checklists?.length > 0 &&
                         <div className="list-of-checklists">
-                            {task.checklists.map((checklist) => (
-                                <Checklist key={checklist.id} todos={checklist.todos} task={task} checklist={checklist} setTask={setTask} />
+                            {task.checklists.map(checklist => (
+                                <Checklist
+                                    key={checklist.id}
+                                    todos={checklist.todos}
+                                    task={task}
+                                    checklist={checklist}
+                                    setTask={setTask} />
                             ))}
-                        </div>
-                    )}
+                        </div>}
 
                     {console.log(task)}
                     {console.log('boardtoedit', boardToEdit.labels)}
                     {console.log('gLabels', gLabels)}
                     {console.log('gMembers', gMembers)}
+
                 </div>
 
                 <div className="task-options">
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditMembers && 'active'}`} onClick={() => setIsEditMembers((prev) => !prev)}>
-                            <img src="/img/icons/icon-members.svg" />
-                            Members
-                        </button>
-                        {isEditMembers && renderMembersModal()}
+                        <button
+                            className={`btn btn-option btn-light ${isEditMembers && 'active'}`}
+                            onClick={() => setIsEditMembers(prev => !prev)}><img src="/img/icons/icon-members.svg" />Members</button>
+                        {isEditMembers &&
+                            <Members task={task} setTask={setTask} setIsEditMembers={setIsEditMembers}
+                                boardMembers={boardToEdit.members} onRemoveMember={onRemoveMember} />}
                     </div>
-
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditLabels && 'active'}`} onClick={() => setIsEditLabels((prev) => !prev)}>
-                            {' '}
-                            <img src="/img/icons/icon-labels.svg" />
-                            Labels
-                        </button>
-                        {isEditLabels && renderLabelsModal()}
+                        <button
+                            className={`btn btn-option btn-light ${isEditLabels && 'active'}`}
+                            onClick={() => setIsEditLabels(prev => !prev)}> <img src="/img/icons/icon-labels.svg" />Labels</button>
+                        {isEditLabels &&
+                            <Labels setTask={setTask} handleChange={handleInfoChange} setIsEditLabels={setIsEditLabels}
+                                boardToEdit={boardToEdit} setBoardToEdit={setBoardToEdit} task={task} />}
                     </div>
 
                     <div>
                         <button
                             className={`btn btn-option btn-light ${isAddChecklist && 'active'}`}
-                            onClick={() => setIsAddChecklist((prev) => !prev)}>
-                            <img src="/img/icons/icon-checklist.svg" />
-                            Checklist
-                        </button>
-                        {isAddChecklist && <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
+                            onClick={() => setIsAddChecklist(prev => !prev)}><img src="/img/icons/icon-checklist.svg" />Checklist</button>
+                        {isAddChecklist &&
+                            <AddChecklist setTask={setTask} setIsAddChecklist={setIsAddChecklist} />}
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light btn-date-picker ${isEditDates && 'active'}`} onClick={() => setIsEditDates((prev) => !prev)}>
-                            <img src="/img/icons/icon-dates.svg" />
-                            Dates
-                        </button>
-                        {isEditDates && renderDatesModal()}
+                        <button
+                            className={`btn btn-option btn-light ${isEditDates && 'active'}`}
+                            onClick={() => setIsEditDates(prev => !prev)}><img src="/img/icons/icon-dates.svg" />Dates</button>
+                        {isEditDates &&
+                            <Dates task={task} setTask={setTask} handleChange={handleInfoChange} setIsEditDates={setIsEditDates} />}
                     </div>
 
                     <div>
-                        <button className={`btn btn-option btn-light ${isEditDates && 'active'}`}
-                            onClick={() => setIsEditCover(prev => !prev)}>
-                            <img src="/img/icons/icon-cover.svg" />
-                            Cover
-                        </button>
-                        {isEditCover && <Cover setTask={setTask} setIsEditCover={setIsEditCover} />}
+                        <button
+                            className={`btn btn-option btn-light ${isEditDates && 'active'}`}>
+                            <img src="/img/icons/icon-cover.svg" />Cover</button>
                     </div>
                 </div>
             </section>
-        </article>
+        </article >
     )
 }
