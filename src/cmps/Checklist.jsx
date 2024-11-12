@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { makeId } from '../services/util.service.js'
+import { DeleteTodoModal } from '../cmps/DeleteTodoModal.jsx'
 
-export function Checklist({ todos, task, checklist, setTask }) {
+export function Checklist({ todos, task, checklist, setTask, openModal, handleToggleModal, handleCloseModal }) {
 
     const { id: checklistId, title } = checklist
     const [isAddingTodo, setIsAddingTodo] = useState(false)
     const [checklistIdToEdit, setChecklistIdToEdit] = useState('')
     const [newTodoValue, setNewTodoValue] = useState('')
-
+    const [isButtonsVisible, setIsButtonsVisible] = useState(false)
 
     function onUpdateTodo(todoId, task, checklistId, action, newTodoValue) {
         const updatedChecklists = task.checklists.map(checklist => {
@@ -38,7 +39,6 @@ export function Checklist({ todos, task, checklist, setTask }) {
     }
 
     function getDoneTodosPercent(checklistId, updatedTodos) {
-        // const checklist = task.checklists.find(checklist => checklist.id === checklistId)
         const doneTodosCount = updatedTodos.reduce((acc, todo) => {
             if (todo.isDone) acc++
             return acc
@@ -49,6 +49,10 @@ export function Checklist({ todos, task, checklist, setTask }) {
 
     function handleNewTodoChange({ target }) {
         setNewTodoValue(target.value)
+    }
+
+    function handleToggleButtons(todoName) {
+        setIsButtonsVisible(prevState => prevState ? null : todoName)
     }
 
     function onRemoveChecklist(checklistId) {
@@ -86,11 +90,26 @@ export function Checklist({ todos, task, checklist, setTask }) {
                             checked={item.isDone || false}
                             value={item.title}
                             onChange={() => onUpdateTodo(item.id, task, checklistId, 'isDone')} />
-                        <span className={`todo-text ${item.isDone ? 'todo-done' : ''}`}>{item.title}</span>
                     </div>
-                    <button className="btn btn-remove-todo btn-light" onClick={() => onUpdateTodo(item.id, task, checklistId, 'removeTodo')}>
-                        <i className="fa-solid fa-xmark"></i>
-                    </button>
+                    <div className="todo-content">
+                        <span className={`todo-text ${item.isDone ? 'todo-done' : ''}`}>{item.title}</span>
+                        <div className={`todo-content-buttons ${isButtonsVisible === `todoActions-${item.id}` ? 'visible' : ''}`}>
+                            <div>
+                                <button className={"btn btn-item-actions btn-action"}
+                                    onClick={() => { handleToggleModal(`todoActions-${item.id}`); handleToggleButtons(`todoActions-${item.id}`) }}>
+                                    <i className="fa-solid fa-ellipsis"></i>
+                                </button>
+                                {openModal === `todoActions-${item.id}` &&
+                                    <DeleteTodoModal
+                                        onUpdateTodo={onUpdateTodo}
+                                        itemId={item.id}
+                                        task={task}
+                                        checklistId={checklistId}
+                                        action={'removeTodo'}
+                                        handleCloseModal={handleCloseModal} />}
+                            </div>
+                        </div>
+                    </div>
                 </div>)}
 
             {(checklistIdToEdit === checklistId) && isAddingTodo ? (
