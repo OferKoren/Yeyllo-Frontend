@@ -1,9 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { makeId } from "../services/util.service"
 import ClickOutside from "./ClickOutside"
 import { groupColorPalette } from "../store/reducers/board.reducer"
 
-export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemoveGroup, setIsAddTaskClicked, isCopyGroupClicked, setIsCopyGroupClicked }) {
+export function GroupMenu({ onChangeGroupColor, onUpdateBoard, board, group, setIsMenuOpen, onRemoveGroup, setIsAddTaskClicked, isCopyGroupClicked, setIsCopyGroupClicked }) {
 
     const [newTitle, setNewTitle] = useState(group.title)
 
@@ -13,7 +13,7 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
     }
 
     function onCopyTaskMenu() {
-        setIsCopyGroupClicked(isOpen => !isOpen)
+        setIsCopyGroupClicked(true)
     }
 
     function onBlurGroupMenu() {
@@ -44,14 +44,16 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
         const newTasks = group.tasks.map(task => {
             return task = { ...task, id: makeId() }
         })
-        console.log(board);
 
+        const newStyle = {...group.style}
+        
         const newGroup = {
             ...group,
             id: makeId(),
-            style: group.style,
+            style: newStyle,
             tasks: newTasks,
-            title: newTitle
+            title: newTitle,
+            archivedAt: Date.now()
         }
 
         try {
@@ -59,32 +61,18 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
             const changeBoard = board
             // changeBoard.groups.push(newGroup)
             changeBoard.groups.splice(groupIdx + 1, 0, newGroup)
-
+            console.log(...changeBoard.groups);
+            
             // changeBoard.groups.map(currGroup => currGroup.id === group.id? newGroup )
             await onUpdateBoard(changeBoard)
             setNewTitle('')
             setIsMenuOpen(isOpen => !isOpen)
         } catch (err) {
             console.log('err: ', err);
-        }
+        } 
     }
 
-    async function onChangeGroupColor(ev, color) {
-        // ev.preventDefault()
 
-        try {
-            const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
-            console.log(groupIdx);
-            
-            const changeBoard = board
-            changeBoard.groups[groupIdx].style.backgroundColor = color
-            // group.style.backgroundColor = color
-            await onUpdateBoard(changeBoard)
-            // setIsMenuOpen(isOpen => !isOpen)
-        } catch (err) {
-            console.log('err: ', err);
-        }
-    }
 
     return (
         <ClickOutside
@@ -93,7 +81,8 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
             {isCopyGroupClicked ?
                 <div className="group-menu">
                     <header >Copy list</header>
-                    <button className="close-btn" onClick={() => setIsMenuOpen(isOpen => !isOpen)}><img src="\img\board-details\close-icon.png" alt="" /></button>
+                    <button className="back-btn" onClick={() => setIsCopyGroupClicked(false)}><img src="\img\board-details\arrow-left.svg" alt="back" /></button>
+                    <button className="close-btn" onClick={() => setIsMenuOpen(isOpen => !isOpen)}><img src="\img\board-details\close-icon.png" alt="close" /></button>
                     <h5>Name</h5>
                     <div className="group-menu-copy">
                         <form onSubmit={onCopyGroup}>
@@ -106,7 +95,7 @@ export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemove
                 </div>
                 :
 
-                <div onBlur={onBlurGroupMenu} className="group-menu">
+                <div /*onBlur={onBlurGroupMenu}*/ className="group-menu">
                     <header >List actions</header>
                     <button className="close-btn" onClick={() => setIsMenuOpen(isOpen => !isOpen)}><img src="\img\board-details\close-icon.png" alt="" /></button>
                     <section className="group-menu-btns">

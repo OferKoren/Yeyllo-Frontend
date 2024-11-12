@@ -59,6 +59,8 @@
     }
 
     .left-side-btns {
+        overflow-wrap:normal;
+
         .date-btn {
             position: relative;
             padding: 0.25em;
@@ -69,7 +71,7 @@
 
             .checkbox {
                 position: absolute;
-                top: 0.025em;
+                top: 0.1px;
                 left: -0.1em;
                 background-color: inherit;
                 scale: 0.75;

@@ -25,6 +25,7 @@ export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle
 
     async function onAddTask(ev) {
         if (ev) ev.preventDefault()
+        if (!taskTitle) return onCloseEditTitle()
         // if (!taskTitle) return alert('Text field is required')
 
         try {
@@ -51,7 +52,6 @@ export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle
         if (!taskTitle) return onCloseEditTitle()
         onAddTask()
     }
-    console.log(group);
     
     return (
         <>
@@ -75,27 +75,20 @@ export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle
                         <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
                     )}
 
-                    {/* <ClickOutside
-                        onClick={() => {
-                            if (taskTitle) {
-                                onAddTask()
-                            } else {
-                                onCloseEditTitle()
-                            }
-                        }
-                        }
-                    > */}
+                    <ClickOutside
+                        onSubmit={onAddTask} onClick={onAddTask}
+                    >
                         <div className="add-task-container">
                             <form onSubmit={onAddTask}>
                                 {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
-                                <input autoFocus onBlur={onBlurAddTaskInput} type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
+                                <input autoFocus /*onBlur={onBlurAddTaskInput}*/ type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
                                 <div className="add-group-btns">
                                     <button>Add card</button>
                                     <button className="close-btn-x add-card-close" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon-dark.png" alt="" /></button>
                                 </div>
                             </form>
                         </div>
-                    {/* </ClickOutside> */}
+                    </ClickOutside>
                 </section>
             }
 

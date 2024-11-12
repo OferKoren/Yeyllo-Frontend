@@ -59,12 +59,13 @@ export function GroupList({ onUpdateBoard, board }) {
         setTitle('')
     }
 
+
     if (!board) return <div>Loading...</div>
     return (
         <section>
             <ul className="group-list flex">
                 {groups.map(group =>
-                    <li style={{ ...group.style }} key={group.id}>
+                    <li style={{ ...group.style }} className={group.id} key={group.id}>
                         {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
                         <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
                     </li>)
