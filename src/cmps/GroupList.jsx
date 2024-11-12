@@ -66,7 +66,7 @@ export function GroupList({ onUpdateBoard, board }) {
                     </li>)
                 }
                 {isAddGroupClicked ?
-                    <ClickOutside onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
+                    <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
                         <div className="add-group-container">
                             <form onSubmit={onAddGroup}>
                                 <input autoFocus type="text" id="title" name="title" value={title} placeholder="Enter list name..." onChange={handleChange} />

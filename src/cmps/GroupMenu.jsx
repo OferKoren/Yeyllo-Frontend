@@ -1,23 +1,11 @@
 import { useState } from "react"
 import { makeId } from "../services/util.service"
 import ClickOutside from "./ClickOutside"
+import { groupColorPalette } from "../store/reducers/board.reducer"
 
 export function GroupMenu({ onUpdateBoard, board, group, setIsMenuOpen, onRemoveGroup, setIsAddTaskClicked, isCopyGroupClicked, setIsCopyGroupClicked }) {
 
     const [newTitle, setNewTitle] = useState(group.title)
-
-    const groupColorPalette = [
-        { color: '#4BCE97', realColor: '#BAF3DB', title: 'green' },
-        { color: '#f5cd47', realColor: '#F8E6A0', title: 'yellow' },
-        { color: '#fea362', realColor: '#FEDEC8', title: 'orange' },
-        { color: '#f87168', realColor: '#FFD5D2', title: 'red' },
-        { color: '#9f8fef', realColor: '#DFD8FD', title: 'purple' },
-        { color: '#579dff', realColor: '#CCE0FF', title: 'blue' },
-        { color: '#6cc3e0', realColor: '#C6EDFB', title: 'teal' },
-        { color: '#94c748', realColor: '#D3F1A7', title: 'lime' },
-        { color: '#e774bb', realColor: '#FDD0EC', title: 'magenta' },
-        { color: '#8590a2', realColor: '', title: 'gray (Default)' }
-    ]
 
     function onAddTaskMenu() {
         setIsAddTaskClicked(isOpen => !isOpen)
