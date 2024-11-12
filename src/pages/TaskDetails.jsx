@@ -201,7 +201,13 @@ export function TaskDetails() {
                 </svg>
             </div>
 
-            {task.style?.backgroundColor && <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}></div>}
+            {task.style?.backgroundColor &&
+                <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}>
+                    <div className="btn cover-options">
+                        <img src="/img/icons/icon-cover.svg" />
+                        <span>Cover</span>
+                    </div>
+                </div>}
 
             {task.archivedAt &&
                 <div className="archive-banner"
