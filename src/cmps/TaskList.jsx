@@ -2,7 +2,6 @@ import { useState } from "react";
 import { TaskPreview } from "./TaskPreview";
 import { makeId } from "../services/util.service";
 import ClickOutside from "./ClickOutside";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
@@ -54,45 +53,16 @@ export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle
         onAddTask()
     }
 
-    const handleDragDrop = async (results) => {
-        const { source, destination, type } = results
-        if (!destination) return
-        if (source.droppableId === destination.droppableId &&
-            source.index === destination.index) return
-        if (type === 'group') {
-            try {
-                const reorderedTasks = [...group.tasks]
-
-                const sourceIndex = source.index
-                const destinationIndex = destination.index
-
-                const [removedTask] = reorderedTasks.splice(sourceIndex, 1)
-                reorderedTasks.splice(destinationIndex, 0, removedTask)
-                group.tasks = reorderedTasks
-
-                await onUpdateBoard(board)
-            } catch (err) {
-                console.log('err: ', err);
-            }
-        }
-    }
-    
-
     return (
-        <DragDropContext onDragEnd={handleDragDrop}>
+        <>
 
             {!isAddTaskClicked ?
                 <>
-                    <Droppable droppableId="ROOT" type="group">
-                        {(provided) => (
-                            <div className="task-list" {...provided.droppableProps} ref={provided.innerRef}>
-                                {tasks.map((task, index) =>
-                                    <TaskPreview index={index} board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
-                                )}
-                                {provided.placeholder}
-                            </div>
+                    <section className="task-list">
+                        {tasks.map(task =>
+                            <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
                         )}
-                    </Droppable>
+                    </section>
                     <section>
                         <div className='add-task-btn-container' >
                             <button onClick={() => setIsAddTaskClicked(isClicked => !isClicked)} className={`add-task-btn  ${group?.style?.backgroundColor?.substr(1)}`}><span>+</span><span>Add a card</span></button>
@@ -101,18 +71,9 @@ export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle
                 </>
                 :
                 <section className="task-list add-task-option">
-                    <Droppable droppableId="ROOT" type="group">
-                        {(provided) => (
-
-                            <div className="task-list add-task-option" {...provided.droppableProps} ref={provided.innerRef}>
-
-                                {tasks.map(task =>
-                                    <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
-                                )}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
+                    {tasks.map(task =>
+                        <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
+                    )}
 
                     <ClickOutside
                         onSubmit={onAddTask} onClick={onAddTask}
@@ -131,7 +92,7 @@ export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle
                 </section>
             }
 
-        </DragDropContext>
+        </>
 
 
 

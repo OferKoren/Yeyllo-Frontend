@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { GroupList } from '../cmps/GroupList'
 import { BoardHeader } from '../cmps/board/BoardHeader'
 import { BoardMenu } from '../cmps/board/BoardMenu'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
@@ -48,9 +49,14 @@ export function BoardDetails({ rootRef }) {
         else if (!isAsideOpen) dynamicClass = 'full-left'
         else dynamicClass = ''
     }
-    
+
+    const handleDragDrop = () => {
+        console.log('hiiii');
+        
+    }
+
     return (
-        <section className="full horizontal-container">
+        <DragDropContext onDragEnd={handleDragDrop} className="full horizontal-container">
             {isAsideOpen && <div style={{ width: '200px' }}>aside</div>}
             <article className={`board-details ${dynamicClass}`} /* style={board.style} */>
                 <BoardHeader
@@ -60,12 +66,16 @@ export function BoardDetails({ rootRef }) {
                     onToggleMenu={onToggleMenu}
                     setIsShrink={setIsShrink}
                 />
-                <section className="board-details">
-                    <GroupList onUpdateBoard={onUpdateBoard} board={board} />
-                </section>
+                <Droppable droppableId='ROOT' type='group' direction="horizontal">
+                    {(provided) => (
+                        <section {...provided.droppableProps} ref={provided.innerRef} className="board-details">
+                            <GroupList onUpdateBoard={onUpdateBoard} board={board} />
+                        </section>
+                    )}
+                </Droppable>
             </article>
             {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} />}
             {/* <BoardMenu /> */}
-        </section>
+        </DragDropContext>
     )
 }

@@ -4,6 +4,7 @@ import { makeId } from "../services/util.service";
 import { updateBoard } from "../store/actions/board.actions";
 import ClickOutside from "./ClickOutside";
 import { getEmptyGroup } from "../services/board";
+import { Draggable } from "react-beautiful-dnd";
 
 export function GroupList({ onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
@@ -35,7 +36,7 @@ export function GroupList({ onUpdateBoard, board }) {
 
         const group = getEmptyGroup()
         group.title = title
-        
+
         // const group = {
         //     id: makeId(),
         //     style: {},
@@ -64,11 +65,17 @@ export function GroupList({ onUpdateBoard, board }) {
     return (
         <section>
             <ul className="group-list flex">
-                {groups.map(group =>
-                    <li style={{ ...group.style }} className={group.id} key={group.id}>
-                        {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
-                        <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
-                    </li>)
+                {groups.map((group, index) =>
+                    <Draggable draggableId={group.id} key={group.id} index={index}>
+                        {(provided) => (
+                            <div  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+                                <li style={{ ...group.style }} className={group.id} key={group.id}>
+                                    {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
+                                    <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
+                                </li>
+                            </div>
+                        )}
+                    </Draggable>)
                 }
                 {isAddGroupClicked ?
                     <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
