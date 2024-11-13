@@ -62,9 +62,9 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                     <section className="task-list">
                         {tasks.map((task, index) =>
                             <Draggable isDragDisabled={isModalOpen} draggableId={task.id} index={index} key={task.id}>
-                                {(provided) => (
+                                {(provided, snapshot) => (
                                     <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                        <TaskPreview isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
+                                        <TaskPreview snapshot={snapshot} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
                                     </div>
                                 )}
                             </Draggable>

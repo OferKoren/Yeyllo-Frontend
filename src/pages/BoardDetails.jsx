@@ -132,6 +132,7 @@ export function BoardDetails({ rootRef }) {
                     {(provided) => (
                         <section {...provided.droppableProps} ref={provided.innerRef} className="board-details">
                             <GroupList onUpdateBoard={onUpdateBoard} board={board} />
+                            {console.log(provided.placeholder)}
                             {provided.placeholder}
                         </section>
                     )}

@@ -69,16 +69,16 @@ export function GroupList({ onUpdateBoard, board }) {
             <ul className="group-list flex">
                 {groups.map((group, index) =>
                     <Draggable isDragDisabled={isModalOpen} draggableId={group.id} key={group.id} index={index}>
-                        {(provided) => (
-                            <div  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                <li style={{...group.style }} className={group.id} key={group.id}>
+                        {(provided, snapshot) => (
+                            <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+                                <li style={{ ...group.style, rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }} className={group.id} key={group.id}>
                                     {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
                                     <GroupPreview isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
                                 </li>
                             </div>
                         )}
                     </Draggable>)
-                }                
+                }
                 {isAddGroupClicked ?
                     <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
                         <div className="add-group-container">
