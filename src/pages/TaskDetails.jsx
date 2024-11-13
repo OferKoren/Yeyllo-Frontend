@@ -249,7 +249,7 @@ export function TaskDetails() {
                         value={task.title}
                         onChange={handleInfoChange}
                     />
-                    <h3>In list {currGroupRef.current.title.toUpperCase()}</h3>
+                    <h3>in list {currGroupRef.current.title.toUpperCase()}</h3>
                 </div>
             </div>
 
@@ -360,7 +360,10 @@ export function TaskDetails() {
                                         key={attachment.id}
                                         attachment={attachment}
                                         setTask={setTask}
+                                        task={task}
                                         handleToggleModal={handleToggleModal}
+                                        handleCloseModal={handleCloseModal}
+                                        handleOpenModal={handleOpenModal}
                                         openModal={openModal} />
                                 ))}
                             </div>

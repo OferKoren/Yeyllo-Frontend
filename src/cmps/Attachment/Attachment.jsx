@@ -4,7 +4,7 @@ import { AttachmentActions } from '../Attachment/AttachmentActions.jsx'
 
 dayjs.extend(relativeTime)
 
-export function Attachment({ attachment, handleToggleModal, openModal, setTask }) {
+export function Attachment({ attachment, handleToggleModal, handleCloseModal, handleOpenModal, openModal, setTask, task }) {
     return (
         <div className="attachment-data">
             <a href={attachment.url}
@@ -36,7 +36,14 @@ export function Attachment({ attachment, handleToggleModal, openModal, setTask }
                         <div className="btn btn-light btn-attachment-action" onClick={() => handleToggleModal(`attachment-${attachment.id}`)}>
                             <img src="/img/board-details/menu-dots.svg" />
                         </div>
-                        {openModal === `attachment-${attachment.id}` && <AttachmentActions attachment={attachment} setTask={setTask} />}
+                        {openModal === `attachment-${attachment.id}` &&
+                            <AttachmentActions
+                                attachment={attachment}
+                                setTask={setTask}
+                                task={task}
+                                openModal={openModal}
+                                handleCloseModal={handleCloseModal}
+                                handleOpenModal={handleOpenModal} />}
                     </div>
                 </div>
             </div>

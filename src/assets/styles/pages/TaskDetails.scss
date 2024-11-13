@@ -93,6 +93,10 @@
         font-family: 'roboto-regular';
     }
 
+    input[type="text"]:hover {
+        outline: 1.5px solid $clr-focus;
+    }
+
     input:not(input[type="checkbox"]) {
         padding: 0.8em;
         width: 100%;
@@ -121,9 +125,9 @@
         line-height: 0.5;
     }
 
-    .textarea-input:focus {
-        background-color: $clr6;
-    }
+    // .textarea-input:focus {
+    //     background-color: $clr6;
+    // }
 
     textarea.task-title {
         width: 90%;

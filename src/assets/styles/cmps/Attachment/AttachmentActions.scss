@@ -1,13 +1,33 @@
+.task-attachments-modal {
+    padding: 1em 0;
+}
+
 .attachment-actions-list {
     display: grid;
-    gap: 0.5em;
+
     width: 13em;
 
     li.attachment-action-item:first-child {
         margin: 0;
     }
 
+    li.attachment-action-item {
+        padding: 0.3em 1em;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+
     & li:hover {
-        background-color: $clr-btn-1;
+        background-color: $clr-bg3-light;
+    }
+}
+
+.edit-attachment-modal {
+    & input[type="text"] {
+        margin: 0;
+    }
+
+    .edit-file {
+        gap: 1em;
     }
 }
