@@ -1,5 +1,7 @@
+import { useEffect, useRef, useState } from 'react'
 import { boardService } from '../../services/board/index.js'
 import { makeId } from '../../services/util.service.js'
+import ColorThief from 'colorthief'
 
 
 export function AddAttachment({ task, setTask, handleCloseModal }) {
@@ -12,7 +14,19 @@ export function AddAttachment({ task, setTask, handleCloseModal }) {
 
             try {
                 const uploadedImgUrl = await boardService.uploadImg(base64Img)
-                addImageToAttachments(uploadedImgUrl)
+                const img = new Image()
+                img.crossOrigin = 'Anonymous'
+                img.src = uploadedImgUrl
+                img.onload = () => {
+                    const colorThief = new ColorThief()
+                    const dominantColor = colorThief.getColor(img)
+
+                    const bgColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`
+
+                    // Add the attachment along with its background color
+                    addImageToAttachments(uploadedImgUrl, bgColor)
+                    // End loading state
+                }
             } catch (error) {
                 console.error('Image upload failed:', error)
                 throw error
@@ -22,8 +36,8 @@ export function AddAttachment({ task, setTask, handleCloseModal }) {
         reader.readAsDataURL(ev.target.files[0])
     }
 
-    function addImageToAttachments(url) {
-        const updatedAttachments = [...(task.attachments || []), { url, id: makeId() }]
+    function addImageToAttachments(url, bgColor) {
+        const updatedAttachments = [...(task.attachments || []), { url, bgColor, id: makeId() }]
         setTask(prevTask => ({ ...prevTask, attachments: updatedAttachments }))
     }
 
