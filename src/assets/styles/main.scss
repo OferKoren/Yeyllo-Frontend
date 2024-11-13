@@ -22,6 +22,7 @@
 @import 'pages/ReviewIndex';
 @import 'pages/UserDetails';
 @import 'pages/LoginSignup';
+@import 'pages/HomePage';
 
 // Components
 @import 'cmps/TaskPreview';
@@ -37,6 +38,11 @@
 @import 'cmps/Cover';
 @import 'cmps/DeleteTaskModal';
 @import 'cmps/Dates';
+@import 'cmps/Description';
+@import 'cmps/Attachment';
+@import 'cmps/AddAttachment';
+@import 'cmps/UserMsg';
+@import 'cmps/Attachment/AttachmentActions';
 
 @import 'cmps/GroupPreview';
 @import 'cmps/GroupList';
@@ -44,10 +50,14 @@
 @import 'cmps/GroupFooter';
 @import 'cmps/GroupMenu';
 
+//workspace
 @import 'cmps/BoardPreview';
 @import 'cmps/BoardList';
 @import 'cmps/AddBoard';
 @import 'cmps/MoreBgs';
+@import 'cmps/WorkspaceAside';
+@import 'cmps/WorkspaceHeader.scss';
+
 @import 'cmps/BoardFilter';
 @import 'cmps/BoardHeader';
 @import 'cmps/BoardMenu';

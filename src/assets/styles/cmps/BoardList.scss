@@ -1,14 +1,16 @@
 .board-lists {
     display: flex;
     flex-direction: column;
-    // gap: 1em;
+    padding-inline-start: rem(14px);
     h2 {
         ::first-letter {
             text-transform: capitalize;
         }
         display: flex;
-        gap: 0.5em;
-        margin-bottom: 0.75em;
+        gap: rem(13px);
+        margin-bottom: rem(11.5px);
+        padding-block-start: 2px;
+        padding-inline-start: rem(5px);
         font-size: em(16px);
     }
     ul {
@@ -35,10 +37,12 @@
             border-radius: 0.15em;
             height: 96px;
         }
+        &:hover .backdrop {
+            background-color: rgba(44, 44, 44, 0.4);
+            // background-color: rgba(0, 0, 0, 0.748);
+        }
         &:hover .board-actions {
             opacity: 1;
-            background-color: rgba(44, 44, 44, 0.3);
-            // background-color: rgba(0, 0, 0, 0.748);
         }
     }
 }

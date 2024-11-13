@@ -1,0 +1,35 @@
+.reach-editor-container {
+    outline: 2px solid blue;
+    border-radius: 0.2em;
+    background-color: $clr-bg2-light;
+
+    input[data-formula],
+    input[data-link],
+    input[data-video] {
+        display: none;
+    }
+}
+
+.text-editor-buttons {
+    display: flex;
+    gap: 0.5em;
+    margin-block-start: 1em;
+}
+
+.ql-toolbar {
+    background-color: $clr-bg2-light;
+}
+
+.output-container {
+    background-color: $clr-btn-1;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

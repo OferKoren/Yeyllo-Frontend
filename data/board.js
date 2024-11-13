@@ -85,35 +85,8 @@ const backgroundPallet = {
         'rgb(131, 140, 145)',
     ],
 }
-/* $bbgClr1: rgb(0, 121, 191)
-$bbgClr2: rgb(210, 144, 52)
-$bbgClr3: rgb(81, 152, 57)
-$bbgClr4: rgb(176, 70, 50)
-$bbgClr5: rgb(137, 96, 158)
-$bbgClr6: rgb(205, 90, 145)
-$bbgClr7: rgb(75, 191, 107)
-$bbgClr8: rgb(0, 174, 204)
-$bbgClr9: rgb(131, 140, 145) */
-/* const backgroundPallet = {
-    photos: [
-        'img/board-background-img/starry-night.jpeg',
-        'img/board-background-img/mountains.jpeg',
-        'img/board-background-img/trees.jpeg',
-        'img/board-background-img/mountain_storm.jpeg',
-    ],
-    colors: [
-        'img/board-background-img/gradiant-snow.svg',
-        'img/board-background-img/gradiant-ocean.svg',
-        'img/board-background-img/gradiant-crystal.svg',
-        'img/board-background-img/gradiant-rainbow.svg',
-        'img/board-background-img/gradiant-peach.svg',
-        'img/board-background-img/gradiant-flower.svg',
-        'img/board-background-img/gradiant-earth.svg',
-        'img/board-background-img/gradiant-alien.svg',
-        'img/board-background-img/gradiant-volcano.svg',
-    ],
-} */
-let board = [
+
+let boards = [
     {
         _id: 'b101',
         title: 'Robot dev proj',
@@ -1109,9 +1082,10 @@ let board = [
         _id: 'xHEdg',
     },
 ]
-
+const workspace = { title: 'workspace of awesome', memebers: [] }
 export const boardData = {
-    board,
+    workspace,
+    boards,
     backgroundPallet,
 }
 const user = {

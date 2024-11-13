@@ -3,9 +3,63 @@
     position: absolute;
     transition: 0.4s;
     background-color: white;
-    padding: 0 8px;
+
+    .menu-header {
+        padding: 0 12px;
+        margin: 0;
+        height: rem(56px);
+        h3 {
+            padding-block-start: 12.8px;
+            font-size: rem(16px);
+        }
+        .close-btn {
+            transform: translate(1px, 12px);
+        }
+    }
+    .menu-body {
+        overflow-y: scroll; /* Forces a vertical scrollbar */
+        height: 100%;
+        width: 100%;
+        padding: rem(12px) rem(12px) rem(8px) rem(12px);
+        li {
+            margin-block-end: rem(4px);
+        }
+        li button.menu-btn {
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            gap: 8px;
+
+            // height: 52px;
+            padding: rem(6px) rem(12px);
+
+            &:hover {
+                background-color: rgb(9, 30, 66, 0.06);
+            }
+            &.info {
+                height: 52px;
+            }
+        }
+        div {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+            &::first-letter {
+                text-transform: capitalize;
+            }
+            font-size: 14px;
+            div {
+                font-size: rem(12px);
+            }
+            text-align: left;
+        }
+    }
     &.shrink {
         transform: translateX(340px);
+    }
+    hr {
+        &.thin {
+            margin: 0;
+        }
     }
 }
 .placeholder-div {

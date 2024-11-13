@@ -17,6 +17,7 @@
     "axios": "^1.5.0",
     "colorthief": "^2.6.0",
     "dayjs": "^1.11.13",
+    "quill": "^2.0.2",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-datepicker": "^7.5.0",

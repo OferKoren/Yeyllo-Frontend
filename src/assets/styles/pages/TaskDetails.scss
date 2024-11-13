@@ -1,6 +1,6 @@
 .task-details {
     position: relative;
-    width: 53em;
+    width: 50em;
     background-color: $clr-bg3-light;
     border-radius: 11px;
     margin-block-start: 1em;
@@ -93,6 +93,10 @@
         font-family: 'roboto-regular';
     }
 
+    input[type="text"]:hover {
+        outline: 1.5px solid $clr-focus;
+    }
+
     input:not(input[type="checkbox"]) {
         padding: 0.8em;
         width: 100%;
@@ -121,9 +125,9 @@
         line-height: 0.5;
     }
 
-    .textarea-input:focus {
-        background-color: $clr6;
-    }
+    // .textarea-input:focus {
+    //     background-color: $clr6;
+    // }
 
     textarea.task-title {
         width: 90%;
@@ -257,7 +261,7 @@
         }
     }
 
-    .description-area {
+    .area-layout {
         display: grid;
         grid-template-columns: max-content 1fr;
         row-gap: 0.6em;
@@ -269,18 +273,41 @@
         margin-block-start: 1.3em;
         margin-inline-start: 0.3em;
 
-        .icon-description {
+        .icon-area {
             grid-area: icon;
         }
 
-        .description-title {
+        .title-area {
             grid-area: title;
             margin-block-start: -0.15em;
         }
 
-        .task-description {
+        .container-area {
             grid-area: input
         }
+
+        .reach-editor-container {
+            grid-area: input
+        }
+
+        .attachment-title {
+            display: flex;
+            justify-content: space-between;
+
+            .add-attachment {
+                position: relative;
+
+                .btn-add-attachment {
+                    font-size: 0.9rem;
+                }
+            }
+
+        }
+    }
+
+    .list-of-attachments {
+        display: grid;
+        gap: 0.6em;
     }
 
     .list-of-checklists {
@@ -323,6 +350,10 @@
 
         .btn-option.hide {
             display: none;
+        }
+
+        .task-actions-area {
+            margin-block-start: 1em;
         }
     }
 }

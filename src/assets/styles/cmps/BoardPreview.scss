@@ -23,7 +23,17 @@
             font-size: 0.85em;
         }
     }
+    .backdrop {
+        background-color: rgba(44, 44, 44, 0.2);
+        border-radius: 0.15em;
+        position: absolute;
+        opacity: 1;
+        inset: 0;
+        z-index: 1;
+    }
     .board-actions {
+        background-color: transparent;
+        z-index: 3;
         border-radius: 0.15em;
         position: absolute;
         opacity: 0;
@@ -39,15 +49,19 @@
             right: 0.5em;
             bottom: 0.625em;
             opacity: 1;
-            transition: 0.2s;
+            transition: 200ms;
             &:hover {
                 scale: 1.05;
             }
         }
     }
     &:has(.add-board) {
-        background-color: darken(#f1f2f4, 7);
+        cursor: pointer;
+        background-color: darken(#f1f2f4, 5);
         font-size: em(14px);
+        &:hover {
+            background-color: darken(#f1f2f4, 7);
+        }
     }
     .add-board {
         border: none;
@@ -65,7 +79,7 @@
     }
     &:has(img.empty) {
         transform: translateX(50px);
-        transition: 0.1s;
+        // transition: 0s;
     }
 }
 .board-wrapper:hover {

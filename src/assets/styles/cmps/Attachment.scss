@@ -1,0 +1,38 @@
+.attachment-data {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 0.8em;
+
+    .attachment-thumbnail {
+        border-radius: 5px;
+    }
+
+    .attachment-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .attachment-details {
+            display: grid;
+            align-items: center;
+        }
+
+        .attachment-actions {
+            display: flex;
+            gap: 0.5em;
+
+            .more-actions-area {
+                position: relative;
+            }
+
+            .btn-attachment-action {
+                padding: 0.4em 0.6em;
+
+                & img {
+                    height: 1.05em;
+                }
+            }
+
+        }
+    }
+}

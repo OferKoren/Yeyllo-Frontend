@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoards, addBoard, updateBoard, removeBoard } from '../../store/actions/board.actions'
+import { loadBoards, addBoard, updateBoard, removeBoard, loadWorkspace } from '../../store/actions/board.actions'
 
 import { showSuccessMsg, showErrorMsg } from '../../services/event-bus.service'
+import { workspaceService } from '../../services/workspace/workspace.service'
 import { boardService } from '../../services/board'
 import { userService } from '../../services/user'
 import { Modal } from '../../cmps/Modal'
 import { BoardList } from '../../cmps/workspace/BoardList'
 import { AddBoard } from '../../cmps/workspace/modals/AddBoard'
 import { useNavigate } from 'react-router'
+import ClickOutside from '../../cmps/ClickOutside'
+import { WorkspaceAside } from '../../cmps/workspace/aside/WorkspaceAside'
+import { WorkspaceHeader } from '../../cmps/workspace/WorkspaceHeader'
+
 // import { BoardFilter } from '../cmps/BoardFilter'
 
 //* boardIndex is the personal workspace of someone in the workspace
@@ -17,7 +22,12 @@ export function BoardIndex() {
     const [filterBy, setFilterBy] = useState(boardService.getDefaultFilter())
     const [isModalOpen, setIsModalOpen] = useState(false)
     const boards = useSelector((storeState) => storeState.boardModule.boards)
+    const workspace = useSelector((storeState) => storeState.boardModule.workspace)
+
     const navigate = useNavigate()
+    useEffect(() => {
+        loadWorkspace()
+    }, [])
     useEffect(() => {
         loadBoards(filterBy)
     }, [filterBy])
@@ -63,16 +73,23 @@ export function BoardIndex() {
             showErrorMsg('Cannot update board')
         }
     }
-    if (!boards) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
+    if (!boards || !workspace) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
+    console.log(workspace)
     return (
-        <main className="board-index">
-            <header>{/* <h2>Boards</h2> */}</header>
-            <hr />
+        <main className="board-index workspace-layout">
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
-            <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} onUpdateBoard={onUpdateBoard} />
-            <Modal title="Create board" onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false}>
-                <AddBoard onAddBoard={onAddBoard} />
-            </Modal>
+            <WorkspaceAside />
+            <div className="main-section">
+                <WorkspaceHeader workspace={workspace} />
+                <hr />
+                <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} onUpdateBoard={onUpdateBoard} />
+            </div>
+
+            <ClickOutside onClick={onCloseModal}>
+                <Modal title="Create board" onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false} isBackDrop={false}>
+                    <AddBoard onAddBoard={onAddBoard} />
+                </Modal>
+            </ClickOutside>
         </main>
     )
 }

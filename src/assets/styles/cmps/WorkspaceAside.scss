@@ -1,0 +1,33 @@
+.workspace-aside {
+    padding: 0 rem(16px);
+    // border: 1px solid black;
+    margin-block-start: rem(40px);
+    a {
+        display: flex;
+        align-items: center;
+        gap: rem(12px);
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        padding: rem(6px) rem(8px);
+        padding-inline-start: rem(14px);
+        border-radius: rem(8px);
+        font-weight: 600;
+        font-size: rem(14px);
+        height: rem(36px);
+        margin-block-end: rem(4px);
+
+        &:hover {
+            background-color: rgba(9, 30, 66, 0.141);
+        }
+        &.active {
+            background-color: rgb(233, 242, 255);
+            color: #0c66e4;
+        }
+        &.active:hover {
+        }
+        span {
+            display: flex;
+        }
+    }
+}

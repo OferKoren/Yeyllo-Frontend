@@ -1,19 +1,34 @@
 @font-face {
-    font-family: "roboto-regular";
-    src: url("/fonts/Roboto-Regular.ttf");
+    font-family: 'roboto-regular';
+    src: url('/fonts/Roboto-Regular.ttf');
 }
 
 @font-face {
-    font-family: "roboto-medium";
-    src: url("/fonts/Roboto-Medium.ttf");
+    font-family: 'roboto-medium';
+    src: url('/fonts/Roboto-Medium.ttf');
 }
 
 @font-face {
-    font-family: "roboto-light";
-    src: url("/fonts/Roboto-Light.ttf");
+    font-family: 'roboto-light';
+    src: url('/fonts/Roboto-Light.ttf');
 }
 
 @font-face {
-    font-family: "roboto-bold";
-    src: url("/fonts/Roboto-Bold.ttf");
+    font-family: 'roboto-bold';
+    src: url('/fonts/Roboto-Bold.ttf');
+}
+/* @font-face {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@800&display=swap');
+}
+ */
+@font-face {
+    font-family: 'CharlieDisplay-Semibold'; /* The name you want to use for the font */
+    src: url('/fonts/CharlieDisplay-Semibold.woff2') format('woff2'); /* Path to the .ttf file */
+}
+@font-face {
+    font-family: 'CharlieDisplay-Bold'; /* The name you want to use for the font */
+    src: url('/fonts/charlie-display-bold.ttf'); /* Path to the .ttf file */
 }

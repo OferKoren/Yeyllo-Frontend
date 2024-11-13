@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     height: 3em;
-    padding: 8px 0px;
+    padding: 8px;
     background-color: $clr6;
 
     // padding: rem(10px) 0;
@@ -16,8 +16,8 @@
         // width: 100%;s
         align-items: center;
         // justify-content: center;
-        gap: 0.2em;
-        padding-inline: 2.5em 0.5em;
+        // gap: 0.2em;
+
         font-size: 0.875em;
         font-weight: 500;
         // line-height: 2em;
@@ -28,9 +28,11 @@
             }
             text-decoration: none;
             color: $headerClr;
-            padding: 5px 0.75em;
-            // height: 32px;
-
+            padding: 5px 12px;
+            height: 32px;
+            &.homepage-link {
+                padding: rem(6px);
+            }
             border-radius: 3px;
             transition: background-color 0.2s;
         }
@@ -42,17 +44,27 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
             font-size: 1.3em;
-            font-weight: bold;
+            // font-weight: bold;
             // margin-inline-end: 2em;
-            padding: 1.5px 0.6em;
+            font-family: 'CharlieDisplay-Bold';
+            padding: 1.5px 8px;
+            gap: 4px;
+            img {
+                filter: brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%) hue-rotate(179deg) brightness(91%) contrast(88%);
+                width: 16px;
+            }
         }
-
+        .homepage-link {
+            padding: rem(6px);
+        }
         .login-link {
             // margin-inline-start: auto;
         }
         button {
-            margin-inline: 1em 0;
+            // margin-inline: 1em 0;
             font-family: 'Segoe UI', 'roboto-regular';
             font-size: 14px;
             transition: 0.1s;
@@ -64,7 +76,7 @@
             &.btn1.create {
                 color: white;
                 background-color: $btnClr1;
-
+                margin-inline-start: 1em;
                 &:hover {
                     // background-color: darken($color: $btnClr1, $amount: 10);
                     background-color: $headerCreateBtnClr;
@@ -86,12 +98,14 @@
         // display: flex;
         position: relative;
         margin-inline-end: 2em;
+
         transition: 0.3s;
         &.enlarged {
             transition: 0.3s;
-            width: 95%;
+            width: 40%;
         }
         .header-search {
+            height: rem(32.5px);
             // background-color: lighten($color: inherit, $amount: 5);
             padding-inline-start: rem(32px);
             border-radius: rem(5px);
@@ -101,7 +115,7 @@
         }
         .search-icon {
             position: absolute;
-            top: 8px;
+            top: 10px;
             left: 8px;
         }
     }
