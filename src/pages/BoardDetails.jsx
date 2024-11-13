@@ -48,6 +48,7 @@ export function BoardDetails({ rootRef }) {
         else if (!isAsideOpen) dynamicClass = 'full-left'
         else dynamicClass = ''
     }
+    
     return (
         <section className="full horizontal-container">
             {isAsideOpen && <div style={{ width: '200px' }}>aside</div>}
