@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service.js'
 import { boardService } from '../../services/board/index.js'
 import { makeId } from '../../services/util.service.js'
 import ColorThief from 'colorthief'
@@ -14,6 +15,7 @@ export function AddAttachment({ task, setTask, handleCloseModal }) {
             const fileName = ev.target.files[0].name
 
             try {
+                showSuccessMsg('Uploading in progress...')
                 const uploadedImgUrl = await boardService.uploadImg(base64Img)
                 const img = new Image()
                 img.crossOrigin = 'Anonymous'
@@ -25,10 +27,11 @@ export function AddAttachment({ task, setTask, handleCloseModal }) {
                     const bgColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`
 
                     addImageToAttachments(uploadedImgUrl, bgColor, fileName)
+                    showSuccessMsg('Image uploaded successfully!')
                 }
             } catch (error) {
                 console.error('Image upload failed:', error)
-                throw error
+                showErrorMsg('Failed to upload image')
             }
         }
 
@@ -36,7 +39,7 @@ export function AddAttachment({ task, setTask, handleCloseModal }) {
     }
 
     function addImageToAttachments(url, bgColor, fileName) {
-        const updatedAttachments = [...(task.attachments || []), { url, bgColor, fileName, id: makeId(), uploadedAt: Date.now() }]
+        const updatedAttachments = [...(task.attachments || []), { url, bgColor, fileName, isCover: false, id: makeId(), uploadedAt: Date.now() }]
         setTask(prevTask => ({ ...prevTask, attachments: updatedAttachments }))
     }
 

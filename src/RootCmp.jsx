@@ -30,7 +30,7 @@ export function RootCmp() {
     return (
         <div ref={rootRef} className="main-container root">
             <AppHeader />
-            {/* <UserMsg /> */}
+
 
             <main className="main-container full">
                 <Routes>
@@ -59,6 +59,7 @@ export function RootCmp() {
                     </Route>
                 </Routes>
             </main>
+            <UserMsg />
             {location.pathname === '/home' && <AppFooter />}
         </div>
     )
