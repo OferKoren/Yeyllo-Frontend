@@ -107,7 +107,7 @@ export function BoardDetails({ rootRef }) {
             board.groups = newGroups
 
             try {
-                onUpdateBoard(board)
+                await onUpdateBoard(board)
 
             } catch {
                 console.log('err: ', err);
