@@ -12,6 +12,8 @@ export function GroupList({ onUpdateBoard, board }) {
     const [isGroupDeleted, setIsGroupDeleted] = useState(false)
     const [isLabelsClicked, setIsLabelsClicked] = useState(false)
 
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     const { groups } = board
 
     function handleChange(ev) {
@@ -66,12 +68,12 @@ export function GroupList({ onUpdateBoard, board }) {
         <section>
             <ul className="group-list flex">
                 {groups.map((group, index) =>
-                    <Draggable draggableId={group.id} key={group.id} index={index}>
+                    <Draggable isDragDisabled={isModalOpen} draggableId={group.id} key={group.id} index={index}>
                         {(provided) => (
                             <div  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
                                 <li style={{...group.style }} className={group.id} key={group.id}>
                                     {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
-                                    <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
+                                    <GroupPreview isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
                                 </li>
                             </div>
                         )}

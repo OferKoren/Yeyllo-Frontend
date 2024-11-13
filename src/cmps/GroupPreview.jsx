@@ -5,7 +5,7 @@ import { GroupMenu } from './GroupMenu'
 import { colorLuminance } from '../services/util.service'
 import { Droppable } from 'react-beautiful-dnd'
 
-export function GroupPreview({ isLabelsClicked, setIsLabelsClicked, onUpdateBoard, board, group, setIsGroupDeleted }) {
+export function GroupPreview({ isModalOpen, setIsModalOpen, isLabelsClicked, setIsLabelsClicked, onUpdateBoard, board, group, setIsGroupDeleted }) {
     const { title, tasks, id } = group
 
     const [currTitle, setCurrTitle] = useState(title)
@@ -122,7 +122,7 @@ export function GroupPreview({ isLabelsClicked, setIsLabelsClicked, onUpdateBoar
             <Droppable droppableId={id}>
                 {(provided) => (
                     <section {...provided.droppableProps} ref={provided.innerRef}>
-                        <TaskList placeholder={provided.placeholder} group={group} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} taskTitle={taskTitle} setTaskTitle={setTaskTitle} isAddTaskClicked={isAddTaskClicked} setIsAddTaskClicked={setIsAddTaskClicked} groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
+                        <TaskList isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} placeholder={provided.placeholder} group={group} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} taskTitle={taskTitle} setTaskTitle={setTaskTitle} isAddTaskClicked={isAddTaskClicked} setIsAddTaskClicked={setIsAddTaskClicked} groupId={id} onUpdateBoard={onUpdateBoard} board={board} tasks={tasks} />
                     </section>
                 )}
             </Droppable>

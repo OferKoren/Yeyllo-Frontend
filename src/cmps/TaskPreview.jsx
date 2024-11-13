@@ -6,9 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { updateBoard } from '../store/actions/board.actions.js'
 
-export function TaskPreview({ onUpdateBoard, board, isLabelsClicked, setIsLabelsClicked, groupId, task }) {
+export function TaskPreview({ isModalOpen, setIsModalOpen, onUpdateBoard, board, isLabelsClicked, setIsLabelsClicked, groupId, task }) {
     const [isOpenTaskDetails, setIsOpenTaskDetails] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const [isDone, setIsDone] = useState(task.status === 'done')
 
     function getCountIcons() {

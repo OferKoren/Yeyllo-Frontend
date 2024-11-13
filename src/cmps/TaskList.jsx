@@ -4,7 +4,7 @@ import { makeId } from "../services/util.service";
 import ClickOutside from "./ClickOutside";
 import { Draggable } from "react-beautiful-dnd";
 
-export function TaskList({ placeholder, group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
+export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
     // const { groups } = board
 
@@ -61,10 +61,10 @@ export function TaskList({ placeholder, group, isLabelsClicked, setIsLabelsClick
                 <>
                     <section className="task-list">
                         {tasks.map((task, index) =>
-                            <Draggable draggableId={task.id} index={index} key={task.id}>
+                            <Draggable isDragDisabled={isModalOpen} draggableId={task.id} index={index} key={task.id}>
                                 {(provided) => (
                                     <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                        <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
+                                        <TaskPreview isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
                                     </div>
                                 )}
                             </Draggable>
@@ -83,7 +83,7 @@ export function TaskList({ placeholder, group, isLabelsClicked, setIsLabelsClick
                         <Draggable draggableId={task.id} index={index} key={task.id}>
                             {(provided) => (
                                 <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                    <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
+                                    <TaskPreview isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
                                 </div>
                             )}
                         </Draggable>
