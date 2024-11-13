@@ -24,6 +24,10 @@ button {
     }
 
     &.modal-btn {
+        &::first-letter {
+            text-transform: capitalize;
+        }
+
         /* position: absolute;
     top: 5px;
     right: 5px; */
