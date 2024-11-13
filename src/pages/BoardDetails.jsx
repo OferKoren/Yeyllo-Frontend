@@ -50,9 +50,29 @@ export function BoardDetails({ rootRef }) {
         else dynamicClass = ''
     }
 
-    const handleDragDrop = () => {
-        console.log('hiiii');
-        
+    const handleDragDrop = async (results) => {
+        const { source, destination, type } = results
+        if (!destination) return
+
+        if (source.droppableId === destination.droppableId &&
+            source.index === destination.index) return
+
+        if (type === 'group') {
+            const reorderGroups = [...board.groups]
+            const sourceIndex = source.index
+            const destinationIndex = destination.index
+
+            const [removedStore] = reorderGroups.splice(sourceIndex, 1)
+            reorderGroups.splice(destinationIndex, 0, removedStore)
+            board.groups = reorderGroups
+            try {
+                onUpdateBoard(board)
+
+            } catch {
+                console.log('err: ', err);
+            }
+        }
+
     }
 
     return (
@@ -68,9 +88,10 @@ export function BoardDetails({ rootRef }) {
                 />
                 <Droppable droppableId='ROOT' type='group' direction="horizontal">
                     {(provided) => (
-                        <section {...provided.droppableProps} ref={provided.innerRef} className="board-details">
-                            <GroupList onUpdateBoard={onUpdateBoard} board={board} />
-                        </section>
+                            <section {...provided.droppableProps} ref={provided.innerRef} className="board-details">
+                                <GroupList onUpdateBoard={onUpdateBoard} board={board} />
+                                {provided.placeholder}
+                            </section>
                     )}
                 </Droppable>
             </article>

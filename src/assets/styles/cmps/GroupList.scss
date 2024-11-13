@@ -1,6 +1,6 @@
 .group-list {
     display: flex;
-    gap: em(8px);
+    // gap: em(8px);
     overflow-x: scroll;
 
     /* Works on Firefox */
@@ -54,7 +54,8 @@
         // padding: 1em;
         padding-top: 0.5em;
         padding-bottom: 0.5em;
-        margin: 1em 0.5em 1em 0;
+        // margin: 1em 0.5em 1em 0;
+        margin: 1em 0;
         height: max-content;
         max-height: calc(100vh - 3.5rem - 2.5rem);
     }

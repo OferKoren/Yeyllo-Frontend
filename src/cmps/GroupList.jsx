@@ -69,14 +69,14 @@ export function GroupList({ onUpdateBoard, board }) {
                     <Draggable draggableId={group.id} key={group.id} index={index}>
                         {(provided) => (
                             <div  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                <li style={{ ...group.style }} className={group.id} key={group.id}>
+                                <li style={{...group.style }} className={group.id} key={group.id}>
                                     {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
                                     <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
                                 </li>
                             </div>
                         )}
                     </Draggable>)
-                }
+                }                
                 {isAddGroupClicked ?
                     <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
                         <div className="add-group-container">
