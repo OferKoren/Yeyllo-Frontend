@@ -1,0 +1,15 @@
+.custom-file-label span {
+    font-size: 0.95rem;
+    font-family: 'roboto-regular';
+}
+
+input.file-input {
+    display: none;
+}
+
+.custom-file-label {
+    text-align: center;
+
+    border: none;
+    cursor: pointer;
+}

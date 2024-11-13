@@ -91,7 +91,7 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
                                     selected={endDate ? new Date(endDate) : null}
                                     open={false}
                                     disabled={!endDate}
-                                    placeholderText='MM/DD/YYYY'
+                                    placeholderText='M/D/YYYY'
                                     onChange={(date) => { setEndDate(date); setLatestDate(date) }} />
                                 {/* if (date < endDate) setEndDate(dayjs(endDate).subtract(1, 'day').toDate()) */}
                             </div>

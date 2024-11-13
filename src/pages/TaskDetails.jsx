@@ -12,6 +12,10 @@ import { Cover } from '../cmps/Cover.jsx'
 import { DeleteTaskModal } from '../cmps/DeleteTaskModal.jsx'
 import dayjs from 'dayjs'
 import "react-datepicker/dist/react-datepicker.css"
+import { Description } from '../cmps/Description.jsx'
+import { makeId } from '../services/util.service.js'
+import { AddAttachment } from '../cmps/Attachment/AddAttachment.jsx'
+import { Attachment } from '../cmps/Attachment/Attachment.jsx'
 
 export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
@@ -174,6 +178,17 @@ export function TaskDetails() {
         }
     }
 
+    function onCopyTask() {
+        const updatedTasks = [...currGroupRef.current.tasks]
+        currGroupRef.current.tasks.forEach((item, i) => {
+            if (item.id === taskId) {
+                updatedTasks.splice(i, 0, { ...task, id: makeId() })
+            }
+        })
+
+        saveBoard(updatedTasks)
+    }
+
     function onRemoveTask() {
         const updatedTasks = currGroupRef.current.tasks.filter(groupTask => groupTask.id !== taskId)
         saveBoard(updatedTasks)
@@ -190,7 +205,7 @@ export function TaskDetails() {
         const updatedGroups = boardToEdit.groups.map(group => group.id === groupId ? updatedGroup : group)
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
         console.log('boardToSave', boardToSave)
-        updateBoard(boardToSave)
+        updateBoard(boardToSave) //add try catch
 
         onCloseModal()
     }
@@ -234,7 +249,7 @@ export function TaskDetails() {
                         value={task.title}
                         onChange={handleInfoChange}
                     />
-                    <h3>In list {currGroupRef.current.title.toUpperCase()}</h3>
+                    <h3>in list {currGroupRef.current.title.toUpperCase()}</h3>
                 </div>
             </div>
 
@@ -297,7 +312,7 @@ export function TaskDetails() {
 
                         {task.dueDate && (
                             <div className="due-date-area">
-                                <h3>Dou date</h3>
+                                <h3>Due date</h3>
                                 <div className="due-date-details">
                                     <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
                                     <div className="format-date-and-status">
@@ -318,20 +333,42 @@ export function TaskDetails() {
                         )}
                     </div>
 
-                    <div className="description-area">
-                        <img className="icon-description" src="/img/icons/icon-description.svg" />
-                        <h2 className="description-title">Description</h2>
-                        <textarea
-                            className="textarea-input task-description"
-                            type="text"
-                            name="description"
-                            id="description-update"
-                            placeholder="Add a more detailed description..."
-                            value={task.description || ''}
-                            onChange={handleInfoChange}
-                            style={{ backgroundColor: task.description ? '#f5f4f4' : '#e7e9eb', paddingBlockEnd: task.description ? '0.5em' : '2.3em' }}
-                        />
+                    <div className="description-area area-layout">
+                        <img className="icon-description icon-area" src="/img/icons/icon-description.svg" />
+                        <h2 className="description-title title-area">Description</h2>
+                        <Description task={task} setTask={setTask} />
                     </div>
+
+                    {
+                        task.attachments?.length > 0 &&
+                        <div className="attachments-area area-layout">
+                            <img className="icon-area" src="/img/board-details/attachment-icon.svg" />
+                            <h2 className="attachment-title title-area">
+                                <span> Attachments</span>
+                                <div className="add-attachment">
+                                    <button className="btn btn-light btn-add-attachment" onClick={() => handleToggleModal('attachment-addBtn')}>
+                                        <span>Add</span>
+                                    </button>
+                                    {openModal === 'attachment-addBtn' &&
+                                        <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} />}
+                                </div>
+                            </h2>
+                            <div className="list-of-attachments container-area">
+                                <h3>Files</h3>
+                                {task.attachments.map((attachment) => (
+                                    <Attachment
+                                        key={attachment.id}
+                                        attachment={attachment}
+                                        setTask={setTask}
+                                        task={task}
+                                        handleToggleModal={handleToggleModal}
+                                        handleCloseModal={handleCloseModal}
+                                        handleOpenModal={handleOpenModal}
+                                        openModal={openModal} />
+                                ))}
+                            </div>
+                        </div>
+                    }
 
                     {task.checklists?.length > 0 && (
                         <div className="list-of-checklists">
@@ -413,6 +450,29 @@ export function TaskDetails() {
                         {openModal === "cover" && renderCoverModal()}
                     </div>
 
+                    <div>
+                        <button className={`btn btn-option btn-light ${openModal === "attachment" && 'active'}`}
+                            onClick={() => handleToggleModal('attachment')}>
+                            <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" clipRule="evenodd" d="M11.6426 17.9647C10.1123 19.46 7.62736 19.4606 6.10092 17.9691C4.57505 16.478 4.57769 14.0467 6.10253 12.5566L13.2505 5.57184C14.1476 4.6952 15.5861 4.69251 16.4832 5.56921C17.3763 6.44184 17.3778 7.85135 16.4869 8.72199L9.78361 15.2722C9.53288 15.5172 9.12807 15.5163 8.86954 15.2636C8.61073 15.0107 8.60963 14.6158 8.86954 14.3618L15.0989 8.27463C15.4812 7.90109 15.4812 7.29546 15.0989 6.92192C14.7167 6.54838 14.0969 6.54838 13.7146 6.92192L7.48523 13.0091C6.45911 14.0118 6.46356 15.618 7.48523 16.6163C8.50674 17.6145 10.1511 17.6186 11.1679 16.6249L17.8712 10.0747C19.5274 8.45632 19.5244 5.83555 17.8676 4.2165C16.2047 2.59156 13.5266 2.59657 11.8662 4.21913L4.71822 11.2039C2.42951 13.4404 2.42555 17.083 4.71661 19.3218C7.00774 21.5606 10.7323 21.5597 13.0269 19.3174L19.7133 12.7837C20.0956 12.4101 20.0956 11.8045 19.7133 11.431C19.331 11.0574 18.7113 11.0574 18.329 11.431L11.6426 17.9647Z" style={{ fill: openModal === "attachment" ? '#ffffff' : '#333333' }} />
+                            </svg>
+                            <span>Attachment</span>
+                        </button>
+                        {openModal === "attachment" && <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} />}
+                    </div>
+
+                    <div className="task-actions-area">
+                        <h3>Actions</h3>
+                        <div>
+                            <button className="btn btn-option btn-light" onClick={() => onCopyTask()}>
+                                <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M5 16V4.99188C5 3.8918 5.90195 3 7.00853 3H14.9915L15 3.00002V5H7V16H5ZM8 19C8 20.1046 8.89543 21 10 21H18C19.1046 21 20 20.1046 20 19V8C20 6.89543 19.1046 6 18 6H10C8.89543 6 8 6.89543 8 8V19ZM10 8V19H18V8H10Z" fill="currentColor" />
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <hr />
 
                     <div>
@@ -427,7 +487,7 @@ export function TaskDetails() {
                                     <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.03418 5.59621C2.98604 5.04603 3.39303 4.56099 3.94322 4.51286L19.8823 3.11837C20.4325 3.07023 20.9175 3.47722 20.9657 4.02741L21.0528 5.0236L3.12133 6.5924L3.03418 5.59621Z" fill="currentColor" />
                                         <path d="M9 12.9999C9 12.4476 9.44772 11.9999 10 11.9999H14C14.5523 11.9999 15 12.4476 15 12.9999C15 13.5522 14.5523 13.9999 14 13.9999H10C9.44772 13.9999 9 13.5522 9 12.9999Z" fill="currentColor" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3 18.9999V7.99993H21V18.9999C21 20.1045 20.1046 20.9999 19 20.9999H5C3.89543 20.9999 3 20.1045 3 18.9999ZM5 9.99993H19V18.9999H5L5 9.99993Z" fill="currentColor" />
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M3 18.9999V7.99993H21V18.9999C21 20.1045 20.1046 20.9999 19 20.9999H5C3.89543 20.9999 3 20.1045 3 18.9999ZM5 9.99993H19V18.9999H5L5 9.99993Z" fill="currentColor" />
                                     </svg>
                             }
                             <span> {openModal === "archive" || openModal === "deleteTask" ? 'Send to board' : 'Archive'}</span>

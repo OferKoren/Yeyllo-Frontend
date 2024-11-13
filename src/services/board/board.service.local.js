@@ -10,6 +10,7 @@ export const boardService = {
     getById,
     save,
     remove,
+    uploadImg
 }
 window.cs = boardService
 
@@ -36,7 +37,6 @@ async function query(filterBy = { txt: '' }) {
 }
 
 function getById(boardId) {
-    console.log('hi-get')
     return storageService.get(STORAGE_KEY, boardId)
 }
 
@@ -71,5 +71,24 @@ function _createBoards() {
     if (!boards || !boards.length) {
         boards = boardData.boards
         saveToStorage(STORAGE_KEY, boards)
+    }
+}
+
+async function uploadImg(imgData) {
+    const CLOUD_NAME = 'webify'
+    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+    const formData = new FormData()
+    formData.append('file', imgData)
+    formData.append('upload_preset', 'webify')
+    try {
+        const res = await fetch(UPLOAD_URL, {
+            method: 'POST',
+            body: formData
+        })
+        const data = await res.json()
+        return data.secure_url
+
+    } catch (err) {
+        console.log(err)
     }
 }

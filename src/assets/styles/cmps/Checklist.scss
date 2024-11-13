@@ -105,6 +105,11 @@
         .add-todo-actions {
             display: flex;
             gap: 0.3em;
+            margin-inline-start: 0.3em;
+        }
+
+        input.adding-todo-title:focus {
+            outline: 1px solid blue;
         }
     }
 }
