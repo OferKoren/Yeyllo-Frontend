@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     height: 3em;
-    padding: 8px 0px;
+    padding: 8px;
     background-color: $clr6;
 
     // padding: rem(10px) 0;
@@ -17,7 +17,7 @@
         align-items: center;
         // justify-content: center;
         // gap: 0.2em;
-        padding-inline: 0.5em;
+
         font-size: 0.875em;
         font-weight: 500;
         // line-height: 2em;
@@ -28,7 +28,7 @@
             }
             text-decoration: none;
             color: $headerClr;
-            padding: 5px 0.75em;
+            padding: 5px 12px;
             height: 32px;
             &.homepage-link {
                 padding: rem(6px);
@@ -50,14 +50,16 @@
             // font-weight: bold;
             // margin-inline-end: 2em;
             font-family: 'CharlieDisplay-Bold';
-            padding: 1.5px 0.6em;
+            padding: 1.5px 8px;
             gap: 4px;
             img {
                 filter: brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%) hue-rotate(179deg) brightness(91%) contrast(88%);
                 width: 16px;
             }
         }
-
+        .homepage-link {
+            padding: rem(6px);
+        }
         .login-link {
             // margin-inline-start: auto;
         }
@@ -96,12 +98,14 @@
         // display: flex;
         position: relative;
         margin-inline-end: 2em;
+
         transition: 0.3s;
         &.enlarged {
             transition: 0.3s;
             width: 40%;
         }
         .header-search {
+            height: rem(32.5px);
             // background-color: lighten($color: inherit, $amount: 5);
             padding-inline-start: rem(32px);
             border-radius: rem(5px);

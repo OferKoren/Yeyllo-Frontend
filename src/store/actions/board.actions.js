@@ -1,8 +1,9 @@
 import { boardService } from '../../services/board'
 import { store } from '../store'
 //removed from the import below ADD_BOARD_MSG
-import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD, UNLOAD_BOARD } from '../reducers/board.reducer'
+import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD, UNLOAD_BOARD, SET_WORKSPACE } from '../reducers/board.reducer'
 import { batch } from 'react-redux'
+import { workspaceService } from '../../services/workspace/workspace.service'
 
 export async function loadBoards() {
     const filterBy = store.getState().boardModule.filterBy
@@ -21,6 +22,17 @@ export async function loadBoard(boardId) {
         store.dispatch(getCmdSetBoard(board))
     } catch (err) {
         console.log('Cannot load board', err)
+        throw err
+    }
+}
+
+export async function loadWorkspace() {
+    // console.log('hehr')
+    try {
+        const workspace = await workspaceService.query()
+        store.dispatch(getCmdSetWorkspace(workspace))
+    } catch (err) {
+        console.log('Cannot load workspace', err)
         throw err
     }
 }
@@ -77,6 +89,12 @@ function getCmdSetBoards(boards) {
     return {
         type: SET_BOARDS,
         boards,
+    }
+}
+function getCmdSetWorkspace(workspace) {
+    return {
+        type: SET_WORKSPACE,
+        workspace,
     }
 }
 function getCmdSetBoard(board) {

@@ -175,7 +175,7 @@ export function AppHeader() {
                         />
                     </div>
 
-                    <ClickOutside onClick={onCloseModal} className={'absolute'}>
+                    <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
                         <Modal
                             title={whichModal}
                             onCloseModal={onCloseModal}

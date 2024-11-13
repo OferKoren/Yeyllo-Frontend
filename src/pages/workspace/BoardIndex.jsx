@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoards, addBoard, updateBoard, removeBoard } from '../../store/actions/board.actions'
+import { loadBoards, addBoard, updateBoard, removeBoard, loadWorkspace } from '../../store/actions/board.actions'
 
 import { showSuccessMsg, showErrorMsg } from '../../services/event-bus.service'
+import { workspaceService } from '../../services/workspace/workspace.service'
 import { boardService } from '../../services/board'
 import { userService } from '../../services/user'
 import { Modal } from '../../cmps/Modal'
@@ -12,6 +13,7 @@ import { AddBoard } from '../../cmps/workspace/modals/AddBoard'
 import { useNavigate } from 'react-router'
 import ClickOutside from '../../cmps/ClickOutside'
 import { WorkspaceAside } from '../../cmps/workspace/aside/WorkspaceAside'
+import { WorkspaceHeader } from '../../cmps/workspace/WorkspaceHeader'
 
 // import { BoardFilter } from '../cmps/BoardFilter'
 
@@ -20,7 +22,12 @@ export function BoardIndex() {
     const [filterBy, setFilterBy] = useState(boardService.getDefaultFilter())
     const [isModalOpen, setIsModalOpen] = useState(false)
     const boards = useSelector((storeState) => storeState.boardModule.boards)
+    const workspace = useSelector((storeState) => storeState.boardModule.workspace)
+
     const navigate = useNavigate()
+    useEffect(() => {
+        loadWorkspace()
+    }, [])
     useEffect(() => {
         loadBoards(filterBy)
     }, [filterBy])
@@ -66,17 +73,15 @@ export function BoardIndex() {
             showErrorMsg('Cannot update board')
         }
     }
-    if (!boards) return <div>loading...</div>
+    if (!boards || !workspace) return <div>loading...</div>
+    console.log(workspace)
     return (
         <main className="board-index workspace-layout">
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
             <WorkspaceAside />
             <div className="main-section">
-                <header>
-                    {/* <h2>Boards</h2> */}
-                    <hr />
-                </header>
-
+                <WorkspaceHeader workspace={workspace} />
+                <hr />
                 <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} onUpdateBoard={onUpdateBoard} />
             </div>
 

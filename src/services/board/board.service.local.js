@@ -2,8 +2,9 @@ import { storageService } from '../async-storage.service.js'
 import { loadFromStorage, makeId, saveToStorage } from '../util.service.js'
 import { userService } from '../user'
 import { boardData } from '../../../data/board.js'
+import { workspaceService } from '../workspace/workspace.service.js'
 const STORAGE_KEY = 'board'
-_createBoard()
+_createBoards()
 export const boardService = {
     query,
     getById,
@@ -14,6 +15,7 @@ window.cs = boardService
 
 async function query(filterBy = { txt: '' }) {
     var boards = await storageService.query(STORAGE_KEY)
+
     const { txt, sortField, sortDir } = filterBy
 
     if (txt) {
@@ -45,7 +47,6 @@ async function remove(boardId) {
 
 // todo need to update the save on what to do with board to save
 async function save(board) {
-    console.log('hi save board')
     var savedBoard
     if (board._id) {
         const boardToSave = {
@@ -64,27 +65,11 @@ async function save(board) {
     return savedBoard
 }
 
-//* think not relevent
-/* async function addBoardMsg(boardId, txt) {
-    // Later, this is all done by the backend
-    const board = await getById(boardId)
-
-    const msg = {
-        id: makeId(),
-        by: userService.getLoggedinUser(),
-        txt,
-    }
-    board.msgs.push(msg)
-    await storageService.put(STORAGE_KEY, board)
-
-    return msg
-} */
-
 //* only for dev purposes
-function _createBoard() {
-    let board = loadFromStorage(STORAGE_KEY)
-    if (!board || !board.length) {
-        board = boardData.board
-        saveToStorage(STORAGE_KEY, board)
+function _createBoards() {
+    let boards = loadFromStorage(STORAGE_KEY)
+    if (!boards || !boards.length) {
+        boards = boardData.boards
+        saveToStorage(STORAGE_KEY, boards)
     }
 }

@@ -1,3 +1,5 @@
+import { workspaceService } from '../../services/workspace/workspace.service'
+export const SET_WORKSPACE = 'SET_WORKSPACE'
 export const SET_BOARDS = 'SET_BOARDS'
 export const SET_BOARD = 'SET_BOARD'
 export const UNLOAD_BOARD = 'UNLOAD_BOARD'
@@ -28,11 +30,12 @@ export const groupColorPalette = [
     { color: '#6cc3e0', realColor: '#C6EDFB', title: 'teal' },
     { color: '#94c748', realColor: '#D3F1A7', title: 'lime' },
     { color: '#e774bb', realColor: '#FDD0EC', title: 'magenta' },
-    { color: '#8590a2', realColor: '', title: 'gray (Default)' }
+    { color: '#8590a2', realColor: '', title: 'gray (Default)' },
 ]
 
 const initialState = {
-    boards: [],
+    workspace: null,
+    boards: null,
     board: null,
     filterBy: {},
     labels: defaultLabels,
@@ -43,6 +46,9 @@ export function boardReducer(state = initialState, action) {
     var newState = state
     var boards
     switch (action.type) {
+        case SET_WORKSPACE:
+            newState = { ...state, workspace: action.workspace }
+            break
         case SET_BOARDS:
             newState = { ...state, boards: action.boards }
             break

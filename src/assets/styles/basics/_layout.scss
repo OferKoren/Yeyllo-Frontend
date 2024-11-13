@@ -1,7 +1,7 @@
 .main-container {
     min-height: 100%;
     display: grid;
-    grid-template-columns: minmax(1em, 1fr) minmax(auto, 1200px) minmax(1em, 1fr);
+    grid-template-columns: minmax(1em, 1fr) minmax(auto, 1145px) minmax(1em, 1fr);
     &.homepage {
         grid-template-columns: minmax(1em, 1fr) minmax(auto, 1140px) minmax(1em, 1fr);
     }
@@ -63,9 +63,7 @@
     grid-auto-flow: column;
     grid-template-columns: minmax(auto, 288px) minmax(auto, 1fr);
     & > header {
-        height: 180px;
-    }
-    .main-section {
+        // height: 180px;
     }
 }
 

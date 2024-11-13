@@ -1,14 +1,16 @@
 .board-lists {
     display: flex;
     flex-direction: column;
-    // gap: 1em;
+    padding-inline-start: rem(14px);
     h2 {
         ::first-letter {
             text-transform: capitalize;
         }
         display: flex;
-        gap: 0.5em;
-        margin-bottom: 0.75em;
+        gap: rem(13px);
+        margin-bottom: rem(11.5px);
+        padding-block-start: 2px;
+        padding-inline-start: rem(5px);
         font-size: em(16px);
     }
     ul {
