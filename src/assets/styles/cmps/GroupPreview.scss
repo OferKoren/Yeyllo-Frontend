@@ -67,7 +67,7 @@
 
     .group-header-btn {
         font-family: "Roboto-Bold";
-        // padding: em(6px) em(8px) em(8px) em(12px);
+        padding: em(10.5px) em(8px) em(8px) em(12px);
         width: 16em;
         border: none solid 3px;
         height:3em;
@@ -110,9 +110,15 @@
         height:3em;
         width: 15.13em;
         margin-left: 0.5em;
-        padding-bottom: 0.55em;
         margin-inline-end: 0.03em;
+        
+        padding-bottom: 0.2em;
+        padding-top: 0.2em;
         // margin-bottom: 1em;
+    }
+
+    .group-title-input{
+        margin-bottom: 0;
     }
 
     input {

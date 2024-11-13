@@ -12,12 +12,12 @@ export const SET_LABELS = 'SET_LABELS'
 // export const ADD_BOARD_MSG = 'ADD_BOARD_MSG'
 
 const defaultLabels = [
-    { id: 'l101', color: '#4BCE97', title: '' },
-    { id: 'l102', color: '#F5CD47', title: '' },
-    { id: 'l103', color: '#FEA362', title: '' },
-    { id: 'l104', color: '#F87168', title: '' },
-    { id: 'l105', color: '#9F8FEF', title: '' },
-    { id: 'l106', color: '#579DFF', title: '' },
+    { id: 'l101', color: '#4BCE97', fontColor: '#164b35', title: '' },
+    { id: 'l102', color: '#F5CD47', fontColor: '#533f04', title: '' },
+    { id: 'l103', color: '#FEA362', fontColor: '#702e00', title: '' },
+    { id: 'l104', color: '#F87168', fontColor: '#5d1f1a', title: '' },
+    { id: 'l105', color: '#9F8FEF', fontColor: '#352c63', title: '' },
+    { id: 'l106', color: '#579DFF', fontColor: '#09326c', title: '' },
 ]
 
 export const groupColorPalette = [

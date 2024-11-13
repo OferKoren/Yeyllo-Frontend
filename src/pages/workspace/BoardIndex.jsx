@@ -73,7 +73,7 @@ export function BoardIndex() {
             showErrorMsg('Cannot update board')
         }
     }
-    if (!boards || !workspace) return <div>loading...</div>
+    if (!boards || !workspace) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
     console.log(workspace)
     return (
         <main className="board-index workspace-layout">

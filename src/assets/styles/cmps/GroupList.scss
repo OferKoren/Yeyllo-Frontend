@@ -1,6 +1,6 @@
 .group-list {
     display: flex;
-    gap: em(8px);
+    // gap: em(8px);
     overflow-x: scroll;
 
     /* Works on Firefox */
@@ -33,24 +33,55 @@
     li:first-child {
         margin-inline-start: 1em;
     }
-    .container-first-add-group:first-child{
+
+    .container-first-add-group:first-child {
         margin-inline-start: 1em;
         width: 17em;
-        .add-group-container{
+
+
+        .add-group-container {
             margin-inline-start: 0;
+
+
         }
     }
 
-    >* {
+    .add-group-container {
+        form {
+            margin-top: 0.3em;
+            margin-right: 0.5em;
+            padding: 0.7em;
+            border-radius: 0.8em;
+            background-color: $clr-bg1-light;
+        }
+    }
+
+    .container-first-add-group {
+        padding: 0.7em;
+    }
+
+    div.group {
+        height: max-content;
+        max-height: calc(100vh - 3.5rem - 2.5rem);
+    }
+
+    li:not(.label, .member, .attachment-action-item) {
         width: rem(264px);
-        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+
+        // &.group-list-li{
+        // }
+
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2),
+            0 1px 1px 0 rgba(0, 0, 0, 0.19);
 
         background-color: $clr-bg1-light;
         border-radius: em(12px);
         // padding: 1em;
         padding-top: 0.5em;
         padding-bottom: 0.5em;
-        margin: 1em 0.5em 1em 0;
+        // margin: 1em 0.5em 1em 0;
+        margin: 1em 0;
+        margin-left: 1em;
         height: max-content;
         max-height: calc(100vh - 3.5rem - 2.5rem);
     }
@@ -58,7 +89,7 @@
     input {
         border-radius: 0.5em;
         padding: em(6px) em(8px) em(8px) em(12px);
-        margin: 5px;
+        margin-top: 0px;
         width: 17em;
         // margin-bottom: em(10px);
 
@@ -80,7 +111,7 @@
     &:first-child {
         margin-inline-start: 1em;
     }
-    
+
     background-color: hwb(0 100% 0% / 0.24);
     height: em(44px);
     font-family: 'roboto-bold';
@@ -89,6 +120,11 @@
     padding: em(12px);
     padding: 1.7em 0em 1.7em 1em;
     transition: 200ms;
+
+    margin-right: 1em;
+    margin-left: 1em;
+    margin-top: 1em;
+    border-radius: 8px;
 
     &:hover {
         background-color: hwb(0 100% 0% / 0.18);
@@ -99,7 +135,6 @@
     display: flex;
     align-items: center;
     margin: 0;
-    margin-left: 0.5em;
 
     .close-btn-x {
         border-radius: 0.2em;
@@ -135,7 +170,7 @@
     }
 
     :nth-child(2) {
-        background-color: $clr-bg1-light;
+        background-color: inherit;
         color: rgb(99, 99, 99);
         font-size: 20px;
 

@@ -4,12 +4,15 @@ import { makeId } from "../services/util.service";
 import { updateBoard } from "../store/actions/board.actions";
 import ClickOutside from "./ClickOutside";
 import { getEmptyGroup } from "../services/board";
+import { Draggable } from "react-beautiful-dnd";
 
-export function GroupList({ onUpdateBoard, board }) {
+export function GroupList({ placeholder, onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
     const [title, setTitle] = useState('')
     const [isGroupDeleted, setIsGroupDeleted] = useState(false)
     const [isLabelsClicked, setIsLabelsClicked] = useState(false)
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const { groups } = board
 
@@ -35,7 +38,7 @@ export function GroupList({ onUpdateBoard, board }) {
 
         const group = getEmptyGroup()
         group.title = title
-        
+
         // const group = {
         //     id: makeId(),
         //     style: {},
@@ -59,16 +62,25 @@ export function GroupList({ onUpdateBoard, board }) {
         setTitle('')
     }
 
-    if (!board) return <div>Loading...</div>
+
+    if (!board) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
     return (
         <section>
             <ul className="group-list flex">
-                {groups.map(group =>
-                    <li style={{ ...group.style }} key={group.id}>
-                        {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
-                        <GroupPreview isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
-                    </li>)
+                {groups.map((group, index) =>
+                    <Draggable isDragDisabled={isModalOpen} draggableId={group.id} key={group.id} index={index}>
+                        {(provided, snapshot) => (
+                            <div className="group" {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+                                <li style={{ ...group.style, rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }} className={group.id} key={group.id}>
+                                    {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
+                                    <GroupPreview isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
+                                </li>
+                            </div>
+                        )}
+                    </Draggable>)
                 }
+                {placeholder}
+
                 {isAddGroupClicked ?
                     <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
                         <div className="add-group-container">

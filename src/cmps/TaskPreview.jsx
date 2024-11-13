@@ -6,9 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { updateBoard } from '../store/actions/board.actions.js'
 
-export function TaskPreview({ onUpdateBoard, board, isLabelsClicked, setIsLabelsClicked, groupId, task }) {
+export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoard, board, isLabelsClicked, setIsLabelsClicked, groupId, task }) {
     const [isOpenTaskDetails, setIsOpenTaskDetails] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const [isDone, setIsDone] = useState(task.status === 'done')
 
     function getCountIcons() {
@@ -101,7 +100,7 @@ export function TaskPreview({ onUpdateBoard, board, isLabelsClicked, setIsLabels
 
     return (
         <>
-            <article onClick={onOpenModal} className="task-preview">
+            <article style={{ rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }} onClick={onOpenModal} className="task-preview">
                 {task.style ? <div className='task-color' style={{ ...task.style }}></div> : ''}
                 {task.labelIds ?
                     <section style={{ marginBlockEnd: '0.5em' }} className='labels-task-preview'>
@@ -116,7 +115,7 @@ export function TaskPreview({ onUpdateBoard, board, isLabelsClicked, setIsLabels
                                 : <div key={labelId} onClick={(ev) => {
                                     ev.stopPropagation()
                                     setIsLabelsClicked(isClicked => !isClicked)
-                                }} style={{ textAlign: 'center', transition: '200ms', fontFamily: 'roboto-bold', fontSize: '0.8em', marginRight: '0.3em', backgroundColor: currLabel.color, width: '60px', height: '17px', padding: '0px 8px', borderRadius: '4px' }}>
+                                }} style={{ textAlign: 'center', transition: '200ms', fontFamily: 'roboto-bold', color:currLabel.fontColor , fontSize: '0.8em', marginRight: '0.3em', backgroundColor: currLabel.color,minWidth: '60px', maxWidth:'max-content' , height: '17px', padding: '0px 8px', borderRadius: '4px', justifyContent:'center' }}>
                                     {currLabel.title}
                                 </div>
 
