@@ -1,9 +1,12 @@
 .reach-editor-container {
     outline: 2px solid blue;
+    border-radius: 0.2em;
     background-color: $clr-bg2-light;
 }
 
 .text-editor-buttons {
+    display: flex;
+    gap: 0.5em;
     margin-block-start: 1em;
 }
 
