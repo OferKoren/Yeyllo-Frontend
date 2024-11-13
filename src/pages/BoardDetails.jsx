@@ -42,7 +42,12 @@ export function BoardDetails({ rootRef }) {
         } else setMenuOpen((prev) => !prev)
     }
     // style={{backgroundImage:`url(${board.style.backgroundImage})`}}
-    if (!board) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
+    if (!board)
+        return (
+            <div className="trello-loader">
+                <img src="\img\general\trello-loader.svg" alt="" />
+            </div>
+        )
     let dynamicClass = 'full'
     if (isMenuOpen || isAsideOpen) {
         if (!isMenuOpen) dynamicClass = 'full-right'
@@ -54,8 +59,7 @@ export function BoardDetails({ rootRef }) {
         const { source, destination, type } = results
         if (!destination) return
 
-        if (source.droppableId === destination.droppableId &&
-            source.index === destination.index) return
+        if (source.droppableId === destination.droppableId && source.index === destination.index) return
 
         if (type === 'group') {
             const reorderGroups = [...board.groups]
@@ -68,58 +72,47 @@ export function BoardDetails({ rootRef }) {
 
             try {
                 onUpdateBoard(board)
-
             } catch {
-                console.log('err: ', err);
+                console.log('err: ', err)
             }
         } else {
+            const taskSourceIndex = source.index
+            const taskDestinationIndex = destination.index
 
-            const taskSourceIndex = source.index;
-            const taskDestinationIndex = destination.index;
+            const groupSourceIndex = board.groups.findIndex((group) => group.id === source.droppableId)
+            const groupDestinationIndex = board.groups.findIndex((group) => group.id === destination.droppableId)
 
-            const groupSourceIndex = board.groups.findIndex(
-                (group) => group.id === source.droppableId
-            );
-            const groupDestinationIndex = board.groups.findIndex(
-                (group) => group.id === destination.droppableId
-            );
-
-            const newSourceTasks = [...board.groups[groupSourceIndex].tasks];
+            const newSourceTasks = [...board.groups[groupSourceIndex].tasks]
             const newDestinationTasks =
-                source.droppableId !== destination.droppableId
-                    ? [...board.groups[groupDestinationIndex].tasks]
-                    : newSourceTasks;
+                source.droppableId !== destination.droppableId ? [...board.groups[groupDestinationIndex].tasks] : newSourceTasks
 
-            const [deletedTask] = newSourceTasks.splice(taskSourceIndex, 1);
-            newDestinationTasks.splice(taskDestinationIndex, 0, deletedTask);
+            const [deletedTask] = newSourceTasks.splice(taskSourceIndex, 1)
+            newDestinationTasks.splice(taskDestinationIndex, 0, deletedTask)
 
-            const newGroups = [...board.groups];
+            const newGroups = [...board.groups]
 
             newGroups[groupSourceIndex] = {
                 ...board.groups[groupSourceIndex],
                 tasks: newSourceTasks,
-            };
+            }
             newGroups[groupDestinationIndex] = {
                 ...board.groups[groupDestinationIndex],
                 tasks: newDestinationTasks,
-            };
+            }
 
             board.groups = newGroups
 
             try {
                 await onUpdateBoard(board)
-
             } catch {
-                console.log('err: ', err);
+                console.log('err: ', err)
             }
-
         }
-
     }
 
     return (
-        <>
-            <DragDropContext onDragEnd={handleDragDrop} className="full horizontal-container">
+        <DragDropContext onDragEnd={handleDragDrop}>
+            <section className="full horizontal-container">
                 {isAsideOpen && <div style={{ width: '200px' }}>aside</div>}
                 <article className={`board-details ${dynamicClass}`} /* style={board.style} */>
                     <BoardHeader
@@ -129,7 +122,7 @@ export function BoardDetails({ rootRef }) {
                         onToggleMenu={onToggleMenu}
                         setIsShrink={setIsShrink}
                     />
-                    <Droppable droppableId='ROOT' type='group' direction="horizontal">
+                    <Droppable droppableId="ROOT" type="group" direction="horizontal">
                         {(provided) => (
                             <section {...provided.droppableProps} ref={provided.innerRef} className="board-details">
                                 <GroupList placeholder={provided.placeholder} onUpdateBoard={onUpdateBoard} board={board} />
@@ -139,8 +132,8 @@ export function BoardDetails({ rootRef }) {
                     </Droppable>
                 </article>
                 {/* <BoardMenu /> */}
-            </DragDropContext>
-            {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} />}
-        </>
+                {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} />}
+            </section>
+        </DragDropContext>
     )
 }

@@ -1,10 +1,8 @@
 .board-menu {
-
     /* Works on Firefox */
     * {
         scrollbar-width: thin;
         scrollbar-color: rgba(0, 0, 0, 0.15) rgba(128, 128, 128, 0.15);
-
     }
 
     /* Works on Chrome, Edge, and Safari */
@@ -23,13 +21,13 @@
         border: 0px solid rgba(0, 0, 0, 0.15);
     }
 
-
     width: 340px;
     position: absolute;
     transition: 0.4s;
     background-color: white;
 
     .menu-header {
+        position: sticky;
         padding: 0 12px;
         margin: 0;
         height: rem(56px);
@@ -82,9 +80,11 @@
         transform: translateX(340px);
     }
     hr {
-        padding: 0 12px;
+        width: 304px;
         &.thin {
+            width: 100%;
             margin: 0;
+            margin-inline-start: rem(12px);
         }
     }
 }
