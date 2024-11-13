@@ -349,7 +349,8 @@ export function TaskDetails() {
                                     <button className="btn btn-light btn-add-attachment" onClick={() => handleToggleModal('attachment-addBtn')}>
                                         <span>Add</span>
                                     </button>
-                                    {openModal === 'attachment-addBtn' && <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} />}
+                                    {openModal === 'attachment-addBtn' &&
+                                        <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} />}
                                 </div>
                             </h2>
                             <div className="list-of-attachments container-area">
@@ -357,7 +358,10 @@ export function TaskDetails() {
                                 {task.attachments.map((attachment) => (
                                     <Attachment
                                         key={attachment.id}
-                                        attachment={attachment} />
+                                        attachment={attachment}
+                                        setTask={setTask}
+                                        handleToggleModal={handleToggleModal}
+                                        openModal={openModal} />
                                 ))}
                             </div>
                         </div>

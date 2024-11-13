@@ -1,0 +1,13 @@
+.attachment-actions-list {
+    display: grid;
+    gap: 0.5em;
+    width: 13em;
+
+    li.attachment-action-item:first-child {
+        margin: 0;
+    }
+
+    & li:hover {
+        background-color: $clr-btn-1;
+    }
+}

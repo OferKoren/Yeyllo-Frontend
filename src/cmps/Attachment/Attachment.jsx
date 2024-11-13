@@ -1,9 +1,10 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { AttachmentActions } from '../Attachment/AttachmentActions.jsx'
 
 dayjs.extend(relativeTime)
 
-export function Attachment({ attachment }) {
+export function Attachment({ attachment, handleToggleModal, openModal, setTask }) {
     return (
         <div className="attachment-data">
             <a href={attachment.url}
@@ -27,12 +28,15 @@ export function Attachment({ attachment }) {
                     <p>Added {dayjs(attachment.uploadedAt).fromNow()}</p>
                 </div>
                 <div className="attachment-actions">
-                    <div className="btn btn-light btn-attachment-action">
+                    <div className="btn btn-clear btn-attachment-action">
                         <a href={attachment.url} target="_blank">  <img src="/img/icons/icon-export.svg" /></a>
                     </div>
 
-                    <div className="btn btn-light btn-attachment-action">
-                        <img src="/img/board-details/menu-dots.svg" />
+                    <div className="more-actions-area">
+                        <div className="btn btn-light btn-attachment-action" onClick={() => handleToggleModal(`attachment-${attachment.id}`)}>
+                            <img src="/img/board-details/menu-dots.svg" />
+                        </div>
+                        {openModal === `attachment-${attachment.id}` && <AttachmentActions attachment={attachment} setTask={setTask} />}
                     </div>
                 </div>
             </div>

@@ -21,6 +21,10 @@
             display: flex;
             gap: 0.5em;
 
+            .more-actions-area {
+                position: relative;
+            }
+
             .btn-attachment-action {
                 padding: 0.4em 0.6em;
 
@@ -28,8 +32,7 @@
                     height: 1.05em;
                 }
             }
+
         }
-
     }
-
 }
