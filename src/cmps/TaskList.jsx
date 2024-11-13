@@ -2,8 +2,9 @@ import { useState } from "react";
 import { TaskPreview } from "./TaskPreview";
 import { makeId } from "../services/util.service";
 import ClickOutside from "./ClickOutside";
+import { Draggable } from "react-beautiful-dnd";
 
-export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
+export function TaskList({ placeholder, group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
     // const { groups } = board
 
@@ -59,9 +60,16 @@ export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle
             {!isAddTaskClicked ?
                 <>
                     <section className="task-list">
-                        {tasks.map(task =>
-                            <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
+                        {tasks.map((task, index) =>
+                            <Draggable draggableId={task.id} index={index} key={task.id}>
+                                {(provided) => (
+                                    <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+                                        <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
+                                    </div>
+                                )}
+                            </Draggable>
                         )}
+                        {placeholder}
                     </section>
                     <section>
                         <div className='add-task-btn-container' >
@@ -71,8 +79,14 @@ export function TaskList({ group, isLabelsClicked, setIsLabelsClicked, taskTitle
                 </>
                 :
                 <section className="task-list add-task-option">
-                    {tasks.map(task =>
-                        <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
+                    {tasks.map((task, index) =>
+                        <Draggable draggableId={task.id} index={index} key={task.id}>
+                            {(provided) => (
+                                <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+                                    <TaskPreview board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
+                                </div>
+                            )}
+                        </Draggable>
                     )}
 
                     <ClickOutside
