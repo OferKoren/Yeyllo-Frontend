@@ -63,7 +63,7 @@ export function BoardIndex() {
             showErrorMsg('Cannot update board')
         }
     }
-    if (!boards) return <div>loading...</div>
+    if (!boards) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
     return (
         <main className="board-index">
             <header>{/* <h2>Boards</h2> */}</header>

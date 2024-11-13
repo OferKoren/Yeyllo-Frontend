@@ -60,7 +60,7 @@ export function GroupList({ onUpdateBoard, board }) {
     }
 
 
-    if (!board) return <div>Loading...</div>
+    if (!board) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
     return (
         <section>
             <ul className="group-list flex">

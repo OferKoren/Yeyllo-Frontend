@@ -195,7 +195,7 @@ export function TaskDetails() {
         onCloseModal()
     }
 
-    if (!boardToEdit) return <div>Loading...</div>
+    if (!boardToEdit) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
 
     return (
         <article className="task-details">

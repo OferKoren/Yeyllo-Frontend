@@ -41,7 +41,7 @@ export function BoardDetails({ rootRef }) {
         } else setMenuOpen((prev) => !prev)
     }
     // style={{backgroundImage:`url(${board.style.backgroundImage})`}}
-    if (!board) return <div>Loading...</div>
+    if (!board) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
     let dynamicClass = 'full'
     if (isMenuOpen || isAsideOpen) {
         if (!isMenuOpen) dynamicClass = 'full-right'
