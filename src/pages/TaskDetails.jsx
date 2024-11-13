@@ -231,20 +231,24 @@ export function TaskDetails() {
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: 'center',
                             }}>
-                            <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
-                                <img src="/img/icons/icon-cover.svg" />
-                                <span>Cover</span>
+                            <div>
+                                <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
+                                    <img src="/img/icons/icon-cover.svg" />
+                                    <span>Cover</span>
+                                </div>
+                                {openModal === 'cover-topBtn' && renderCoverModal()}
                             </div>
-                            {openModal === 'cover-topBtn' && renderCoverModal()}
                         </div>}
 
                     {task.style?.backgroundColor &&
                         <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}>
-                            <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
-                                <img src="/img/icons/icon-cover.svg" />
-                                <span>Cover</span>
+                            <div className="">
+                                <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
+                                    <img src="/img/icons/icon-cover.svg" />
+                                    <span>Cover</span>
+                                </div>
+                                {openModal === 'cover-topBtn' && renderCoverModal()}
                             </div>
-                            {openModal === 'cover-topBtn' && renderCoverModal()}
                         </div>}
                 </>
             }

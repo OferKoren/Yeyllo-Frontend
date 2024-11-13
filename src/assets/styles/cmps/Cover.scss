@@ -14,6 +14,10 @@
 
         .attachment-thumbnail {
             border-radius: 3px;
+
+            &.active {
+                outline: 1px solid blue;
+            }
         }
     }
 }

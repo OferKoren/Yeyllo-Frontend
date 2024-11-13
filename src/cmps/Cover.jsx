@@ -9,7 +9,13 @@ export function Cover({ setTask, handleCloseModal, task }) {
         if (type === 'color') {
             setTask(prevTask => ({ ...prevTask, style: { backgroundColor: cover } }))
         } else {
-            setTask(prevTask => ({ ...prevTask, style: { backgroundImage: { ...cover } } }))
+            // setTask(prevTask => ({ ...prevTask, style: { backgroundImage: { ...cover } } }))
+            setTask(prevTask => {
+                const updatedAttachments = prevTask.attachments.map(file =>
+                    (file.id === cover.imgId ? { ...file, isCover: true } : file)
+                )
+                return { ...prevTask, attachments: updatedAttachments, style: { backgroundImage: { ...cover } } }
+            })
         }
 
     }
@@ -17,9 +23,22 @@ export function Cover({ setTask, handleCloseModal, task }) {
     function onRemoveCover() {
         setTask(prevTask => {
             const updatedTask = { ...prevTask }
-            delete updatedTask.style
-            return updatedTask
+            if (prevTask.style.backgroundColor) {
+                delete updatedTask.style
+                return updatedTask
+            } else {
+                const updatedAttachments = updatedTask.attachments.map(file =>
+                    (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
+                )
+                delete updatedTask.style
+                return { ...updatedTask, attachments: updatedAttachments }
+            }
         })
+        // setTask(prevTask => {
+        //     const updatedTask = { ...prevTask }
+        //     delete updatedTask.style
+        //     return updatedTask
+        // })
     }
 
 
@@ -40,23 +59,26 @@ export function Cover({ setTask, handleCloseModal, task }) {
                 </div>
 
                 {console.log('attachments', task.attachments)}
-                <div className="img-attachments">
-                    <h3>Attachments</h3>
-                    <div className="img-attachments-list">
-                        {task.attachments?.length > 0 && task.attachments.map(file =>
-                            <div key={file.id} className="attachment-thumbnail"
-                                style={{
-                                    backgroundImage: `url(${file.url})`,
-                                    backgroundColor: file.bgColor || 'rgb(154, 139, 127)',
-                                    height: '50px',
-                                    backgroundSize: 'contain',
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundPosition: 'center',
-                                }}
-                                onClick={() => onSetCover({ url: `url(${file.url})`, bgColor: file.bgColor }, 'image')}></div>
-                        )}
+
+                {task.attachments?.length > 0 &&
+                    <div className="img-attachments">
+                        <h3>Attachments</h3>
+                        <div className="img-attachments-list">
+                            {task.attachments.map(file =>
+                                <div key={file.id} className={`attachment-thumbnail`}
+                                    style={{
+                                        backgroundImage: `url(${file.url})`,
+                                        backgroundColor: file.bgColor || 'rgb(154, 139, 127)',
+                                        height: '50px',
+                                        backgroundSize: 'contain',
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundPosition: 'center',
+                                    }}
+                                    onClick={() => onSetCover({ url: `url(${file.url})`, bgColor: file.bgColor, imgId: file.id }, 'image')}></div>
+                            )}
+                        </div>
                     </div>
-                </div>
+                }
 
                 <button className="btn btn-remove-cover-color btn-clear" onClick={() => onRemoveCover()}>Remove cover</button>
             </div>
