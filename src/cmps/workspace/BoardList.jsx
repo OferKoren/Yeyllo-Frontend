@@ -56,6 +56,7 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
                                         <img src={starFullGold} className="active" alt="" />
                                     </button>
                                 </div>
+                                <div className="backdrop"></div>
                             </div>
                         </li>
                     )
@@ -83,6 +84,7 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
                                     <img className={board.isStarred ? 'active' : 'empty'} src={board.isStarred ? starFullGold : starEmpty} alt="" />
                                 </button>
                             </div>
+                            <div className="backdrop"></div>
                         </div>
                     </li>
                 ))}
@@ -92,7 +94,6 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
                         <div className="add-board">
                             <span>Create new board</span>
                         </div>
-                        <div className="board-actions"></div>
                     </div>
                 </li>
             </ul>

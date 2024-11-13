@@ -20,6 +20,7 @@ import { LoginSignup } from './pages/LoginSignup.jsx'
 import { Login } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
 import { Workspace } from './pages/workspace/workspace.jsx'
+import { Templates } from './pages/workspace/Templates.jsx'
 
 export function RootCmp() {
     const rootRef = useRef()
@@ -41,6 +42,7 @@ export function RootCmp() {
                         <Route path="vision" element={<AboutVision />} />
                     </Route> */}
                     <Route path="workspace/home" element={<BoardIndex />} />
+                    <Route path="workspace/templates" element={<Templates />} />
                     <Route path="workspace" element={<Workspace />} />
 
                     <Route path="board/:boardId" element={<BoardDetails rootRef={rootRef} />}>

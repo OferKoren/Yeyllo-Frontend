@@ -35,10 +35,12 @@
             border-radius: 0.15em;
             height: 96px;
         }
+        &:hover .backdrop {
+            background-color: rgba(44, 44, 44, 0.4);
+            // background-color: rgba(0, 0, 0, 0.748);
+        }
         &:hover .board-actions {
             opacity: 1;
-            background-color: rgba(44, 44, 44, 0.3);
-            // background-color: rgba(0, 0, 0, 0.748);
         }
     }
 }

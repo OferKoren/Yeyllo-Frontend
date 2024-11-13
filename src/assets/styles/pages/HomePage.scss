@@ -1,0 +1,22 @@
+.homepage {
+    background: url('public/img/homepage/white-wave-bg.svg') center bottom -0.5px / 100% 14% no-repeat scroll padding-box border-box,
+        linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto repeat scroll padding-box border-box rgb(82, 67, 170);
+    font-family: 'Noto Sans JP';
+    min-height: 100%;
+    display: grid;
+
+    .homepage-content1 {
+        display: grid;
+        // grid-template-columns: minmax(auto, 570px) minmax(auto, 665px);
+        grid-template-columns: 570px 665px;
+        font-family: 'CharlieDisplay-Semibold';
+        color: white;
+
+        & > * {
+            padding: rem(128px) rem(16px) 0 0;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+    }
+}

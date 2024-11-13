@@ -2,7 +2,9 @@
     min-height: 100%;
     display: grid;
     grid-template-columns: minmax(1em, 1fr) minmax(auto, 1200px) minmax(1em, 1fr);
-
+    &.homepage {
+        grid-template-columns: minmax(1em, 1fr) minmax(auto, 1140px) minmax(1em, 1fr);
+    }
     > * {
         grid-column: 2;
 
@@ -56,6 +58,17 @@
         }
     }
 }
+.workspace-layout {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: minmax(auto, 288px) minmax(auto, 1fr);
+    & > header {
+        height: 180px;
+    }
+    .main-section {
+    }
+}
+
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

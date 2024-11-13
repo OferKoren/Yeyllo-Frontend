@@ -10,6 +10,9 @@ import { Modal } from '../../cmps/Modal'
 import { BoardList } from '../../cmps/workspace/BoardList'
 import { AddBoard } from '../../cmps/workspace/modals/AddBoard'
 import { useNavigate } from 'react-router'
+import ClickOutside from '../../cmps/ClickOutside'
+import { WorkspaceAside } from '../../cmps/workspace/aside/WorkspaceAside'
+
 // import { BoardFilter } from '../cmps/BoardFilter'
 
 //* boardIndex is the personal workspace of someone in the workspace
@@ -65,14 +68,23 @@ export function BoardIndex() {
     }
     if (!boards) return <div>loading...</div>
     return (
-        <main className="board-index">
-            <header>{/* <h2>Boards</h2> */}</header>
-            <hr />
+        <main className="board-index workspace-layout">
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}
-            <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} onUpdateBoard={onUpdateBoard} />
-            <Modal title="Create board" onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false}>
-                <AddBoard onAddBoard={onAddBoard} />
-            </Modal>
+            <WorkspaceAside />
+            <div className="main-section">
+                <header>
+                    {/* <h2>Boards</h2> */}
+                    <hr />
+                </header>
+
+                <BoardList boards={boards} onAddBoard={onAddBoard} onOpenModal={onOpenModal} onUpdateBoard={onUpdateBoard} />
+            </div>
+
+            <ClickOutside onClick={onCloseModal}>
+                <Modal title="Create board" onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false} isBackDrop={false}>
+                    <AddBoard onAddBoard={onAddBoard} />
+                </Modal>
+            </ClickOutside>
         </main>
     )
 }

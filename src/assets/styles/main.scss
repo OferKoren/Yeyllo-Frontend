@@ -22,6 +22,7 @@
 @import 'pages/ReviewIndex';
 @import 'pages/UserDetails';
 @import 'pages/LoginSignup';
+@import 'pages/HomePage';
 
 // Components
 @import 'cmps/TaskPreview';
@@ -44,10 +45,13 @@
 @import 'cmps/GroupFooter';
 @import 'cmps/GroupMenu';
 
+//workspace
 @import 'cmps/BoardPreview';
 @import 'cmps/BoardList';
 @import 'cmps/AddBoard';
 @import 'cmps/MoreBgs';
+@import 'cmps/WorkspaceAside';
+
 @import 'cmps/BoardFilter';
 @import 'cmps/BoardHeader';
 @import 'cmps/BoardMenu';

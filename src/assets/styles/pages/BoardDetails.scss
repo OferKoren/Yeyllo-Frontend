@@ -16,6 +16,8 @@
     // :nth-child(2){
     //     height: 40vh;
     // }
+    position: relative;
+    z-index: 4;
 }
 
 .board-header {
