@@ -257,7 +257,7 @@
         }
     }
 
-    .description-area {
+    .area-layout {
         display: grid;
         grid-template-columns: max-content 1fr;
         row-gap: 0.6em;
@@ -269,22 +269,41 @@
         margin-block-start: 1.3em;
         margin-inline-start: 0.3em;
 
-        .icon-description {
+        .icon-area {
             grid-area: icon;
         }
 
-        .description-title {
+        .title-area {
             grid-area: title;
             margin-block-start: -0.15em;
         }
 
-        .task-description {
+        .container-area {
             grid-area: input
         }
 
         .reach-editor-container {
             grid-area: input
         }
+
+        .attachment-title {
+            display: flex;
+            justify-content: space-between;
+
+            .add-attachment {
+                position: relative;
+
+                .btn-add-attachment {
+                    font-size: 0.9rem;
+                }
+            }
+
+        }
+    }
+
+    .list-of-attachments {
+        display: grid;
+        gap: 0.6em;
     }
 
     .list-of-checklists {

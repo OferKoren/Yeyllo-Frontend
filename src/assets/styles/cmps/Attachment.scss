@@ -1,21 +1,35 @@
-.custom-file-label span {
-    font-size: 18px;
-}
+.attachment-data {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 0.8em;
 
-input.file-input {
-    display: none;
-}
+    .attachment-thumbnail {
+        border-radius: 5px;
+    }
 
-.custom-file-label {
-    border: none;
-    border-radius: 20px;
-    background-color: rgb(127, 127, 127);
+    .attachment-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-    color: white;
-    font-size: 50px;
+        .attachment-details {
+            display: grid;
+            align-items: center;
+        }
 
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    cursor: pointer;
+        .attachment-actions {
+            display: flex;
+            gap: 0.5em;
 
-    transition: transform 0.3s ease;
+            .btn-attachment-action {
+                padding: 0.4em 0.6em;
+
+                & img {
+                    height: 1.05em;
+                }
+            }
+        }
+
+    }
+
 }

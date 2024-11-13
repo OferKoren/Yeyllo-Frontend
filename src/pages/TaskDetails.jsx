@@ -333,20 +333,33 @@ export function TaskDetails() {
                         )}
                     </div>
 
-                    <div className="description-area">
-                        <img className="icon-description" src="/img/icons/icon-description.svg" />
-                        <h2 className="description-title">Description</h2>
+                    <div className="description-area area-layout">
+                        <img className="icon-description icon-area" src="/img/icons/icon-description.svg" />
+                        <h2 className="description-title title-area">Description</h2>
                         <Description task={task} setTask={setTask} />
                     </div>
 
                     {
                         task.attachments?.length > 0 &&
-                        <div className="list-of-checklists">
-                            {task.attachments.map((attachment) => (
-                                <Attachment
-                                    key={attachment.id}
-                                    attachment={attachment} />
-                            ))}
+                        <div className="attachments-area area-layout">
+                            <img className="icon-area" src="/img/board-details/attachment-icon.svg" />
+                            <h2 className="attachment-title title-area">
+                                <span> Attachments</span>
+                                <div className="add-attachment">
+                                    <button className="btn btn-light btn-add-attachment" onClick={() => handleToggleModal('attachment-addBtn')}>
+                                        <span>Add</span>
+                                    </button>
+                                    {openModal === 'attachment-addBtn' && <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} />}
+                                </div>
+                            </h2>
+                            <div className="list-of-attachments container-area">
+                                <h3>Files</h3>
+                                {task.attachments.map((attachment) => (
+                                    <Attachment
+                                        key={attachment.id}
+                                        attachment={attachment} />
+                                ))}
+                            </div>
                         </div>
                     }
 
