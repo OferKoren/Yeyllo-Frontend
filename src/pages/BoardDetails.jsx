@@ -76,32 +76,32 @@ export function BoardDetails({ rootRef }) {
 
             const taskSourceIndex = source.index;
             const taskDestinationIndex = destination.index;
-        
+
             const groupSourceIndex = board.groups.findIndex(
-              (group) => group.id === source.droppableId
+                (group) => group.id === source.droppableId
             );
             const groupDestinationIndex = board.groups.findIndex(
-              (group) => group.id === destination.droppableId
+                (group) => group.id === destination.droppableId
             );
-        
+
             const newSourceTasks = [...board.groups[groupSourceIndex].tasks];
             const newDestinationTasks =
-              source.droppableId !== destination.droppableId
-                ? [...board.groups[groupDestinationIndex].tasks]
-                : newSourceTasks;
-        
+                source.droppableId !== destination.droppableId
+                    ? [...board.groups[groupDestinationIndex].tasks]
+                    : newSourceTasks;
+
             const [deletedTask] = newSourceTasks.splice(taskSourceIndex, 1);
             newDestinationTasks.splice(taskDestinationIndex, 0, deletedTask);
-        
+
             const newGroups = [...board.groups];
-        
+
             newGroups[groupSourceIndex] = {
-              ...board.groups[groupSourceIndex],
-              tasks: newSourceTasks,
+                ...board.groups[groupSourceIndex],
+                tasks: newSourceTasks,
             };
             newGroups[groupDestinationIndex] = {
-              ...board.groups[groupDestinationIndex],
-              tasks: newDestinationTasks,
+                ...board.groups[groupDestinationIndex],
+                tasks: newDestinationTasks,
             };
 
             board.groups = newGroups
@@ -118,27 +118,29 @@ export function BoardDetails({ rootRef }) {
     }
 
     return (
-        <DragDropContext onDragEnd={handleDragDrop} className="full horizontal-container">
-            {isAsideOpen && <div style={{ width: '200px' }}>aside</div>}
-            <article className={`board-details ${dynamicClass}`} /* style={board.style} */>
-                <BoardHeader
-                    board={board}
-                    onUpdateBoard={onUpdateBoard}
-                    isMenuOpen={isMenuOpen}
-                    onToggleMenu={onToggleMenu}
-                    setIsShrink={setIsShrink}
-                />
-                <Droppable droppableId='ROOT' type='group' direction="horizontal">
-                    {(provided) => (
-                        <section {...provided.droppableProps} ref={provided.innerRef} className="board-details">
-                            <GroupList placeholder={provided.placeholder} onUpdateBoard={onUpdateBoard} board={board} />
-                            {provided.placeholder}
-                        </section>
-                    )}
-                </Droppable>
-            </article>
+        <>
+            <DragDropContext onDragEnd={handleDragDrop} className="full horizontal-container">
+                {isAsideOpen && <div style={{ width: '200px' }}>aside</div>}
+                <article className={`board-details ${dynamicClass}`} /* style={board.style} */>
+                    <BoardHeader
+                        board={board}
+                        onUpdateBoard={onUpdateBoard}
+                        isMenuOpen={isMenuOpen}
+                        onToggleMenu={onToggleMenu}
+                        setIsShrink={setIsShrink}
+                    />
+                    <Droppable droppableId='ROOT' type='group' direction="horizontal">
+                        {(provided) => (
+                            <section {...provided.droppableProps} ref={provided.innerRef} className="board-details">
+                                <GroupList placeholder={provided.placeholder} onUpdateBoard={onUpdateBoard} board={board} />
+                                {provided.placeholder}
+                            </section>
+                        )}
+                    </Droppable>
+                </article>
+                {/* <BoardMenu /> */}
+            </DragDropContext>
             {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} />}
-            {/* <BoardMenu /> */}
-        </DragDropContext>
+        </>
     )
 }

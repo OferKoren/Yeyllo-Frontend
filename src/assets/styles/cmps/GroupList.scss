@@ -65,7 +65,7 @@
         max-height: calc(100vh - 3.5rem - 2.5rem);
     }
 
-    li:not(.label, .member) {
+    li:not(.label, .member, .attachment-action-item) {
         width: rem(264px);
 
         // &.group-list-li{
