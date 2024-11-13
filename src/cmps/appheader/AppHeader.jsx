@@ -175,18 +175,20 @@ export function AppHeader() {
                         />
                     </div>
 
-                    <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
-                        <Modal
-                            title={whichModal}
-                            onCloseModal={onCloseModal}
-                            isOpen={isModalOpen}
-                            isBlur={false}
-                            position={position}
-                            isBackDrop={false}
-                        >
-                            {getModalContent()}
-                        </Modal>
-                    </ClickOutside>
+                    {isModalOpen && (
+                        <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
+                            <Modal
+                                title={whichModal}
+                                onCloseModal={onCloseModal}
+                                isOpen={isModalOpen}
+                                isBlur={false}
+                                position={position}
+                                isBackDrop={false}
+                            >
+                                {getModalContent()}
+                            </Modal>
+                        </ClickOutside>
+                    )}
                 </>
             )}
         </header>

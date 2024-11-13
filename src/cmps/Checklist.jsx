@@ -10,6 +10,8 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
     const [newTodoValue, setNewTodoValue] = useState('')
     const [isButtonsVisible, setIsButtonsVisible] = useState(false)
 
+    const inputRef = useRef(null)
+
     function onUpdateTodo(todoId, task, checklistId, action, newTodoValue) {
         const updatedChecklists = task.checklists.map(checklist => {
             if (checklist.id === checklistId) {
@@ -24,7 +26,7 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
                 if (action === 'addTodo') {
                     const newTodo = {
                         id: makeId(),
-                        title: newTodoValue,
+                        title: newTodoValue.trim(),
                         isDone: false
                     }
                     updatedTodos = [...checklist.todos, newTodo]
@@ -113,22 +115,22 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
                 </div>)}
 
             {(checklistIdToEdit === checklistId) && isAddingTodo ? (
-                <div className="adding-todo-area">
+                <form className="adding-todo-area" onSubmit={(ev) => { ev.preventDefault(); onUpdateTodo(undefined, task, checklistId, 'addTodo', newTodoValue); setNewTodoValue('') }}>
                     <input
+                        ref={inputRef}
                         className="adding-todo-title"
                         type="text"
                         placeholder="Add an item"
                         value={newTodoValue}
                         onChange={handleNewTodoChange}
                     />
-                    <div className="add-todo-actions">
-                        <button className="btn btn-add-todo btn-dark"
-                            onClick={() => { onUpdateTodo(undefined, task, checklistId, 'addTodo', newTodoValue); setIsAddingTodo(false); setNewTodoValue('') }}>
+                    <div className="add-todo-actions" >
+                        <button className="btn btn-add-todo btn-dark">
                             Add
                         </button>
-                        <button className="btn btn-clear" onClick={() => { setIsAddingTodo(false); setNewTodoValue('') }}>Cancel</button>
+                        <button type="button" className="btn btn-clear" onClick={() => { setIsAddingTodo(false); setNewTodoValue('') }}>Cancel</button>
                     </div>
-                </div>
+                </form>
             ) : (
                 <button className="btn btn-open-todo btn-light" onClick={() => { setChecklistIdToEdit(checklistId); setIsAddingTodo(true) }}>
                     Add an item
