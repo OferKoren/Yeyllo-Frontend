@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { GroupList } from '../cmps/GroupList'
 import { BoardHeader } from '../cmps/board/BoardHeader'
-import { BoardMenu } from '../cmps/board/BoardMenu'
+import { BoardMenu } from '../cmps/board/boardMenu/BoardMenu'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 export function BoardDetails({ rootRef }) {
@@ -109,7 +109,7 @@ export function BoardDetails({ rootRef }) {
             }
         }
     }
-
+    if (board) console.log(board)
     return (
         <DragDropContext onDragEnd={handleDragDrop}>
             <section className="full horizontal-container">
@@ -132,7 +132,7 @@ export function BoardDetails({ rootRef }) {
                     </Droppable>
                 </article>
                 {/* <BoardMenu /> */}
-                {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} />}
+                {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} board={board} />}
             </section>
         </DragDropContext>
     )

@@ -79,7 +79,7 @@ export function AppHeader() {
             const inputStyle = { backgroundColor: ligherColor }
             setBgClr(`rgba(${r}, ${g}, ${b}, 0.9)`)
             Object.assign(headerRef.current.style, style)
-            Object.assign(inputRef.current.style, inputStyle)
+            // Object.assign(inputRef.current.style, inputStyle)
         }
     }
     async function onAddBoard(board) {
@@ -102,6 +102,7 @@ export function AppHeader() {
 
     function onSetPosition(ev) {
         // Get button position
+
         const rect = ev.target.getBoundingClientRect()
         setPosition({ left: rect.left, top: rect.bottom + 10 })
     }

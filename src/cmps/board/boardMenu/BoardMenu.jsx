@@ -1,8 +1,45 @@
 import { useEffect, useRef, useState } from 'react'
-import { Modal } from '../Modal'
+import { Modal } from '../../Modal'
+import ClickOutside from '../../ClickOutside'
+import { CloseBoard } from './CloseBoard'
+import { MakeTemplate } from './MakeTemplate'
+import { CopyBoard } from './CopyBoard'
 
-export function BoardMenu({ isShrink, onToggleMenu }) {
+export function BoardMenu({ isShrink, onToggleMenu, board }) {
     const [width, setWidth] = useState('0px')
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [whichModal, setWhichModal] = useState('')
+    const [position, setPosition] = useState()
+    function onCloseModal() {
+        setIsModalOpen(false)
+        setWhichModal('')
+    }
+    function onToggleModal(modalChoice) {
+        if (modalChoice === whichModal) {
+            setIsModalOpen(false)
+            setWhichModal('')
+            return
+        }
+        setIsModalOpen(true)
+        setWhichModal(modalChoice)
+    }
+    function onSetPosition(ev) {
+        console.log(ev.currentTarget)
+        const rect = ev.currentTarget.getBoundingClientRect()
+        setPosition({ left: rect.left, top: rect.top })
+    }
+    function getModalContent() {
+        switch (whichModal) {
+            case 'close board?':
+                return <CloseBoard />
+            case 'make template':
+                return <MakeTemplate />
+            case 'copy board':
+                return <CopyBoard />
+            default:
+                return <></>
+        }
+    }
     useEffect(() => {
         setWidth('340px')
     }, [])
@@ -10,6 +47,7 @@ export function BoardMenu({ isShrink, onToggleMenu }) {
         if (isShrink) setWidth('0px')
     }, [isShrink])
     const dynamicClass = isShrink ? 'shrink' : ''
+    if (!board) return
     return (
         <div className={`board-menu-wrapper`}>
             <div className={`placeholder-div ${dynamicClass}`} style={{ width: width }}></div>
@@ -46,11 +84,78 @@ export function BoardMenu({ isShrink, onToggleMenu }) {
                         <li>
                             <button className="modal-btn menu-btn">
                                 <ArchiveIcon />
-                                <div>Archived</div>
+                                <div>Archived items</div>
                             </button>
                         </li>
-                        <hr />
+                        <hr className="semi-thin" />
+                        <li>
+                            <button className="modal-btn menu-btn">
+                                <SettingIcon />
+                                <div>settings</div>
+                            </button>
+                        </li>
+                        <li>
+                            <button className="modal-btn menu-btn">
+                                <div className="background" style={board.style}></div>
+                                <div>change background</div>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="modal-btn menu-btn"
+                                onClick={(ev) => {
+                                    onToggleModal('make template')
+                                    if (!isModalOpen) {
+                                        onSetPosition(ev)
+                                    }
+                                }}
+                            >
+                                <MakeTemplateIcon />
+                                <div>make template</div>
+                            </button>
+                        </li>
+                        <hr className="semi-thin" />
+                        <li>
+                            <button
+                                className="modal-btn menu-btn"
+                                onClick={(ev) => {
+                                    onToggleModal('copy board')
+                                    if (!isModalOpen) {
+                                        onSetPosition(ev)
+                                    }
+                                }}
+                            >
+                                <CopyBoardIcon />
+                                <div>copy board</div>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="modal-btn menu-btn"
+                                onClick={(ev) => {
+                                    onToggleModal('close board?')
+                                    if (!isModalOpen) {
+                                        onSetPosition(ev)
+                                    }
+                                }}
+                            >
+                                <CloseBoardIcon />
+                                <div>close board</div>
+                            </button>
+                        </li>
                     </ul>
+                    <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
+                        <Modal
+                            title={whichModal}
+                            onCloseModal={onCloseModal}
+                            isOpen={isModalOpen}
+                            isBlur={false}
+                            position={position}
+                            isBackDrop={false}
+                        >
+                            {getModalContent()}
+                        </Modal>
+                    </ClickOutside>
                 </section>
             </section>
         </div>
