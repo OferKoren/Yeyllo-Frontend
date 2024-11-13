@@ -6,7 +6,7 @@ import ClickOutside from "./ClickOutside";
 import { getEmptyGroup } from "../services/board";
 import { Draggable } from "react-beautiful-dnd";
 
-export function GroupList({ onUpdateBoard, board }) {
+export function GroupList({ placeholder, onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
     const [title, setTitle] = useState('')
     const [isGroupDeleted, setIsGroupDeleted] = useState(false)
@@ -79,6 +79,8 @@ export function GroupList({ onUpdateBoard, board }) {
                         )}
                     </Draggable>)
                 }
+                {placeholder}
+
                 {isAddGroupClicked ?
                     <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
                         <div className="add-group-container">
