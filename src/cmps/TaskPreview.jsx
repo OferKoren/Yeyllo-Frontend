@@ -31,6 +31,7 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
     const labels = useSelector(storeState => storeState.boardModule.labels)
 
     function onCloseModal() {
+        setTaskModalId('')
         setIsModalOpen(false)
         navigate(`/board/${boardId}`)
     }
