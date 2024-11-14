@@ -104,10 +104,10 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
         }
     }
 
-    function getAttachmentIsCover(){
+    function getAttachmentIsCover() {
         const attachmentIdx = task.attachments.findIndex(attachment => !!attachment.isCover)
-        if(attachmentIdx === -1) return {isCover: false, attachmentIdx}
-        return {isCover: true, attachmentIdx}
+        if (attachmentIdx === -1) return { isCover: false, attachmentIdx }
+        return { isCover: true, attachmentIdx }
     }
 
     return (
@@ -118,15 +118,26 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
                 className="task-preview"
             >
                 {task.attachments && getAttachmentIsCover().isCover
-                ? <div className="task-color" style={{ backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx].url})`,
-                    backgroundColor: task.attachments[getAttachmentIsCover().attachmentIdx].bgColor || 'rgb(154, 139, 127)',
-                    display: 'block',
-                    width: '',
-                    height: '194px',
-                    backgroundSize: 'contain',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',}}></div>
-                :task.style ? <div className="task-color" style={{ ...task.style }}></div> : ''}
+                    ? <div className="task-color" style={{
+                        backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx].url})`,
+                        backgroundColor: task.attachments[getAttachmentIsCover().attachmentIdx].bgColor || 'rgb(154, 139, 127)',
+                        display: 'block',
+                        width: '',
+                        height: '194px',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                    }}></div>
+                    : task.style ? task.style.backgroundColor ? <div className="task-color" style={{ ...task.style }}></div> : <div className="task-color" style={{
+                        backgroundImage: `${task.style.backgroundImage.url}`,
+                        backgroundColor: task.style.backgroundImage.url.bgColor || 'rgb(154, 139, 127)',
+                        display: 'block',
+                        width: '',
+                        height: '194px',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                    }}></div> : ''}
                 {task.labelIds ? (
                     <section style={{ marginBlockEnd: '0.5em' }} className="labels-task-preview">
                         {task.labelIds.map((labelId) => {
