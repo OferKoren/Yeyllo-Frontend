@@ -144,13 +144,47 @@ export function TaskDetails() {
         return <Cover setTask={setTask} handleCloseModal={handleCloseModal} task={task} />
     }
 
-    function formatDate(dueDate, dueTime) {
-        if (dueTime) {
-            const dateTimeStr = `${dueDate} ${dueTime}`
-            return dayjs(dateTimeStr).format('MMM D, hh:mm A')
-        } else {
-            return dayjs(dueDate).format('MMM D, hh:mm A')
+    function formatDate(dueDate, dueTime, startDate) {
+        const currentYear = dayjs().year()
+        const formattedDueDate = dayjs(dueDate)
+
+        if (!formattedDueDate.isValid()) {
+            return "Invalid Date";
         }
+        console.log('startDate', task.startDate)
+        const formattedStartDate = startDate ? dayjs(startDate) : null
+
+        // Format the due date
+        let formattedDue = '';
+        if (formattedDueDate.year() !== currentYear) {
+            if (dueTime) {
+                const dateTimeStr = `${formattedDueDate.format('YYYY-MM-DD')} ${dueTime}`
+                formattedDue = dayjs(dateTimeStr).format('MMM D, YYYY, hh:mm A')
+            } else {
+                formattedDue = formattedDueDate.format('MMM D, YYYY')
+            }
+        } else {
+            if (dueTime) {
+                const dateTimeStr = `${formattedDueDate.format('YYYY-MM-DD')} ${dueTime}`
+                formattedDue = dayjs(dateTimeStr).format('MMM D, hh:mm A')
+            } else {
+                formattedDue = formattedDueDate.format('MMM D')
+            }
+        }
+
+        // If startDate exists, format it similarly
+        let formattedStart = '';
+        if (formattedStartDate && formattedStartDate.isValid()) {
+            if (formattedStartDate.year() !== currentYear) {
+                formattedStart = formattedStartDate.format('MMM D, YYYY')
+            } else {
+                formattedStart = formattedStartDate.format('MMM D')
+            }
+        }
+
+        // Combine both formatted dates
+        return formattedStart ? `${formattedStart} - ${formattedDue}` : formattedDue;
+
     }
 
     function onToggleArchivedTask() {
@@ -361,7 +395,7 @@ export function TaskDetails() {
                                 <div className="due-date-details">
                                     <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
                                     <div className="format-date-and-status">
-                                        <span>{formatDate(task.dueDate, task.dueTime)}</span>
+                                        <span>{formatDate(task.dueDate, task.dueTime, task.startDate || null)}</span>
                                         <span
                                             className={`due-date-status ${task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
                                                 }`}

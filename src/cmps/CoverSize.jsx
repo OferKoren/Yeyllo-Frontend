@@ -7,9 +7,9 @@ export function CoverSize({ coverType, setTask, task }) {
 
     return (
         <div className="cover-size-buttons-area">
-            <button class={`cover-size-btn cover-size-btn-left ${task.coverSize === 'half' && 'active'}`} type="button" aria-label="Title on cover"
+            <button className={`cover-size-btn cover-size-btn-left ${task.coverSize === 'half' && 'active'}`} type="button" aria-label="Title on cover"
                 onClick={() => onSetCoveSize('half')}>
-                <div class="cove-size-main">
+                <div className="cove-size-main">
                     <div
                         style={{
                             backgroundImage: (coverType.type === 'image') ? coverType.value : '',
@@ -23,9 +23,9 @@ export function CoverSize({ coverType, setTask, task }) {
                         }}
                     >
                     </div>
-                    <div class="lines">
-                        <div class="line upper-line"></div>
-                        <div class="line lower-line"></div>
+                    <div className="lines">
+                        <div className="line upper-line"></div>
+                        <div className="line lower-line"></div>
                         <div className="shapes">
                             <div className="line shape rec"></div>
                             <div className="line shape rec"></div>
@@ -35,7 +35,7 @@ export function CoverSize({ coverType, setTask, task }) {
                 </div>
             </button>
 
-            <button class={`cover-size-btn cover-size-btn-right ${task.coverSize === 'full' && 'active'}`} type="button" aria-label="Title on cover"
+            <button className={`cover-size-btn cover-size-btn-right ${task.coverSize === 'full' && 'active'}`} type="button" aria-label="Title on cover"
                 onClick={() => onSetCoveSize('full')}
                 style={{
                     backgroundImage: (coverType.type === 'image') ? coverType.value : '',
@@ -44,10 +44,10 @@ export function CoverSize({ coverType, setTask, task }) {
                     opacity: (coverType.type === 'image') ? '0.8' : '1',
                     backgroundColor: (coverType.type === 'color') ? coverType.value : '#DCDFE4'
                 }}>
-                <div class="cove-size-main">
-                    <div class="lines">
-                        <div class="line upper-line"></div>
-                        <div class="line lower-line"></div>
+                <div className="cove-size-main">
+                    <div className="lines">
+                        <div className="line upper-line"></div>
+                        <div className="line lower-line"></div>
 
                     </div>
                 </div>
