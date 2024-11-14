@@ -71,28 +71,23 @@ export function Cover({ setTask, handleCloseModal, task }) {
                 delete updatedTask.style
                 return updatedTask
             } else {
-                const updatedAttachments = updatedTask.attachments.map(file =>
-                    (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
-                )
+                if (prevTask.style.backgroundImage.source === 'fromAttach') {
+                    const updatedAttachments = updatedTask.attachments.map(file =>
+                        (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
+                    )
+                    delete updatedTask.style
+                    return { ...updatedTask, attachments: updatedAttachments }
+                }
                 delete updatedTask.style
-                return { ...updatedTask, attachments: updatedAttachments }
+                return { ...updatedTask }
+
+                // const updatedAttachments = updatedTask.attachments.map(file =>
+                //     (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
+                // )
+                // delete updatedTask.style
+                // return { ...updatedTask, attachments: updatedAttachments }
             }
         })
-        // setTask(prevTask => {
-        //     const updatedTask = { ...prevTask }
-        //     delete updatedTask.style
-        //     return updatedTask
-        // })
-
-        // if (prevTask.style.backgroundImage.source === 'fromAttach') {
-        //     const updatedAttachments = updatedTask.attachments.map(file =>
-        //         (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
-        //     )
-        //     delete updatedTask.style
-        //     return { ...updatedTask, attachments: updatedAttachments }
-        // }
-        // delete updatedTask.style
-        // return { ...updatedTask }
     }
 
 
