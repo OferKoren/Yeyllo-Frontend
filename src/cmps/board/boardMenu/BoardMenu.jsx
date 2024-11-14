@@ -5,7 +5,7 @@ import { CloseBoard } from './CloseBoard'
 import { MakeTemplate } from './MakeTemplate'
 import { CopyBoard } from './CopyBoard'
 
-export function BoardMenu({ isShrink, onToggleMenu, board }) {
+export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     const [width, setWidth] = useState('0px')
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [whichModal, setWhichModal] = useState('')
@@ -24,14 +24,13 @@ export function BoardMenu({ isShrink, onToggleMenu, board }) {
         setWhichModal(modalChoice)
     }
     function onSetPosition(ev) {
-        console.log(ev.currentTarget)
         const rect = ev.currentTarget.getBoundingClientRect()
         setPosition({ left: rect.left, top: rect.top })
     }
     function getModalContent() {
         switch (whichModal) {
             case 'close board?':
-                return <CloseBoard />
+                return <CloseBoard onUpdateBoard={onUpdateBoard} />
             case 'make template':
                 return <MakeTemplate />
             case 'copy board':
@@ -153,6 +152,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board }) {
                             position={position}
                             isBackDrop={false}
                             style={{ paddingBlockStart: '4px' }}
+                            above={true}
                         >
                             {getModalContent()}
                         </Modal>

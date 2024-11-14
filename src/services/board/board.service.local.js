@@ -10,11 +10,11 @@ export const boardService = {
     getById,
     save,
     remove,
-    uploadImg
+    uploadImg,
 }
 window.cs = boardService
 
-async function query(filterBy = { txt: '' }) {
+async function query(filterBy = { closed }) {
     var boards = await storageService.query(STORAGE_KEY)
 
     const { txt, sortField, sortDir } = filterBy
@@ -83,11 +83,10 @@ async function uploadImg(imgData) {
     try {
         const res = await fetch(UPLOAD_URL, {
             method: 'POST',
-            body: formData
+            body: formData,
         })
         const data = await res.json()
         return data.secure_url
-
     } catch (err) {
         console.log(err)
     }

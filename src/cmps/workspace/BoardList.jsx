@@ -36,7 +36,7 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
             </h2>
             <ul className="list board-list">
                 {boards.map((board) => {
-                    if (!board.isStarred) return null
+                    if (!board.isStarred || board.isClosed) return null
                     return (
                         <li
                             key={board._id}
@@ -70,24 +70,31 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
             </h2>
 
             <ul className="list board-list">
-                {boards.map((board) => (
-                    <li
-                        key={board._id}
-                        onClick={() => {
-                            toBoard(board._id)
-                        }}
-                    >
-                        <div className="board-wrapper" style={board.style}>
-                            <BoardPreview board={board} />
-                            <div className={board.isStarred ? 'board-actions shown' : 'board-actions'}>
-                                <button className="star-btn btn2" onClick={(ev) => onStarBoard(ev, board)}>
-                                    <img className={board.isStarred ? 'active' : 'empty'} src={board.isStarred ? starFullGold : starEmpty} alt="" />
-                                </button>
+                {boards.map((board) => {
+                    if (board.isClosed) return
+                    return (
+                        <li
+                            key={board._id}
+                            onClick={() => {
+                                toBoard(board._id)
+                            }}
+                        >
+                            <div className="board-wrapper" style={board.style}>
+                                <BoardPreview board={board} />
+                                <div className={board.isStarred ? 'board-actions shown' : 'board-actions'}>
+                                    <button className="star-btn btn2" onClick={(ev) => onStarBoard(ev, board)}>
+                                        <img
+                                            className={board.isStarred ? 'active' : 'empty'}
+                                            src={board.isStarred ? starFullGold : starEmpty}
+                                            alt=""
+                                        />
+                                    </button>
+                                </div>
+                                <div className="backdrop"></div>
                             </div>
-                            <div className="backdrop"></div>
-                        </div>
-                    </li>
-                ))}
+                        </li>
+                    )
+                })}
 
                 <li key="add-board">
                     <div className="board-wrapper " onClick={onOpenModal}>

@@ -29,9 +29,11 @@ export function BoardDetails({ rootRef }) {
         }
     }, [boardId])
 
-    function onUpdateBoard(board) {
-        updateBoard(board)
+    async function onUpdateBoard(board) {
+        await updateBoard(board)
+        console.log('hi')
     }
+
     function onToggleMenu() {
         if (isMenuOpen) {
             setIsShrink(true)
@@ -132,7 +134,7 @@ export function BoardDetails({ rootRef }) {
                     </Droppable>
                 </article>
                 {/* <BoardMenu /> */}
-                {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} board={board} />}
+                {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} board={board} onUpdateBoard={onUpdateBoard} />}
             </section>
         </DragDropContext>
     )
