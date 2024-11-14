@@ -51,13 +51,13 @@ export function AppHeader() {
         }
     }
 
-    useEffect(() => {
-        if (board && board.urls) {
-            setHeaderColorFromImage(board.urls.regular)
-        } else {
-            headerRef.current.style.cssText = ''
-        }
-    }, [board])
+    // useEffect(() => {
+    //     if (board && board.urls) {
+    //         setHeaderColorFromImage(board.urls.regular)
+    //     } else {
+    //         headerRef.current.style.cssText = ''
+    //     }
+    // }, [board])
     useEffect(() => {
         if (!headerRef.current) return
         if (isModalOpen) headerRef.current.style.zIndex = '5'
@@ -171,7 +171,7 @@ export function AppHeader() {
                             ref={inputRef}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                            // style={inputStyle}
+                        // style={inputStyle}
                         />
                     </div>
 

@@ -35,7 +35,7 @@ export const groupColorPalette = [
 
 const initialState = {
     workspace: null,
-    boards: null,
+    boards: [],
     board: null,
     filterBy: {},
     labels: defaultLabels,

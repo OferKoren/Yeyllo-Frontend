@@ -36,18 +36,15 @@ export function TaskDetails() {
     const { taskId } = useParams()
 
     useEffect(() => {
-        loadBoard(boardId)
-    }, [])
-
-    useEffect(() => {
-        setBoardToEdit(board)
-        const foundGroup = board?.groups.find((group) => group.id === groupId)
-        currGroupRef.current = foundGroup
-        const currTask = foundGroup?.tasks.find((task) => task.id === taskId)
-        if (currTask) {
-            setTask(currTask)
+        if (board) {
+            setBoardToEdit(board)
+            const foundGroup = board?.groups.find((group) => group.id === groupId)
+            currGroupRef.current = foundGroup
+            const currTask = foundGroup?.tasks.find((task) => task.id === taskId)
+            if (currTask) {
+                setTask(currTask)
+            }
         }
-
     }, [board])
 
     useEffect(() => {
@@ -211,6 +208,11 @@ export function TaskDetails() {
     }
 
     if (!boardToEdit) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
+
+    { console.log(task) }
+    { console.log('boardtoedit', boardToEdit.labels) }
+    { console.log('gLabels', gLabels) }
+    { console.log('gMembers', gMembers) }
 
     return (
         <article className="task-details">
@@ -410,10 +412,6 @@ export function TaskDetails() {
                         </div>
                     )}
 
-                    {console.log(task)}
-                    {console.log('boardtoedit', boardToEdit.labels)}
-                    {console.log('gLabels', gLabels)}
-                    {console.log('gMembers', gMembers)}
                 </div>
 
                 <div className="task-options">

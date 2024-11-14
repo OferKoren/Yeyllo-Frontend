@@ -9,6 +9,7 @@ import { updateBoard } from '../store/actions/board.actions.js'
 export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoard, board, isLabelsClicked, setIsLabelsClicked, groupId, task }) {
     const [isOpenTaskDetails, setIsOpenTaskDetails] = useState(false)
     const [isDone, setIsDone] = useState(task.status === 'done')
+    const [taskModalId, setTaskModalId] = useState('')
 
     function getCountIcons() {
         let count = 0
@@ -30,10 +31,13 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
     const labels = useSelector(storeState => storeState.boardModule.labels)
 
     function onCloseModal() {
+        setTaskModalId('')
         setIsModalOpen(false)
         navigate(`/board/${boardId}`)
     }
+
     function onOpenModal() {
+        setTaskModalId(task.id)
         setIsModalOpen(true)
         navigate(`/board/${boardId}/${groupId}/task/${task.id}`)
     }
@@ -86,7 +90,7 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
         const currGroupIdx = board.groups.findIndex(group => group.id === groupId)
         const currGroup = board.groups.find(group => group.id === groupId)
         const currTaskIdx = currGroup.tasks.findIndex(thisTask => thisTask.id === task.id)
-        
+
         setIsDone(isDone => !isDone)
 
         try {
@@ -115,7 +119,7 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
                                 : <div key={labelId} onClick={(ev) => {
                                     ev.stopPropagation()
                                     setIsLabelsClicked(isClicked => !isClicked)
-                                }} style={{ textAlign: 'center', transition: '200ms', fontFamily: 'roboto-bold', color:currLabel.fontColor , fontSize: '0.8em', marginRight: '0.3em', backgroundColor: currLabel.color,minWidth: '60px', maxWidth:'max-content' , height: '17px', padding: '0px 8px', borderRadius: '4px', justifyContent:'center' }}>
+                                }} style={{ textAlign: 'center', transition: '200ms', fontFamily: 'roboto-bold', color: currLabel.fontColor, fontSize: '0.8em', marginRight: '0.3em', backgroundColor: currLabel.color, minWidth: '60px', maxWidth: 'max-content', height: '17px', padding: '0px 8px', borderRadius: '4px', justifyContent: 'center' }}>
                                     {currLabel.title}
                                 </div>
 
@@ -158,12 +162,12 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
                 </div>
 
             </article>
-            <ModalTaskDetails onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true}>
-                <Outlet context={{ onCloseModal }} />
-                {/* <TaskDetails groupId={groupId} setIsOpenTaskDetails={setIsOpenTaskDetails} currTask={task} /> */}
-            </ModalTaskDetails>
-            {/* <Modal>
-            </Modal> */}
+
+            {isModalOpen && task.id === taskModalId
+                ? <ModalTaskDetails onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true}>
+                    <Outlet context={{ onCloseModal }} />
+                </ModalTaskDetails>
+                : ''}
         </>
     )
 }

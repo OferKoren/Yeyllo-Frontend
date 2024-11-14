@@ -1,7 +1,7 @@
 .modal-backdrop {
     &.blur {
-        background-color: rgba(0, 0, 0, 0.05);
-        backdrop-filter: blur(0.1px);
+        background-color: rgba(0, 0, 0, 0.75);
+        // backdrop-filter: blur(1px);
     }
 
     position: fixed;
