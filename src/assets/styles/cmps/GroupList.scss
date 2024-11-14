@@ -1,7 +1,7 @@
 .group-list {
     display: flex;
     // gap: em(8px);
-    overflow-x: scroll;
+    overflow-x: auto;
 
     /* Works on Firefox */
     * {
