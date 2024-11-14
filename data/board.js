@@ -151,6 +151,7 @@ let boards = [
                         id: 'c103',
                         title: 'Do that',
                         archivedAt: 1589983468418,
+                        coverSize:'full',
                     },
                     {
                         id: 'c104',
