@@ -7,7 +7,14 @@ export function Cover({ setTask, handleCloseModal, task }) {
 
     function onSetCover(cover, type) {
         if (type === 'color') {
-            setTask(prevTask => ({ ...prevTask, style: { backgroundColor: cover } }))
+            setTask(prevTask => {
+                if (prevTask.style.backgroundImage) {
+                    const updatedAttachments = prevTask.attachments.map(file =>
+                        (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file))
+                    return { ...prevTask, attachments: updatedAttachments, style: { backgroundColor: cover } }
+                }
+                return ({ ...prevTask, style: { backgroundColor: cover } })
+            })
         } else {
             // setTask(prevTask => ({ ...prevTask, style: { backgroundImage: { ...cover } } }))
             setTask(prevTask => {
