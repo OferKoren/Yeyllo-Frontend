@@ -81,6 +81,7 @@ export function Cover({ setTask, handleCloseModal, task }) {
                 delete updatedTask.style
                 return { ...updatedTask }
 
+
                 // const updatedAttachments = updatedTask.attachments.map(file =>
                 //     (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
                 // )
@@ -99,12 +100,16 @@ export function Cover({ setTask, handleCloseModal, task }) {
             </div>
 
             <div className="cover-colors">
-                <h3>Colors</h3>
-                <div className="color-palette">
-                    {colorPalette.map(color =>
-                        <div key={color} style={{ backgroundColor: color }}
-                            onClick={() => onSetCover(color, 'color')}></div>
-                    )}
+                <button className="btn btn-remove-cover-color btn-clear" onClick={() => onRemoveCover()}>Remove cover</button>
+                <div>
+                    <h3>Colors</h3>
+                    <div className="color-palette">
+
+                        {colorPalette.map(color =>
+                            <div key={color} style={{ backgroundColor: color }}
+                                onClick={() => onSetCover(color, 'color')}></div>
+                        )}
+                    </div>
                 </div>
 
                 {task.attachments?.length > 0 &&
@@ -130,7 +135,7 @@ export function Cover({ setTask, handleCloseModal, task }) {
 
                 <div>
                     <h3>Photos from Unsplash</h3>
-                    <div className="color-palette">
+                    <div className="images-palette">
                         {bgImages.map(img =>
                             <div key={img.id}
 
@@ -145,8 +150,6 @@ export function Cover({ setTask, handleCloseModal, task }) {
                         )}
                     </div>
                 </div>
-
-                <button className="btn btn-remove-cover-color btn-clear" onClick={() => onRemoveCover()}>Remove cover</button>
             </div>
         </div>
     )
