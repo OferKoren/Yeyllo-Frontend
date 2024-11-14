@@ -108,17 +108,17 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
                     <section style={{ marginBlockEnd: '0.5em' }} className='labels-task-preview'>
                         {task.labelIds.map(labelId => {
                             const currLabel = labels.find(label => label.id === labelId)
-                            return isLabelsClicked ?
-                                <div key={labelId} onClick={(ev) => {
-                                    ev.stopPropagation()
-                                    setIsLabelsClicked(isClicked => !isClicked)
-                                }} style={{ transition: '200ms', marginRight: '0.3em', backgroundColor: currLabel.color, width: '40px', height: '8px', padding: '0px 8px', borderRadius: '4px' }}>
-                                </div>
-                                : <div key={labelId} onClick={(ev) => {
+                            return isLabelsClicked
+                                ? <div key={labelId} onClick={(ev) => {
                                     ev.stopPropagation()
                                     setIsLabelsClicked(isClicked => !isClicked)
                                 }} style={{ textAlign: 'center', transition: '200ms', fontFamily: 'roboto-bold', color: currLabel.fontColor, fontSize: '0.8em', marginRight: '0.3em', backgroundColor: currLabel.color, minWidth: '60px', maxWidth: 'max-content', height: '17px', padding: '0px 8px', borderRadius: '4px', justifyContent: 'center' }}>
                                     {currLabel.title}
+                                </div>
+                                : <div key={labelId} onClick={(ev) => {
+                                    ev.stopPropagation()
+                                    setIsLabelsClicked(isClicked => !isClicked)
+                                }} style={{ transition: '200ms', marginRight: '0.3em', backgroundColor: currLabel.color, width: '40px', height: '8px', padding: '0px 8px', borderRadius: '4px' }}>
                                 </div>
 
 
