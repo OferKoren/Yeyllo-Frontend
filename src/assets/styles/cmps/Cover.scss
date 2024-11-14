@@ -3,3 +3,21 @@
     gap: 0.5em;
     margin-block-start: 1em;
 }
+
+.img-attachments {
+    display: grid;
+
+    .img-attachments-list {
+        display: grid;
+        grid-template-columns: repeat(3, 80px);
+        gap: 10px;
+
+        .attachment-thumbnail {
+            border-radius: 3px;
+
+            &.active {
+                outline: 1px solid blue;
+            }
+        }
+    }
+}

@@ -7,6 +7,9 @@ export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
 
+export const BOARD_UNDO = 'TOY_UNDO'
+
+
 export const ADD_BOARD_LABELS = 'SET_BOARD_LABELS'
 export const SET_LABELS = 'SET_LABELS'
 // export const ADD_BOARD_MSG = 'ADD_BOARD_MSG'
@@ -35,8 +38,9 @@ export const groupColorPalette = [
 
 const initialState = {
     workspace: null,
-    boards: null,
+    boards: [],
     board: null,
+    lastBoard: null,
     filterBy: {},
     labels: defaultLabels,
     members: [],
@@ -45,6 +49,8 @@ const initialState = {
 export function boardReducer(state = initialState, action) {
     var newState = state
     var boards
+    let board
+    let lastBoard
     switch (action.type) {
         case SET_WORKSPACE:
             newState = { ...state, workspace: action.workspace }
@@ -53,7 +59,8 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, boards: action.boards }
             break
         case SET_BOARD:
-            const updatedLabels = state.labels.map((label) => {
+            lastBoard = { ...action.board }
+            const updatedLabels = state.labels?.map((label) => {
                 const existingLabel = action.board.labels.find((l) => l.id === label.id)
                 if (existingLabel) {
                     return { ...existingLabel }
@@ -61,7 +68,7 @@ export function boardReducer(state = initialState, action) {
                     return label
                 }
             })
-            newState = { ...state, board: action.board, labels: updatedLabels, members: action.board.members || [] }
+            newState = { ...state, board: action.board, labels: updatedLabels, members: action.board.members || [], lastBoard }
             // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
             break
         case UNLOAD_BOARD:
@@ -77,14 +84,22 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, boards: [...state.boards, action.board] }
             break
         case UPDATE_BOARD:
-            boards = state.boards.map((board) => (board._id === action.board._id ? action.board : board))
-            newState = { ...state, boards, board: action.board }
+            lastBoard = { ...action.board }
+
+            boards = state.boards?.map((board) => (board._id === action.board._id ? action.board : board))
+            board = {...state.board, ...action.board}
+
+            newState = { ...state, boards, board: action.board, lastBoard, board }
             break
         case ADD_BOARD_LABELS:
             newState = { ...state, board: { ...state.board, labels: [...(state.board.labels || []), action.label] } }
             break
         case SET_LABELS:
             newState = { ...state, labels: action.labels }
+            break
+        case BOARD_UNDO:
+            board = { ...state.lastBoard }
+            newState = { ...state, board }
             break
         default:
     }

@@ -36,16 +36,14 @@ export function TaskDetails() {
     const { taskId } = useParams()
 
     useEffect(() => {
-        loadBoard(boardId)
-    }, [])
-
-    useEffect(() => {
-        setBoardToEdit(board)
-        const foundGroup = board?.groups.find((group) => group.id === groupId)
-        currGroupRef.current = foundGroup
-        const currTask = foundGroup?.tasks.find((task) => task.id === taskId)
-        if (currTask) {
-            setTask(currTask)
+        if (board) {
+            setBoardToEdit(board)
+            const foundGroup = board?.groups.find((group) => group.id === groupId)
+            currGroupRef.current = foundGroup
+            const currTask = foundGroup?.tasks.find((task) => task.id === taskId)
+            if (currTask) {
+                setTask(currTask)
+            }
         }
     }, [board])
 
@@ -143,7 +141,7 @@ export function TaskDetails() {
     }
 
     function renderCoverModal() {
-        return <Cover setTask={setTask} handleCloseModal={handleCloseModal} />
+        return <Cover setTask={setTask} handleCloseModal={handleCloseModal} task={task} />
     }
 
     function formatDate(dueDate, dueTime) {
@@ -206,6 +204,19 @@ export function TaskDetails() {
             </div>
         )
 
+    {
+        console.log(task)
+    }
+    {
+        console.log('boardtoedit', boardToEdit.labels)
+    }
+    {
+        console.log('gLabels', gLabels)
+    }
+    {
+        console.log('gMembers', gMembers)
+    }
+
     return (
         <article className="task-details">
             <div className="btn-save-task" onClick={onSaveTask}>
@@ -219,14 +230,41 @@ export function TaskDetails() {
                 </svg>
             </div>
 
-            {task.style?.backgroundColor && (
-                <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}>
-                    <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
-                        <img src="/img/icons/icon-cover.svg" />
-                        <span>Cover</span>
-                    </div>
-                    {openModal === 'cover-topBtn' && renderCoverModal()}
-                </div>
+            {task.style && (
+                <>
+                    {task.style.backgroundImage && (
+                        <div
+                            className="cover"
+                            style={{
+                                backgroundImage: task.style.backgroundImage.url,
+                                backgroundColor: task.style.backgroundImage.bgColor || 'rgb(154, 139, 127)',
+                                backgroundSize: 'contain',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundPosition: 'center',
+                            }}
+                        >
+                            <div>
+                                <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
+                                    <img src="/img/icons/icon-cover.svg" />
+                                    <span>Cover</span>
+                                </div>
+                                {openModal === 'cover-topBtn' && renderCoverModal()}
+                            </div>
+                        </div>
+                    )}
+
+                    {task.style?.backgroundColor && (
+                        <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}>
+                            <div className="">
+                                <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
+                                    <img src="/img/icons/icon-cover.svg" />
+                                    <span>Cover</span>
+                                </div>
+                                {openModal === 'cover-topBtn' && renderCoverModal()}
+                            </div>
+                        </div>
+                    )}
+                </>
             )}
 
             {task.archivedAt && (
@@ -394,11 +432,6 @@ export function TaskDetails() {
                             ))}
                         </div>
                     )}
-
-                    {console.log(task)}
-                    {console.log('boardtoedit', boardToEdit.labels)}
-                    {console.log('gLabels', gLabels)}
-                    {console.log('gMembers', gMembers)}
                 </div>
 
                 <div className="task-options">

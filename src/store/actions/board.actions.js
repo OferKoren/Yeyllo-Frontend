@@ -1,7 +1,7 @@
 import { boardService } from '../../services/board'
 import { store } from '../store'
 //removed from the import below ADD_BOARD_MSG
-import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD, UNLOAD_BOARD, SET_WORKSPACE } from '../reducers/board.reducer'
+import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD, UNLOAD_BOARD, SET_WORKSPACE, BOARD_UNDO } from '../reducers/board.reducer'
 import { batch } from 'react-redux'
 import { workspaceService } from '../../services/workspace/workspace.service'
 
@@ -72,6 +72,20 @@ export async function updateBoard(board) {
     }
 }
 
+export async function updateBoardOptimistic(board) {
+    console.log(board)
+    store.dispatch(getCmdUpdateBoard(board))
+    // store.dispatch(getCmdUpdateBoard(savedBoard))
+    try {
+        await boardService.save(board)
+        // return savedBoard
+    } catch (err) {
+        store.dispatch(getCmdUndoBoard(board))
+        console.log('Cannot update board', err)
+        throw err
+    }
+}
+
 /* export async function addBoardMsg(boardId, txt) {
     try {
         const msg = await boardService.addBoardMsg(boardId, txt)
@@ -123,6 +137,13 @@ function getCmdUpdateBoard(board) {
     return {
         type: UPDATE_BOARD,
         board,
+    }
+}
+
+function getCmdUndoBoard() {
+    return {
+        type: BOARD_UNDO,
+        
     }
 }
 /* function getCmdAddBoardMsg(msg) {

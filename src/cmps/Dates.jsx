@@ -66,8 +66,8 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
             </div>
 
             <div className="dates">
+                <h3>Start date</h3>
                 <div className="start-date">
-                    <h3>Start date</h3>
                     <div className="start-date">
                         <input type="checkbox" checked={isRangeEnabled}
                             onChange={toggleStartDate} />
@@ -78,39 +78,38 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
                             placeholderText='M/D/YYYY'
                             onChange={(date) => setStartDate(date)} />
                     </div>
+                </div>
+                {console.log('isRangeEnabled', isRangeEnabled)}
 
-                    {console.log('isRangeEnabled', isRangeEnabled)}
-
-                    <div className="due-date">
-                        <h3>Due date</h3>
-                        <div className="end-date-and-time">
-                            <div className="end-date">
-                                <input type="checkbox" checked={!!endDate}
-                                    onChange={() => setEndDate(prevDate => prevDate ? null : latestDate)} />
-                                <DatePicker
-                                    selected={endDate ? new Date(endDate) : null}
-                                    open={false}
-                                    disabled={!endDate}
-                                    placeholderText='M/D/YYYY'
-                                    onChange={(date) => { setEndDate(date); setLatestDate(date) }} />
-                                {/* if (date < endDate) setEndDate(dayjs(endDate).subtract(1, 'day').toDate()) */}
-                            </div>
-
-                            <div className="time-preview">
-                                <DatePicker
-                                    selected={endDate ? new Date(endDate) : null}
-                                    onChange={(date) => setDueTime(dayjs(date).format('hh:mm A'))}
-                                    disabled={!endDate}
-                                    placeholderText='h:mm a'
-                                    dateFormat="h:mm aa"
-                                    showTimeCaption={false}
-                                    open={false}
-                                />
-                            </div>
+                <div className="due-date">
+                    <h3>Due date</h3>
+                    <div className="end-date-and-time">
+                        <div className="end-date">
+                            <input type="checkbox" checked={!!endDate}
+                                onChange={() => setEndDate(prevDate => prevDate ? null : latestDate)} />
+                            <DatePicker
+                                selected={endDate ? new Date(endDate) : null}
+                                open={false}
+                                disabled={!endDate}
+                                placeholderText='M/D/YYYY'
+                                onChange={(date) => { setEndDate(date); setLatestDate(date) }} />
+                            {/* if (date < endDate) setEndDate(dayjs(endDate).subtract(1, 'day').toDate()) */}
                         </div>
 
-                        {console.log('dueTime', dueTime)}
+                        <div className="time-preview">
+                            <DatePicker
+                                selected={endDate ? new Date(endDate) : null}
+                                onChange={(date) => setDueTime(dayjs(date).format('hh:mm A'))}
+                                disabled={!endDate}
+                                placeholderText='h:mm a'
+                                dateFormat="h:mm aa"
+                                showTimeCaption={false}
+                                open={false}
+                            />
+                        </div>
                     </div>
+
+                    {console.log('dueTime', dueTime)}
                 </div>
             </div>
             <div className="dates-action-buttons">

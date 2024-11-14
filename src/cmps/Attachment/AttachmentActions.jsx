@@ -22,7 +22,22 @@ export function AttachmentActions({ attachment, setTask, handleCloseModal, task 
     }
 
     function onRemoveAttachment(attachmentId) {
-        setTask(prevTask => ({ ...prevTask, attachments: prevTask.attachments.filter(item => item.id !== attachmentId) }))
+        setTask(prevTask => {
+            const updatedTask = { ...prevTask }
+            if (prevTask.style.backgroundImage.imgId === attachmentId) {
+                delete updatedTask.style
+            }
+            return ({ ...updatedTask, attachments: updatedTask.attachments.filter(item => item.id !== attachmentId) })
+        })
+    }
+
+    function onSetCover(cover) {
+        setTask(prevTask => {
+            const updatedAttachments = prevTask.attachments.map(file =>
+                (file.id === cover.imgId ? { ...file, isCover: true } : file)
+            )
+            return { ...prevTask, attachments: updatedAttachments, style: { backgroundImage: { ...cover } } }
+        })
     }
 
     return (
@@ -31,7 +46,9 @@ export function AttachmentActions({ attachment, setTask, handleCloseModal, task 
                 <ul className="option-modal-container attachment-actions-list">
                     <li className="attachment-action-item"
                         onClick={() => setIsEditAttachment(true)}>Edit</li>
-                    <li className="attachment-action-item">Make cover</li>
+                    <li className="attachment-action-item"
+                        onClick={() => { onSetCover({ url: `url(${attachment.url})`, bgColor: attachment.bgColor, imgId: attachment.id }); handleCloseModal() }}>
+                        Make cover</li>
                     <li className="attachment-action-item"
                         onClick={() => { onRemoveAttachment(attachment.id); handleCloseModal() }}>Delete</li>
                 </ul>

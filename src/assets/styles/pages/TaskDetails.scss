@@ -16,6 +16,7 @@
 
         padding: 0.3em;
         border-radius: 50%;
+        cursor: pointer;
 
         & svg {
             width: 1.5em;
@@ -77,9 +78,9 @@
         margin-block-start: 1.5em;
         margin-inline-start: 0.3em;
 
-        & img {
-            margin-block-start: 0.2em;
-        }
+        // & img {
+        //     margin-block-start: 0.2em;
+        // }
 
         .task-header-left-side {
             display: flex;
