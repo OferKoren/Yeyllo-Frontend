@@ -30,7 +30,6 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
 
     function onCloseModal() {
         setTaskModalId('')
-        setTaskModalId('')
         setIsModalOpen(false)
         navigate(`/board/${boardId}`)
     }

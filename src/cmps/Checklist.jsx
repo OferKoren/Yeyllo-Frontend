@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { makeId } from '../services/util.service.js'
 import { DeleteTodoModal } from '../cmps/DeleteTodoModal.jsx'
+import { DeleteChecklistModal } from '../cmps/DeleteChecklistModal.jsx'
 
 export function Checklist({ todos, task, checklist, setTask, openModal, handleToggleModal, handleCloseModal }) {
 
@@ -69,7 +70,11 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
                     <img src="/img/icons/icon-checklist.svg" />
                     <h2>{title}</h2>
                 </div>
-                <button className="btn btn-remove-checklist btn-light" onClick={() => onRemoveChecklist(checklistId)}>Delete</button>
+                <div>
+                    <button className="btn btn-remove-checklist btn-light" onClick={() => handleToggleModal('delete-checklist')}>Delete</button>
+                    {openModal === 'delete-checklist' &&
+                        <DeleteChecklistModal checklistId={checklistId} handleCloseModal={handleCloseModal} onRemoveChecklist={onRemoveChecklist} />}
+                </div>
             </div>
 
             <div className="progress-bar-container">
