@@ -1,0 +1,16 @@
+.copy-board {
+    @include menuModal;
+    .menu-btn {
+        padding: rem(6px) rem(24px);
+        width: auto;
+        background-color: $createBtn;
+        // color: white;
+        &:hover {
+            background-color: $createBtnHover;
+        }
+        &:disabled {
+            background-color: $btnClrDisabled;
+            color: $btnClrDisabletxt;
+        }
+    }
+}

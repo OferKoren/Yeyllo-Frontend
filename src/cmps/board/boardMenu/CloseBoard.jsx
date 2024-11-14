@@ -18,7 +18,7 @@ export function CloseBoard({ onUpdateBoard }) {
                 You can find and reopen closed boards at the bottom of<Link to="/workspace/home"> your boards page</Link>
             </p>
 
-            <button className="close-board-btn btn1" onClick={onClose}>
+            <button className="menu-btn btn1" onClick={onClose}>
                 close
             </button>
         </div>

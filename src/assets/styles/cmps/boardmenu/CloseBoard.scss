@@ -1,22 +1,10 @@
 .close-board {
-    & > * {
-        font-size: rem(14px);
-    }
-    .close-board-btn {
-        font-size: rem(14px);
-        height: 32px;
-        width: 100%;
-        color: white;
+    .menu-btn {
         background-color: $close-btn;
         &:hover {
             background-color: $close-btn-hover;
         }
     }
-    p {
-        margin-block-end: rem(16px);
-        line-height: rem(20px);
-    }
-    a {
-        color: rgb(12, 102, 228);
-    }
+
+    @include menuModal;
 }

@@ -31,7 +31,6 @@ export function BoardDetails({ rootRef }) {
 
     async function onUpdateBoard(board) {
         await updateBoard(board)
-        console.log('hi')
     }
 
     function onToggleMenu() {
@@ -111,7 +110,7 @@ export function BoardDetails({ rootRef }) {
             }
         }
     }
-    if (board) console.log(board)
+    // if (board) console.log(board)
     return (
         <DragDropContext onDragEnd={handleDragDrop}>
             <section className="full horizontal-container">

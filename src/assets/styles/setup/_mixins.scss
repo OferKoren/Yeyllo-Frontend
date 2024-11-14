@@ -32,36 +32,28 @@
         &:hover {
             background-color: darken($clr-btn-2, 5%);
         }
-    }
-
-    @else if $type ==light {
+    } @else if $type ==light {
         background-color: $clr-btn-1;
         color: $gray4;
 
         &:hover {
             background-color: darken($clr-btn-1, 5%);
         }
-    }
-
-    @else if $type =='clear' {
+    } @else if $type == 'clear' {
         background-color: $clr-bg3-light;
         color: $gray4;
 
         &:hover {
             background-color: darken($clr-bg3-light, 5%);
         }
-    }
-
-    @else if $type =='delete' {
+    } @else if $type == 'delete' {
         background-color: $clr-btn-4;
         color: $clr6;
 
         &:hover {
             background-color: darken($clr-btn-4, 5%);
         }
-    }
-
-    @else if $type =='action' {
+    } @else if $type == 'action' {
         background-color: darken($clr-btn-1, 5%);
 
         &:hover {
@@ -69,8 +61,6 @@
         }
     }
 }
-
-
 
 @mixin input() {
     border: none;
@@ -100,7 +90,7 @@
         padding-top: calc(($height / $width) * 100%);
     }
 
-    >* {
+    > * {
         position: absolute;
         top: 0;
         left: 0;
@@ -108,7 +98,7 @@
         bottom: 0;
     }
 
-    >img {
+    > img {
         height: 100%;
         object-fit: cover;
     }
@@ -126,5 +116,50 @@
 @mixin scroll($height) {
     @if $height ==calc(100vh - 3.5rem - 3.5rem - 15em) {
         overflow-y: scroll;
+    }
+}
+
+@mixin menuModal() {
+    & > * {
+        font-size: rem(14px);
+    }
+    .menu-btn {
+        font-size: rem(14px);
+        height: 32px;
+        width: 100%;
+        color: white;
+    }
+    p {
+        margin-block-end: rem(16px);
+        line-height: rem(20px);
+    }
+    a {
+        color: rgb(12, 102, 228);
+    }
+    span,
+    label {
+        font-size: 12px;
+        font-weight: 700;
+        color: $modalHeaderClr;
+        &::first-letter {
+            text-transform: capitalize;
+        }
+        margin: 0 0 0.25em 0;
+    }
+    input {
+        border: none;
+        width: 100%;
+        margin: 0;
+        height: rem(36px);
+        padding: rem(8px) rem(12px);
+        box-shadow: inset 0 0 0 1px #091e4224;
+        outline: none;
+        font-size: rem(14px);
+        border-radius: rem(3px);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        transition: box-shadow 150ms;
+        &:focus {
+            box-shadow: inset 0 0 0 2px #388bff;
+        }
     }
 }

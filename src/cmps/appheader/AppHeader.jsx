@@ -10,7 +10,7 @@ import { addBoard } from '../../store/actions/board.actions'
 import { boardService } from '../../services/board'
 import { AddBoard } from '../workspace/modals/AddBoard'
 import { Dropdown } from './Dropdown'
-import { lightenColor } from '../../services/util.service'
+import { darkenColor, lightenColor } from '../../services/util.service'
 import { HomePageHeader } from './HomePageHeader'
 import ClickOutside from '../ClickOutside'
 
@@ -51,13 +51,13 @@ export function AppHeader() {
         }
     }
 
-    useEffect(() => {
+    /*    useEffect(() => {
         if (board && board.urls) {
             setHeaderColorFromImage(board.urls.regular)
         } else {
             headerRef.current.style.cssText = ''
         }
-    }, [board])
+    }, [board.style]) */
     useEffect(() => {
         if (!headerRef.current) return
         if (isModalOpen) headerRef.current.style.zIndex = '5'
@@ -71,11 +71,11 @@ export function AppHeader() {
         img.onload = () => {
             const colorThief = new ColorThief()
             const [r, g, b] = colorThief.getColor(img)
-
+            const baseColor = `rgba(${r}, ${g}, ${b}, 0.9)`
             // Set as header background color with some transparency
-            const style = { backgroundColor: `rgba(${r}, ${g}, ${b}, 0.9)` }
+            const style = { backgroundColor: `${darkenColor(baseColor, 40)}` }
             const ligherColor = lightenColor(`rgba(${r}, ${g}, ${b}, 0.9)`, 20)
-            console.log(ligherColor)
+
             const inputStyle = { backgroundColor: ligherColor }
             setBgClr(`rgba(${r}, ${g}, ${b}, 0.9)`)
             Object.assign(headerRef.current.style, style)

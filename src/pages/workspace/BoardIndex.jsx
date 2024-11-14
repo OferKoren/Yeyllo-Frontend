@@ -46,6 +46,7 @@ export function BoardIndex() {
     function onOpenModal() {
         setIsModalOpen(true)
     }
+
     async function onAddBoard(board) {
         if (!board) {
             const board = boardService.getEmptyBoard()
@@ -73,7 +74,12 @@ export function BoardIndex() {
             showErrorMsg('Cannot update board')
         }
     }
-    if (!boards || !workspace) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
+    if (!boards || !workspace)
+        return (
+            <div className="trello-loader">
+                <img src="\img\general\trello-loader.svg" alt="" />
+            </div>
+        )
     console.log(workspace)
     return (
         <main className="board-index workspace-layout">

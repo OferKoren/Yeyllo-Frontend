@@ -34,7 +34,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
             case 'make template':
                 return <MakeTemplate />
             case 'copy board':
-                return <CopyBoard />
+                return <CopyBoard onToggleMenu={onToggleMenu} />
             default:
                 return <></>
         }
@@ -61,88 +61,91 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 </header>
                 <hr className="thin" />
                 <section className="menu-body">
-                    <ul>
-                        <li>
-                            <button className="modal-btn menu-btn info">
-                                <InfoIcon />
-                                <div>
-                                    about this board
-                                    <div>Add a description to your board</div>
-                                </div>
-                            </button>
-                        </li>
+                    <div className={'main-menu'}>
+                        <ul>
+                            <li>
+                                <button className="modal-btn menu-btn info">
+                                    <InfoIcon />
+                                    <div>
+                                        about this board
+                                        <div>Add a description to your board</div>
+                                    </div>
+                                </button>
+                            </li>
 
-                        <li>
-                            <button className="modal-btn menu-btn">
-                                <ActivityIcon />
+                            <li>
+                                <button className="modal-btn menu-btn">
+                                    <ActivityIcon />
 
-                                <div>activity</div>
-                            </button>
-                        </li>
+                                    <div>activity</div>
+                                </button>
+                            </li>
 
-                        <li>
-                            <button className="modal-btn menu-btn">
-                                <ArchiveIcon />
-                                <div>Archived items</div>
-                            </button>
-                        </li>
-                        <hr className="semi-thin" />
-                        <li>
-                            <button className="modal-btn menu-btn">
-                                <SettingIcon />
-                                <div>settings</div>
-                            </button>
-                        </li>
-                        <li>
-                            <button className="modal-btn menu-btn">
-                                <div className="background" style={board.style}></div>
-                                <div>change background</div>
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                className="modal-btn menu-btn"
-                                onClick={(ev) => {
-                                    onToggleModal('make template')
-                                    if (!isModalOpen) {
-                                        onSetPosition(ev)
-                                    }
-                                }}
-                            >
-                                <MakeTemplateIcon />
-                                <div>make template</div>
-                            </button>
-                        </li>
-                        <hr className="semi-thin" />
-                        <li>
-                            <button
-                                className="modal-btn menu-btn"
-                                onClick={(ev) => {
-                                    onToggleModal('copy board')
-                                    if (!isModalOpen) {
-                                        onSetPosition(ev)
-                                    }
-                                }}
-                            >
-                                <CopyBoardIcon />
-                                <div>copy board</div>
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                className="modal-btn menu-btn"
-                                onClick={(ev) => {
-                                    onToggleModal('close board?')
-                                    if (!isModalOpen) {
-                                        onSetPosition(ev)
-                                    }
-                                }}
-                            >
-                                <CloseBoardIcon />
-                                <div>close board</div>
-                            </button>
-                        </li>
-                    </ul>
+                            <li>
+                                <button className="modal-btn menu-btn">
+                                    <ArchiveIcon />
+                                    <div>Archived items</div>
+                                </button>
+                            </li>
+                            <hr className="semi-thin" />
+                            <li>
+                                <button className="modal-btn menu-btn">
+                                    <SettingIcon />
+                                    <div>settings</div>
+                                </button>
+                            </li>
+                            <li>
+                                <button className="modal-btn menu-btn">
+                                    <div className="background" style={board.style}></div>
+                                    <div>change background</div>
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    className="modal-btn menu-btn"
+                                    onClick={(ev) => {
+                                        onToggleModal('make template')
+                                        if (!isModalOpen) {
+                                            onSetPosition(ev)
+                                        }
+                                    }}
+                                >
+                                    <MakeTemplateIcon />
+                                    <div>make template</div>
+                                </button>
+                            </li>
+                            <hr className="semi-thin" />
+                            <li>
+                                <button
+                                    className="modal-btn menu-btn"
+                                    onClick={(ev) => {
+                                        onToggleModal('copy board')
+                                        if (!isModalOpen) {
+                                            onSetPosition(ev)
+                                        }
+                                    }}
+                                >
+                                    <CopyBoardIcon />
+                                    <div>copy board</div>
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    className="modal-btn menu-btn"
+                                    onClick={(ev) => {
+                                        onToggleModal('close board?')
+                                        if (!isModalOpen) {
+                                            onSetPosition(ev)
+                                        }
+                                    }}
+                                >
+                                    <CloseBoardIcon />
+                                    <div>close board</div>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
                     <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
                         <Modal
                             title={whichModal}

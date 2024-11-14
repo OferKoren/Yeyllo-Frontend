@@ -9,25 +9,25 @@ export function makeId(length = 6) {
     return txt
 }
 
-
 export function colorLuminance(hex, lum) {
-
     // validate hex string
-    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    hex = String(hex).replace(/[^0-9a-f]/gi, '')
     if (hex.length < 6) {
-        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
     }
-    lum = lum || 0;
+    lum = lum || 0
 
     // convert to decimal and change luminosity
-    var rgb = "#", c, i;
+    var rgb = '#',
+        c,
+        i
     for (i = 0; i < 3; i++) {
-        c = parseInt(hex.substr(i * 2, 2), 16);
-        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
-        rgb += ("00" + c).substr(c.length);
+        c = parseInt(hex.substr(i * 2, 2), 16)
+        c = Math.round(Math.min(Math.max(0, c + c * lum), 255)).toString(16)
+        rgb += ('00' + c).substr(c.length)
     }
 
-    return rgb;
+    return rgb
 }
 
 export function makeLorem(size = 100) {
@@ -128,6 +128,27 @@ export function lightenColor(color, percent) {
     const newR = Math.min(255, Math.floor(r + (255 - r) * (percent / 100)))
     const newG = Math.min(255, Math.floor(g + (255 - g) * (percent / 100)))
     const newB = Math.min(255, Math.floor(b + (255 - b) * (percent / 100)))
+
+    // Preserve alpha if it exists, otherwise default to 1 (opaque)
+    const newA = a !== undefined ? a : 1
+
+    // Return new color in rgba format
+    return `rgba(${newR}, ${newG}, ${newB}, ${newA})`
+}
+
+export function darkenColor(color, percent) {
+    // Match the color in rgba or rgb format
+    const rgbaMatch = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+),?\s*(\d*\.?\d+)?\)/)
+
+    if (!rgbaMatch) return color // Return original color if format isn't matched
+
+    // Extract RGB channels and optional alpha channel
+    const [_, r, g, b, a] = rgbaMatch.map(Number)
+
+    // Calculate the new RGB values by darkening the color
+    const newR = Math.max(0, Math.floor(r * (1 - percent / 100)))
+    const newG = Math.max(0, Math.floor(g * (1 - percent / 100)))
+    const newB = Math.max(0, Math.floor(b * (1 - percent / 100)))
 
     // Preserve alpha if it exists, otherwise default to 1 (opaque)
     const newA = a !== undefined ? a : 1
