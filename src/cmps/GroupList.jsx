@@ -34,7 +34,7 @@ export function GroupList({ placeholder, onUpdateBoard, board }) {
 
     async function onAddGroup(ev) {
         ev.preventDefault()
-        if (!title) return alert('Text field is required')
+        if (!title) return /*alert('Text field is required')*/
 
         const group = getEmptyGroup()
         group.title = title

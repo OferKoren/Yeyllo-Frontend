@@ -73,7 +73,7 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                     </section>
                     <section>
                         <div className='add-task-btn-container' >
-                            <button onClick={() => setIsAddTaskClicked(isClicked => !isClicked)} className={`add-task-btn  ${group?.style?.backgroundColor?.substr(1)}`}><span>+</span><span>Add a card</span></button>
+                            <button onClick={() => setIsAddTaskClicked(isClicked => !isClicked)} className={`add-task-btn ${group?.style?.backgroundColor?.substr(1)}`}><span>+</span><span>Add a card</span></button>
                         </div>
                     </section>
                 </>

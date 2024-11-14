@@ -46,10 +46,10 @@ export function Signup() {
                 required
             />
             <input
-                type="text"
+                type="email"
                 name="username"
                 value={credentials.username}
-                placeholder="Username"
+                placeholder="Email"
                 onChange={handleChange}
                 required
             />

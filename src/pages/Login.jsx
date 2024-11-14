@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router'
 
 import { userService } from '../services/user'
 import { login } from '../store/actions/user.actions'
+import { useSelector } from 'react-redux'
 
 export function Login() {
     const [users, setUsers] = useState([])
@@ -10,19 +11,19 @@ export function Login() {
 
     const navigate = useNavigate()
 
-    useEffect(() => {
-        loadUsers()
-    }, [])
+    // useEffect(() => {
+    //     loadUsers()
+    // }, [])
 
-    async function loadUsers() {
-        const users = await userService.getUsers()
-        setUsers(users)
-    }
+    // async function loadUsers() {
+    //     const users = await userService.getUsers()
+    //     setUsers(users)
+    // }
 
     async function onLogin(ev = null) {
         if (ev) ev.preventDefault()
 
-        if (!credentials.username) return
+        if (!credentials.username || !credentials.username.password) return
         await login(credentials)
         navigate('/')
     }
@@ -32,16 +33,37 @@ export function Login() {
         const value = ev.target.value
         setCredentials({ ...credentials, [field]: value })
     }
-    
+
+    const user = useSelector(storeState => storeState.userModule.user)
+
+    console.log(user);
+
     return (
         <form className="login-form" onSubmit={onLogin}>
-            <select
+
+            <input
+                type="email"
+                name="username"
+                value={credentials.username}
+                placeholder="Username"
+                onChange={handleChange}
+                required
+            />
+            <input
+                type="password"
+                name="password"
+                value={credentials.password}
+                placeholder="Password"
+                onChange={handleChange}
+                required
+            />
+            {/* <select
                 name="username"
                 value={credentials.username}
                 onChange={handleChange}>
                     <option value="">Select User</option>
                     {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
-            </select>
+            </select> */}
             <button>Login</button>
         </form>
     )

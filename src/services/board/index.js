@@ -1,5 +1,6 @@
 const { DEV, VITE_LOCAL } = import.meta.env
 
+import { useSelector } from 'react-redux'
 import { boardData } from '../../../data/board'
 import { getRandomIntInclusive, makeId } from '../util.service'
 
@@ -7,14 +8,13 @@ import { boardService as local } from './board.service.local'
 import { boardService as remote } from './board.service.remote'
 
 function getEmptyBoard() {
+    const user = useSelector((storeState) => storeState.userModule.user || { _id: 'u101', fullname: 'Abi Abambi', imgUrl: '/img/user/gal.png', })
+    console.log(user);
+
     return {
         title: '',
         isStarred: false,
-        createdBy: {
-            _id: 'u101',
-            fullname: 'Abi Abambi',
-            imgUrl: '/img/user/gal.png',
-        },
+        createdBy: user,
         style: {
             // backgroundSize: '100% 100%',
             backgroundImage: 'url(https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg)',
@@ -22,13 +22,7 @@ function getEmptyBoard() {
         },
         urls: { regular: 'https://res.cloudinary.com/dkckt1l7i/image/upload/v1731148744/starry-night_ggz5qa.jpg' },
         labels: [],
-        members: [
-            {
-                _id: 'u101',
-                fullname: 'Abi Abambi',
-                imgUrl: '/img/user/gal.png',
-            },
-        ],
+        members: [user],
         groups: [],
         activites: [],
     }

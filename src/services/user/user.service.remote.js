@@ -43,8 +43,10 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
-	if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-	userCred.score = 10000
+	// if (!userCred.imgUrl) userCred.imgUrl = 'url(https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png)'
+	// userCred.score = 10000
+
+    userCred.imgUrl = userCred.imgUrl ? userCred.imgUrl : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
 
     const user = await httpService.post('auth/signup', userCred)
 	return saveLoggedinUser(user)
@@ -64,7 +66,7 @@ function saveLoggedinUser(user) {
         _id: user._id, 
         fullname: user.fullname, 
         imgUrl: user.imgUrl, 
-        score: user.score, 
+        // score: user.score, 
         isAdmin: user.isAdmin 
     }
 	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
