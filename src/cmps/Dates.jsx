@@ -9,12 +9,12 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
     const [startDate, setStartDate] = useState(task.startDate ? new Date(task.startDate) : null)
     const [latestDate, setLatestDate] = useState(task.dueDate ? new Date(task.dueDate) : new Date())
     const [isRangeEnabled, setIsRangeEnabled] = useState(!!startDate)
-    const [dueTime, setDueTime] = useState(dayjs(new Date(task.dueDate)).format('hh:mm A') || dayjs(new Date()).format('hh:mm A'))
+    const [dueTime, setDueTime] = useState(task.dueTime ? new Date(task.dueTime) : new Date())
 
     console.log('startDate', startDate)
     console.log('endDate', endDate)
-    console.log('formattedDate', dayjs(endDate).format('DD-MM-YYYY'))
-    console.log('task', task)
+    // console.log('formattedDate', dayjs(endDate).format('DD-MM-YYYY'))
+    // console.log('task', task)
 
 
     function onRemoveDueDate() {
@@ -36,14 +36,14 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
 
     function toggleStartDate() {
         setIsRangeEnabled(prev => !prev)
-        // if (isRangeEnabled) {
-        //     setStartDate(null)
-        // } else {
-        //     setStartDate(new Date(endDate.getTime() - (24 * 60 * 60 * 1000)))
-        // }
+        if (isRangeEnabled) {
+            setStartDate(null)
+        } else {
+            setStartDate(new Date(endDate.getTime() - (24 * 60 * 60 * 1000)))
+        }
     }
 
-    function handleDateChange(dueDate, beginnigDate) {
+    function handleDateChange() {
         // const formattedEndDate = dayjs(dueDate).format('DD-MM-YYYY')
         // const formattedStartDate = beginnigDate ? dayjs(beginnigDate).format('DD-MM-YYYY') : null
         // const formattedDueTime = dayjs(dueDate).format('hh:mm A')
@@ -108,20 +108,24 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
 
                         <div className="time-preview">
                             <DatePicker
-                                selected={endDate ? new Date(endDate) : null}
+                                selected={dueTime ? dueTime : new Date(endDate)}
                                 onChange={(date) => setDueTime(date)}
                                 disabled={!endDate}
+                                showTimeSelectOnly
                                 placeholderText='h:mm a'
                                 dateFormat="h:mm aa"
+                                showTimeSelect // Show the time picker
+                                timeIntervals={15} // Set the interval for time selection (e.g., every 15 minutes)
+                                timeFormat="h:mm aa" // Format for time selection (12-hour format with AM/PM)
+                                timeCaption="Time"
                                 showTimeCaption={false}
-                                open={false}
                             />
                         </div>
                     </div>
                 </div>
             </div>
             <div className="dates-action-buttons">
-                <button className="btn btn-dark" onClick={() => { handleDateChange(endDate, startDate); handleCloseModal() }}>Save</button>
+                <button className="btn btn-dark" onClick={() => { handleDateChange(); handleCloseModal() }}>Save</button>
                 <button className="btn btn-clear" onClick={onRemoveDueDate}>Remove</button>
             </div>
         </div>

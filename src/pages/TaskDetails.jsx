@@ -149,23 +149,27 @@ export function TaskDetails() {
         const formattedDueDate = dayjs(dueDate)
 
         if (!formattedDueDate.isValid()) {
-            return "Invalid Date";
+            return "Invalid Date"
         }
         console.log('startDate', task.startDate)
+        console.log('dueTime', dueTime)
         const formattedStartDate = startDate ? dayjs(startDate) : null
 
         // Format the due date
-        let formattedDue = '';
+        let formattedDue = ''
         if (formattedDueDate.year() !== currentYear) {
             if (dueTime) {
-                const dateTimeStr = `${formattedDueDate.format('YYYY-MM-DD')} ${dueTime}`
+                // Ensure the dueTime is in a format dayjs can parse, e.g., 'hh:mm A'
+                const formattedDueTime = dayjs(dueTime, 'hh:mm A').format('hh:mm A')
+                const dateTimeStr = `${formattedDueDate.format('YYYY-MM-DD')} ${formattedDueTime}`
                 formattedDue = dayjs(dateTimeStr).format('MMM D, YYYY, hh:mm A')
             } else {
                 formattedDue = formattedDueDate.format('MMM D, YYYY')
             }
         } else {
             if (dueTime) {
-                const dateTimeStr = `${formattedDueDate.format('YYYY-MM-DD')} ${dueTime}`
+                const formattedDueTime = dayjs(dueTime, 'hh:mm A').format('hh:mm A')
+                const dateTimeStr = `${formattedDueDate.format('YYYY-MM-DD')} ${formattedDueTime}`
                 formattedDue = dayjs(dateTimeStr).format('MMM D, hh:mm A')
             } else {
                 formattedDue = formattedDueDate.format('MMM D')
@@ -184,7 +188,6 @@ export function TaskDetails() {
 
         // Combine both formatted dates
         return formattedStart ? `${formattedStart} - ${formattedDue}` : formattedDue;
-
     }
 
     function onToggleArchivedTask() {
@@ -216,7 +219,7 @@ export function TaskDetails() {
     }
 
     function onSaveTask() {
-        console.log('currGroup', currGroupRef.current)
+        // console.log('currGroup', currGroupRef.current)
         const updatedTasks = currGroupRef.current.tasks.map((groupTask) => (groupTask.id === taskId ? task : groupTask))
         saveBoard(updatedTasks)
     }
@@ -225,7 +228,7 @@ export function TaskDetails() {
         const updatedGroup = { ...currGroupRef.current, tasks: tasksToSave }
         const updatedGroups = boardToEdit.groups.map((group) => (group.id === groupId ? updatedGroup : group))
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
-        console.log('boardToSave', boardToSave)
+        // console.log('boardToSave', boardToSave)
         updateBoard(boardToSave) //add try catch
 
         onCloseModal()
