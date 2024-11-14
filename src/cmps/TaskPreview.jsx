@@ -10,6 +10,7 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
     const [isOpenTaskDetails, setIsOpenTaskDetails] = useState(false)
     const [isDone, setIsDone] = useState(task.status === 'done')
     const [taskModalId, setTaskModalId] = useState('')
+    const [taskModalId, setTaskModalId] = useState('')
 
     function getCountIcons() {
         let count = 0
@@ -32,10 +33,13 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
 
     function onCloseModal() {
         setTaskModalId('')
+        setTaskModalId('')
         setIsModalOpen(false)
         navigate(`/board/${boardId}`)
     }
+
     function onOpenModal() {
+        setTaskModalId(task.id)
         setTaskModalId(task.id)
         setIsModalOpen(true)
         navigate(`/board/${boardId}/${groupId}/task/${task.id}`)
@@ -89,6 +93,7 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
         const currGroupIdx = board.groups.findIndex(group => group.id === groupId)
         const currGroup = board.groups.find(group => group.id === groupId)
         const currTaskIdx = currGroup.tasks.findIndex(thisTask => thisTask.id === task.id)
+
 
         setIsDone(isDone => !isDone)
 

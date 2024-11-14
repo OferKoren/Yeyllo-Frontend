@@ -14,7 +14,7 @@ header {
 }
 
 // loader
-.trello-loader{
+.trello-loader {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -73,6 +73,7 @@ h3 {
     }
 
     .task-header & {
+        font-family: 'roboto-regular';
         padding-inline-start: 0.8em;
         color: $gray5;
     }

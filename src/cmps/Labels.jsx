@@ -38,7 +38,7 @@ export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleClose
                 labels: updatedLabels,
             })
         }
-    }, [boardToEdit?.labels, dispatch])
+    }, [boardToEdit?.labels])
 
     return (
         <>
