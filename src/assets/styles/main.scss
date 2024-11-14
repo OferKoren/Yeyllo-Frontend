@@ -60,7 +60,12 @@
 
 @import 'cmps/BoardFilter';
 @import 'cmps/BoardHeader';
-@import 'cmps/BoardMenu';
+@import 'cmps/boardmenu/BoardMenu.scss';
+
+//boardmenu modals
+@import 'cmps/boardmenu/CloseBoard.scss';
+@import 'cmps/boardmenu/MakeTemplate.scss';
+@import 'cmps/boardmenu/CopyBoard.scss';
 
 @import 'cmps/AppHeader';
 @import 'cmps/AppFooter';

@@ -1,6 +1,15 @@
 import { useEffect } from 'react'
 
-export function Modal({ children, isOpen = false, onCloseModal = () => {}, title = '', isBlur = true, isBackDrop = true, position = null }) {
+export function Modal({
+    children,
+    isOpen = false,
+    onCloseModal = () => {},
+    title = '',
+    isBlur = true,
+    isBackDrop = true,
+    position = null,
+    style = {},
+}) {
     if (!isOpen) return null
     /*  useEffect(() => {
         if (position) {
@@ -8,11 +17,11 @@ export function Modal({ children, isOpen = false, onCloseModal = () => {}, title
         }
     }, []) */
     const blur = isBlur ? 'blur' : ''
-    const style = position ? { inset: 'auto', ...position } : {}
+    const contentStyle = position ? { inset: 'auto', ...position } : {}
     return (
         <section className="modal">
             {isBackDrop && <section onClick={onCloseModal} className={`modal-backdrop ${blur}`}></section>}
-            <section className="modal-content" style={style}>
+            <section className="modal-content" style={{ ...contentStyle, ...style }}>
                 <header className="modal-header">
                     <h3>
                         <span>{title}</span>

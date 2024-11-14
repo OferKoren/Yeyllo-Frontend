@@ -1,9 +1,31 @@
 .board-menu {
+    /* Works on Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.15) rgba(128, 128, 128, 0.15);
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: rgba(128, 128, 128, 0.15);
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.15);
+
+        border-radius: 10px;
+        border: 0px solid rgba(0, 0, 0, 0.15);
+    }
+
     width: 340px;
     position: absolute;
     transition: 0.4s;
     background-color: white;
-
+    box-shadow: 0 8px 12px #091e4226, 0 0 1px #091e424f;
     .menu-header {
         position: sticky;
         padding: 0 12px;

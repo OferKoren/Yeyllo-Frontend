@@ -152,6 +152,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board }) {
                             isBlur={false}
                             position={position}
                             isBackDrop={false}
+                            style={{ paddingBlockStart: '4px' }}
                         >
                             {getModalContent()}
                         </Modal>
