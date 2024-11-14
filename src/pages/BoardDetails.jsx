@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { loadBoard, unloadBoard, updateBoard } from '../store/actions/board.actions'
+import { loadBoard, unloadBoard, updateBoard, updateBoardOptimistic } from '../store/actions/board.actions'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { GroupList } from '../cmps/GroupList'
@@ -32,6 +32,7 @@ export function BoardDetails({ rootRef }) {
     function onUpdateBoard(board) {
         updateBoard(board)
     }
+
     function onToggleMenu() {
         if (isMenuOpen) {
             setIsShrink(true)
@@ -107,7 +108,8 @@ export function BoardDetails({ rootRef }) {
             board.groups = newGroups
 
             try {
-                await onUpdateBoard(board)
+                await updateBoardOptimistic(board)
+                // await updateBoard(board)
 
             } catch {
                 console.log('err: ', err);
