@@ -132,16 +132,21 @@ export function AppHeader() {
     return (
         <header ref={headerRef} className="app-header full">
             <nav>
-                <NavLink to="/home" className="homepage-link">
-                    <NineDots />
-                </NavLink>
-                <NavLink to="workspace/home" className="logo">
-                    <img src="/img/general/trello-logo-static.gif" alt="" />
-                    Yeyllo
-                </NavLink>
-                {location.pathname !== '/home' ? <HeaderMainNav /> : <HomePageHeader />}
+                {/* <section className="flex align-center left-side-nav"> */}
+                    <NavLink to="/home" className="homepage-link">
+                        <NineDots />
+                    </NavLink>
+                    <NavLink to="workspace/home" className="logo">
+                        <img src="/img/general/trello-logo-static.gif" alt="" />
+                        Yeyllo
+                    </NavLink>
+                {/* </section> */}
+                {/* <section className="flex align-center right-side-nav"> */}
+                    {location.pathname !== '/home' ? <HeaderMainNav /> : <HomePageHeader />}
+                {/* </section> */}
+            </nav>
 
-                {/*   {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
+            {/*   {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
 
                 {!user && (
                     <NavLink to="login" className="login-link">
@@ -158,7 +163,6 @@ export function AppHeader() {
                         <button onClick={onLogout}>logout</button>
                     </div>
                 )} */}
-            </nav>
             {location.pathname !== '/home' && (
                 <>
                     <div className={`header-search-wrapper ${inputClass}`}>
@@ -172,7 +176,7 @@ export function AppHeader() {
                             ref={inputRef}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                            // style={inputStyle}
+                        // style={inputStyle}
                         />
                     </div>
 

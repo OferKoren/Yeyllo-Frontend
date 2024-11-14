@@ -5,6 +5,7 @@ import { signup } from '../store/actions/user.actions'
 
 import { ImgUploader } from '../cmps/ImgUploader'
 import { userService } from '../services/user'
+import { NavLink } from 'react-router-dom'
 
 export function Signup() {
     const [credentials, setCredentials] = useState(userService.getEmptyUser())
@@ -21,7 +22,7 @@ export function Signup() {
         const value = ev.target.value
         setCredentials({ ...credentials, [field]: value })
     }
-    
+
     async function onSignup(ev = null) {
         if (ev) ev.preventDefault()
 
@@ -36,33 +37,40 @@ export function Signup() {
     }
 
     return (
-        <form className="signup-form" onSubmit={onSignup}>
-            <input
-                type="text"
-                name="fullname"
-                value={credentials.fullname}
-                placeholder="Fullname"
-                onChange={handleChange}
-                required
-            />
-            <input
-                type="email"
-                name="username"
-                value={credentials.username}
-                placeholder="Email"
-                onChange={handleChange}
-                required
-            />
-            <input
-                type="password"
-                name="password"
-                value={credentials.password}
-                placeholder="Password"
-                onChange={handleChange}
-                required
-            />
-            <ImgUploader onUploaded={onUploaded} />
-            <button>Signup</button>
-        </form>
+        <>
+            <form className="signup-form" onSubmit={onSignup}>
+                <input
+                    autoFocus
+                    type="text"
+                    name="fullname"
+                    value={credentials.fullname}
+                    placeholder="Full name"
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="email"
+                    name="username"
+                    value={credentials.username}
+                    placeholder="Enter your email"
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="password"
+                    name="password"
+                    value={credentials.password}
+                    placeholder="Enter password"
+                    onChange={handleChange}
+                    required
+                />
+                <ImgUploader onUploaded={onUploaded} />
+                <button className='main-btn'>Sign up</button>
+            </form>
+            <nav className='nav-login-signup'>
+                <NavLink to="/login">Already have an Yeyllo account? Log in</NavLink>
+            </nav>
+        </>
+
     )
 }
