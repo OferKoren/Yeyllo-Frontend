@@ -1,0 +1,71 @@
+.cover-size-buttons-area {
+    display: flex;
+    gap: 0.7em;
+    height: 4.5em;
+
+    .cover-size-btn-left {
+        background-color: $clr-bg3-light;
+    }
+
+    .cover-size-btn-right {
+        & .cove-size-main {
+            margin-block-start: 3.2em;
+        }
+    }
+
+    .cover-size-btn {
+        display: flex;
+        flex-direction: column;
+
+        height: 100%;
+        width: 10em;
+        border-radius: 0.2em;
+
+        padding: 0 !important;
+
+        &.active {
+            outline: 2px solid blue;
+            outline-offset: 2px;
+        }
+
+        .cove-size-main {
+            width: 100%;
+        }
+
+        .lines {
+            display: grid;
+            gap: 0.3em;
+            padding: 0 0.5em;
+
+            .line {
+                height: 0.3em;
+                background-color: $gray2;
+                border-radius: 10em;
+            }
+
+            .lower-line {
+                width: 80%;
+            }
+
+            .shapes {
+                display: flex;
+                gap: 0.2em;
+                align-items: center;
+
+                .rec {
+                    height: 0.48em;
+                    width: 1.3em;
+                    border-radius: 0.2em;
+                }
+
+                .circle {
+                    margin-inline-start: auto;
+                    height: 0.7em;
+                    width: 0.7em;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+    }
+}

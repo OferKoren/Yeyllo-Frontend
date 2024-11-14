@@ -31,7 +31,7 @@ export function TaskDetails() {
     const { onCloseModal } = useOutletContext()
     const currGroupRef = useRef(null)
 
-    const { boardId } = useParams()
+    // const { boardId } = useParams()
     const { groupId } = useParams()
     const { taskId } = useParams()
 
@@ -225,6 +225,7 @@ export function TaskDetails() {
                             style={{
                                 backgroundImage: task.style.backgroundImage.url,
                                 backgroundColor: task.style.backgroundImage.bgColor || 'rgb(154, 139, 127)',
+                                height: '11em',
                                 backgroundSize: 'contain',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: 'center',
@@ -248,7 +249,7 @@ export function TaskDetails() {
                     )}
 
                     {task.style?.backgroundColor && (
-                        <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}>
+                        <div className="cover" style={{ backgroundColor: task.style.backgroundColor, height: '8em' }}>
                             <div className="cover-btn-top">
                                 <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`} onClick={() => handleToggleModal(`cover-topBtn`)}>
                                     <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
