@@ -25,6 +25,7 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, handleClo
                 <input
                     type="text"
                     value={''}
+                    autoFocus
                     onChange={handleFilterByMember}
                     placeholder="Search members"
                 />

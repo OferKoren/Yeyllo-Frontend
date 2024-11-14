@@ -204,19 +204,6 @@ export function TaskDetails() {
             </div>
         )
 
-    {
-        console.log(task)
-    }
-    {
-        console.log('boardtoedit', boardToEdit.labels)
-    }
-    {
-        console.log('gLabels', gLabels)
-    }
-    {
-        console.log('gMembers', gMembers)
-    }
-
     return (
         <article className="task-details">
             <div className="btn-save-task" onClick={onSaveTask}>
@@ -243,9 +230,16 @@ export function TaskDetails() {
                                 backgroundPosition: 'center',
                             }}
                         >
-                            <div>
-                                <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
-                                    <img src="/img/icons/icon-cover.svg" />
+                            <div className="cover-btn-top">
+                                <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`} onClick={() => handleToggleModal(`cover-topBtn`)}>
+                                    <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            fillRule="evenodd"
+                                            clipRule="evenodd"
+                                            d="M5 5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5ZM19 7H5V13H19V7Z"
+                                            style={{ fill: openModal === 'cover-topBtn' ? '#ffffff' : '#44546f' }}
+                                        />
+                                    </svg>
                                     <span>Cover</span>
                                 </div>
                                 {openModal === 'cover-topBtn' && renderCoverModal()}
@@ -255,9 +249,16 @@ export function TaskDetails() {
 
                     {task.style?.backgroundColor && (
                         <div className="cover" style={{ backgroundColor: task.style.backgroundColor }}>
-                            <div className="">
-                                <div className="btn cover-options" onClick={() => handleToggleModal(`cover-topBtn`)}>
-                                    <img src="/img/icons/icon-cover.svg" />
+                            <div className="cover-btn-top">
+                                <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`} onClick={() => handleToggleModal(`cover-topBtn`)}>
+                                    <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            fillRule="evenodd"
+                                            clipRule="evenodd"
+                                            d="M5 5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5ZM19 7H5V13H19V7Z"
+                                            style={{ fill: openModal === 'cover-topBtn' ? '#ffffff' : '#44546f' }}
+                                        />
+                                    </svg>
                                     <span>Cover</span>
                                 </div>
                                 {openModal === 'cover-topBtn' && renderCoverModal()}
@@ -361,9 +362,8 @@ export function TaskDetails() {
                                     <div className="format-date-and-status">
                                         <span>{formatDate(task.dueDate, task.dueTime)}</span>
                                         <span
-                                            className={`due-date-status ${
-                                                task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
-                                            }`}
+                                            className={`due-date-status ${task.status === 'done' ? 'complete' : statusTask === 'Due soon' ? 'duesoon' : 'overdue'
+                                                }`}
                                         >
                                             {(task.status === 'done' && 'complete') || statusTask}
                                         </span>

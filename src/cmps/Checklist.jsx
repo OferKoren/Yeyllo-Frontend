@@ -121,6 +121,7 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
                         className="adding-todo-title"
                         type="text"
                         placeholder="Add an item"
+                        autoFocus
                         value={newTodoValue}
                         onChange={handleNewTodoChange}
                     />

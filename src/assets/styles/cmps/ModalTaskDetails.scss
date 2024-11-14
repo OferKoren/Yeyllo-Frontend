@@ -9,20 +9,14 @@
     font-size: 1.1em;
     inset: 0;
 
-    display: flex;
     justify-content: center;
 
-    width: max-content;
-
-    border-radius: 0.6em;
-
-    height: max-content;
-    color: var(--crl-font);
-
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: start;
 
-    margin: auto;
+    padding-block: 60px;
+    overflow-y: auto;
+
+    color: var(--crl-font);
     z-index: 3;
 }
