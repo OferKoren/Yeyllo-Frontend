@@ -4,14 +4,15 @@ import { useSelector } from 'react-redux'
 export function Members({ task, setTask, boardMembers, onRemoveMember, handleCloseModal }) {
 
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
+    const [filteredMembers, setFilteredMembers] = useState([...gMembers])
 
     function onAddMember(memberId) {
-
         setTask(prevTask => ({ ...prevTask, memberIds: (!prevTask.memberIds) ? [memberId] : [...prevTask.memberIds, memberId] }))
     }
 
-    function handleFilterByMember() {
-
+    function handleFilterByMember({ target }) {
+        const regExp = new RegExp(target.value, 'i')
+        setFilteredMembers(gMembers.filter(member => regExp.test(member.fullname)))
     }
 
     return (
@@ -24,7 +25,7 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, handleClo
             <div className="members">
                 <input
                     type="text"
-                    value={''}
+                    autoFocus
                     onChange={handleFilterByMember}
                     placeholder="Search members"
                 />
@@ -36,9 +37,10 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, handleClo
                             {task.memberIds && task.memberIds.length !== 0 && task.memberIds.map(memberId => {
 
                                 const memberDetails = gMembers.find(m => m._id === memberId)
+                                { console.log('memberDetails', memberDetails) }
                                 return (
                                     <li key={memberDetails._id} className="member">
-                                        <img src={memberDetails.imgUrl} />
+                                        <img src={memberDetails.imgUrl || ''} />
                                         <span className="member-name">{memberDetails.fullname}</span>
                                         <i className="btn fa-solid fa-xmark left-side" onClick={() => onRemoveMember(memberId)}></i>
                                     </li>
@@ -51,9 +53,10 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, handleClo
 
                 {
                     <div className="board-member-list">
-                        {task.memberIds && task.memberIds.length !== gMembers.length && <h3>Board members</h3>}
+                        {task.memberIds && task.memberIds.length !== gMembers.length &&
+                            <h3>Board members</h3>}
                         <ul className="member-list">
-                            {boardMembers && boardMembers.map(member => {
+                            {filteredMembers && filteredMembers.map(member => {
                                 if (task.memberIds && task.memberIds.length !== 0 && task.memberIds.includes(member._id)) return
                                 else {
                                     return (

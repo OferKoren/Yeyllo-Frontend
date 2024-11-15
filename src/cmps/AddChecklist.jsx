@@ -25,6 +25,7 @@ export function AddChecklist({ setTask, handleCloseModal }) {
                     <input
                         type="text"
                         placeholder="Add an item"
+                        autoFocus
                         value={newChecklist.title}
                         onChange={handleChangeChecklistTitle}
                     />
