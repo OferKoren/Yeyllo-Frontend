@@ -62,7 +62,7 @@ export function RootCmp() {
                 </Routes>
             </main>
             <UserMsg />
-            {location.pathname === '/home' && <AppFooter />}
+            {/* {location.pathname === '/home' && <AppFooter />} */}
         </div>
     )
 }

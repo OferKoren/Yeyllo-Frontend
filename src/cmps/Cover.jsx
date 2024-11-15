@@ -1,7 +1,12 @@
 import ColorThief from 'colorthief'
 import { useEffect, useState, useRef } from 'react'
+import { CoverSize } from '../cmps/CoverSize.jsx'
 
 export function Cover({ setTask, handleCloseModal, task }) {
+    const [coverType, setCoverType] = useState({
+        value: task.style?.backgroundColor || task.style?.backgroundImage.url || '',
+        type: task.style?.backgroundColor ? 'color' : task.style?.backgroundImage ? 'image' : ''
+    })
 
     const colorPalette = [
         '#4BCE97', '#F5CD47', '#FEA362', '#F87168', '#9F8FEF',
@@ -41,8 +46,9 @@ export function Cover({ setTask, handleCloseModal, task }) {
 
     function onSetCover(cover, type) {
         if (type === 'color') {
+            setCoverType({ value: cover, type: 'color' })
             setTask(prevTask => {
-                if (prevTask.style?.backgroundImage) {
+                if (prevTask.style?.backgroundImage && prevTask.style?.backgroundImage.source === 'fromAttach') {
                     const updatedAttachments = prevTask.attachments.map(file =>
                         (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file))
                     return { ...prevTask, attachments: updatedAttachments, style: { backgroundColor: cover } }
@@ -50,9 +56,8 @@ export function Cover({ setTask, handleCloseModal, task }) {
                 return ({ ...prevTask, style: { backgroundColor: cover } })
             })
         } else {
-            // setTask(prevTask => ({ ...prevTask, style: { backgroundImage: { ...cover } } }))
+            setCoverType({ value: cover.url, type: 'image' })
             setTask(prevTask => {
-
                 if (cover.source === 'fromAttach') {
                     const updatedAttachments = prevTask.attachments.map(file =>
                         (file.id === cover.imgId ? { ...file, isCover: true } : file)
@@ -71,28 +76,17 @@ export function Cover({ setTask, handleCloseModal, task }) {
                 delete updatedTask.style
                 return updatedTask
             } else {
-                const updatedAttachments = updatedTask.attachments.map(file =>
-                    (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
-                )
+                if (prevTask.style.backgroundImage.source === 'fromAttach') {
+                    const updatedAttachments = updatedTask.attachments.map(file =>
+                        (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
+                    )
+                    delete updatedTask.style
+                    return { ...updatedTask, attachments: updatedAttachments }
+                }
                 delete updatedTask.style
-                return { ...updatedTask, attachments: updatedAttachments }
+                return { ...updatedTask }
             }
         })
-        // setTask(prevTask => {
-        //     const updatedTask = { ...prevTask }
-        //     delete updatedTask.style
-        //     return updatedTask
-        // })
-
-        // if (prevTask.style.backgroundImage.source === 'fromAttach') {
-        //     const updatedAttachments = updatedTask.attachments.map(file =>
-        //         (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
-        //     )
-        //     delete updatedTask.style
-        //     return { ...updatedTask, attachments: updatedAttachments }
-        // }
-        // delete updatedTask.style
-        // return { ...updatedTask }
     }
 
 
@@ -104,12 +98,20 @@ export function Cover({ setTask, handleCloseModal, task }) {
             </div>
 
             <div className="cover-colors">
-                <h3>Colors</h3>
-                <div className="color-palette">
-                    {colorPalette.map(color =>
-                        <div key={color} style={{ backgroundColor: color }}
-                            onClick={() => onSetCover(color, 'color')}></div>
-                    )}
+                <div>
+                    <h3>Size</h3>
+                    <CoverSize coverType={coverType} setTask={setTask} task={task} />
+                </div>
+                <button className="btn btn-remove-cover-color btn-clear" onClick={() => onRemoveCover()}>Remove cover</button>
+                <div>
+                    <h3>Colors</h3>
+                    <div className="color-palette">
+
+                        {colorPalette.map(color =>
+                            <div key={color} style={{ backgroundColor: color }}
+                                onClick={() => onSetCover(color, 'color')}></div>
+                        )}
+                    </div>
                 </div>
 
                 {task.attachments?.length > 0 &&
@@ -135,7 +137,7 @@ export function Cover({ setTask, handleCloseModal, task }) {
 
                 <div>
                     <h3>Photos from Unsplash</h3>
-                    <div className="color-palette">
+                    <div className="images-palette">
                         {bgImages.map(img =>
                             <div key={img.id}
 
@@ -150,8 +152,6 @@ export function Cover({ setTask, handleCloseModal, task }) {
                         )}
                     </div>
                 </div>
-
-                <button className="btn btn-remove-cover-color btn-clear" onClick={() => onRemoveCover()}>Remove cover</button>
             </div>
         </div>
     )

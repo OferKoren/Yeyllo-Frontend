@@ -30,7 +30,7 @@
     height: calc(100vh - 3.5rem - 50px);
     // height: 100%;
 
-    li:first-child {
+    li:first-child:not(.label, .member, .attachment-action-item, .react-datepicker__time-list-item) {
         margin-inline-start: 1em;
     }
 
@@ -65,7 +65,7 @@
         max-height: calc(100vh - 3.5rem - 2.5rem);
     }
 
-    li:not(.label, .member, .attachment-action-item) {
+    li:not(.label, .member, .attachment-action-item, .react-datepicker__time-list-item) {
         width: rem(264px);
 
         // &.group-list-li{

@@ -2,7 +2,7 @@ export function HomePage() {
     return (
         <section className="homepage full main-container">
             <div className="homepage-content1">
-                <div className>
+                <div>
                     <h1>Trello brings all your tasks, teammates, and tools together</h1>
                     <p>Keep everything in the same place—even if your team isn’t.</p>
                 </div>

@@ -4,11 +4,21 @@ import { NavLink } from 'react-router-dom'
 export function LoginSignup() {
     return (
         <div className="login-page">
-            <nav>
-                <NavLink to=".">Login</NavLink>
-                <NavLink to="signup">Signup</NavLink>
-            </nav>
-            <Outlet/>
+            <div className='login-signup-container'>
+                <div className='logo'>
+                    <img src="\img\general\trello-logo-static.gif" alt="" />
+                    <h2>Yeyllo</h2>
+                </div>
+                <Outlet />
+                {/* <nav>
+                    <NavLink to=".">Login</NavLink>
+                    <NavLink to="signup">Signup</NavLink>
+                </nav> */}
+            </div>
+            <div className='login-background'>
+                <img src="\img\login\trello-left.svg" alt="" />
+                <img src="\img\login\trello-right.svg" alt="" />
+            </div>
         </div>
     )
 }

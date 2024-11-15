@@ -30,13 +30,11 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
 
     function onCloseModal() {
         setTaskModalId('')
-        setTaskModalId('')
         setIsModalOpen(false)
         navigate(`/board/${boardId}`)
     }
 
     function onOpenModal() {
-        setTaskModalId(task.id)
         setTaskModalId(task.id)
         setIsModalOpen(true)
         navigate(`/board/${boardId}/${groupId}/task/${task.id}`)
@@ -104,217 +102,293 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
         }
     }
 
+    function getAttachmentIsCover() {
+        const attachmentIdx = task.attachments.findIndex(attachment => !!attachment.isCover)
+        if (attachmentIdx === -1) return { isCover: false, attachmentIdx }
+        return { isCover: true, attachmentIdx }
+    }
+
     return (
         <>
-            <article
-                style={{ rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }}
-                onClick={onOpenModal}
-                className="task-preview"
-            >
-                {task.style ? <div className="task-color" style={{ ...task.style }}></div> : ''}
-                {task.labelIds ? (
-                    <section style={{ marginBlockEnd: '0.5em' }} className="labels-task-preview">
-                        {task.labelIds.map((labelId) => {
-                            const currLabel = labels.find((label) => label.id === labelId)
-                            return isLabelsClicked ? (
-                                <div
-                                    key={labelId}
-                                    onClick={(ev) => {
-                                        ev.stopPropagation()
-                                        setIsLabelsClicked((isClicked) => !isClicked)
-                                    }}
-                                    style={{
-                                        textAlign: 'center',
-                                        transition: '200ms',
-                                        fontFamily: 'roboto-bold',
-                                        color: currLabel.fontColor,
-                                        fontSize: '0.8em',
-                                        marginRight: '0.3em',
-                                        backgroundColor: currLabel.color,
-                                        minWidth: '60px',
-                                        maxWidth: 'max-content',
-                                        height: '17px',
-                                        padding: '0px 8px',
-                                        borderRadius: '4px',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    {currLabel.title}
-                                </div>
-                            ) : (
-                                <div
-                                    key={labelId}
-                                    onClick={(ev) => {
-                                        ev.stopPropagation()
-                                        setIsLabelsClicked((isClicked) => !isClicked)
-                                    }}
-                                    style={{
-                                        transition: '200ms',
-                                        marginRight: '0.3em',
-                                        backgroundColor: currLabel.color,
-                                        width: '40px',
-                                        height: '8px',
-                                        padding: '0px 8px',
-                                        borderRadius: '4px',
-                                    }}
-                                ></div>
-                            )
-                        })}
-                    </section>
-                ) : (
-                    ''
-                )}
-                {task.title}
-                <div
-                    className="icons-list"
+            {task.coverSize === 'full'
+                ? <article
                     style={{
-                        justifyContent: 'space-between',
-                        paddingBottom: '0.4em',
-                        display: 'flex',
-                        flexDirection: getCountIcons() <= 6 ? 'row' : 'column',
-                        gap: '0.6em',
+                        rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '',
+                        height: '138px',
+                        padding: 0,
+
+
                     }}
+                    onClick={onOpenModal}
+                    className="task-preview cover-size-full"
                 >
-                    <section className="left-side-btns flex align-center" style={{ marginTop: '0.5em', gap: '0.6em' }}>
-                        {task.dueDate ? (
-                            isDone ? (
-                                <div
-                                    onClick={onDateClick}
-                                    className="date-btn flex align-center"
-                                    title={getDateColor(new Date(task.dueDate)).title}
-                                    style={{ gap: '0.4em', ...getDateColor(new Date(task.dueDate)) }}
-                                >
-                                    <svg
-                                        width="17"
-                                        height="17"
-                                        role="presentation"
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
+                    {/* <div className='background' style={{
+                        backgroundImage: `url(${task.attachments && getAttachmentIsCover().isCover ? task.attachments[getAttachmentIsCover().attachmentIdx] : task?.style?.backgroundImage?.url})`,
+                        // backgroundColor: task.style?.backgroundImage?.url.bgColor || 'rgb(154, 139, 127)',
+                        display: 'block',
+                        height: '100%',
+                        width: '100%',
+                        borderRadius: '0.4em',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                    }}></div> */}
+                    {task.attachments && getAttachmentIsCover().isCover
+                        ? <div className="background" style={{
+                            backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx].url})`,
+                            backgroundColor: task.attachments[getAttachmentIsCover().attachmentIdx].bgColor || 'rgb(154, 139, 127)',
+                            display: 'block',
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '0.4em',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                        }}></div>
+                        : task.style ? task.style.backgroundColor ? <div className="background" style={{ ...task.style }}></div> : <div className="background" style={{
+                            backgroundImage: `${task.style.backgroundImage.url}`,
+                            backgroundColor: task.style.backgroundImage.url.bgColor || 'rgb(154, 139, 127)',
+                            display: 'block',
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '0.4em',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                        }}></div> : ''}
+                    <div className='title' >{task.title}</div>
+                </article>
+
+
+                : <article
+                    style={{ rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }}
+                    onClick={onOpenModal}
+                    className="task-preview"
+                >
+                    {task.attachments && getAttachmentIsCover().isCover
+                        ? <div className="task-color" style={{
+                            backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx].url})`,
+                            backgroundColor: task.attachments[getAttachmentIsCover().attachmentIdx].bgColor || 'rgb(154, 139, 127)',
+                            display: 'block',
+                            width: '',
+                            height: '194px',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                        }}></div>
+                        : task.style ? task.style.backgroundColor ? <div className="task-color" style={{ ...task.style }}></div> : <div className="task-color" style={{
+                            backgroundImage: `${task.style.backgroundImage.url}`,
+                            backgroundColor: task.style.backgroundImage.url.bgColor || 'rgb(154, 139, 127)',
+                            display: 'block',
+                            width: '',
+                            height: '194px',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                        }}></div> : ''}
+                    {task.labelIds ? (
+                        <section style={{ marginBlockEnd: '0.5em' }} className="labels-task-preview">
+                            {task.labelIds.map((labelId) => {
+                                const currLabel = labels.find((label) => label.id === labelId)
+                                return isLabelsClicked ? (
+                                    <div
+                                        key={labelId}
+                                        onClick={(ev) => {
+                                            ev.stopPropagation()
+                                            setIsLabelsClicked((isClicked) => !isClicked)
+                                        }}
+                                        style={{
+                                            textAlign: 'center',
+                                            transition: '200ms',
+                                            fontFamily: 'roboto-bold',
+                                            color: currLabel.fontColor,
+                                            fontSize: '0.8em',
+                                            marginRight: '0.3em',
+                                            backgroundColor: currLabel.color,
+                                            minWidth: '60px',
+                                            maxWidth: 'max-content',
+                                            height: '17px',
+                                            padding: '0px 8px',
+                                            borderRadius: '4px',
+                                            justifyContent: 'center',
+                                        }}
                                     >
-                                        <path
-                                            d="M13 6C13 5.44772 12.5523 5 12 5C11.4477 5 11 5.44772 11 6V12C11 12.2652 11.1054 12.5196 11.2929 12.7071L13.7929 15.2071C14.1834 15.5976 14.8166 15.5976 15.2071 15.2071C15.5976 14.8166 15.5976 14.1834 15.2071 13.7929L13 11.5858V6Z"
-                                            fill="currentColor"
-                                        />
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
-                                            fill={getDateColor(new Date(task.dueDate)).color}
-                                        />
-                                    </svg>
-                                    <div className="checkbox">
+                                        {currLabel.title}
+                                    </div>
+                                ) : (
+                                    <div
+                                        key={labelId}
+                                        onClick={(ev) => {
+                                            ev.stopPropagation()
+                                            setIsLabelsClicked((isClicked) => !isClicked)
+                                        }}
+                                        style={{
+                                            transition: '200ms',
+                                            marginRight: '0.3em',
+                                            backgroundColor: currLabel.color,
+                                            width: '40px',
+                                            height: '8px',
+                                            padding: '0px 8px',
+                                            borderRadius: '4px',
+                                        }}
+                                    ></div>
+                                )
+                            })}
+                        </section>
+                    ) : (
+                        ''
+                    )}
+                    {task.title}
+                    <div
+                        className="icons-list"
+                        style={{
+                            justifyContent: 'space-between',
+                            paddingBottom: '0.4em',
+                            display: 'flex',
+                            flexDirection: getCountIcons() <= 6 ? 'row' : 'column',
+                            gap: '0.6em',
+                        }}
+                    >
+                        <section className="left-side-btns flex align-center" style={{ marginTop: '0.5em', gap: '0.6em' }}>
+                            {task.dueDate ? (
+                                isDone ? (
+                                    <div
+                                        onClick={onDateClick}
+                                        className="date-btn flex align-center"
+                                        title={getDateColor(new Date(task.dueDate)).title}
+                                        style={{ gap: '0.4em', ...getDateColor(new Date(task.dueDate)) }}
+                                    >
                                         <svg
-                                            width="24"
-                                            height="24"
+                                            width="17"
+                                            height="17"
                                             role="presentation"
                                             focusable="false"
                                             viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg"
                                         >
                                             <path
+                                                d="M13 6C13 5.44772 12.5523 5 12 5C11.4477 5 11 5.44772 11 6V12C11 12.2652 11.1054 12.5196 11.2929 12.7071L13.7929 15.2071C14.1834 15.5976 14.8166 15.5976 15.2071 15.2071C15.5976 14.8166 15.5976 14.1834 15.2071 13.7929L13 11.5858V6Z"
+                                                fill="currentColor"
+                                            />
+                                            <path
                                                 fillRule="evenodd"
                                                 clipRule="evenodd"
-                                                d="M6 4C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V13C20 12.4477 19.5523 12 19 12C18.4477 12 18 12.4477 18 13V18H6V6L16 6C16.5523 6 17 5.55228 17 5C17 4.44772 16.5523 4 16 4H6ZM8.73534 10.3223C8.36105 9.91618 7.72841 9.89038 7.3223 10.2647C6.91619 10.639 6.89039 11.2716 7.26467 11.6777L10.8768 15.597C11.4143 16.1231 12.2145 16.1231 12.7111 15.6264L13.0754 15.2683C13.3699 14.9785 13.6981 14.6556 14.0516 14.3075C15.0614 13.313 16.0713 12.3169 17.014 11.3848L17.0543 11.3449C18.7291 9.68869 20.0004 8.42365 20.712 7.70223C21.0998 7.30904 21.0954 6.67589 20.7022 6.28805C20.309 5.90022 19.6759 5.90457 19.2881 6.29777C18.5843 7.01131 17.3169 8.27244 15.648 9.92281L15.6077 9.96263C14.6662 10.8937 13.6572 11.8889 12.6483 12.8825L11.8329 13.6851L8.73534 10.3223Z"
+                                                d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
                                                 fill={getDateColor(new Date(task.dueDate)).color}
                                             />
                                         </svg>
+                                        <div className="checkbox">
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                role="presentation"
+                                                focusable="false"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    clipRule="evenodd"
+                                                    d="M6 4C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V13C20 12.4477 19.5523 12 19 12C18.4477 12 18 12.4477 18 13V18H6V6L16 6C16.5523 6 17 5.55228 17 5C17 4.44772 16.5523 4 16 4H6ZM8.73534 10.3223C8.36105 9.91618 7.72841 9.89038 7.3223 10.2647C6.91619 10.639 6.89039 11.2716 7.26467 11.6777L10.8768 15.597C11.4143 16.1231 12.2145 16.1231 12.7111 15.6264L13.0754 15.2683C13.3699 14.9785 13.6981 14.6556 14.0516 14.3075C15.0614 13.313 16.0713 12.3169 17.014 11.3848L17.0543 11.3449C18.7291 9.68869 20.0004 8.42365 20.712 7.70223C21.0998 7.30904 21.0954 6.67589 20.7022 6.28805C20.309 5.90022 19.6759 5.90457 19.2881 6.29777C18.5843 7.01131 17.3169 8.27244 15.648 9.92281L15.6077 9.96263C14.6662 10.8937 13.6572 11.8889 12.6483 12.8825L11.8329 13.6851L8.73534 10.3223Z"
+                                                    fill={getDateColor(new Date(task.dueDate)).color}
+                                                />
+                                            </svg>
+                                        </div>
+                                        {<span style={{ fontSize: '0.9em' }}>{formatDate(new Date(task.dueDate))}</span>}
                                     </div>
-                                    {<span style={{ fontSize: '0.9em' }}>{formatDate(new Date(task.dueDate))}</span>}
+                                ) : (
+                                    <div
+                                        onClick={onDateClick}
+                                        className="date-btn flex align-center"
+                                        title={getDateColor(new Date(task.dueDate)).title}
+                                        style={{ gap: '0.4em', ...getDateColor(new Date(task.dueDate)) }}
+                                    >
+                                        <svg
+                                            width="17"
+                                            height="17"
+                                            role="presentation"
+                                            focusable="false"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M13 6C13 5.44772 12.5523 5 12 5C11.4477 5 11 5.44772 11 6V12C11 12.2652 11.1054 12.5196 11.2929 12.7071L13.7929 15.2071C14.1834 15.5976 14.8166 15.5976 15.2071 15.2071C15.5976 14.8166 15.5976 14.1834 15.2071 13.7929L13 11.5858V6Z"
+                                                fill="currentColor"
+                                            />
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
+                                                fill={getDateColor(new Date(task.dueDate)).color}
+                                            />
+                                        </svg>
+                                        <div className="checkbox">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                fill={getDateColor(new Date(task.dueDate)).color}
+                                            >
+                                                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z" />
+                                            </svg>
+                                        </div>
+                                        {<span style={{ fontSize: '0.9em' }}>{formatDate(new Date(task.dueDate))}</span>}
+                                    </div>
+                                )
+                            ) : (
+                                ''
+                            )}
+                            {task.description ? (
+                                <img title="This card has a description" src="\img\board-details\description-icon.png" alt="description" />
+                            ) : (
+                                ''
+                            )}
+                            {task.comments ? (
+                                <div title="Comments" className="flex align-center">
+                                    <img src="\img\board-details\chat-icon.svg" alt="comments" />{' '}
+                                    {<span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{task.comments.length}</span>}{' '}
                                 </div>
                             ) : (
-                                <div
-                                    onClick={onDateClick}
-                                    className="date-btn flex align-center"
-                                    title={getDateColor(new Date(task.dueDate)).title}
-                                    style={{ gap: '0.4em', ...getDateColor(new Date(task.dueDate)) }}
-                                >
-                                    <svg
-                                        width="17"
-                                        height="17"
-                                        role="presentation"
-                                        focusable="false"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M13 6C13 5.44772 12.5523 5 12 5C11.4477 5 11 5.44772 11 6V12C11 12.2652 11.1054 12.5196 11.2929 12.7071L13.7929 15.2071C14.1834 15.5976 14.8166 15.5976 15.2071 15.2071C15.5976 14.8166 15.5976 14.1834 15.2071 13.7929L13 11.5858V6Z"
-                                            fill="currentColor"
-                                        />
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
-                                            fill={getDateColor(new Date(task.dueDate)).color}
-                                        />
-                                    </svg>
-                                    <div className="checkbox">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            height="24px"
-                                            viewBox="0 -960 960 960"
-                                            width="24px"
-                                            fill={getDateColor(new Date(task.dueDate)).color}
-                                        >
-                                            <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z" />
-                                        </svg>
-                                    </div>
-                                    {<span style={{ fontSize: '0.9em' }}>{formatDate(new Date(task.dueDate))}</span>}
+                                ''
+                            )}
+                            {task.attachments ? (
+                                <div title="Attachments" className="flex align-center">
+                                    <img src="\img\board-details\attachment-icon.svg" alt="attachments" />{' '}
+                                    {<span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{task.attachments.length}</span>}{' '}
                                 </div>
-                            )
-                        ) : (
-                            ''
-                        )}
-                        {task.description ? (
-                            <img title="This card has a description" src="\img\board-details\description-icon.png" alt="description" />
-                        ) : (
-                            ''
-                        )}
-                        {task.comments ? (
-                            <div title="Comments" className="flex align-center">
-                                <img src="\img\board-details\chat-icon.svg" alt="comments" />{' '}
-                                {<span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{task.comments.length}</span>}{' '}
-                            </div>
-                        ) : (
-                            ''
-                        )}
-                        {task.attachments ? (
-                            <div title="Attachments" className="flex align-center">
-                                <img src="\img\board-details\attachment-icon.svg" alt="attachments" />{' '}
-                                {<span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{task.attachments.length}</span>}{' '}
-                            </div>
-                        ) : (
-                            ''
-                        )}
-                        {task.checklists ? (
-                            <div title="Checklist items" className="flex align-center">
-                                <img src="\img\board-details\checkbox-icon.svg" alt="checkbox" />
-                                <span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{`${getDoneTodosCount(task)}/${getTodosCount(
-                                    task
-                                )}`}</span>
-                            </div>
-                        ) : (
-                            ''
-                        )}
-                    </section>
-                    <section
-                        className="right-side-members flex align-center"
-                        style={{
-                            marginTop: '0.5em',
-                            gap: '0.6em',
-                            alignContent: 'right',
-                            justifyContent: 'right',
-                            paddingBottom: '0.2em',
-                            paddingLeft: '0.4em',
-                        }}
-                    >
-                        {task.memberIds?.map((memberId) => {
-                            const currMember = board?.members?.find((member) => member._id === memberId)
-                            return <img title={currMember?.fullname} key={currMember?._id} src={currMember?.imgUrl} alt="member-icon" />
-                        })}
-                    </section>
-                </div>
-            </article>
+                            ) : (
+                                ''
+                            )}
+                            {task.checklists ? (
+                                <div title="Checklist items" className="flex align-center">
+                                    <img src="\img\board-details\checkbox-icon.svg" alt="checkbox" />
+                                    <span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{`${getDoneTodosCount(task)}/${getTodosCount(
+                                        task
+                                    )}`}</span>
+                                </div>
+                            ) : (
+                                ''
+                            )}
+                        </section>
+                        <section
+                            className="right-side-members flex align-center"
+                            style={{
+                                marginTop: '0.5em',
+                                gap: '0.6em',
+                                alignContent: 'right',
+                                justifyContent: 'right',
+                                paddingBottom: '0.2em',
+                                paddingLeft: '0.4em',
+                            }}
+                        >
+                            {task.memberIds?.map((memberId) => {
+                                const currMember = board?.members?.find((member) => member._id === memberId)
+                                return <img title={currMember?.fullname} key={currMember?._id} src={currMember?.imgUrl} alt="member-icon" />
+                            })}
+                        </section>
+                    </div>
+                </article>}
 
             {isModalOpen && task.id === taskModalId ? (
                 <ModalTaskDetails onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true}>

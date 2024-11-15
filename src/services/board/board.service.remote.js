@@ -5,10 +5,11 @@ export const boardService = {
     getById,
     save,
     remove,
-    addBoardMsg
+    addBoardMsg,
+    uploadImg
 }
 
-async function query(filterBy = { txt: '', price: 0 }) {
+async function query(filterBy = {}) {
     return httpService.get(`board`, filterBy)
 }
 
@@ -32,4 +33,22 @@ async function save(board) {
 async function addBoardMsg(boardId, txt) {
     const savedMsg = await httpService.post(`board/${boardId}/msg`, { txt })
     return savedMsg
+}
+
+async function uploadImg(imgData) {
+    const CLOUD_NAME = 'webify'
+    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+    const formData = new FormData()
+    formData.append('file', imgData)
+    formData.append('upload_preset', 'webify')
+    try {
+        const res = await fetch(UPLOAD_URL, {
+            method: 'POST',
+            body: formData,
+        })
+        const data = await res.json()
+        return data.secure_url
+    } catch (err) {
+        console.log(err)
+    }
 }
