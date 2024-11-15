@@ -26,6 +26,7 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
 
     async function onAddTask(ev) {
         if (ev) ev.preventDefault()
+        if(isModalOpen) return 
         if (!taskTitle) return onCloseEditTitle()
         // if (!taskTitle) return alert('Text field is required')
 
@@ -46,11 +47,12 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
     }
 
     function onCloseEditTitle() {
+        if(isModalOpen) return setTaskTitle('')
         setIsAddTaskClicked(isClicked => !isClicked)
         setTaskTitle('')
     }
 
-    function onBlurAddTaskInput() {
+    function onBlurAddTaskInput(ev) {
         if (!taskTitle) return onCloseEditTitle()
         onAddTask()
     }
@@ -81,7 +83,7 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                 :
                 <section className="task-list add-task-option">
                     {tasks.map((task, index) =>
-                        <Draggable draggableId={task.id} index={index} key={task.id}>
+                        <Draggable isDragDisabled={isModalOpen} draggableId={task.id} index={index} key={task.id}>
                             {(provided, snapshot) => (
                                 <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
                                     <TaskPreview snapshot={snapshot} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
@@ -93,10 +95,10 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                     {/* <ClickOutside
                         onSubmit={onAddTask} onClick={()=>onAddTask()}
                     > */}
-                        <div className="add-task-container">
+                        <div className="add-task-container" onBlur={onBlurAddTaskInput}>
                             <form onSubmit={onAddTask}>
                                 {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
-                                <input autoFocus onBlur={onBlurAddTaskInput} type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
+                                <input autoFocus  type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
                                 <div className="add-group-btns">
                                     <button>Add card</button>
                                     <button className="close-btn-x add-card-close" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon-dark.png" alt="" /></button>
