@@ -48,23 +48,19 @@ export function Cover({ setTask, handleCloseModal, task }) {
         if (type === 'color') {
             setCoverType({ value: cover, type: 'color' })
             setTask(prevTask => {
-                if (prevTask.style?.backgroundImage && prevTask.style?.backgroundImage.source === 'fromAttach') {
-                    const updatedAttachments = prevTask.attachments.map(file =>
-                        (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file))
-                    return { ...prevTask, attachments: updatedAttachments, style: { backgroundColor: cover } }
-                }
-                return ({ ...prevTask, style: { backgroundColor: cover } })
+                const updatedAttachments = prevTask.attachments?.map(file => ({ ...file, isCover: false }))
+                return { ...prevTask, attachments: updatedAttachments, style: { backgroundColor: cover } }
             })
         } else {
             setCoverType({ value: cover.url, type: 'image' })
             setTask(prevTask => {
-                if (cover.source === 'fromAttach') {
-                    const updatedAttachments = prevTask.attachments.map(file =>
-                        (file.id === cover.imgId ? { ...file, isCover: true } : file)
-                    )
-                    return { ...prevTask, attachments: updatedAttachments, style: { backgroundImage: { ...cover } } }
+                let updatedAttachments
+                if (cover.source === 'fromUnsplash') {
+                    updatedAttachments = prevTask.attachments.map(file => ({ ...file, isCover: false }))
+                } else {
+                    updatedAttachments = prevTask.attachments.map(file => (file.id === cover.imgId ? { ...file, isCover: true } : { ...file, isCover: false }))
                 }
-                return { ...prevTask, style: { backgroundImage: { ...cover } } }
+                return { ...prevTask, attachments: updatedAttachments, style: { backgroundImage: { ...cover } } }
             })
         }
     }
@@ -73,17 +69,17 @@ export function Cover({ setTask, handleCloseModal, task }) {
         setTask(prevTask => {
             const updatedTask = { ...prevTask }
             if (prevTask.style.backgroundColor) {
-                delete updatedTask.style
+                delete updatedTask.style.backgroundColor
                 return updatedTask
             } else {
                 if (prevTask.style.backgroundImage.source === 'fromAttach') {
                     const updatedAttachments = updatedTask.attachments.map(file =>
                         (file.id === prevTask.style.backgroundImage.imgId ? { ...file, isCover: false } : file)
                     )
-                    delete updatedTask.style
+                    delete updatedTask.style.backgroundImage
                     return { ...updatedTask, attachments: updatedAttachments }
                 }
-                delete updatedTask.style
+                delete updatedTask.style.backgroundImage
                 return { ...updatedTask }
             }
         })
@@ -148,7 +144,7 @@ export function Cover({ setTask, handleCloseModal, task }) {
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
                                 }}
-                                onClick={() => onSetCover({ url: `url(${img.url})`, bgColor: img.bgColor, imgId: img.idת, source: 'fromSplash' }, 'image')}></div>
+                                onClick={() => onSetCover({ url: `url(${img.url})`, bgColor: img.bgColor, imgId: img.idת, source: 'fromUnsplash' }, 'image')}></div>
                         )}
                     </div>
                 </div>
