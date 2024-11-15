@@ -218,7 +218,9 @@ export function TaskDetails() {
     }
 
     return (
-        <article className="task-details">
+        <>
+        <div onClick={onSaveTask} className='task-details-backdrop' style={{position:'absolute', width: '100vw', height:'100vh', /*pointerEvents:'none',*/zIndex:'-1', backgroundColor:'transparent'}}></div>
+        <article className="task-details" style={{zIndex:'1'}}>
             <div className="btn-save-task" onClick={onSaveTask}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -664,5 +666,7 @@ export function TaskDetails() {
                 </div>
             </section>
         </article>
+        </>
+
     )
 }
