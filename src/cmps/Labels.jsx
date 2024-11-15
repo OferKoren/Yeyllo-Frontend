@@ -45,10 +45,10 @@ export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleClose
             <div className="modal-option task-labels">
                 <div className="task-labels-header option-modal-header">
                     <h2>Labels</h2>
-                    <i className="btn fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>
+                    <i className="btn left-side" onClick={handleCloseModal}><img src="/img/general/x-icon.svg" /></i>
                 </div>
 
-                <div className="labels-container">
+                <div className="labels-container option-modal-container">
                     <h3>Labels</h3>
                     {gLabels.map((label) => {
                         const taskLabel = task.labelIds?.find(labelId => labelId === label.id)
@@ -63,10 +63,13 @@ export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleClose
                             />
                             <label className="task-label"
                                 htmlFor={label.id}
-                                style={{ backgroundColor: label.color }}>
+                                style={{ backgroundColor: label.color }}
+                                onChange={() => toggleLabel({ ...label, title: (gLabel?.title || '') })}>
                                 {<div>{gLabel?.title || ''}</div>}
                             </label>
-                            <img src="/img/icons/icon-pencil.svg" onClick={() => { setIsEditLabel(prev => !prev); setLabelToEdit({ ...label, title: (gLabel?.title || '') }) }} />
+                            <div className="pencil-edit-label">
+                                <img src="/img/icons/icon-pencil.svg" onClick={() => { setIsEditLabel(prev => !prev); setLabelToEdit({ ...label, title: (gLabel?.title || '') }) }} />
+                            </div>
                         </div>)
                     })}
                 </div>

@@ -5,7 +5,7 @@
 
     .checkbox-label {
         display: flex;
-        gap: 0.5em;
+        gap: 0.6em;
 
         .task-label {
             width: 100%;
@@ -13,11 +13,25 @@
             border-radius: 0.2em;
             font-size: 0.9rem;
             padding: 0.2em 0 0 0.6em;
+            cursor: pointer;
         }
 
-        & img {
-            width: 1em;
+        &:hover {
+            opacity: 0.8;
+        }
 
+        .pencil-edit-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2em;
+            padding: 0.3em;
+            border-radius: 0.2em;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $clr-bg1-light;
+            }
         }
     }
 }
