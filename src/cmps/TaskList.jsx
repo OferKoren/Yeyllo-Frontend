@@ -34,6 +34,7 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
             const newTask = {
                 id: makeId(),
                 title: taskTitle,
+                coverSize:'half',
             }
             board.groups[currGroupIdx].tasks.push(newTask)
             await onUpdateBoard(board)

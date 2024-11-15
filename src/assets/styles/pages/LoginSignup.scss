@@ -1,10 +1,27 @@
 .login-page {
+	position: relative;
 	place-self: center;
 	display: grid;
 	justify-content: center;
 	width: 100%;
 	height: 100%;
 	text-align: center;
+
+	.login-background {
+		position: fixed;
+		display: flex;
+		justify-content: space-between;
+		
+		width: 100vw;
+		bottom: 0;
+		left: 0;
+		
+		z-index: -1;
+
+		img {
+			width: 18em;
+		}
+	}
 }
 
 .login-signup-container {
@@ -179,8 +196,6 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-
-
 		}
 
 		label {

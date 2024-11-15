@@ -15,6 +15,10 @@ export function LoginSignup() {
                     <NavLink to="signup">Signup</NavLink>
                 </nav> */}
             </div>
+            <div className='login-background'>
+                <img src="\img\login\trello-left.svg" alt="" />
+                <img src="\img\login\trello-right.svg" alt="" />
+            </div>
         </div>
     )
 }
