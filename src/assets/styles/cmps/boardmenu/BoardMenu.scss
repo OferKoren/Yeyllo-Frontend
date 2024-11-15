@@ -25,7 +25,9 @@
     position: absolute;
     transition: 0.4s;
     background-color: white;
-    box-shadow: 0 8px 12px #091e4226, 0 0 1px #091e424f;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     .menu-header {
         position: sticky;
         padding: 0 12px;
@@ -40,12 +42,17 @@
             color: $contentClr;
             transform: translate(0, 8px);
         }
+        .return-btn {
+            transition: 0.2s;
+            transform: translate(-40px, 8px);
+            &.active {
+                transform: translate(0, 8px);
+            }
+        }
     }
     .menu-body {
         overflow-y: scroll; /* Forces a vertical scrollbar */
-        max-height: 70vh;
-
-        width: 100%;
+        flex-grow: 1;
         padding: rem(15px) rem(12px) rem(8px) rem(9.5px);
         li {
             margin-block-end: rem(4px);
@@ -84,6 +91,18 @@
                 border-radius: rem(3px);
             }
             text-align: left;
+        }
+        .left {
+            transform: translateX(-100%);
+        }
+        .right {
+            transform: translateX(100%);
+        }
+        div.wrapper.no-transition {
+            transition: none;
+        }
+        .wrapper {
+            transition: 0.2s;
         }
     }
     &.shrink {

@@ -4,12 +4,17 @@ import ClickOutside from '../../ClickOutside'
 import { CloseBoard } from './CloseBoard'
 import { MakeTemplate } from './MakeTemplate'
 import { CopyBoard } from './CopyBoard'
+import { FirstBgMenu } from './FirstBackgroundMenu'
+import { SecondBgMenu } from './SecondBackgroundMenu'
 
 export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     const [width, setWidth] = useState('0px')
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [whichModal, setWhichModal] = useState('')
+    const [whichMenu, setWhichMenu] = useState(['main-menu'])
     const [position, setPosition] = useState()
+    const wrapperRef = useRef()
+    const returnRef = useRef()
     function onCloseModal() {
         setIsModalOpen(false)
         setWhichModal('')
@@ -39,6 +44,59 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 return <></>
         }
     }
+    function getMenuContent() {
+        switch (whichMenu[0]) {
+            case 'main-menu':
+                return <MainMenu />
+            case 'first-bg-menu':
+                return <FirstBgMenu onEnterMenu={onEnterMenu} />
+            case 'second-bg-menu-colors':
+                return <SecondBgMenu option="colors" />
+            case 'second-bg-menu-photos':
+                return <SecondBgMenu option="photos" />
+            default:
+                return <></>
+        }
+    }
+
+    function onEnterMenu(menuOption, args) {
+        wrapperRef.current.classList.add('left')
+        setTimeout(() => {
+            wrapperRef.current.classList.remove('left')
+            setWhichMenu((prevMenu) => [menuOption, ...prevMenu])
+            wrapperRef.current.classList.add('no-transition')
+            wrapperRef.current.classList.add('right')
+
+            setTimeout(() => {
+                wrapperRef.current.classList.remove('no-transition')
+                wrapperRef.current.classList.remove('right')
+            }, 50)
+        }, 50)
+    }
+
+    function returnMenu() {
+        if (whichMenu.length === 2) returnRef.current.classList.remove('active')
+        wrapperRef.current.classList.add('right')
+        setTimeout(() => {
+            wrapperRef.current.classList.remove('right')
+            setWhichMenu((prevMenu) => {
+                const newMenu = [...prevMenu]
+                newMenu.shift()
+                console.log(newMenu)
+                return [...newMenu]
+            })
+            wrapperRef.current.classList.add('no-transition')
+            wrapperRef.current.classList.add('left')
+
+            setTimeout(() => {
+                wrapperRef.current.classList.remove('no-transition')
+                wrapperRef.current.classList.remove('left')
+            }, 50)
+        }, 50)
+    }
+    useEffect(() => {
+        if (whichMenu.length === 2) returnRef.current.classList.add('active')
+    }, [whichMenu])
     useEffect(() => {
         setWidth('340px')
     }, [])
@@ -47,11 +105,17 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     }, [isShrink])
     const dynamicClass = isShrink ? 'shrink' : ''
     if (!board) return
+    console.log(whichMenu)
     return (
         <div className={`board-menu-wrapper`}>
             <div className={`placeholder-div ${dynamicClass}`} style={{ width: width }}></div>
             <section className={`board-menu  ${dynamicClass}`}>
                 <header className="menu-header header">
+                    {whichMenu.length > 1 && (
+                        <button ref={returnRef} className="modal-btn return-btn" onClick={returnMenu}>
+                            <ArrowLeft />
+                        </button>
+                    )}
                     <h3>
                         <span>menu</span>
                     </h3>
@@ -61,89 +125,8 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 </header>
                 <hr className="thin" />
                 <section className="menu-body">
-                    <div className={'main-menu'}>
-                        <ul>
-                            <li>
-                                <button className="modal-btn menu-btn info">
-                                    <InfoIcon />
-                                    <div>
-                                        about this board
-                                        <div>Add a description to your board</div>
-                                    </div>
-                                </button>
-                            </li>
-
-                            <li>
-                                <button className="modal-btn menu-btn">
-                                    <ActivityIcon />
-
-                                    <div>activity</div>
-                                </button>
-                            </li>
-
-                            <li>
-                                <button className="modal-btn menu-btn">
-                                    <ArchiveIcon />
-                                    <div>Archived items</div>
-                                </button>
-                            </li>
-                            <hr className="semi-thin" />
-                            <li>
-                                <button className="modal-btn menu-btn">
-                                    <SettingIcon />
-                                    <div>settings</div>
-                                </button>
-                            </li>
-                            <li>
-                                <button className="modal-btn menu-btn">
-                                    <div className="background" style={board.style}></div>
-                                    <div>change background</div>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    className="modal-btn menu-btn"
-                                    onClick={(ev) => {
-                                        onToggleModal('make template')
-                                        if (!isModalOpen) {
-                                            onSetPosition(ev)
-                                        }
-                                    }}
-                                >
-                                    <MakeTemplateIcon />
-                                    <div>make template</div>
-                                </button>
-                            </li>
-                            <hr className="semi-thin" />
-                            <li>
-                                <button
-                                    className="modal-btn menu-btn"
-                                    onClick={(ev) => {
-                                        onToggleModal('copy board')
-                                        if (!isModalOpen) {
-                                            onSetPosition(ev)
-                                        }
-                                    }}
-                                >
-                                    <CopyBoardIcon />
-                                    <div>copy board</div>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    className="modal-btn menu-btn"
-                                    onClick={(ev) => {
-                                        onToggleModal('close board?')
-                                        if (!isModalOpen) {
-                                            onSetPosition(ev)
-                                        }
-                                    }}
-                                >
-                                    <CloseBoardIcon />
-                                    <div>close board</div>
-                                </button>
-                            </li>
-                        </ul>
+                    <div className="wrapper" ref={wrapperRef}>
+                        {getMenuContent()}
                     </div>
 
                     <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
@@ -164,6 +147,94 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
             </section>
         </div>
     )
+    function MainMenu() {
+        return (
+            <div className={'main-menu'}>
+                <ul>
+                    <li>
+                        <button className="modal-btn menu-btn info">
+                            <InfoIcon />
+                            <div>
+                                about this board
+                                <div>Add a description to your board</div>
+                            </div>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button className="modal-btn menu-btn">
+                            <ActivityIcon />
+
+                            <div>activity</div>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button className="modal-btn menu-btn">
+                            <ArchiveIcon />
+                            <div>Archived items</div>
+                        </button>
+                    </li>
+                    <hr className="semi-thin" />
+                    <li>
+                        <button className="modal-btn menu-btn">
+                            <SettingIcon />
+                            <div>settings</div>
+                        </button>
+                    </li>
+                    <li>
+                        <button className="modal-btn menu-btn" onClick={() => onEnterMenu('first-bg-menu')}>
+                            <div className="background" style={board.style}></div>
+                            <div>change background</div>
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className="modal-btn menu-btn"
+                            onClick={(ev) => {
+                                onToggleModal('make template')
+                                if (!isModalOpen) {
+                                    onSetPosition(ev)
+                                }
+                            }}
+                        >
+                            <MakeTemplateIcon />
+                            <div>make template</div>
+                        </button>
+                    </li>
+                    <hr className="semi-thin" />
+                    <li>
+                        <button
+                            className="modal-btn menu-btn"
+                            onClick={(ev) => {
+                                onToggleModal('copy board')
+                                if (!isModalOpen) {
+                                    onSetPosition(ev)
+                                }
+                            }}
+                        >
+                            <CopyBoardIcon />
+                            <div>copy board</div>
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className="modal-btn menu-btn"
+                            onClick={(ev) => {
+                                onToggleModal('close board?')
+                                if (!isModalOpen) {
+                                    onSetPosition(ev)
+                                }
+                            }}
+                        >
+                            <CloseBoardIcon />
+                            <div>close board</div>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        )
+    }
 }
 function XIcon() {
     return (
@@ -302,6 +373,16 @@ function CloseBoardIcon() {
     return (
         <svg width="20" height="20" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="11" width="18" height="2" rx="1" fill="currentColor" />
+        </svg>
+    )
+}
+function ArrowLeft() {
+    return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M7.29289 11.2929L14.364 4.22185C14.7545 3.83132 15.3876 3.83132 15.7782 4.22185C16.1687 4.61237 16.1687 5.24554 15.7782 5.63606L9.41421 12L15.7782 18.364C16.1687 18.7545 16.1687 19.3877 15.7782 19.7782C15.3877 20.1687 14.7545 20.1687 14.364 19.7782L7.29289 12.7071C6.90237 12.3166 6.90237 11.6834 7.29289 11.2929Z"
+                fill="currentColor"
+            />
         </svg>
     )
 }
