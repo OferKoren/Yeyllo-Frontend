@@ -90,20 +90,20 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                         </Draggable>
                     )}
 
-                    <ClickOutside
-                        onSubmit={onAddTask} onClick={onAddTask}
-                    >
+                    {/* <ClickOutside
+                        onSubmit={onAddTask} onClick={()=>onAddTask()}
+                    > */}
                         <div className="add-task-container">
                             <form onSubmit={onAddTask}>
                                 {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
-                                <input autoFocus /*onBlur={onBlurAddTaskInput}*/ type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
+                                <input autoFocus onBlur={onBlurAddTaskInput} type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
                                 <div className="add-group-btns">
                                     <button>Add card</button>
                                     <button className="close-btn-x add-card-close" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon-dark.png" alt="" /></button>
                                 </div>
                             </form>
                         </div>
-                    </ClickOutside>
+                    {/* </ClickOutside> */}
                 </section>
             }
 
