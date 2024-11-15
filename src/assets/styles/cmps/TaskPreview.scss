@@ -20,8 +20,9 @@
         position: relative;
 
         .background{
-            -webkit-mask-image: linear-gradient(black, rgba(0, 0, 0, 0.1));
-            mask-image: linear-gradient(black, rgba(0, 0, 0, 0.1));
+            background: linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, #ffffff 100%);;
+            // -webkit-mask-image: linear-gradient(black, rgba(0, 0, 0, 0.2));
+            // mask-image: linear-gradient(black, rgba(0, 0, 0, 0.2));
         }
 
         .title{

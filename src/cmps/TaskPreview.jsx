@@ -30,13 +30,11 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
 
     function onCloseModal() {
         setTaskModalId('')
-        setTaskModalId('')
         setIsModalOpen(false)
         navigate(`/board/${boardId}`)
     }
 
     function onOpenModal() {
-        setTaskModalId(task.id)
         setTaskModalId(task.id)
         setIsModalOpen(true)
         navigate(`/board/${boardId}/${groupId}/task/${task.id}`)
@@ -124,9 +122,9 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
                     onClick={onOpenModal}
                     className="task-preview cover-size-full"
                 >
-                    <div className='background' style={{
-                        backgroundImage: `${task.attachments && getAttachmentIsCover().isCover ? task.attachments[getAttachmentIsCover().attachmentIdx] : task?.style?.backgroundImage?.url}`,
-                        backgroundColor: task.style?.backgroundImage?.url.bgColor || 'rgb(154, 139, 127)',
+                    {/* <div className='background' style={{
+                        backgroundImage: `url(${task.attachments && getAttachmentIsCover().isCover ? task.attachments[getAttachmentIsCover().attachmentIdx] : task?.style?.backgroundImage?.url})`,
+                        // backgroundColor: task.style?.backgroundImage?.url.bgColor || 'rgb(154, 139, 127)',
                         display: 'block',
                         height: '100%',
                         width: '100%',
@@ -134,7 +132,30 @@ export function TaskPreview({ snapshot, isModalOpen, setIsModalOpen, onUpdateBoa
                         backgroundSize: 'cover',
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
-                    }}></div>
+                    }}></div> */}
+                    {task.attachments && getAttachmentIsCover().isCover
+                        ? <div className="background" style={{
+                            backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx].url})`,
+                            backgroundColor: task.attachments[getAttachmentIsCover().attachmentIdx].bgColor || 'rgb(154, 139, 127)',
+                            display: 'block',
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '0.4em',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                        }}></div>
+                        : task.style ? task.style.backgroundColor ? <div className="background" style={{ ...task.style }}></div> : <div className="background" style={{
+                            backgroundImage: `${task.style.backgroundImage.url}`,
+                            backgroundColor: task.style.backgroundImage.url.bgColor || 'rgb(154, 139, 127)',
+                            display: 'block',
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '0.4em',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                        }}></div> : ''}
                     <div className='title' >{task.title}</div>
                 </article>
 
