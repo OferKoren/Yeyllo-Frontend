@@ -6,6 +6,7 @@ import { MakeTemplate } from './MakeTemplate'
 import { CopyBoard } from './CopyBoard'
 import { FirstBgMenu } from './FirstBackgroundMenu'
 import { SecondBgMenu } from './SecondBackgroundMenu'
+import { ArchiveMenu } from './ArchiveMenu'
 
 export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     const [width, setWidth] = useState('0px')
@@ -55,6 +56,8 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 return <SecondBgMenu option="colors" onUpdateBoard={onUpdateBoard} board={board} />
             case 'second-bg-menu-photos':
                 return <SecondBgMenu option="photos" onUpdateBoard={onUpdateBoard} board={board} />
+            case 'archive':
+                return <ArchiveMenu board={board} onUpdateBoard={onUpdateBoard} />
             default:
                 return <></>
         }
@@ -109,6 +112,9 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 break
             case 'second-bg-menu-photos':
                 setTitle('photos from')
+                break
+            case 'archive':
+                setTitle('archive items')
                 break
             default:
         }
@@ -186,7 +192,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                     </li>
 
                     <li>
-                        <button className="modal-btn menu-btn">
+                        <button className="modal-btn menu-btn" onClick={() => onEnterMenu('archive')}>
                             <ArchiveIcon />
                             <div>Archived items</div>
                         </button>

@@ -33,6 +33,19 @@ function getBackgroundPallet() {
 function getBackgroundEmoji() {
     return boardData.backgroundEmoj
 }
+function getArchivedItems(board) {
+    const archivedItems = board.groups.reduce((acc, group) => {
+        const archivedTasks = group.tasks
+            .filter((task) => task.archivedAt)
+            .map((task) => {
+                return { ...task, groupId: group.id }
+            })
+
+        acc = [...acc, ...archivedTasks]
+        return acc
+    }, [])
+    return archivedItems
+}
 function getDefaultFilter() {
     return {
         // txt: '',
@@ -53,7 +66,7 @@ export function getEmptyGroup() {
 
 const service = VITE_LOCAL === 'true' ? local : remote
 // if (VITE_LOCAL === 'true') console.log('hiiiii')
-export const boardService = { getEmptyBoard, getDefaultFilter, getBackgroundPallet, getBackgroundEmoji, ...service }
+export const boardService = { getEmptyBoard, getDefaultFilter, getBackgroundPallet, getBackgroundEmoji, getArchivedItems, ...service }
 
 // Easy access to this service from the dev tools console
 // when using script - dev / dev:local

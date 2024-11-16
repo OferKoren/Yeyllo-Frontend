@@ -1,0 +1,26 @@
+.board-menu .archive-list {
+    li {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-block-end: 10px;
+    }
+    .btns {
+        display: flex;
+        gap: 10px;
+    }
+    .task-preview {
+        width: 98%;
+        cursor: auto;
+        .task-color {
+            width: 109.3%;
+            transform: translateX(-2px);
+        }
+        &:hover {
+            border: 2px solid $clr-bg1-light;
+            .task-color {
+                border: none;
+            }
+        }
+    }
+}

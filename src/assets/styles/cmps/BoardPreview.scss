@@ -50,8 +50,9 @@
             bottom: 0.625em;
             opacity: 1;
             transition: 200ms;
+            scale: 0.85;
             &:hover {
-                scale: 1.05;
+                scale: 1;
             }
         }
     }
