@@ -6,6 +6,7 @@ import { TaskPreview } from '../../TaskPreview'
 export function ArchiveMenu({ board, onUpdateBoard }) {
     const [archivedItems, setArchivedItems] = useState(boardService.getArchivedItems(board))
     if (!archivedItems) return
+
     function onDelete(taskId) {
         const task = archivedItems.filter((task) => task.id === taskId)[0]
         const boardToUpdate = { ...board }
@@ -26,6 +27,7 @@ export function ArchiveMenu({ board, onUpdateBoard }) {
         onUpdateBoard(boardToUpdate)
         setArchivedItems((prevItems) => prevItems.filter((task) => task.id !== taskId))
     }
+
     return (
         <div className="archive-menu">
             <Droppable droppableId="ROOT" type="group" direction="horizontal">

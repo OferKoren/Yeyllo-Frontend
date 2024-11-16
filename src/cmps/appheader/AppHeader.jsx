@@ -114,7 +114,7 @@ export function AppHeader() {
             case '':
                 return null
             default:
-                return <Dropdown title={whichModal} />
+                return <Dropdown title={whichModal} setIsModalOpen={setIsModalOpen} />
         }
     }
     function handleBlur() {
@@ -133,16 +133,16 @@ export function AppHeader() {
         <header ref={headerRef} className="app-header full">
             <nav>
                 {/* <section className="flex align-center left-side-nav"> */}
-                    <NavLink to="/home" className="homepage-link">
-                        <NineDots />
-                    </NavLink>
-                    <NavLink to="workspace/home" className="logo">
-                        <img src="/img/general/trello-logo-static.gif" alt="" />
-                        Yeyllo
-                    </NavLink>
+                <NavLink to="/home" className="homepage-link">
+                    <NineDots />
+                </NavLink>
+                <NavLink to="workspace/home" className="logo">
+                    <img src="/img/general/trello-logo-static.gif" alt="" />
+                    Yeyllo
+                </NavLink>
                 {/* </section> */}
                 {/* <section className="flex align-center right-side-nav"> */}
-                    {location.pathname !== '/home' ? <HeaderMainNav /> : <HomePageHeader />}
+                {location.pathname !== '/home' ? <HeaderMainNav /> : <HomePageHeader />}
                 {/* </section> */}
             </nav>
 
@@ -176,7 +176,7 @@ export function AppHeader() {
                             ref={inputRef}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                        // style={inputStyle}
+                            // style={inputStyle}
                         />
                     </div>
 
