@@ -119,6 +119,8 @@ export function TaskPreview({
         return { isCover: true, attachmentIdx }
     }
 
+    if(!!task.archivedAt) return ''
+
     return (
         <>
             {task.coverSize === 'full' ? (
