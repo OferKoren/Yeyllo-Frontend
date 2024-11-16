@@ -3,7 +3,7 @@ import { EndlessPhotos } from '../../workspace/modals/EndlessPhotos'
 import { MoreBgs } from '../../workspace/modals/MoreBgs'
 
 export function SecondBgMenu({ option, onUpdateBoard, board }) {
-    const [boardBg, setBoardBg] = useState({ options: boardService.getBackgroundPallet(), selected: board.urls.regular })
+    const [boardBg, setBoardBg] = useState({ options: boardService.getBackgroundPallet(), selected: '' })
 
     function onChangeBg(selectedBg, isSingleColor = false) {
         setBoardBg((prev) => ({ ...prev, selected: selectedBg }))

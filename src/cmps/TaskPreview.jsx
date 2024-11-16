@@ -165,8 +165,8 @@ export function TaskPreview({
                             <div
                                 className="background"
                                 style={{
-                                    backgroundImage: `${task.style.backgroundImage.url}`,
-                                    backgroundColor: task.style.backgroundImage.url.bgColor || 'rgb(154, 139, 127)',
+                                    backgroundImage: `${task.style.backgroundImage?.url}`,
+                                    backgroundColor: task.style.backgroundImage?.url.bgColor || 'rgb(154, 139, 127)',
                                     display: 'block',
                                     width: '100%',
                                     height: '100%',
