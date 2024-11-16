@@ -16,6 +16,8 @@ import { Description } from '../cmps/Description.jsx'
 import { makeId } from '../services/util.service.js'
 import { AddAttachment } from '../cmps/Attachment/AddAttachment.jsx'
 import { Attachment } from '../cmps/Attachment/Attachment.jsx'
+import { Canvas } from '../cmps/Canvas.jsx'
+import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
 import ClickOutside from '../cmps/ClickOutside.jsx'
 
 export function TaskDetails() {
@@ -343,7 +345,6 @@ export function TaskDetails() {
                                                         onClick={(ev) => { handleToggleModal(`member-preview-${memberDetails.fullname}`); ev.stopPropagation() }}
                                                         key={memberId}
                                                     >
-                                                        {console.log('openModal', openModal)}
                                                         <img className="member-area-photo" src={memberDetails.imgUrl} />
 
                                                         {openModal === `member-preview-${memberDetails.fullname}` && (
@@ -552,6 +553,19 @@ export function TaskDetails() {
                                 <span>Attachment</span>
                             </button>
                             {openModal === 'attachment' && <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} />}
+                        </div>
+
+
+                        <div>
+                            <button
+                                className={`btn btn-option btn-light`}
+                                onClick={() => handleToggleModal('drawing')}>
+                                <span>Drawing</span>
+                            </button>
+                            {openModal === 'drawing' &&
+                                <ModalTaskDetails onCloseModal={handleCloseModal} isOpen={openModal === 'drawing'} isBlur={true}>
+                                    <Canvas handleCloseModal={handleCloseModal} task={task} setTask={setTask} />
+                                </ModalTaskDetails>}
                         </div>
 
                         <div className="task-actions-area">

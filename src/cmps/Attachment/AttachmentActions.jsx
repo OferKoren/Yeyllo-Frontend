@@ -25,7 +25,7 @@ export function AttachmentActions({ attachment, setTask, handleCloseModal, task 
         setTask(prevTask => {
             const updatedTask = { ...prevTask }
             if (prevTask.style.backgroundImage?.imgId === attachmentId) {
-                delete updatedTask.style
+                delete updatedTask.style.backgroundImage
             }
             return ({ ...updatedTask, attachments: updatedTask.attachments.filter(item => item.id !== attachmentId) })
         })

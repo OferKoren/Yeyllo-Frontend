@@ -56,9 +56,9 @@ export function Cover({ setTask, handleCloseModal, task }) {
             setTask(prevTask => {
                 let updatedAttachments
                 if (cover.source === 'fromUnsplash') {
-                    updatedAttachments = prevTask.attachments.map(file => ({ ...file, isCover: false }))
+                    updatedAttachments = prevTask.attachments?.map(file => ({ ...file, isCover: false }))
                 } else {
-                    updatedAttachments = prevTask.attachments.map(file => (file.id === cover.imgId ? { ...file, isCover: true } : { ...file, isCover: false }))
+                    updatedAttachments = prevTask.attachments?.map(file => (file.id === cover.imgId ? { ...file, isCover: true } : { ...file, isCover: false }))
                 }
                 return { ...prevTask, attachments: updatedAttachments, style: { backgroundImage: { ...cover } } }
             })
