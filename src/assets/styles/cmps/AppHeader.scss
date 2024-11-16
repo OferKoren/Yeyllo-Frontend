@@ -21,9 +21,9 @@
             box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;
         }
     }
-    :nth-child(3) {
+    /*  :nth-child(3) {
         justify-self: right;
-    }
+    } */
 
     nav {
         display: flex;
@@ -171,7 +171,7 @@
         // display: flex;
         position: relative;
         margin-inline-end: 2em;
-
+        margin-inline-start: auto;
         transition: 0.3s;
 
         &.enlarged {
