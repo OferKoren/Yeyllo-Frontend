@@ -1,6 +1,8 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { makeId } from '../services/util.service.js'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { boardService } from '../services/board'
 
 export function Canvas({ task, handleCloseModal, setTask }) {
 
@@ -108,22 +110,39 @@ export function Canvas({ task, handleCloseModal, setTask }) {
         return pos
     }
 
-    function onSaveDrawing() {
+    async function onSaveDrawing() {
         const dataURL = canvasRef.current.toDataURL('image/png')
-        const drawingId = makeId()
-        const fileName = `Drawing_${drawingId}`
-        setTask(prevTask => ({ ...prevTask, attachments: [...prevTask.attachments || [], { url: dataURL, bgColor: '#ffffff', fileName, id: drawingId, uploadedAt: Date.now() }] }))
+        try {
+            handleCloseModal()
+            showSuccessMsg('Uploading in progress...')
+            const uploadedImgUrl = await boardService.uploadImg(dataURL)
 
-        // setDrawingUrl(dataURL)
-        handleCloseModal()
+            const img = new Image()
+            img.src = uploadedImgUrl
 
-        console.log('Drawing saved!')
+            img.onload = () => {
+                const drawingId = makeId()
+                const fileName = `Drawing_${drawingId}`
+                setTask(prevTask => ({ ...prevTask, attachments: [...prevTask.attachments || [], { url: uploadedImgUrl, bgColor: '#ffffff', fileName, id: drawingId, uploadedAt: Date.now() }] }))
+                showSuccessMsg('Image uploaded successfully!')
+                console.log('Drawing saved!')
+            };
+        } catch (error) {
+            console.error('Image upload failed:', error)
+            showErrorMsg('Failed to upload image')
+        }
     }
 
     return (
         <div className="canvas-container" ref={containerCanvasRef}>
             <canvas ref={canvasRef}></canvas>
             <button className="btn btn-dark save-drawing-btn" onClick={(ev) => { ev.stopPropagation(); onSaveDrawing() }}>Save</button>
+            <button className="btn-save-task" onClick={(ev) => { ev.stopPropagation(); handleCloseModal() }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12Z" fill="#44546f"
+                    />
+                </svg>
+            </button>
         </div>
     )
 }

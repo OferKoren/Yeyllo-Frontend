@@ -1,8 +1,10 @@
 .canvas-container {
+    position: relative;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 0.6em;
+
     height: 70%;
     width: 50vw;
     max-width: 600px;
@@ -15,7 +17,7 @@ canvas {
 }
 
 .save-drawing-btn {
-    align-self: flex-end;
+    align-self: flex-start;
     padding: 0.5em 1em;
     border-radius: 0.5em;
     border: none;

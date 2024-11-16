@@ -1,5 +1,6 @@
 
 export function ModalTaskDetails({ children, isOpen = false, onCloseModal = () => { }, isBlur = true }) {
+
     if (!isOpen) return null
     const blur = isBlur ? 'blur' : ''
     return (

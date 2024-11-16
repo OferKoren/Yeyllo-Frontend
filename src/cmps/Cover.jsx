@@ -4,7 +4,7 @@ import { CoverSize } from '../cmps/CoverSize.jsx'
 
 export function Cover({ setTask, handleCloseModal, task }) {
     const [coverType, setCoverType] = useState({
-        value: task.style?.backgroundColor || task.style?.backgroundImage.url || '',
+        value: task.style?.backgroundColor || task.style?.backgroundImage?.url || '',
         type: task.style?.backgroundColor ? 'color' : task.style?.backgroundImage ? 'image' : ''
     })
 
