@@ -6,9 +6,11 @@ export const SOCKET_EMIT_SEND_MSG = 'chat-send-msg'
 export const SOCKET_EMIT_SET_TOPIC = 'chat-set-topic'
 export const SOCKET_EMIT_USER_WATCH = 'user-watch'
 export const SOCKET_EVENT_USER_UPDATED = 'user-updated'
-export const SOCKET_EVENT_REVIEW_ADDED = 'review-added'
-export const SOCKET_EVENT_REVIEW_REMOVED = 'review-removed'
-export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you'
+
+//*Task
+export const SOCKET_EVENT_BOARD_UPDATED = 'board-updated'
+// export const SOCKET_EVENT_TASK_REMOVED = 'task-removed'
+// export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you'
 
 const SOCKET_EMIT_LOGIN = 'set-user-socket'
 const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
@@ -21,27 +23,31 @@ export const socketService = createSocketService()
 // for debugging from console
 window.socketService = socketService
 
-// socketService.setup()
-
+socketService.setup()
+console.log('WebSocket setup: Connecting to', baseUrl)
 
 function createSocketService() {
   var socket = null
+
+
   const socketService = {
     setup() {
-      socket = io(baseUrl)
+      socket = io(baseUrl) //WebSocket connection to baseUrl
       const user = userService.getLoggedinUser()
-      if (user) this.login(user._id)
+      if (user) this.login(user._id) //call login below
     },
     on(eventName, cb) {
       socket.on(eventName, cb)
+      //Adds a listener for a specific WebSocket event.
+      //Whenever the server emits an event with the name eventName, the callback function (cb) will be executed.
     },
     off(eventName, cb = null) {
-      if (!socket) return
-      if (!cb) socket.removeAllListeners(eventName)
-      else socket.off(eventName, cb)
+      if (!socket) return //If socket is null or not initialized
+      if (!cb) socket.removeAllListeners(eventName) //If cb is null or undefined, it removes all listeners for the given eventName
+      else socket.off(eventName, cb) //If a specific callback is provided, it removes only that callback for the given event 
     },
     emit(eventName, data) {
-      socket.emit(eventName, data)
+      socket.emit(eventName, data) //It sends the event and data to the server so that the server can process it.
     },
     login(userId) {
       socket.emit(SOCKET_EMIT_LOGIN, userId)

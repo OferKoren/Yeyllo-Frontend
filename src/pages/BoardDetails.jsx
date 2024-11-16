@@ -1,11 +1,14 @@
 import { useParams } from 'react-router'
 import { loadBoard, unloadBoard, updateBoard, updateBoardOptimistic } from '../store/actions/board.actions'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { GroupList } from '../cmps/GroupList'
 import { BoardHeader } from '../cmps/board/BoardHeader'
 import { BoardMenu } from '../cmps/board/boardMenu/BoardMenu'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { socketService, SOCKET_EVENT_BOARD_UPDATED } from '../services/socket.service.js'
+import { UPDATE_BOARD } from '../store/reducers/board.reducer.js'
+
 
 export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
@@ -13,6 +16,30 @@ export function BoardDetails({ rootRef }) {
     const [isMenuOpen, setMenuOpen] = useState(false)
     const [isShrink, setIsShrink] = useState(false)
     const [isAsideOpen, setAsideOpen] = useState(false)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_BOARD_UPDATED, updatedBoard => {
+            console.log('GOT from socket', 'board')
+            dispatch({ type: UPDATE_BOARD, board: updatedBoard })
+        })
+
+        return () => {
+            socketService.off(SOCKET_EVENT_BOARD_UPDATED)
+        }
+    }, [])
+
+    useEffect(() => {
+        socketService.emit('join-board', boardId)
+        console.log('joined to board', boardId)
+
+        return () => {
+            socketService.emit('leave-board', boardId)
+            console.log('left the board', boardId)
+        }
+    }, [])
+
 
     useEffect(() => {
         if (rootRef.current && board) {
@@ -22,6 +49,7 @@ export function BoardDetails({ rootRef }) {
             rootRef.current.style.cssText = ''
         }
     }, [board])
+
     useEffect(() => {
         loadBoard(boardId)
         return () => {
