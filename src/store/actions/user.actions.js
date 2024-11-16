@@ -80,3 +80,16 @@ export async function loadUser(userId) {
         console.log('Cannot load user', err)
     }
 }
+
+export function addActivity(txt) {
+
+    return userService.addActivity(txt)
+        .then((updatedUser) => {
+            store.dispatch({ type: SET_USER, user: updatedUser, })
+        })
+        .catch(err => {
+            console.error('Cannot add activity:', err)
+            throw err
+        })
+
+}

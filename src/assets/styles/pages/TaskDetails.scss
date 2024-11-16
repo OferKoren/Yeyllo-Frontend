@@ -16,6 +16,7 @@
 
         padding: 0.3em;
         border-radius: 50%;
+        background-color: transparent;
         cursor: pointer;
 
         & svg {
@@ -25,6 +26,7 @@
 
         &:hover {
             background-color: $clr-btn-1;
+            opacity: 0.6;
         }
     }
 
@@ -141,10 +143,6 @@
         line-height: 0.5;
     }
 
-    // .textarea-input:focus {
-    //     background-color: $clr6;
-    // }
-
     textarea.task-title {
         width: 90%;
         padding: 0.5em 0 0 0.5em;
@@ -173,11 +171,13 @@
         padding-inline-start: 3em;
 
         .labels-area {
+
             display: flex;
             flex-direction: column;
             margin-block-end: 1.3em;
 
             .label-list {
+                position: relative;
                 display: flex;
                 gap: 0.3em;
 
@@ -188,6 +188,11 @@
                     min-width: 3em;
                     height: 2.2em;
                     margin: 0;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: 0.9;
+                    }
                 }
             }
         }
@@ -265,11 +270,19 @@
         &.circle {
             border-radius: 50%;
             padding: 0.5em;
+
+            &:hover {
+                background-color: darken($clr-btn-1, 5%);
+            }
         }
 
         &.square {
             border-radius: 0.2em;
             padding: 0.5em;
+
+            &:hover {
+                background-color: darken($clr-btn-1, 5%);
+            }
         }
 
         &.chevron {
