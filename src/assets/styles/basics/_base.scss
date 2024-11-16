@@ -36,11 +36,6 @@ body {
     // font-size: rem(16px);
 }
 
-.main-container main {
-    /* display: flex;
-    flex-direction: column; */
-}
-
 h1,
 h2,
 h3,
@@ -133,6 +128,11 @@ p {
         margin-block-end: 1.3em;
         margin-block-start: 0.5em;
         padding-inline-start: 0.5em;
+    }
+
+    .output-container & {
+        margin: 0.5em 0;
+        line-height: 1.1;
     }
 }
 

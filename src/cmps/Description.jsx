@@ -88,7 +88,7 @@ export function Description({ task, setTask }) {
             <div className={`output-container btn-light ${openEditor ? 'hide' : 'show'}`}
                 dangerouslySetInnerHTML={{ __html: task.description ? task.description : '<p style="color: #444444; font-size:0.9rem">Add a more detailed description...</p>' }}
                 onClick={() => { loadContent(); setOpenEditor(true) }}
-                style={{ padding: task.description ? '10px 0' : '10px', backgroundColor: task.description ? '#f5f4f4' : '#e7e9eb' }} />
+                style={{ padding: task.description ? '0' : '10px', backgroundColor: task.description ? '#f5f4f4' : '#e7e9eb' }} />
         </>
     )
 }

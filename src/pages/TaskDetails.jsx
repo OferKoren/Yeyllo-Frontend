@@ -16,6 +16,7 @@ import { Description } from '../cmps/Description.jsx'
 import { makeId } from '../services/util.service.js'
 import { AddAttachment } from '../cmps/Attachment/AddAttachment.jsx'
 import { Attachment } from '../cmps/Attachment/Attachment.jsx'
+import ClickOutside from '../cmps/ClickOutside.jsx'
 
 export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
@@ -218,18 +219,18 @@ export function TaskDetails() {
         saveBoard(updatedTasks)
     }
 
-    function saveBoard(tasksToSave) {
+    async function saveBoard(tasksToSave) {
         const updatedGroup = { ...currGroupRef.current, tasks: tasksToSave }
         const updatedGroups = boardToEdit.groups.map((group) => (group.id === groupId ? updatedGroup : group))
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
 
         try {
-            updateBoard(boardToSave)
+            await updateBoard(boardToSave)
         } catch (err) {
             console.error('can not save board', err)
+        } finally {
+            onCloseModal()
         }
-
-        onCloseModal()
     }
 
     if (!boardToEdit)
