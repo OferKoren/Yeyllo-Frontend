@@ -1,0 +1,84 @@
+.menu-body:has(.bg-menu) {
+    padding: rem(12px) rem(12px) rem(8px) rem(12px);
+    overflow-x: hidden;
+}
+.menu-body:has(.endless-photos) {
+    padding: rem(12px) 0 0 0;
+    overflow-y: hidden;
+}
+.bg-menu {
+    width: 303.8px;
+    &.colors {
+        .gardient {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            li {
+                padding: 0 4px;
+                margin-block-end: rem(8px);
+            }
+            button {
+                height: rem(96px);
+                width: rem(141.1px);
+                border-radius: rem(8px);
+            }
+        }
+        .single {
+            display: grid;
+
+            // grid-auto-flow: column;
+            grid-template-columns: repeat(5, 1fr);
+            li {
+                padding: 0 4px;
+                margin-block-end: rem(8px);
+            }
+            button {
+                height: rem(57.6px);
+                width: 100%;
+                border-radius: rem(8px);
+            }
+        }
+    }
+    &.photos {
+        .photo-search-wrapper {
+            width: 100%;
+            margin-inline-start: 12px;
+            // margin-inline-end: 0px;
+        }
+        .endless-photos {
+            width: 340px;
+            padding-inline: 8px;
+            // padding-inline-end: 1em;
+            overflow-x: hidden;
+            max-height: 74vh;
+            gap: 0;
+            & > *:nth-child(2n + 2) {
+                transform: translateX(-3px);
+            }
+            li {
+                // padding: 0 4px;
+                margin-inline: 5px;
+                margin-block-end: rem(8px);
+                height: rem(96px);
+                width: rem(145.5px);
+            }
+            button {
+                height: rem(96px);
+                width: rem(145.5px);
+                border-radius: rem(8px);
+            }
+        }
+    }
+    button.bg-btn {
+        &::after {
+            background-color: rgb(255, 255, 255); // dark overlay color
+            opacity: 0; // hidden by default
+            transition: opacity 0.15s ease; // smooth transition
+            z-index: 1;
+            border-radius: rem(8px);
+        }
+        &:hover::after,
+        &.active::after {
+            opacity: 0.2; // Adjust darkness level
+        }
+    }
+}

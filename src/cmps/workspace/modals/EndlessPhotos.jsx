@@ -6,7 +6,7 @@ import { debounce } from '../../../services/util.service.js'
 const UNSPLASH_SEARCH_URL = 'https://api.unsplash.com/search/photos'
 const UNSPLASH_ACCESS_KEY = 'anN0ohg_TPCWJd4ALToXR25XalJdkQBdFae7guKwQjE'
 
-export function EndlessPhotos({ boardBg, onChangeBg }) {
+export function EndlessPhotos({ boardBg, onChangeBg, initQuery = 'patagonia' }) {
     const [photos, setPhotos] = useState([])
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
@@ -29,7 +29,7 @@ export function EndlessPhotos({ boardBg, onChangeBg }) {
             const response = await axios.get(UNSPLASH_SEARCH_URL, {
                 params: {
                     client_id: UNSPLASH_ACCESS_KEY,
-                    query: query || 'patagonia',
+                    query: query || initQuery,
                     page: page,
                     per_page: 12,
                 },

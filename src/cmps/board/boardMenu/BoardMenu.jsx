@@ -13,6 +13,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     const [whichModal, setWhichModal] = useState('')
     const [whichMenu, setWhichMenu] = useState(['main-menu'])
     const [position, setPosition] = useState()
+    const [title, setTitle] = useState('menu')
     const wrapperRef = useRef()
     const returnRef = useRef()
     function onCloseModal() {
@@ -51,9 +52,9 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
             case 'first-bg-menu':
                 return <FirstBgMenu onEnterMenu={onEnterMenu} />
             case 'second-bg-menu-colors':
-                return <SecondBgMenu option="colors" />
+                return <SecondBgMenu option="colors" onUpdateBoard={onUpdateBoard} board={board} />
             case 'second-bg-menu-photos':
-                return <SecondBgMenu option="photos" />
+                return <SecondBgMenu option="photos" onUpdateBoard={onUpdateBoard} board={board} />
             default:
                 return <></>
         }
@@ -96,6 +97,21 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     }
     useEffect(() => {
         if (whichMenu.length === 2) returnRef.current.classList.add('active')
+        switch (whichMenu[0]) {
+            case 'main-menu':
+                setTitle('menu')
+                break
+            case 'first-bg-menu':
+                setTitle('change background')
+                break
+            case 'second-bg-menu-colors':
+                setTitle('colors')
+                break
+            case 'second-bg-menu-photos':
+                setTitle('photos from')
+                break
+            default:
+        }
     }, [whichMenu])
     useEffect(() => {
         setWidth('340px')
@@ -105,7 +121,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     }, [isShrink])
     const dynamicClass = isShrink ? 'shrink' : ''
     if (!board) return
-    console.log(whichMenu)
+
     return (
         <div className={`board-menu-wrapper`}>
             <div className={`placeholder-div ${dynamicClass}`} style={{ width: width }}></div>
@@ -117,7 +133,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                         </button>
                     )}
                     <h3>
-                        <span>menu</span>
+                        <span>{title}</span>
                     </h3>
                     <button className="modal-btn close-btn" onClick={onToggleMenu}>
                         <XIcon />

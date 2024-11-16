@@ -4,7 +4,7 @@ import { MoreBgs } from './MoreBgs'
 import { Modal } from '../../Modal'
 export function AddBoard({ onAddBoard, position = null }) {
     const [boardToAdd, setBoardToAdd] = useState(boardService.getEmptyBoard())
-    const [boardBg, setBoardBg] = useState({ options: boardService.getBackgroundPallet(), type: 'photos', selected: '' })
+    const [boardBg, setBoardBg] = useState({ options: boardService.getBackgroundPallet(), selected: '' })
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [menu, setMenu] = useState('board background')
 

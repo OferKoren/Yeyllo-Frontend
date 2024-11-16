@@ -85,6 +85,7 @@ const backgroundPallet = {
         'rgb(131, 140, 145)',
     ],
 }
+const backgroundEmoj = ['❄️', '🌊', '🔮', '🌈', '🍑', '🌸', '🌎', '👽', '🌋']
 
 let boards = [
     {
@@ -151,7 +152,7 @@ let boards = [
                         id: 'c103',
                         title: 'Do that',
                         archivedAt: 1589983468418,
-                        coverSize:'full',
+                        coverSize: 'full',
                     },
                     {
                         id: 'c104',
@@ -1088,6 +1089,7 @@ export const boardData = {
     workspace,
     boards,
     backgroundPallet,
+    backgroundEmoj,
 }
 const user = {
     _id: 'u101',

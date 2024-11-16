@@ -8,8 +8,8 @@ import { boardService as local } from './board.service.local'
 import { boardService as remote } from './board.service.remote'
 
 function getEmptyBoard() {
-    const user = useSelector((storeState) => storeState.userModule.user || { _id: 'u101', fullname: 'Abi Abambi', imgUrl: '/img/user/gal.png', })
-    console.log(user);
+    const user = useSelector((storeState) => storeState.userModule.user || { _id: 'u101', fullname: 'Abi Abambi', imgUrl: '/img/user/gal.png' })
+    console.log(user)
 
     return {
         title: '',
@@ -30,6 +30,9 @@ function getEmptyBoard() {
 function getBackgroundPallet() {
     return boardData.backgroundPallet
 }
+function getBackgroundEmoji() {
+    return boardData.backgroundEmoj
+}
 function getDefaultFilter() {
     return {
         // txt: '',
@@ -44,13 +47,13 @@ export function getEmptyGroup() {
         id: makeId(),
         style: {},
         tasks: [],
-        title: ''
+        title: '',
     }
 }
 
 const service = VITE_LOCAL === 'true' ? local : remote
 // if (VITE_LOCAL === 'true') console.log('hiiiii')
-export const boardService = { getEmptyBoard, getDefaultFilter, getBackgroundPallet, ...service }
+export const boardService = { getEmptyBoard, getDefaultFilter, getBackgroundPallet, getBackgroundEmoji, ...service }
 
 // Easy access to this service from the dev tools console
 // when using script - dev / dev:local
