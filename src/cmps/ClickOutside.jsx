@@ -5,15 +5,16 @@ export default function ClickOutside({ children, exceptionRef, onClick, classNam
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickListener);
-    
+
     return () => {
       document.removeEventListener('mousedown', handleClickListener);
     };
   }, []);
 
   const handleClickListener = (event) => {
+    event.stopPropagation()
     let clickedInside;
-    if(exceptionRef) {
+    if (exceptionRef) {
       clickedInside = (wrapperRef && wrapperRef.current.contains(event.target)) || exceptionRef.current === event.target || exceptionRef.current.contains(event.target);
     }
     else {
@@ -23,7 +24,7 @@ export default function ClickOutside({ children, exceptionRef, onClick, classNam
     if (clickedInside) return;
     else onClick();
   }
-  
+
   return (
     <div ref={wrapperRef} className={`${className || ''}`}>
       {children}

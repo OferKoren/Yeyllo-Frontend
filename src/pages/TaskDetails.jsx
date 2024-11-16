@@ -340,9 +340,10 @@ export function TaskDetails() {
                                                     <li
                                                         className="member"
                                                         title={memberDetails.fullname}
-                                                        onClick={() => handleToggleModal(`member-preview-${memberDetails.fullname}`)}
+                                                        onClick={(ev) => { handleToggleModal(`member-preview-${memberDetails.fullname}`); ev.stopPropagation() }}
                                                         key={memberId}
                                                     >
+                                                        {console.log('openModal', openModal)}
                                                         <img className="member-area-photo" src={memberDetails.imgUrl} />
 
                                                         {openModal === `member-preview-${memberDetails.fullname}` && (
