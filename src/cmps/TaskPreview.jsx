@@ -209,8 +209,8 @@ export function TaskPreview({
                             <div
                                 className="task-color"
                                 style={{
-                                    backgroundImage: `${task.style.backgroundImage.url}`,
-                                    backgroundColor: task.style.backgroundImage.url.bgColor || 'rgb(154, 139, 127)',
+                                    backgroundImage: `${task.style.backgroundImage?.url}`,
+                                    backgroundColor: task.style.backgroundImage?.url.bgColor || 'rgb(154, 139, 127)',
                                     display: 'block',
                                     width: '',
                                     height: '194px',
