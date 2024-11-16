@@ -12,6 +12,7 @@ export const userService = {
     update,
     getLoggedinUser,
     saveLoggedinUser,
+    addActivity
 }
 
 async function getUsers() {
@@ -75,6 +76,23 @@ function saveLoggedinUser(user) {
     return user
 }
 
+async function addActivity(txt) {
+    const activity = {
+        txt,
+        at: Date.now()
+    }
+    const loggedinUser = getLoggedinUser()
+    if (!loggedinUser) return Promise.reject('No loggedin user')
+    try {
+        const user = await getById(loggedinUser._id)
+        if (!user.activities) user.activities = []
+        user.activities.unshift(activity)
+        return _saveUser(user)
+    } catch (err) {
+        console.error('can not add activity', err)
+    }
+}
+
 // To quickly create an admin user, uncomment the next line
 // _createAdmin()
 async function _createAdmin() {
@@ -89,3 +107,4 @@ async function _createAdmin() {
     const newUser = await storageService.post('user', userCred)
     console.log('newUser: ', newUser)
 }
+
