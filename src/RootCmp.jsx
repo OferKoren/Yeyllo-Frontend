@@ -30,8 +30,7 @@ export function RootCmp() {
     }, [location])
     return (
         <div ref={rootRef} className="main-container root">
-            <AppHeader />
-
+            {!location.pathname.includes('/login') && <AppHeader />}
 
             <main className="main-container full">
                 <Routes>

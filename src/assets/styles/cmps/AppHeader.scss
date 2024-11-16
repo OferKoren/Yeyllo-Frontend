@@ -11,16 +11,34 @@
     backdrop-filter: blur(6px);
     // background-color: hsl(5, 4.9%, 30.8%);
     border-bottom: 1px solid rgba(23, 45, 79, 0.16);
-
-    :nth-child(3){
-        justify-self:right;
+    &:has(.home-page-headers) {
+        height: 60px;
+        padding: 0 8px;
+        position: fixed;
+        width: 100vw;
+        transition: box-shadow 0.3s;
+        &:hover {
+            box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;
+        }
+    }
+    :nth-child(3) {
+        justify-self: right;
     }
 
     nav {
         display: flex;
         justify-content: space-between;
 
-        // width: 100%;s
+        // width: 100%;
+        &:has(.home-page-headers) {
+            width: 100%;
+            height: 100%;
+
+            .logo {
+                scale: 1.3;
+                transform: translateX(12px);
+            }
+        }
         align-items: center;
         // justify-content: center;
         // gap: 0.2em;
@@ -30,16 +48,34 @@
         // line-height: 2em;
 
         .home-page-headers {
-
+            margin-inline-start: auto;
+            display: flex;
+            align-items: center;
+            & > * {
+                display: flex;
+                align-items: center;
+            }
             .login-btn {
                 font-size: 1.2rem;
                 margin-right: 0.5em;
+                height: 60px;
+                &:hover {
+                    background-color: transparent;
+                }
             }
 
             .signup-btn {
+                border-radius: 0;
+                transition: 50ms;
                 font-size: 1.2rem;
-                background-color: #0065FF;
+                height: 60px;
+                background-color: #0065ff;
                 color: #ffff;
+                &:hover {
+                    background-color: rgb(7, 71, 166);
+                    border-color: rgb(7, 71, 166);
+                }
+                margin-inline-end: 4.5rem;
             }
         }
 
