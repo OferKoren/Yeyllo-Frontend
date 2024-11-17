@@ -1,7 +1,17 @@
 import { boardService } from '../../services/board'
 import { store } from '../store'
 //removed from the import below ADD_BOARD_MSG
-import { ADD_BOARD, REMOVE_BOARD, SET_BOARDS, SET_BOARD, UPDATE_BOARD, UNLOAD_BOARD, SET_WORKSPACE, BOARD_UNDO } from '../reducers/board.reducer'
+import {
+    ADD_BOARD,
+    REMOVE_BOARD,
+    SET_BOARDS,
+    SET_BOARD,
+    UPDATE_BOARD,
+    UNLOAD_BOARD,
+    SET_WORKSPACE,
+    BOARD_UNDO,
+    SET_DYNAMIC_BG,
+} from '../reducers/board.reducer'
 import { batch } from 'react-redux'
 import { workspaceService } from '../../services/workspace/workspace.service'
 
@@ -38,6 +48,9 @@ export async function loadWorkspace() {
 }
 export function unloadBoard() {
     store.dispatch(getCmdUnloadBoard())
+}
+export function setDynamicBg(dynamicBg) {
+    store.dispatch(getCmdSetDynamicBg(dynamicBg))
 }
 
 export async function removeBoard(boardId) {
@@ -116,6 +129,12 @@ function getCmdSetBoard(board) {
         board,
     }
 }
+function getCmdSetDynamicBg(dynmaicBg) {
+    return {
+        type: SET_DYNAMIC_BG,
+        dynmaicBg,
+    }
+}
 function getCmdUnloadBoard() {
     return {
         type: UNLOAD_BOARD,
@@ -143,7 +162,6 @@ function getCmdUpdateBoard(board) {
 function getCmdUndoBoard() {
     return {
         type: BOARD_UNDO,
-        
     }
 }
 /* function getCmdAddBoardMsg(msg) {

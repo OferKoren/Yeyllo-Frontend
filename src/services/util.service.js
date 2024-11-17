@@ -136,7 +136,7 @@ export function lightenColor(color, percent) {
     return `rgba(${newR}, ${newG}, ${newB}, ${newA})`
 }
 
-export function darkenColor(color, percent) {
+/* export function darkenColor(color, percent) {
     // Match the color in rgba or rgb format
     const rgbaMatch = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+),?\s*(\d*\.?\d+)?\)/)
 
@@ -155,4 +155,105 @@ export function darkenColor(color, percent) {
 
     // Return new color in rgba format
     return `rgba(${newR}, ${newG}, ${newB}, ${newA})`
+} */
+export function darkenColor(color, percent) {
+    // Match the color in either rgba or rgb format
+    const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d*\.?\d+))?\)/)
+
+    if (!match) return color // Return original color if format isn't matched
+
+    // Extract RGB channels and optional alpha channel
+    const [, r, g, b, a] = match.map(Number)
+
+    // Calculate the new RGB values by darkening the color
+    const newR = Math.max(0, Math.floor(r * (1 - percent / 100)))
+    const newG = Math.max(0, Math.floor(g * (1 - percent / 100)))
+    const newB = Math.max(0, Math.floor(b * (1 - percent / 100)))
+
+    // Check if the color is rgba or rgb based on the presence of alpha
+    if (a !== undefined && !!a) {
+        // If alpha is defined, return in rgba format
+
+        return `rgba(${newR}, ${newG}, ${newB}, ${a})`
+    }
+
+    // If alpha is not defined, return in rgb format
+    return `rgb(${newR}, ${newG}, ${newB})`
+}
+
+export function getBrightnessLevel(color) {
+    // Match the RGB or RGBA components using a regex
+    const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)
+
+    if (!match) {
+        throw new Error('Invalid RGB or RGBA format')
+    }
+
+    // Extract the RGB components
+    const r = parseInt(match[1], 10)
+    const g = parseInt(match[2], 10)
+    const b = parseInt(match[3], 10)
+
+    // Calculate brightness using the luminance formula
+    const brightness = 0.299 * r + 0.587 * g + 0.114 * b
+
+    // Return brightness level based on thresholds
+    if (brightness > 165) {
+        return 1 // Brightest
+    } else if (brightness > 85) {
+        return 2 // Medium
+    } else {
+        return 3 // Darkest
+    }
+}
+
+/* export function createComplexCssFilter(color) {
+    // Match the RGB or RGBA components using a regex
+    const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)
+
+    if (!match) {
+        throw new Error('Invalid RGB or RGBA color format')
+    }
+
+    // Extract RGB components
+    const r = parseInt(match[1], 10) / 255
+    const g = parseInt(match[2], 10) / 255
+    const b = parseInt(match[3], 10) / 255
+
+    // Extract alpha channel if it exists, default to 1 (opaque) if not
+    const a = !!match[4] ? parseFloat(match[4]) : 1
+
+    // Example complex filter: adjust brightness, hue, and use all channels (r, g, b)
+    return `sepia(1) saturate(1000%) brightness(${0.8 + r}) hue-rotate(${(g + b) * 180}deg) opacity(${a})`
+} */
+export function createCssFilter(color) {
+    // Match the RGB or RGBA components using a regex
+    const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)
+
+    if (!match) {
+        throw new Error('Invalid RGB or RGBA color format')
+    }
+
+    // Extract RGB components
+    const r = parseInt(match[1], 10)
+    const g = parseInt(match[2], 10)
+    const b = parseInt(match[3], 10)
+
+    // Extract alpha channel if it exists, default to 1 (opaque) if not
+    const a = match[4] !== undefined ? parseFloat(match[4]) : 1
+
+    // Normalize RGB values to be between 0 and 1 for filter adjustment
+    const rNorm = r / 255
+    const gNorm = g / 255
+    const bNorm = b / 255
+
+    // Calculate brightness (average of RGB values)
+    const brightness = (rNorm + gNorm + bNorm) / 3
+
+    // Calculate saturation (based on the largest RGB value)
+    const maxRGB = Math.max(rNorm, gNorm, bNorm)
+    const saturation = maxRGB
+
+    // Return a CSS filter string that reflects the color
+    return `brightness(${brightness}) saturate(${saturation}) opacity(${a})`
 }

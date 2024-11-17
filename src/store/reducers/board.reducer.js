@@ -2,13 +2,13 @@ import { workspaceService } from '../../services/workspace/workspace.service'
 export const SET_WORKSPACE = 'SET_WORKSPACE'
 export const SET_BOARDS = 'SET_BOARDS'
 export const SET_BOARD = 'SET_BOARD'
+export const SET_DYNAMIC_BG = 'SET_DYNAMIC_BG'
 export const UNLOAD_BOARD = 'UNLOAD_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
 
 export const BOARD_UNDO = 'TOY_UNDO'
-
 
 export const ADD_BOARD_LABELS = 'SET_BOARD_LABELS'
 export const SET_LABELS = 'SET_LABELS'
@@ -39,11 +39,12 @@ export const groupColorPalette = [
 const initialState = {
     workspace: null,
     boards: [],
-    board: null,
+    board: {},
     lastBoard: null,
     filterBy: {},
     labels: defaultLabels,
     members: [],
+    dynamicBg: '#ffffff00',
 }
 
 export function boardReducer(state = initialState, action) {
@@ -71,9 +72,11 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, board: action.board, labels: updatedLabels, members: action.board.members || [], lastBoard }
             // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
             break
+        case SET_DYNAMIC_BG:
+            newState = { ...state, dynamicBg: action.dynamicBg }
+            break
         case UNLOAD_BOARD:
-            newState = { ...state, board: null }
-            // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
+            newState = { ...state, board: {} }
             break
         case REMOVE_BOARD:
             const lastRemovedBoard = state.boards.find((board) => board._id === action.boardId)
@@ -87,7 +90,7 @@ export function boardReducer(state = initialState, action) {
             lastBoard = { ...action.board }
 
             boards = state.boards?.map((board) => (board._id === action.board._id ? action.board : board))
-            board = {...state.board, ...action.board}
+            board = { ...state.board, ...action.board }
 
             newState = { ...state, boards, board: action.board, lastBoard, board }
             break

@@ -1,10 +1,32 @@
 .board-header {
-    height: 54px;
-    min-height: 54px;
+    height: 56px;
+    min-height: 56px;
     display: flex;
     align-items: center;
-    padding: 0.75em 0.625em 0.75em 1em;
+    padding: rem(12px) rem(10px) rem(12px) rem(16px);
+    backdrop-filter: blur(4px);
+    background-color: #0000003d;
 
+    font-size: rem(18px);
+    // font-family: 'se','Roboto-Bold';
+    color: white;
+
+    // justify-content: space-between;
+
+    > * {
+        display: flex;
+        align-items: center;
+    }
+
+    .member-img {
+        border-radius: 50%;
+        width: 1em;
+        padding: 0.1em;
+        background-color: #ffffff;
+        border: 0.1px solid rgb(177, 173, 173);
+
+        margin-inline-start: -4px;
+    }
     .title-wrapper {
         // position: relative;
         display: inline-block;

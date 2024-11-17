@@ -10,7 +10,7 @@ import { addBoard } from '../../store/actions/board.actions'
 import { boardService } from '../../services/board'
 import { AddBoard } from '../workspace/modals/AddBoard'
 import { Dropdown } from './Dropdown'
-import { darkenColor, lightenColor } from '../../services/util.service'
+import { createCssFilter, darkenColor, getBrightnessLevel, lightenColor } from '../../services/util.service'
 import { HomePageHeader } from './HomePageHeader'
 import ClickOutside from '../ClickOutside'
 
@@ -23,7 +23,6 @@ export function AppHeader() {
     const [whichModal, setWhichModal] = useState('')
     const [position, setPosition] = useState()
     const [inputClass, setInputClass] = useState('')
-    const [bgClr, setBgClr] = useState()
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -51,13 +50,17 @@ export function AppHeader() {
         }
     }
 
-    /*    useEffect(() => {
+    useEffect(() => {
         if (board && board.urls) {
+            const regex = new RegExp('^rgba?\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})(?:\\s*,\\s*(0|0?\\.\\d+|1))?\\s*\\)$')
+            if (regex.test(board.urls.regular) && headerRef.current) {
+                setHeaderColorFromColor(board.urls.regular)
+            }
             setHeaderColorFromImage(board.urls.regular)
         } else {
             headerRef.current.style.cssText = ''
         }
-    }, [board.style]) */
+    }, [board.style])
     useEffect(() => {
         if (!headerRef.current) return
         if (isModalOpen) headerRef.current.style.zIndex = '5'
@@ -73,13 +76,36 @@ export function AppHeader() {
             const [r, g, b] = colorThief.getColor(img)
             const baseColor = `rgba(${r}, ${g}, ${b}, 0.9)`
             // Set as header background color with some transparency
-            const style = { backgroundColor: `${darkenColor(baseColor, 40)}` }
-            const ligherColor = lightenColor(`rgba(${r}, ${g}, ${b}, 0.9)`, 20)
+            const brightness = getBrightnessLevel(baseColor)
+            setHeaderTheme(brightness)
+            const style = { backgroundColor: `${darkenColor(baseColor, 0)}` }
 
-            const inputStyle = { backgroundColor: ligherColor }
-            setBgClr(`rgba(${r}, ${g}, ${b}, 0.9)`)
             Object.assign(headerRef.current.style, style)
             // Object.assign(inputRef.current.style, inputStyle)
+        }
+    }
+    function setHeaderColorFromColor(color) {
+        const darkerColor = darkenColor(color, 45)
+        const style = { backgroundColor: `${darkerColor}` }
+        // const darkerColor = darker(`rgba(${r}, ${g}, ${b}, 0.9)`, 20)
+        const brightness = getBrightnessLevel(color)
+        setHeaderTheme(brightness)
+        Object.assign(headerRef.current.style, style)
+    }
+
+    function setHeaderTheme(brightness) {
+        let filter = ''
+        if (brightness === 1) {
+            headerRef.current.style.color = 'rgb(23, 43, 77)'
+            filter = createCssFilter('rgb(23, 43, 77)')
+            console.log('here here')
+        } else {
+            headerRef.current.style.color = 'rgb(255,255,255)'
+            filter = createCssFilter('rgb(255,255,255)')
+        }
+        if (filter) {
+            console.log(filter)
+            document.documentElement.style.setProperty('--dynamic-filter', filter)
         }
     }
     async function onAddBoard(board) {

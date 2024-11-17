@@ -6,7 +6,7 @@
     height: 3em;
     padding: 8px;
     background-color: $clr6;
-
+    color: $headerClr;
     // padding: rem(10px) 0;
     backdrop-filter: blur(6px);
     // background-color: hsl(5, 4.9%, 30.8%);
@@ -85,7 +85,7 @@
             }
 
             text-decoration: none;
-            color: $headerClr;
+            color: inherit;
             padding: 5px 12px;
             height: 32px;
 
@@ -111,12 +111,13 @@
             font-size: 1.3em;
             // font-weight: bold;
             // margin-inline-end: 2em;
+            color: inherit;
             font-family: 'CharlieDisplay-Bold';
             padding: 1.5px 8px;
             gap: 4px;
 
             img {
-                filter: brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%) hue-rotate(179deg) brightness(91%) contrast(88%);
+                filter: var(--dynamic-filter);
                 width: 16px;
             }
         }
@@ -135,7 +136,7 @@
             font-size: 14px;
             transition: 0.1s;
             background-color: inherit;
-            color: $headerClr;
+            color: inherit;
 
             &::first-letter {
                 text-transform: capitalize;
@@ -195,7 +196,7 @@
 
         .search-icon {
             position: absolute;
-            top: 10px;
+            top: 9px;
             left: 8px;
         }
     }

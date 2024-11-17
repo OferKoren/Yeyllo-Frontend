@@ -1,10 +1,10 @@
-import { useState } from "react"
-import { GroupPreview } from "./GroupPreview";
-import { makeId } from "../services/util.service";
-import { updateBoard } from "../store/actions/board.actions";
-import ClickOutside from "./ClickOutside";
-import { getEmptyGroup } from "../services/board";
-import { Draggable } from "react-beautiful-dnd";
+import { useState } from 'react'
+import { GroupPreview } from './GroupPreview'
+import { makeId } from '../services/util.service'
+import { updateBoard } from '../store/actions/board.actions'
+import ClickOutside from './ClickOutside'
+import { getEmptyGroup } from '../services/board'
+import { Draggable } from 'react-beautiful-dnd'
 
 export function GroupList({ placeholder, onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
@@ -51,50 +51,82 @@ export function GroupList({ placeholder, onUpdateBoard, board }) {
             changeBoard.groups.push(group)
             await onUpdateBoard(changeBoard)
             onCloseEditTitle()
-            setIsAddGroupClicked(isClicked => !isClicked)
+            setIsAddGroupClicked((isClicked) => !isClicked)
         } catch (err) {
-            console.log('err: ', err);
+            console.log('err: ', err)
         }
     }
 
     function onCloseEditTitle() {
-        setIsAddGroupClicked(isClicked => !isClicked)
+        setIsAddGroupClicked((isClicked) => !isClicked)
         setTitle('')
     }
 
-
-    if (!board) return <div className='trello-loader'><img src="\img\general\trello-loader.svg" alt="" /></div>
+    if (!board._id)
+        return (
+            <div className="trello-loader">
+                <img src="\img\general\trello-loader.svg" alt="" />
+            </div>
+        )
     return (
         <section>
             <ul className="group-list flex">
-                {groups.map((group, index) =>
+                {groups.map((group, index) => (
                     <Draggable isDragDisabled={isModalOpen} draggableId={group.id} key={group.id} index={index}>
                         {(provided, snapshot) => (
                             <div className="group" {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                <li style={{ ...group.style, rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }} className={group.id} key={group.id}>
+                                <li
+                                    style={{ ...group.style, rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }}
+                                    className={group.id}
+                                    key={group.id}
+                                >
                                     {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
-                                    <GroupPreview isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} setIsGroupDeleted={setIsGroupDeleted} onUpdateBoard={onUpdateBoard} board={board} group={group} />
+                                    <GroupPreview
+                                        isModalOpen={isModalOpen}
+                                        setIsModalOpen={setIsModalOpen}
+                                        isLabelsClicked={isLabelsClicked}
+                                        setIsLabelsClicked={setIsLabelsClicked}
+                                        setIsGroupDeleted={setIsGroupDeleted}
+                                        onUpdateBoard={onUpdateBoard}
+                                        board={board}
+                                        group={group}
+                                    />
                                 </li>
                             </div>
                         )}
-                    </Draggable>)
-                }
+                    </Draggable>
+                ))}
                 {placeholder}
 
-                {isAddGroupClicked ?
-                    <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked(isClicked => !isClicked)}>
+                {isAddGroupClicked ? (
+                    <ClickOutside className="container-first-add-group" onClick={() => setIsAddGroupClicked((isClicked) => !isClicked)}>
                         <div className="add-group-container">
                             <form onSubmit={onAddGroup}>
-                                <input autoFocus type="text" id="title" name="title" value={title} placeholder="Enter list name..." onChange={handleChange} />
+                                <input
+                                    autoFocus
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    value={title}
+                                    placeholder="Enter list name..."
+                                    onChange={handleChange}
+                                />
                                 <div className="add-group-btns">
                                     <button>Add list</button>
-                                    <button className="close-btn-x" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon.png" alt="" /></button>
+                                    <button className="close-btn-x" onClick={onCloseEditTitle} type="button">
+                                        <img src="\img\board-details\close-icon.png" alt="" />
+                                    </button>
                                 </div>
                             </form>
                         </div>
                     </ClickOutside>
-                    : <button onClick={() => setIsAddGroupClicked(isClicked => !isClicked)} className="add-group-btn flex align-center"><img style={{ width: "1.5em", marginRight: "0.5em" }} src="/img/add-group/plus-icon.png" alt="" />Add another list</button>}
+                ) : (
+                    <button onClick={() => setIsAddGroupClicked((isClicked) => !isClicked)} className="add-group-btn flex align-center">
+                        <img style={{ width: '1.5em', marginRight: '0.5em' }} src="/img/add-group/plus-icon.png" alt="" />
+                        Add another list
+                    </button>
+                )}
             </ul>
-        </section >
+        </section>
     )
 }
