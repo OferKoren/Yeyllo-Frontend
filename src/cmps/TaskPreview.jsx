@@ -5,6 +5,7 @@ import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { updateBoard } from '../store/actions/board.actions.js'
+import confetti from 'canvas-confetti'
 
 export function TaskPreview({
     snapshot,
