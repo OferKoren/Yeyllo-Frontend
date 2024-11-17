@@ -22,6 +22,7 @@
             h1 {
                 font-size: 3rem;
                 line-height: 1.25;
+                margin: 0 0 0.19em 0;
             }
             p {
                 font-family: 'CharlieText-Regular';
@@ -44,7 +45,6 @@
                     background-color: rgb(7, 71, 166);
                     border-color: rgb(7, 71, 166);
                 }
-                margin-inline-start: 2em;
             }
         }
         // grid-template-columns: minmax(auto, 570px) minmax(auto, 665px);

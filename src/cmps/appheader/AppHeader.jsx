@@ -30,6 +30,7 @@ export function AppHeader() {
         setIsModalOpen(false)
         setWhichModal('')
     }
+
     function onToggleModal(modalChoice) {
         if (modalChoice === whichModal) {
             setIsModalOpen(false)
@@ -61,11 +62,13 @@ export function AppHeader() {
             headerRef.current.style.cssText = ''
         }
     }, [board.style])
+
     useEffect(() => {
         if (!headerRef.current) return
         if (isModalOpen) headerRef.current.style.zIndex = '5'
         else headerRef.current.style.zIndex = '3'
     }, [isModalOpen])
+
     function setHeaderColorFromImage(imgSrc) {
         const img = new Image()
         img.crossOrigin = 'anonymous'
@@ -84,6 +87,7 @@ export function AppHeader() {
             // Object.assign(inputRef.current.style, inputStyle)
         }
     }
+
     function setHeaderColorFromColor(color) {
         const darkerColor = darkenColor(color, 45)
         const style = { backgroundColor: `${darkerColor}` }
@@ -108,6 +112,7 @@ export function AppHeader() {
             document.documentElement.style.setProperty('--dynamic-filter', filter)
         }
     }
+
     async function onAddBoard(board) {
         if (!board) {
             const board = boardService.getEmptyBoard()
@@ -143,12 +148,15 @@ export function AppHeader() {
                 return <Dropdown title={whichModal} setIsModalOpen={setIsModalOpen} />
         }
     }
+
     function handleBlur() {
         setInputClass('')
     }
+
     function handleFocus() {
         setInputClass('enlarged')
     }
+
     /*  let inputStyle = ''
     if (bgClr) {
         inputStyle = inputClass ? { backgroundColor: 'white' } : { backgroundColor: lightenColor(bgClr) }
@@ -159,9 +167,11 @@ export function AppHeader() {
         <header ref={headerRef} className="app-header full">
             <nav>
                 {/* <section className="flex align-center left-side-nav"> */}
-                <NavLink to="/home" className="homepage-link">
-                    <NineDots />
-                </NavLink>
+                {location.pathname !== '/home' && (
+                    <NavLink to="/home" className="homepage-link">
+                        <NineDots />
+                    </NavLink>
+                )}
                 <NavLink to="/workspace/home" className="logo">
                     <img src="/img/general/trello-logo-static.gif" alt="" />
                     Yeyllo
@@ -224,6 +234,7 @@ export function AppHeader() {
             )}
         </header>
     )
+
     function HeaderMainNav() {
         return (
             <>

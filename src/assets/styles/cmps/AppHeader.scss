@@ -13,9 +13,13 @@
     border-bottom: 1px solid rgba(23, 45, 79, 0.16);
     &:has(.home-page-headers) {
         height: 60px;
-        padding: 0 8px;
+
         position: fixed;
-        width: 100vw;
+        width: 100%;
+        nav {
+            max-width: 1320px;
+            margin: auto;
+        }
         transition: box-shadow 0.3s;
         &:hover {
             box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;
@@ -75,7 +79,6 @@
                     background-color: rgb(7, 71, 166);
                     border-color: rgb(7, 71, 166);
                 }
-                margin-inline-end: 4.5rem;
             }
         }
 
