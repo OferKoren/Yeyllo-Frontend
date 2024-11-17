@@ -216,6 +216,7 @@
                 }
 
                 .format-date-and-status {
+                    position: relative;
                     background-color: $clr-btn-1;
                     display: flex;
                     align-items: center;

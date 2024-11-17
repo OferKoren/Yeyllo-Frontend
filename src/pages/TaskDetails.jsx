@@ -18,6 +18,7 @@ import { AddAttachment } from '../cmps/Attachment/AddAttachment.jsx'
 import { Attachment } from '../cmps/Attachment/Attachment.jsx'
 import { Canvas } from '../cmps/Canvas.jsx'
 import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
+import { PopupYey } from '../cmps/PopupYey.jsx'
 import ClickOutside from '../cmps/ClickOutside.jsx'
 
 export function TaskDetails() {
@@ -30,6 +31,7 @@ export function TaskDetails() {
     const [isEditLabels, setIsEditLabels] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
+    const [showPopup, setShowPopup] = useState(false)
 
     const { onCloseModal, setIsDone } = useOutletContext()
     const currGroupRef = useRef(null)
@@ -107,7 +109,18 @@ export function TaskDetails() {
 
     function toggleTaskStatus() {
         setIsDone(isDone => !isDone)
-        setTask((prevTask) => ({ ...prevTask, status: prevTask.status === 'inProgress' ? 'done' : 'inProgress' }))
+        setTask((prevTask) => {
+            const newStatus = prevTask.status === 'inProgress' ? 'done' : 'inProgress'
+
+            if (newStatus === 'done') {
+                setShowPopup(true);
+                setTimeout(() => {
+                    setShowPopup(false)
+                }, 2000)
+            }
+
+            return { ...prevTask, status: newStatus }
+        })
     }
 
     function onRemoveMember(memberId) {
@@ -405,6 +418,7 @@ export function TaskDetails() {
                                                 {(task.status === 'done' && 'complete') || statusTask}
                                             </span>
                                             {openModal === 'dates-chevronBtn' && renderDatesModal()}
+                                            {showPopup && <PopupYey />}
 
                                             <div className="add-task-action chevron" onClick={() => handleToggleModal('dates-chevronBtn')}>
                                                 <i className="fa-solid fa-chevron-down"></i>
