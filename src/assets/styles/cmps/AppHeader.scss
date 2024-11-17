@@ -59,8 +59,14 @@
         background-color: white;
         border-radius: 1em;
 
-        span {
+        span.logout-user-menu {
             font-size: 0.9em;
+            padding: 0.5em 0 0.5em 1em;
+            width: 113%;
+            margin-left: -16px;
+            &:hover{
+                background-color: $clr-bg1-light;
+            }
         }
 
         box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;

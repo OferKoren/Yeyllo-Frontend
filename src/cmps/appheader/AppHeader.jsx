@@ -237,7 +237,7 @@ export function AppHeader() {
                                     <span style={{ fontSize: '0.9em', color: 'black' }}>{user?.fullname}</span>
                                 </div>
                                 <hr />
-                                <span style={{ cursor: 'pointer' }} onClick={() => { logout(); setIsUserMenuOpen(false) }}>Log out</span>
+                                <span className='logout-user-menu' style={{ cursor: 'pointer' }} onClick={() => { logout(); setIsUserMenuOpen(false) }}>Log out</span>
                             </div> </ClickOutside> : ''}
                     </div>
                 </>
