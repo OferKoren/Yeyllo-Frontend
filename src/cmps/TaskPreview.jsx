@@ -5,6 +5,7 @@ import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { updateBoard } from '../store/actions/board.actions.js'
+import confetti from 'canvas-confetti'
 
 export function TaskPreview({
     snapshot,
@@ -25,7 +26,12 @@ export function TaskPreview({
     function getCountIcons() {
         let count = 0
 
-        if (task.dueDate) count += 2
+        const today = new Date()
+        const dueDate = new Date(task.dueDate)
+        const multiplyDateLength = today.getYear() !== dueDate.getYear() ? 1.5 : 1
+
+        if (task.dueDate) count += 2 * multiplyDateLength
+        if (task.startDate) count += 2 * multiplyDateLength
         if (task.description) count++
         if (task.comments) count++
         if (task.checklists) count++
@@ -55,14 +61,25 @@ export function TaskPreview({
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         const currMonth = months[date.getMonth()]
         const currDate = date.getDate()
+        let startDate = {}
+        const pastDate = new Date(task.startDate)
+
+        if (!!task.startDate) {
+            startDate = {
+                month: months[pastDate.getMonth()],
+                date: pastDate.getDate()
+            }
+        }
 
         const today = new Date()
         // Today
-        if (today.getDate() === currDate) return `${currMonth} ${currDate}`
+        if (today.getDate() === currDate) {
+            return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
+        }
         // This year
-        else if (today.getYear() === date.getYear()) return `${currMonth} ${currDate}`
+        else if (today.getYear() === date.getYear()) return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
         // Above / Below year
-        else if (today.getYear() !== date.getYear()) return `${currMonth} ${currDate}, ${date.getYear() - 100}`
+        else if (today.getYear() !== date.getYear()) return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${date.getYear() - 100}`
         // else if (today.getYear() !== date.getYear()) return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
         // No year
         else if (!date.getYear()) return ''
@@ -119,6 +136,8 @@ export function TaskPreview({
         return { isCover: true, attachmentIdx }
     }
 
+    if (!!task.archivedAt) return ''
+
     return (
         <>
             {task.coverSize === 'full' ? (
@@ -147,7 +166,7 @@ export function TaskPreview({
                         <div
                             className="background"
                             style={{
-                                backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx].url})`,
+                                backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx]?.url})`,
                                 backgroundColor: task.attachments[getAttachmentIsCover().attachmentIdx].bgColor || 'rgb(154, 139, 127)',
                                 display: 'block',
                                 width: '100%',
@@ -165,8 +184,8 @@ export function TaskPreview({
                             <div
                                 className="background"
                                 style={{
-                                    backgroundImage: `${task.style.backgroundImage.url}`,
-                                    backgroundColor: task.style.backgroundImage.url.bgColor || 'rgb(154, 139, 127)',
+                                    backgroundImage: `${task.style.backgroundImage?.url}`,
+                                    backgroundColor: task.style.backgroundImage?.url?.bgColor || 'rgb(154, 139, 127)',
                                     display: 'block',
                                     width: '100%',
                                     height: '100%',
@@ -192,7 +211,7 @@ export function TaskPreview({
                         <div
                             className="task-color"
                             style={{
-                                backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx].url})`,
+                                backgroundImage: `url(${task.attachments[getAttachmentIsCover().attachmentIdx]?.url})`,
                                 backgroundColor: task.attachments[getAttachmentIsCover().attachmentIdx].bgColor || 'rgb(154, 139, 127)',
                                 display: 'block',
                                 width: '',
@@ -205,21 +224,22 @@ export function TaskPreview({
                     ) : task.style ? (
                         task.style.backgroundColor ? (
                             <div className="task-color" style={{ ...task.style }}></div>
-                        ) : (
-                            <div
-                                className="task-color"
-                                style={{
-                                    backgroundImage: `${task.style.backgroundImage.url}`,
-                                    backgroundColor: task.style.backgroundImage.url.bgColor || 'rgb(154, 139, 127)',
-                                    display: 'block',
-                                    width: '',
-                                    height: '194px',
-                                    backgroundSize: 'cover',
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundPosition: 'center',
-                                }}
-                            ></div>
-                        )
+                        ) : task.style.backgroundImage ?
+                            (
+                                <div
+                                    className="task-color"
+                                    style={{
+                                        backgroundImage: `${task.style.backgroundImage?.url}`,
+                                        backgroundColor: task.style.backgroundImage?.url?.bgColor || 'rgb(154, 139, 127)',
+                                        display: 'block',
+                                        width: '',
+                                        height: '194px',
+                                        backgroundSize: 'cover',
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundPosition: 'center',
+                                    }}
+                                ></div>
+                            ) : ''
                     ) : (
                         ''
                     )}
@@ -397,7 +417,7 @@ export function TaskPreview({
                             ) : (
                                 ''
                             )}
-                            {task.checklists ? (
+                            {task.checklists && task.checklists.length > 0 ? (
                                 <div title="Checklist items" className="flex align-center">
                                     <img src="\img\board-details\checkbox-icon.svg" alt="checkbox" />
                                     <span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{`${getDoneTodosCount(task)}/${getTodosCount(
@@ -412,7 +432,7 @@ export function TaskPreview({
                             className="right-side-members flex align-center"
                             style={{
                                 marginTop: '0.5em',
-                                gap: '0.6em',
+                                gap: '4px',
                                 alignContent: 'right',
                                 justifyContent: 'right',
                                 paddingBottom: '0.2em',
@@ -430,7 +450,7 @@ export function TaskPreview({
 
             {isModalOpen && task.id === taskModalId ? (
                 <ModalTaskDetails onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true}>
-                    <Outlet context={{ onCloseModal }} />
+                    <Outlet context={{ onCloseModal, setIsDone }} />
                 </ModalTaskDetails>
             ) : (
                 ''

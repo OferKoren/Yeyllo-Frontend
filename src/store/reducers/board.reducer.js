@@ -61,6 +61,9 @@ export function boardReducer(state = initialState, action) {
             break
         case SET_BOARD:
             lastBoard = { ...action.board }
+            state.labels = defaultLabels
+
+            console.log('action.board', action.board)
             const updatedLabels = state.labels?.map((label) => {
                 const existingLabel = action.board.labels.find((l) => l.id === label.id)
                 if (existingLabel) {
@@ -69,6 +72,7 @@ export function boardReducer(state = initialState, action) {
                     return label
                 }
             })
+
             newState = { ...state, board: action.board, labels: updatedLabels, members: action.board.members || [], lastBoard }
             // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
             break

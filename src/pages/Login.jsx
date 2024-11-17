@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom'
 export function Login() {
     const [users, setUsers] = useState([])
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
+    const user = useSelector(storeState => storeState.userModule.user)
 
     const navigate = useNavigate()
 
@@ -25,8 +26,14 @@ export function Login() {
         if (ev) ev.preventDefault()
 
         if (!credentials.username || !credentials.password) return
-        await login(credentials)
-        navigate('/')
+        try {
+            const checkedUser = await login(credentials)
+            console.log(checkedUser);
+            
+            checkedUser? navigate('/'): navigate('/login')
+        } catch(err){
+            console.log('err:', err);            
+        }
     }
 
     function handleChange(ev) {
@@ -34,8 +41,6 @@ export function Login() {
         const value = ev.target.value
         setCredentials({ ...credentials, [field]: value })
     }
-
-    const user = useSelector(storeState => storeState.userModule.user)
 
     console.log(user);
 

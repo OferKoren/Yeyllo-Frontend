@@ -27,6 +27,7 @@
             margin: 0;
 
             border-radius: 0.2em;
+            cursor: pointer;
 
             & .member-name {
                 font-size: 0.9rem;
@@ -36,6 +37,10 @@
                 margin-inline-start: auto;
                 color: $gray6;
                 padding: 0 0.5em 0 0;
+            }
+
+            &:hover {
+                background-color: $clr-bg1-light;
             }
         }
     }

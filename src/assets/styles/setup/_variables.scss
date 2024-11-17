@@ -3,6 +3,7 @@ $clr-bg1-light: #f1f2f4;
 $clr-bg2-light: #ffffff;
 $clr-bg3-light: #f5f4f4;
 $clr-bg3-archive: #fff7d6;
+$clr-bg4-popup: #baf3db;
 
 $clr-btn-1: #e7e9eb;
 $clr-btn-2: #0c66e4;
@@ -72,7 +73,6 @@ $createBtnHover: #0c66e4;
 $mobile-breakpoint: 460px;
 $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
-
 :root {
     --dynamic-filter: brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%) hue-rotate(179deg) brightness(91%) contrast(88%);
 }

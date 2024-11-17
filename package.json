@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^1.5.0",
+    "canvas-confetti": "^1.9.3",
     "colorthief": "^2.6.0",
     "dayjs": "^1.11.13",
     "quill": "^2.0.2",

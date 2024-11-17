@@ -162,7 +162,7 @@ export function AppHeader() {
                 <NavLink to="/home" className="homepage-link">
                     <NineDots />
                 </NavLink>
-                <NavLink to="workspace/home" className="logo">
+                <NavLink to="/workspace/home" className="logo">
                     <img src="/img/general/trello-logo-static.gif" alt="" />
                     Yeyllo
                 </NavLink>
@@ -191,21 +191,6 @@ export function AppHeader() {
                 )} */}
             {location.pathname !== '/home' && (
                 <>
-                    <div className={`header-search-wrapper ${inputClass}`}>
-                        <span className="search-icon">
-                            <img src="/img/general/search-icon.svg" alt="" />
-                        </span>
-                        <input
-                            type="text"
-                            className={`input header-search `}
-                            placeholder="search"
-                            ref={inputRef}
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                            // style={inputStyle}
-                        />
-                    </div>
-
                     {isModalOpen && (
                         <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
                             <Modal
@@ -220,6 +205,21 @@ export function AppHeader() {
                             </Modal>
                         </ClickOutside>
                     )}
+
+                    <div className={`header-search-wrapper ${inputClass}`}>
+                        <span className="search-icon">
+                            <img src="/img/general/search-icon.svg" alt="" />
+                        </span>
+                        <input
+                            type="text"
+                            className={`input header-search `}
+                            placeholder="search"
+                            ref={inputRef}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            // style={inputStyle}
+                        />
+                    </div>
                 </>
             )}
         </header>

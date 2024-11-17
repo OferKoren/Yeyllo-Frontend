@@ -18,6 +18,7 @@ import { AddAttachment } from '../cmps/Attachment/AddAttachment.jsx'
 import { Attachment } from '../cmps/Attachment/Attachment.jsx'
 import { Canvas } from '../cmps/Canvas.jsx'
 import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
+import { PopupYey } from '../cmps/PopupYey.jsx'
 import ClickOutside from '../cmps/ClickOutside.jsx'
 
 export function TaskDetails() {
@@ -30,8 +31,9 @@ export function TaskDetails() {
     const [isEditLabels, setIsEditLabels] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
+    const [showPopup, setShowPopup] = useState(false)
 
-    const { onCloseModal } = useOutletContext()
+    const { onCloseModal, setIsDone } = useOutletContext()
     const currGroupRef = useRef(null)
 
     // const { boardId } = useParams()
@@ -106,7 +108,19 @@ export function TaskDetails() {
     }
 
     function toggleTaskStatus() {
-        setTask((prevTask) => ({ ...prevTask, status: prevTask.status === 'inProgress' ? 'done' : 'inProgress' }))
+        setIsDone(isDone => !isDone)
+        setTask((prevTask) => {
+            const newStatus = prevTask.status === 'inProgress' ? 'done' : 'inProgress'
+
+            if (newStatus === 'done') {
+                setShowPopup(true);
+                setTimeout(() => {
+                    setShowPopup(false)
+                }, 2000)
+            }
+
+            return { ...prevTask, status: newStatus }
+        })
     }
 
     function onRemoveMember(memberId) {
@@ -395,7 +409,7 @@ export function TaskDetails() {
                                 <div className="due-date-area">
                                     <h3>Due date</h3>
                                     <div className="due-date-details">
-                                        <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
+                                        <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task.id)} />
                                         <div className="format-date-and-status">
                                             <span>{formatDate(task.dueDate, task.dueTime, task.startDate || null)}</span>
                                             <span
@@ -404,6 +418,7 @@ export function TaskDetails() {
                                                 {(task.status === 'done' && 'complete') || statusTask}
                                             </span>
                                             {openModal === 'dates-chevronBtn' && renderDatesModal()}
+                                            {showPopup && <PopupYey />}
 
                                             <div className="add-task-action chevron" onClick={() => handleToggleModal('dates-chevronBtn')}>
                                                 <i className="fa-solid fa-chevron-down"></i>

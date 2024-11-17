@@ -35,6 +35,10 @@ export async function login(credentials) {
             user
         })
         // socketService.login(user._id)
+        if (!user) {
+            alert('Incorrect email or password')
+            return user = null
+        }
         return user
     } catch (err) {
         console.log('Cannot login', err)
