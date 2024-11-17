@@ -92,6 +92,7 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                             )}
                         </Draggable>
                     )}
+                        {placeholder}
 
                     {/* <ClickOutside
                         onSubmit={onAddTask} onClick={()=>onAddTask()}
