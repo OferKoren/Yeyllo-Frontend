@@ -27,9 +27,19 @@ export function Signup() {
         if (ev) ev.preventDefault()
 
         if (!credentials.username || !credentials.password || !credentials.fullname) return
-        await signup(credentials)
-        clearState()
-        navigate('/')
+        // await signup(credentials)
+        // navigate('/')
+        
+        try {
+            const checkedUser = await signup(credentials)
+            clearState()
+            console.log(checkedUser);
+            
+            checkedUser? navigate('/workspace/home'): navigate('/login')
+        } catch(err){
+            console.log('err:', err);            
+        }
+        
     }
 
     function onUploaded(imgUrl) {

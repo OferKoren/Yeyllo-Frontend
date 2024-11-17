@@ -416,7 +416,7 @@ export function TaskPreview({
                             )}
                             {task.attachments ? (
                                 <div title="Attachments" className="flex align-center">
-                                    <img src="\img\board-details\attachment-icon.svg" alt="attachments" />{' '}
+                                    <img style={{opacity:0.7}} src="\img\board-details\attachment-icon.svg" alt="attachments" />{' '}
                                     {<span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{task.attachments.length}</span>}{' '}
                                 </div>
                             ) : (
