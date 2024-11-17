@@ -430,7 +430,7 @@ export function TaskPreview({
 
             {isModalOpen && task.id === taskModalId ? (
                 <ModalTaskDetails onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true}>
-                    <Outlet context={{ onCloseModal }} />
+                    <Outlet context={{ onCloseModal, setIsDone }} />
                 </ModalTaskDetails>
             ) : (
                 ''

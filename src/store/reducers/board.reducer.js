@@ -73,7 +73,6 @@ export function boardReducer(state = initialState, action) {
             })
 
             newState = { ...state, board: action.board, labels: updatedLabels, members: action.board.members || [], lastBoard }
-            console.log('newState', newState)
             // newState = { ...state, board: action.board, labels: action.board.labels.length ? action.board.labels : defaultLabels }
             break
         case UNLOAD_BOARD:

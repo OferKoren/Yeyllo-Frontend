@@ -31,7 +31,7 @@ export function TaskDetails() {
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
 
-    const { onCloseModal } = useOutletContext()
+    const { onCloseModal, setIsDone } = useOutletContext()
     const currGroupRef = useRef(null)
 
     // const { boardId } = useParams()
@@ -106,6 +106,7 @@ export function TaskDetails() {
     }
 
     function toggleTaskStatus() {
+        setIsDone(isDone => !isDone)
         setTask((prevTask) => ({ ...prevTask, status: prevTask.status === 'inProgress' ? 'done' : 'inProgress' }))
     }
 
@@ -395,7 +396,7 @@ export function TaskDetails() {
                                 <div className="due-date-area">
                                     <h3>Due date</h3>
                                     <div className="due-date-details">
-                                        <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task._id)} />
+                                        <input type="checkbox" checked={task.status === 'done'} onChange={() => toggleTaskStatus(task.id)} />
                                         <div className="format-date-and-status">
                                             <span>{formatDate(task.dueDate, task.dueTime, task.startDate || null)}</span>
                                             <span
