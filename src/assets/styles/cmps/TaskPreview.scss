@@ -86,6 +86,8 @@
 
     .left-side-btns {
         overflow-wrap: normal;
+        display: flex;
+        flex-wrap: wrap;
 
         .date-btn {
             position: relative;
@@ -94,6 +96,15 @@
             border-radius: em(3px);
             line-height: em(20px);
             min-width: 5.2em;
+
+            span {
+                width: max-content;
+                overflow-wrap: normal;
+                overflow-x: visible;
+                // white-space: nowrap;
+            }
+
+
 
             .checkbox {
                 position: absolute;

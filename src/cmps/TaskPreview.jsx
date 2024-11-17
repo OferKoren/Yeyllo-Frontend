@@ -25,8 +25,12 @@ export function TaskPreview({
     function getCountIcons() {
         let count = 0
 
-        if (task.dueDate) count += 2
-        if (task.startDate) count += 2
+        const today = new Date()
+        const dueDate = new Date(task.dueDate)
+        const multiplyDateLength = today.getYear() !== dueDate.getYear() ? 1.5 : 1
+
+        if (task.dueDate) count += 2 * multiplyDateLength
+        if (task.startDate) count += 2 * multiplyDateLength
         if (task.description) count++
         if (task.comments) count++
         if (task.checklists) count++
@@ -57,9 +61,9 @@ export function TaskPreview({
         const currMonth = months[date.getMonth()]
         const currDate = date.getDate()
         let startDate = {}
+        const pastDate = new Date(task.startDate)
 
         if (!!task.startDate) {
-            const pastDate = new Date(task.startDate)
             startDate = {
                 month: months[pastDate.getMonth()],
                 date: pastDate.getDate()
@@ -69,12 +73,12 @@ export function TaskPreview({
         const today = new Date()
         // Today
         if (today.getDate() === currDate) {
-            return `${task.startDate? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
+            return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
         }
         // This year
-        else if (today.getYear() === date.getYear()) return `${task.startDate? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
+        else if (today.getYear() === date.getYear()) return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
         // Above / Below year
-        else if (today.getYear() !== date.getYear()) return `${currMonth} ${currDate}, ${date.getYear() - 100}`
+        else if (today.getYear() !== date.getYear()) return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${date.getYear() - 100}`
         // else if (today.getYear() !== date.getYear()) return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
         // No year
         else if (!date.getYear()) return ''
