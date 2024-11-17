@@ -62,7 +62,7 @@ async function signup(userCred) {
 		const user = await httpService.post('auth/signup', userCred)
 		return saveLoggedinUser(user)
 	} catch (err) {
-		console.log('err:', err);
+		console.error('can not login', err)
 	}
 }
 
@@ -83,6 +83,8 @@ function saveLoggedinUser(user) {
 		// score: user.score, 
 		isAdmin: user.isAdmin
 	}
+
+	console.log('user', user)
 	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
 	return user
 }

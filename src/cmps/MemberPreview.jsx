@@ -7,7 +7,7 @@ export function MemberPreview({ member, handleCloseModal, onRemoveMember }) {
         // <ClickOutside onClick={handleCloseModal}>
         <div className="modal-member-preview" onClick={(ev) => ev.stopPropagation()}>
             <div className="option-modal-header member-preview-header">
-                <i className="btn fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>
+                <i className="btn btn-close-member-preview fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>
             </div>
 
             <div className="member-details">
@@ -16,7 +16,7 @@ export function MemberPreview({ member, handleCloseModal, onRemoveMember }) {
                 </div>
                 <div className="details">
                     <span>{member.fullname}</span>
-                    <span>{`@${member._id}`}</span>
+                    <span>{`@u${member._id.substring(18, 24)}`}</span>
                 </div>
             </div>
             <hr />

@@ -37,7 +37,6 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, handleClo
                             {task.memberIds && task.memberIds.length !== 0 && task.memberIds.map(memberId => {
 
                                 const memberDetails = gMembers.find(m => m._id === memberId)
-                                { console.log('memberDetails', memberDetails) }
                                 return (
                                     <li key={memberDetails._id} className="member">
                                         <img src={memberDetails.imgUrl || ''} />
@@ -53,7 +52,7 @@ export function Members({ task, setTask, boardMembers, onRemoveMember, handleClo
 
                 {
                     <div className="board-member-list">
-                        {task.memberIds && task.memberIds.length !== gMembers.length &&
+                        {(task.memberIds && task.memberIds.length === gMembers.length) || gMembers.length > 0 &&
                             <h3>Board members</h3>}
                         <ul className="member-list">
                             {filteredMembers && filteredMembers.map(member => {
