@@ -149,6 +149,10 @@
         font-size: 1.2rem;
         font-family: 'roboto-medium';
         background-color: $clr-bg3-light;
+
+        &:focus {
+            background-color: $clr-bg2-light;
+        }
     }
 
     textarea.task-description {
