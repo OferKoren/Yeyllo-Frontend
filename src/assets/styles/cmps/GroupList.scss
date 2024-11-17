@@ -30,7 +30,7 @@
     height: calc(100vh - 3.5rem - 50px);
     // height: 100%;
 
-    li:first-child:not(.label, .member, .attachment-action-item, .react-datepicker__time-list-item, .output-container li) {
+    li:first-child:not(.label, .member, .attachment-action-item, .react-datepicker__time-list-item, .output-container li, .reach-editor-container li) {
         margin-inline-start: 1em;
     }
 
@@ -65,7 +65,7 @@
         max-height: calc(100vh - 3.5rem - 2.5rem);
     }
 
-    li:not(.label, .member, .attachment-action-item, .react-datepicker__time-list-item, .output-container li) {
+    li:not(.label, .member, .attachment-action-item, .react-datepicker__time-list-item, .output-container li, .reach-editor-container li) {
         width: rem(264px);
 
         // &.group-list-li{
