@@ -227,7 +227,7 @@ export function AppHeader() {
     function HeaderMainNav() {
         return (
             <>
-                <button
+                {/* <button
                     className="btn1 header-btn recent"
                     onClick={(ev) => {
                         onToggleModal('recent')
@@ -238,7 +238,7 @@ export function AppHeader() {
                 >
                     Recent
                     <ArrowDown />
-                </button>
+                </button> */}
 
                 <button
                     className="btn1 header-btn starred"
@@ -253,7 +253,7 @@ export function AppHeader() {
                     <ArrowDown />
                 </button>
 
-                <button
+                {/*    <button
                     className="btn1 header-btn template"
                     onClick={(ev) => {
                         onToggleModal('templates')
@@ -264,7 +264,7 @@ export function AppHeader() {
                 >
                     Templates
                     <ArrowDown />
-                </button>
+                </button> */}
 
                 <button
                     className="btn1 create"

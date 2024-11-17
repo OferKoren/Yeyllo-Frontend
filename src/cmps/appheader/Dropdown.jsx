@@ -15,9 +15,7 @@ export function Dropdown({ title = 'dropdown', setIsModalOpen }) {
     async function onUpdateBoard(board) {
         const boardToSave = { ...board }
         try {
-            console.log(boardToSave)
             const savedBoard = await updateBoard(boardToSave)
-            console.log(savedBoard)
         } catch (err) {}
     }
 
@@ -28,11 +26,12 @@ export function Dropdown({ title = 'dropdown', setIsModalOpen }) {
         console.log(boardToUpdate.isStarred)
         onUpdateBoard(boardToUpdate)
     }
-    function handleMouseEnter() {
-        setStar('empty')
+    function handleMouseEnter(boardId) {
+        console.log(boardId)
+        setStar(boardId)
     }
     function handleMouseLeave() {
-        setStar('full')
+        setStar('')
     }
     const filter = title === 'starred' ? 'isStarred' : 'recent'
     return (
@@ -51,10 +50,10 @@ export function Dropdown({ title = 'dropdown', setIsModalOpen }) {
                                 <button
                                     className="str-btn btn2"
                                     onClick={(ev) => onStarBoard(ev, board)}
-                                    onMouseEnter={handleMouseEnter}
+                                    onMouseEnter={() => handleMouseEnter(board._id)}
                                     onMouseLeave={handleMouseLeave}
                                 >
-                                    {star === 'full' ? <StarFull /> : <StarEmpty />}
+                                    {star !== board._id ? <StarFull /> : <StarEmpty />}
                                 </button>
                             </div>
                         </li>

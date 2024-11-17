@@ -10,12 +10,14 @@ export function WorkspaceAside() {
                     </span>
                     Boards
                 </NavLink>
-                <NavLink to="/workspace/templates" className="aside-link">
-                    <span>
-                        <TemplateIcon />
-                    </span>
-                    Templates
-                </NavLink>
+                {false && (
+                    <NavLink to="/workspace/templates" className="aside-link">
+                        <span>
+                            <TemplateIcon />
+                        </span>
+                        Templates
+                    </NavLink>
+                )}
             </nav>
         </aside>
     )

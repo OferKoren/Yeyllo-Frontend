@@ -173,7 +173,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
         return (
             <div className={'main-menu'}>
                 <ul>
-                    <li>
+                    {/*  <li>
                         <button className="modal-btn menu-btn info">
                             <InfoIcon />
                             <div>
@@ -181,7 +181,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                                 <div>Add a description to your board</div>
                             </div>
                         </button>
-                    </li>
+                    </li> */}
 
                     <li>
                         <button className="modal-btn menu-btn">
@@ -198,19 +198,19 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                         </button>
                     </li>
                     <hr className="semi-thin" />
-                    <li>
+                    {/*  <li>
                         <button className="modal-btn menu-btn">
                             <SettingIcon />
                             <div>settings</div>
                         </button>
-                    </li>
+                    </li> */}
                     <li>
                         <button className="modal-btn menu-btn" onClick={() => onEnterMenu('first-bg-menu')}>
                             <div className="background" style={board.style}></div>
                             <div>change background</div>
                         </button>
                     </li>
-                    <li>
+                    {/* <li>
                         <button
                             className="modal-btn menu-btn"
                             onClick={(ev) => {
@@ -223,7 +223,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                             <MakeTemplateIcon />
                             <div>make template</div>
                         </button>
-                    </li>
+                    </li> */}
                     <hr className="semi-thin" />
                     <li>
                         <button
