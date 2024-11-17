@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { AttachmentActions } from '../Attachment/AttachmentActions.jsx'
+import { LongTxt } from '../LongTxt.jsx'
 
 dayjs.extend(relativeTime)
 
@@ -24,7 +25,7 @@ export function Attachment({ attachment, handleToggleModal, handleCloseModal, ha
 
             <div className="attachment-main">
                 <div className="attachment-details">
-                    <h2>{attachment.fileName}</h2>
+                    <h2 title={attachment.fileName}><LongTxt showButton={false}>{attachment.fileName}</LongTxt></h2>
                     <div className="attach-time-and-cover">
                         <p>Added {dayjs(attachment.uploadedAt).fromNow()}</p>
                         {attachment.isCover &&

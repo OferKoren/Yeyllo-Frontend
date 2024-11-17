@@ -25,7 +25,7 @@ export const httpService = {
 async function ajax(endpoint, method = 'GET', data = null) {
     const url = `${BASE_URL}${endpoint}`
     const params = (method === 'GET') ? data : null
-    
+
     const options = { url, method, data, params }
 
     try {
@@ -35,7 +35,6 @@ async function ajax(endpoint, method = 'GET', data = null) {
         console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: `, data)
         console.dir(err)
         if (err.response && err.response.status === 401) {
-            sessionStorage.clear()
             window.location.assign('/')
         }
         throw err

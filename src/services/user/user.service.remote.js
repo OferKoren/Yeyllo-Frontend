@@ -51,9 +51,12 @@ async function signup(userCred) {
 	userCred.imgUrl = userCred.imgUrl ? userCred.imgUrl : '/img/user/user-default.png'
 
 	console.log('after', userCred)
-
-	const user = await httpService.post('auth/signup', userCred)
-	return saveLoggedinUser(user)
+	try {
+		const user = await httpService.post('auth/signup', userCred)
+		return saveLoggedinUser(user)
+	} catch (err) {
+		console.error('can not login', err)
+	}
 }
 
 async function logout() {
@@ -73,6 +76,8 @@ function saveLoggedinUser(user) {
 		// score: user.score, 
 		isAdmin: user.isAdmin
 	}
+
+	console.log('user', user)
 	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
 	return user
 }
