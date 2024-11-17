@@ -136,7 +136,7 @@ export function AppHeader() {
                 <NavLink to="/home" className="homepage-link">
                     <NineDots />
                 </NavLink>
-                <NavLink to="workspace/home" className="logo">
+                <NavLink to="/workspace/home" className="logo">
                     <img src="/img/general/trello-logo-static.gif" alt="" />
                     Yeyllo
                 </NavLink>

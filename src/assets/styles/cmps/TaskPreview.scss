@@ -19,13 +19,13 @@
 
         position: relative;
 
-        .background{
-            background: linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, #ffffff 100%);;
-            // -webkit-mask-image: linear-gradient(black, rgba(0, 0, 0, 0.2));
-            // mask-image: linear-gradient(black, rgba(0, 0, 0, 0.2));
+        .background {
+            // background: linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, #ffffff 100%);;
+            -webkit-mask-image: linear-gradient(black, rgba(0, 0, 0, 0.2));
+            mask-image: linear-gradient(black, rgba(0, 0, 0, 0.2));
         }
 
-        .title{
+        .title {
             position: absolute;
             bottom: 8px;
             left: 12px;
@@ -34,8 +34,6 @@
             font-size: rem(16px);
             letter-spacing: 0.02em;
         }
-        
-
     }
 
     img {
