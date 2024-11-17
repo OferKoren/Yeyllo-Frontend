@@ -24,6 +24,8 @@ export function AppHeader() {
     const [position, setPosition] = useState()
     const [inputClass, setInputClass] = useState('')
 
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+
     const navigate = useNavigate()
     const location = useLocation()
     function onCloseModal() {
@@ -149,6 +151,10 @@ export function AppHeader() {
     function handleFocus() {
         setInputClass('enlarged')
     }
+
+    function onUserMenu() {
+        setIsUserMenuOpen(isOpen => !isOpen)
+    }
     /*  let inputStyle = ''
     if (bgClr) {
         inputStyle = inputClass ? { backgroundColor: 'white' } : { backgroundColor: lightenColor(bgClr) }
@@ -217,8 +223,22 @@ export function AppHeader() {
                             ref={inputRef}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                            // style={inputStyle}
+                        // style={inputStyle}
                         />
+                    </div>
+                    <div className='flex align-center' >{user
+                        ? <img className='user-img-header' onClick={onUserMenu} style={{ width: '1.6em', marginInlineEnd: '1em', cursor: 'pointer' }} src={user?.imgUrl} alt="" />
+                        : ''}
+                        {isUserMenuOpen
+                            ? <ClickOutside onClick={() => setIsUserMenuOpen(false)}><div className="user-menu">
+                                <h5>Account</h5>
+                                <div className='flex align-center'>
+                                    <img style={{ width: '3em', marginInlineEnd: '1em' }} src={user?.imgUrl} alt="" />
+                                    <span style={{ fontSize: '0.9em', color: 'black' }}>{user?.fullname}</span>
+                                </div>
+                                <hr />
+                                <span style={{ cursor: 'pointer' }} onClick={() => { logout(); setIsUserMenuOpen(false) }}>Log out</span>
+                            </div> </ClickOutside> : ''}
                     </div>
                 </>
             )}

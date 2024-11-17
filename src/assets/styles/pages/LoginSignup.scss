@@ -31,8 +31,10 @@
     place-self: center;
 
     width: rem(400px);
-    min-height: rem(500px);
+    // min-height: rem(500px);
     max-height: max-content;
+
+    padding-bottom: 1.5em;
 
     background-color: #ffff;
 
@@ -142,6 +144,7 @@
 
         width: min(80%, 300px);
         margin: auto;
+        margin-bottom: 0;
         margin-top: 0;
         padding-top: rem(18px);
         background-color: #ffff;
