@@ -56,8 +56,13 @@ export function ArchiveMenu({ board, onUpdateBoard }) {
                                 </Draggable>
 
                                 <div className="btns">
-                                    <button onClick={() => onDelete(task.id)}>delete</button>
-                                    <button onClick={() => onReturnToBoard(task.id)}>return to board</button>
+                                    <button className="btn2" onClick={() => onDelete(task.id)}>
+                                        delete
+                                    </button>
+                                    •
+                                    <button className="btn2" onClick={() => onReturnToBoard(task.id)}>
+                                        return to board
+                                    </button>
                                 </div>
                             </li>
                         ))}

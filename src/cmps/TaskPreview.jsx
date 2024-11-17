@@ -67,7 +67,7 @@ export function TaskPreview({
         if (!!task.startDate) {
             startDate = {
                 month: months[pastDate.getMonth()],
-                date: pastDate.getDate()
+                date: pastDate.getDate(),
             }
         }
 
@@ -77,9 +77,13 @@ export function TaskPreview({
             return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
         }
         // This year
-        else if (today.getYear() === date.getYear()) return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
+        else if (today.getYear() === date.getYear())
+            return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
         // Above / Below year
-        else if (today.getYear() !== date.getYear()) return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${date.getYear() - 100}`
+        else if (today.getYear() !== date.getYear())
+            return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${
+                date.getYear() - 100
+            }`
         // else if (today.getYear() !== date.getYear()) return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
         // No year
         else if (!date.getYear()) return ''
@@ -136,7 +140,7 @@ export function TaskPreview({
         return { isCover: true, attachmentIdx }
     }
 
-    if (!!task.archivedAt) return ''
+    if (!!task.archivedAt && !archive) return ''
 
     return (
         <>
@@ -224,22 +228,23 @@ export function TaskPreview({
                     ) : task.style ? (
                         task.style.backgroundColor ? (
                             <div className="task-color" style={{ ...task.style }}></div>
-                        ) : task.style.backgroundImage ?
-                            (
-                                <div
-                                    className="task-color"
-                                    style={{
-                                        backgroundImage: `${task.style.backgroundImage?.url}`,
-                                        backgroundColor: task.style.backgroundImage?.url?.bgColor || 'rgb(154, 139, 127)',
-                                        display: 'block',
-                                        width: '',
-                                        height: '194px',
-                                        backgroundSize: 'cover',
-                                        backgroundRepeat: 'no-repeat',
-                                        backgroundPosition: 'center',
-                                    }}
-                                ></div>
-                            ) : ''
+                        ) : task.style.backgroundImage ? (
+                            <div
+                                className="task-color"
+                                style={{
+                                    backgroundImage: `${task.style.backgroundImage?.url}`,
+                                    backgroundColor: task.style.backgroundImage?.url?.bgColor || 'rgb(154, 139, 127)',
+                                    display: 'block',
+                                    width: '',
+                                    height: '194px',
+                                    backgroundSize: 'cover',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundPosition: 'center',
+                                }}
+                            ></div>
+                        ) : (
+                            ''
+                        )
                     ) : (
                         ''
                     )}

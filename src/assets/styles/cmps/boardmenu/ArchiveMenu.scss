@@ -6,8 +6,23 @@
         margin-block-end: 10px;
     }
     .btns {
+        padding-inline-start: 1em;
         display: flex;
-        gap: 10px;
+        gap: 1.5px;
+
+        button {
+            transition: 0.1s;
+            font-size: rem(14px);
+            font-weight: 600;
+            color: #44546f;
+            &::first-letter {
+                text-transform: capitalize;
+            }
+            &:hover {
+                color: #0c66e4;
+                text-decoration: underline;
+            }
+        }
     }
     .task-preview {
         width: 98%;

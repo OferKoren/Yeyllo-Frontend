@@ -32,12 +32,12 @@ export async function login(credentials) {
         const user = await userService.login(credentials)
         store.dispatch({
             type: SET_USER,
-            user
+            user,
         })
         // socketService.login(user._id)
         if (!user) {
             alert('Incorrect email or password')
-            return user = null
+            return null
         }
         return user
     } catch (err) {
@@ -51,7 +51,7 @@ export async function signup(credentials) {
         const user = await userService.signup(credentials)
         store.dispatch({
             type: SET_USER,
-            user
+            user,
         })
         // socketService.login(user._id)
         return user
@@ -66,7 +66,7 @@ export async function logout() {
         await userService.logout()
         store.dispatch({
             type: SET_USER,
-            user: null
+            user: null,
         })
         // socketService.logout()
     } catch (err) {
@@ -86,14 +86,13 @@ export async function loadUser(userId) {
 }
 
 export function addActivity(txt) {
-
-    return userService.addActivity(txt)
+    return userService
+        .addActivity(txt)
         .then((updatedUser) => {
-            store.dispatch({ type: SET_USER, user: updatedUser, })
+            store.dispatch({ type: SET_USER, user: updatedUser })
         })
-        .catch(err => {
+        .catch((err) => {
             console.error('Cannot add activity:', err)
             throw err
         })
-
 }
