@@ -1,21 +1,34 @@
 import { useEffect, useRef, useState } from 'react'
+import ClickOutside from '../ClickOutside'
+import { Modal } from '../Modal'
+import { BoardFilter } from './BoardFilter'
 
 const starEmpty = '/img/workspace/star-empty-small.svg'
 const starEmptyGold = '/img/workspace/star-empty-gold.svg'
 const starFullGold = '/img/workspace/star-full-gold.svg'
-export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, isMenuOpen }) {
+export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, isMenuOpen, filterBy }) {
     const [isEditing, setIsEditing] = useState(false)
     const [text, setText] = useState() // Initial text for the header
     const inputRef = useRef(null)
     const headerRef = useRef(null)
     const spanRef = useRef(null)
     const [textWidth, setTextWidth] = useState(0)
-    // Toggle to edit mode
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [position, setPosition] = useState()
+    // Toggle to edit mod
     useEffect(() => {
         if (board) {
             setText(board.title)
         }
     }, [board.title])
+
+    useEffect(() => {
+        if (!headerRef.current) return
+        if (isModalOpen) headerRef.current.style.zIndex = '5'
+        else headerRef.current.style.zIndex = '3'
+    }, [isModalOpen])
+
     function handleHeaderClick() {
         setIsEditing(true)
     }
@@ -38,6 +51,20 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
             setTextWidth(inputRef.current.scrollWidth)
         }
     }
+
+    function onCloseModal() {
+        setIsModalOpen(false)
+    }
+    function onOpenModal() {
+        setIsModalOpen(true)
+    }
+
+    function onSetPosition(ev) {
+        // Get button position
+        const rect = ev.currentTarget.getBoundingClientRect()
+        setPosition({ right: 0, top: rect.bottom - 38 })
+    }
+
     function updateTextWidht(text) {
         if (spanRef.current) {
             spanRef.current.textContent = text || ''
@@ -62,7 +89,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
     if (!board._id) return
 
     return (
-        <header className="board-header flex">
+        <header className="board-header flex" ref={headerRef}>
             <div className="title-wrapper" style={{ width: `${textWidth + 10}px` }}>
                 {isEditing ? (
                     <input
@@ -95,6 +122,21 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                 {board.isStarred ? <StarFull /> : <StarEmpty />}
             </button>
 
+            <button
+                className="header-btn btn2 filters"
+                onClick={(ev) => {
+                    onOpenModal()
+                    if (!isModalOpen) {
+                        onSetPosition(ev)
+                    }
+                }}
+            >
+                <span>
+                    <FilterIcon />
+                </span>
+                <span>Filters</span>
+            </button>
+            <span className="divider"></span>
             <div className="board-members">
                 {board.members.map((member) => (
                     <img className="member-img" key={member._id} src={member.imgUrl} alt="" />
@@ -103,7 +145,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
 
             {!isMenuOpen && (
                 <button
-                    className="header-btn btn2"
+                    className="header-btn btn2 menu"
                     onClick={() => {
                         onToggleMenu()
                         // if (isMenuOpen) setIsShrink(true)
@@ -118,6 +160,22 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                         />
                     </svg>
                 </button>
+            )}
+
+            {isModalOpen && (
+                <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
+                    <Modal
+                        title={'filter'}
+                        onCloseModal={onCloseModal}
+                        isOpen={isModalOpen}
+                        isBlur={false}
+                        position={position}
+                        isBackDrop={false}
+                        style={{ width: '380px' }}
+                    >
+                        <BoardFilter filterBy={filterBy} />
+                    </Modal>
+                </ClickOutside>
             )}
         </header>
     )
@@ -144,6 +202,18 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
+                />
+            </svg>
+        )
+    }
+    function FilterIcon() {
+        return (
+            <svg width="16" height="16" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M4.61799 6C3.87461 6 3.39111 6.78231 3.72356 7.44721L3.99996 8H20L20.2763 7.44721C20.6088 6.78231 20.1253 6 19.3819 6H4.61799ZM10.8618 17.7236C10.9465 17.893 11.1196 18 11.309 18H12.6909C12.8803 18 13.0535 17.893 13.1382 17.7236L14 16H9.99996L10.8618 17.7236ZM17 13H6.99996L5.99996 11H18L17 13Z"
+                    fill="currentColor"
                 />
             </svg>
         )

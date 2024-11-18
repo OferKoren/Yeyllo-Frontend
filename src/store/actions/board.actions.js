@@ -12,6 +12,7 @@ import {
     BOARD_UNDO,
     SET_DYNAMIC_BG,
     SET_BRIGHTNESS,
+    SET_FILTER_BY,
 } from '../reducers/board.reducer'
 import { batch } from 'react-redux'
 import { workspaceService } from '../../services/workspace/workspace.service'
@@ -52,6 +53,9 @@ export function unloadBoard() {
 }
 export function setDynamicBg(dynamicBg) {
     store.dispatch(getCmdSetDynamicBg(dynamicBg))
+}
+export function setFilterBy(filterBy) {
+    store.dispatch(getCmdSetFilterBy(filterBy))
 }
 export function setBrightness(brightness) {
     store.dispatch(getCmdSetBrightness(brightness))
@@ -137,6 +141,12 @@ function getCmdSetDynamicBg(dynmaicBg) {
     return {
         type: SET_DYNAMIC_BG,
         dynmaicBg,
+    }
+}
+function getCmdSetFilterBy(filterBy) {
+    return {
+        type: SET_FILTER_BY,
+        filterBy,
     }
 }
 function getCmdSetBrightness(brightness) {

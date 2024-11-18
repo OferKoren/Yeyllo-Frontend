@@ -64,7 +64,7 @@ export function HomePage() {
                     </nav>
 
                     <div className="picture-container">
-                        <img src="/img/homepage/carusal_boards.webp" alt="" className={carusalClass[activeBtn]} />
+                        <img src="/img/homepage/carusal_boards.png" alt="" className={carusalClass[activeBtn]} />
                         <img src="/img/homepage/carusal_lists.webp" alt="" className={carusalClass[activeBtn]} />
                         <img src="/img/homepage/carusal_cards.webp" alt="" className={carusalClass[activeBtn]} />
                     </div>
@@ -81,7 +81,7 @@ export function HomePage() {
                         </div>
                     </div>
                 </section>
-                <section className="footer2 full"></section>
+                {/* <section className="footer2 full"></section> */}
             </footer>
         </section>
     )

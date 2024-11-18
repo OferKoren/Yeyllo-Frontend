@@ -27,12 +27,15 @@ function getEmptyBoard() {
         activites: [],
     }
 }
+
 function getBackgroundPallet() {
     return boardData.backgroundPallet
 }
+
 function getBackgroundEmoji() {
     return boardData.backgroundEmoj
 }
+
 function getArchivedItems(board) {
     const archivedItems = board.groups.reduce((acc, group) => {
         const archivedTasks = group.tasks
@@ -48,10 +51,7 @@ function getArchivedItems(board) {
 }
 function getDefaultFilter() {
     return {
-        // txt: '',
-        // minSpeed: '',
-        // sortField: '',
-        // sortDir: '',
+        keyword: '',
     }
 }
 

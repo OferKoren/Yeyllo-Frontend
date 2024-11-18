@@ -13,6 +13,8 @@ export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
     const board = useSelector((storeState) => storeState.boardModule.board)
     const brightness = useSelector((storeState) => storeState.boardModule.brightness)
+    const filterBy = useSelector((storeState) => storeState.boardModule.filterBy)
+
     const [isMenuOpen, setMenuOpen] = useState(false)
     const [isShrink, setIsShrink] = useState(false)
     const [isAsideOpen, setAsideOpen] = useState(false)
@@ -31,9 +33,7 @@ export function BoardDetails({ rootRef }) {
             baseTheme()
         }
     }, [])
-    useEffect(() => {
-        if (!!brightness) boardTheme(brightness)
-    }, [brightness])
+
     useEffect(() => {
         socketService.emit('join-board', boardId)
         console.log('joined to board', boardId)
@@ -43,6 +43,10 @@ export function BoardDetails({ rootRef }) {
             console.log('left the board', boardId)
         }
     }, [])
+
+    useEffect(() => {
+        if (!!brightness) boardTheme(brightness)
+    }, [brightness])
 
     useEffect(() => {
         if (rootRef.current && board) {
@@ -78,6 +82,10 @@ export function BoardDetails({ rootRef }) {
             document.documentElement.style.setProperty('--dynmaic-create-btn', '#ffffff33')
             document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#ffffff5c')
 
+            document.documentElement.style.setProperty('--dynamic-board-header-color', ' #ffffff')
+            document.documentElement.style.setProperty('--dynamic-board-header-hover', ' #ffffff33')
+            document.documentElement.style.setProperty('--dynamic-board-header-background', '#0000003d')
+
             document.documentElement.style.setProperty('--dynamic-nav-hover1', '#ffffff33')
 
             if (brightness === 2) {
@@ -87,6 +95,7 @@ export function BoardDetails({ rootRef }) {
             }
         }
     }
+
     function baseTheme() {
         setBrightness(2)
         document.documentElement.style.setProperty('--dynamic-nav-hover1', '#091e4224')
@@ -94,6 +103,7 @@ export function BoardDetails({ rootRef }) {
         document.documentElement.style.setProperty('--dynmaic-create-btn', '#0c66e4')
         document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#0055cc')
     }
+
     async function onUpdateBoard(board) {
         await updateBoard(board)
     }
@@ -104,7 +114,7 @@ export function BoardDetails({ rootRef }) {
             setTimeout(() => {
                 setMenuOpen((prev) => !prev)
                 setIsShrink(false)
-            }, 600)
+            }, 300)
         } else setMenuOpen((prev) => !prev)
     }
     // style={{backgroundImage:`url(${board.style.backgroundImage})`}}
@@ -188,6 +198,7 @@ export function BoardDetails({ rootRef }) {
                         isMenuOpen={isMenuOpen}
                         onToggleMenu={onToggleMenu}
                         setIsShrink={setIsShrink}
+                        filterBy={filterBy}
                     />
                     <Droppable droppableId="ROOT" type="group" direction="horizontal">
                         {(provided) => (

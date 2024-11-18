@@ -1,7 +1,9 @@
+import { boardService } from '../../services/board'
 import { workspaceService } from '../../services/workspace/workspace.service'
 export const SET_WORKSPACE = 'SET_WORKSPACE'
 export const SET_BOARDS = 'SET_BOARDS'
 export const SET_BOARD = 'SET_BOARD'
+export const SET_FILTER_BY = 'SET_FILTER_BY'
 export const SET_DYNAMIC_BG = 'SET_DYNAMIC_BG'
 export const SET_BRIGHTNESS = 'SET_BRIGHTNESS'
 export const UNLOAD_BOARD = 'UNLOAD_BOARD'
@@ -42,7 +44,7 @@ const initialState = {
     boards: [],
     board: {},
     lastBoard: null,
-    filterBy: {},
+    filterBy: boardService.getDefaultFilter(),
     labels: defaultLabels,
     members: [],
     dynamicBg: '#ffffff00',
@@ -83,6 +85,9 @@ export function boardReducer(state = initialState, action) {
             break
         case SET_BRIGHTNESS:
             newState = { ...state, brightness: action.brightness }
+            break
+        case SET_FILTER_BY:
+            newState = { ...state, filterBy: { ...state.filterBy, ...action.filterBy } }
             break
         case UNLOAD_BOARD:
             newState = { ...state, board: {} }
