@@ -57,8 +57,8 @@ export function BoardDetails({ rootRef }) {
         }
     }, [boardId])
 
-    async function onUpdateBoard(board) {
-        await updateBoard(board)
+    async function onUpdateBoard(board, activity = null) {
+        await updateBoard(board, activity)
     }
 
     function onToggleMenu() {

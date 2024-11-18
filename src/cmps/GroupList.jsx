@@ -5,12 +5,14 @@ import { updateBoard } from '../store/actions/board.actions'
 import ClickOutside from './ClickOutside'
 import { getEmptyGroup } from '../services/board'
 import { Draggable } from 'react-beautiful-dnd'
+import { useSelector } from 'react-redux'
 
 export function GroupList({ placeholder, onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
     const [title, setTitle] = useState('')
     const [isGroupDeleted, setIsGroupDeleted] = useState(false)
     const [isLabelsClicked, setIsLabelsClicked] = useState(false)
+    const user = useSelector((storeState) => storeState.userModule.user)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -46,10 +48,19 @@ export function GroupList({ placeholder, onUpdateBoard, board }) {
         //     title: title
         // }
 
+        const activity = {
+            txt: `added list "${group.title}" to this board`,
+            boardId: board._id,
+            groupId: group.id,
+            taskId: null,
+            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
+            createdAt: Date.now(),
+        }
+
         try {
             const changeBoard = board
             changeBoard.groups.push(group)
-            await onUpdateBoard(changeBoard)
+            await onUpdateBoard(changeBoard, activity)
             onCloseEditTitle()
             setIsAddGroupClicked((isClicked) => !isClicked)
         } catch (err) {

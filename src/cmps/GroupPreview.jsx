@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { GroupMenu } from './GroupMenu'
 import { colorLuminance } from '../services/util.service'
 import { Droppable } from 'react-beautiful-dnd'
+import { useSelector } from 'react-redux'
 
 export function GroupPreview({ isModalOpen, setIsModalOpen, isLabelsClicked, setIsLabelsClicked, onUpdateBoard, board, group, setIsGroupDeleted }) {
     const { title, tasks, id } = group
@@ -15,6 +16,7 @@ export function GroupPreview({ isModalOpen, setIsModalOpen, isLabelsClicked, set
     const [isCopyGroupClicked, setIsCopyGroupClicked] = useState(false)
     const [isAddTaskClicked, setIsAddTaskClicked] = useState(false)
     const [taskTitle, setTaskTitle] = useState('')
+    const user = useSelector((storeState) => storeState.userModule.user)
 
     const navigator = useNavigate()
 
@@ -71,7 +73,17 @@ export function GroupPreview({ isModalOpen, setIsModalOpen, isLabelsClicked, set
         try {
             const currGroupIdx = board.groups.findIndex(group => group.id === id)
             board.groups.splice(currGroupIdx, 1)
-            await onUpdateBoard(board)
+
+            const activity = {
+                txt: `deleted list "${title}"`,
+                boardId: board._id,
+                groupId: id,
+                taskId: null,
+                byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
+                createdAt: Date.now(),
+            }
+
+            await onUpdateBoard(board, activity)
             toggleMenu()
             setIsGroupDeleted(isGroupDeleted => !isGroupDeleted)
         } catch (err) {

@@ -3,8 +3,10 @@ import { TaskPreview } from "./TaskPreview";
 import { makeId } from "../services/util.service";
 import ClickOutside from "./ClickOutside";
 import { Draggable } from "react-beautiful-dnd";
+import { useSelector } from 'react-redux';
 
 export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
+    const user = useSelector((storeState) => storeState.userModule.user)
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
     // const { groups } = board
 
@@ -26,19 +28,30 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
 
     async function onAddTask(ev) {
         if (ev) ev.preventDefault()
-        if(isModalOpen) return 
+        if (isModalOpen) return
         if (!taskTitle) return onCloseEditTitle()
         // if (!taskTitle) return alert('Text field is required')
 
         try {
             const currGroupIdx = board.groups.findIndex(group => group.id === groupId)
+            const newTaskId = makeId()
             const newTask = {
-                id: makeId(),
+                id: newTaskId,
                 title: taskTitle,
-                coverSize:'half',
+                coverSize: 'half',
             }
+
+            const activity = {
+                txt: `added card "${taskTitle}" to "${group.title}"`,
+                boardId: board._id,
+                groupId,
+                taskId: newTaskId,
+                byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
+                createdAt: Date.now(),
+            }
+
             board.groups[currGroupIdx].tasks.push(newTask)
-            await onUpdateBoard(board)
+            await onUpdateBoard(board, activity)
             setIsAddTaskClicked(isClicked => !isClicked)
             onCloseEditTitle()
         } catch (err) {
@@ -47,7 +60,7 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
     }
 
     function onCloseEditTitle() {
-        if(isModalOpen) return setTaskTitle('')
+        if (isModalOpen) return setTaskTitle('')
         setIsAddTaskClicked(isClicked => !isClicked)
         setTaskTitle('')
     }
@@ -97,16 +110,16 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                     {/* <ClickOutside
                         onSubmit={onAddTask} onClick={()=>onAddTask()}
                     > */}
-                        <div className="add-task-container" onBlur={onBlurAddTaskInput}>
-                            <form onSubmit={onAddTask}>
-                                {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
-                                <input autoFocus  type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
-                                <div className="add-group-btns">
-                                    <button>Add card</button>
-                                    <button className="close-btn-x add-card-close" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon-dark.png" alt="" /></button>
-                                </div>
-                            </form>
-                        </div>
+                    <div className="add-task-container" onBlur={onBlurAddTaskInput}>
+                        <form onSubmit={onAddTask}>
+                            {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
+                            <input autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
+                            <div className="add-group-btns">
+                                <button>Add card</button>
+                                <button className="close-btn-x add-card-close" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon-dark.png" alt="" /></button>
+                            </div>
+                        </form>
+                    </div>
                     {/* </ClickOutside> */}
                 </section>
             }

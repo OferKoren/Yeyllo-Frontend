@@ -8,7 +8,7 @@ import { boardService as local } from './board.service.local'
 import { boardService as remote } from './board.service.remote'
 
 function getEmptyBoard() {
-    const user = useSelector((storeState) => storeState.userModule.user || { _id: 'u101', fullname: 'Abi Abambi', imgUrl: '/img/user/gal.png' })
+    const user = useSelector((storeState) => storeState.userModule.user)
     console.log(user)
 
     return {
@@ -24,7 +24,7 @@ function getEmptyBoard() {
         labels: [],
         members: [user],
         groups: [],
-        activites: [],
+        activities: [],
     }
 }
 function getBackgroundPallet() {

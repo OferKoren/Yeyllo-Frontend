@@ -72,7 +72,7 @@ async function logout() {
 }
 
 function getLoggedinUser() {
-	return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+	return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER)) || { _id: '673a4e6607432cd340d8bdb2', fullname: 'Guest', imgUrl: '/img/user/user-default.png' }
 }
 
 function saveLoggedinUser(user) {

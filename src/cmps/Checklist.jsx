@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { makeId } from '../services/util.service.js'
 import { DeleteTodoModal } from '../cmps/DeleteTodoModal.jsx'
 import { DeleteChecklistModal } from '../cmps/DeleteChecklistModal.jsx'
+import { boardService } from '../services/board'
 
-export function Checklist({ todos, task, checklist, setTask, openModal, handleToggleModal, handleCloseModal }) {
+export function Checklist({ todos, task, checklist, setTask, openModal, handleToggleModal, handleCloseModal, groupId, boardToEdit, user }) {
 
     const { id: checklistId, title } = checklist
     const [isAddingTodo, setIsAddingTodo] = useState(false)
@@ -61,6 +62,19 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
     function onRemoveChecklist(checklistId) {
         const updatedChecklists = task.checklists.filter(checklist => checklist.id !== checklistId)
         setTask(prevTask => ({ ...prevTask, checklists: updatedChecklists }))
+
+        const activity = {
+            txt: `removed ${checklist.title} from card "${task.title}"`,
+            boardId: boardToEdit._id,
+            groupId: groupId,
+            taskId: task.id,
+            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
+            createdAt: Date.now(),
+        }
+
+        boardService.addActivity(activity).catch(err => {
+            console.error('Failed to add activity:', err)
+        })
     }
 
     return (
