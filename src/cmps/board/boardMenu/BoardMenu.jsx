@@ -7,6 +7,7 @@ import { CopyBoard } from './CopyBoard'
 import { FirstBgMenu } from './FirstBackgroundMenu'
 import { SecondBgMenu } from './SecondBackgroundMenu'
 import { ArchiveMenu } from './ArchiveMenu'
+import dayjs from 'dayjs'
 
 export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     const [width, setWidth] = useState('0px')
@@ -259,13 +260,19 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
 
                 <div>
                     <h3>Activities</h3>
-                    {board.activities?.length > 0 && board.activities.map((activity, i) =>
-                        <li key={i} style={{ fontSize: '0.9rem' }}>
-                            <img src={activity.byMember.imgUrl} style={{ width: '20px', borderRadius: '50%' }}></img>
-                            <span style={{ fontFamily: 'roboto-medium' }}>{activity.byMember.fullname}&nbsp;</span>
-                            <span>{activity.txt}</span>
-                        </li>
-                    )}
+                    <ul style={{ display: 'grid', gap: '0.8em' }}>
+                        {board.activities?.length > 0 && board.activities.map((activity, i) =>
+                            <li key={i}
+                                style={{ fontSize: '0.9rem', display: 'grid', gridTemplateColumns: '30px 1fr', gap: '0.7em', alignItems: 'start' }}>
+                                <img src={activity.byMember.imgUrl} style={{ width: '30px', borderRadius: '50%' }}></img>
+                                <div>
+                                    <span style={{ fontFamily: 'roboto-medium' }}>{activity.byMember.fullname}&nbsp;</span>
+                                    <span>{activity.txt}</span>
+                                    <div>{dayjs(activity.createdAt).fromNow()}</div>
+                                </div>
+                            </li>
+                        )}
+                    </ul>
                 </div>
             </div>
         )

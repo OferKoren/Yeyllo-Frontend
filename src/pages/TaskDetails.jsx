@@ -493,6 +493,9 @@ export function TaskDetails() {
                                         handleToggleModal={handleToggleModal}
                                         openModal={openModal}
                                         handleCloseModal={handleCloseModal}
+                                        boardToEdit={boardToEdit}
+                                        groupId={currGroupRef.current.id}
+                                        user={user}
                                     />
                                 ))}
                             </div>
@@ -538,7 +541,9 @@ export function TaskDetails() {
                                 </svg>
                                 <span> Checklist</span>
                             </button>
-                            {openModal === 'checklist' && <AddChecklist setTask={setTask} handleCloseModal={handleCloseModal} />}
+                            {openModal === 'checklist' &&
+                                <AddChecklist task={task} setTask={setTask} handleCloseModal={handleCloseModal}
+                                    boardToEdit={boardToEdit} groupId={currGroupRef.current.id} user={user} />}
                         </div>
 
                         <div>
