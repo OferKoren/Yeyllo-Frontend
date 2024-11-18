@@ -8,7 +8,7 @@ import { boardService as local } from './board.service.local'
 import { boardService as remote } from './board.service.remote'
 
 function getEmptyBoard() {
-    const user = useSelector((storeState) => storeState.userModule.user || { _id: '6737239f06c9b704f496443a', fullname: 'Abi Abambi', imgUrl: '/img/user/gal.png' })
+    const user = useSelector((storeState) => storeState.userModule.user)
     console.log(user)
 
     return {

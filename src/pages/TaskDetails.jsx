@@ -26,6 +26,7 @@ export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
+    const user = useSelector((storeState) => storeState.userModule.user || { _id: '673a4e6607432cd340d8bdb2', fullname: 'Guest', imgUrl: '/img/user/user-default.png' })
 
     const [boardToEdit, setBoardToEdit] = useState(null)
     const [openModal, setOpenModal] = useState(null)
@@ -241,14 +242,12 @@ export function TaskDetails() {
         const updatedGroups = boardToEdit.groups.map((group) => (group.id === groupId ? updatedGroup : group))
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
 
-        const user = userService.getLoggedinUser() || { id: '6737239f06c9b704f496443a', fullname: 'Gal Ben David' }
-
         const activity = {
             txt: `Updated task in group "${currGroupRef.current.title}"`,
             boardId: boardToEdit._id,
             groupId: currGroupRef.current.id,
             taskId: taskId,
-            byMember: { _id: user._id, fullname: user.fullname },
+            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
             createdAt: Date.now(),
         }
 
