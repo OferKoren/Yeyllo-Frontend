@@ -42,7 +42,7 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
             }
 
             const activity = {
-                txt: `added task "${taskTitle}" to "${group.title}"`,
+                txt: `added card "${taskTitle}" to "${group.title}"`,
                 boardId: board._id,
                 groupId,
                 taskId: newTaskId,

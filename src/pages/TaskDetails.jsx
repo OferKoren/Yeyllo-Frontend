@@ -228,7 +228,17 @@ export function TaskDetails() {
 
     function onRemoveTask() {
         const updatedTasks = currGroupRef.current.tasks.filter((groupTask) => groupTask.id !== taskId)
-        saveBoard(updatedTasks)
+
+        const activity = {
+            txt: `deleted card #${taskId} from "${currGroupRef.current.title}"`,
+            boardId: boardToEdit._id,
+            groupId: currGroupRef.current.id,
+            taskId: taskId,
+            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
+            createdAt: Date.now(),
+        }
+
+        saveBoard(updatedTasks, activity)
     }
 
     function onSaveTask() {
@@ -237,19 +247,10 @@ export function TaskDetails() {
         saveBoard(updatedTasks)
     }
 
-    async function saveBoard(tasksToSave) {
+    async function saveBoard(tasksToSave, activity) {
         const updatedGroup = { ...currGroupRef.current, tasks: tasksToSave }
         const updatedGroups = boardToEdit.groups.map((group) => (group.id === groupId ? updatedGroup : group))
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
-
-        const activity = {
-            txt: `Updated task in group "${currGroupRef.current.title}"`,
-            boardId: boardToEdit._id,
-            groupId: currGroupRef.current.id,
-            taskId: taskId,
-            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
-            createdAt: Date.now(),
-        }
 
         console.log('activity', activity)
 

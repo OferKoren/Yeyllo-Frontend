@@ -260,9 +260,9 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 <div>
                     <h3>Activities</h3>
                     {board.activities?.length > 0 && board.activities.map((activity, i) =>
-                        <li key={i}>
+                        <li key={i} style={{ fontSize: '0.9rem' }}>
                             <img src={activity.byMember.imgUrl} style={{ width: '20px', borderRadius: '50%' }}></img>
-                            <span>{activity.byMember.fullname}&nbsp;</span>
+                            <span style={{ fontFamily: 'roboto-medium' }}>{activity.byMember.fullname}&nbsp;</span>
                             <span>{activity.txt}</span>
                         </li>
                     )}
