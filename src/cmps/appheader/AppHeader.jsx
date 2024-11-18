@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { useLocation, useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
-import { logout } from '../../store/actions/user.actions'
+import { login, logout } from '../../store/actions/user.actions'
 import ColorThief from 'colorthief'
 import { useEffect, useRef, useState } from 'react'
 import { Modal } from '../Modal'
@@ -182,12 +182,31 @@ export function AppHeader() {
         // setIsUserMenuOpen(isOpen => !isOpen)
     }
 
+    const [credentials, setCredentials] = useState({ username: 'guest@yeyllo.com', password: '123', fullname: 'Guest' })
+
+    async function onLogin(ev = null) {
+        if (ev) ev.preventDefault()
+
+        try {
+            if (!credentials.username || !credentials.password) return
+            const checkedUser = await login(credentials)
+            console.log(checkedUser);
+            checkedUser ? navigate('/workspace/home') : navigate('/login')
+        } catch (err) {
+            console.log('err:', err);
+        }
+    }
+
     /*  let inputStyle = ''
     if (bgClr) {
         inputStyle = inputClass ? { backgroundColor: 'white' } : { backgroundColor: lightenColor(bgClr) }
     }
     if (!inputClass) return */
     // const inputStyle = ''
+
+    console.log(user);
+
+
     return (
         <header style={{ zIndex: '5' }} ref={headerRef} className="app-header full">
             <nav>
@@ -197,11 +216,19 @@ export function AppHeader() {
                         <NineDots />
                     </NavLink>
                 )}
-                <NavLink to="/workspace/home" className="logo">
-                    {/* <img src="/img/general/trello-logo-static.gif" alt="" /> */}
-                    <TrelloLogo />
-                    Yeyllo
-                </NavLink>
+                {!user || user.fullname === 'Guest'
+                    ?
+                    <button className="logo" onClick={onLogin}>
+                        <TrelloLogo />
+                        Yeyllo
+                    </button>
+                    :
+                    <NavLink to={`${!user || user.fullname === 'Guest' ? '/' : '/workspace/home'}`} className="logo">
+                        {/* <img src="/img/general/trello-logo-static.gif" alt="" /> */}
+                        <TrelloLogo />
+                        Yeyllo
+                    </NavLink>
+                }
                 {/* </section> */}
                 {/* <section className="flex align-center right-side-nav"> */}
                 {location.pathname !== '/home' ? <HeaderMainNav /> : <HomePageHeader />}
@@ -253,7 +280,7 @@ export function AppHeader() {
                             ref={inputRef}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                            // style={inputStyle}
+                        // style={inputStyle}
                         />
                     </div>
                     <div className="flex align-center">

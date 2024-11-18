@@ -88,7 +88,7 @@ export function GroupList({ placeholder, onUpdateBoard, board }) {
                             <div className="group" {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
                                 <li
                                     style={{ ...group.style, rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }}
-                                    className={group.id}
+                                    className={group.isCollapse ? `collapse ${group.id} ${group?.style?.backgroundColor?.substr(1)}` : group.id}
                                     key={group.id}
                                 >
                                     {/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
