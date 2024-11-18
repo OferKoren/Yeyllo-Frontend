@@ -26,7 +26,7 @@ export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
-    const user = useSelector((storeState) => storeState.userModule.user || { _id: '673a4e6607432cd340d8bdb2', fullname: 'Guest', imgUrl: '/img/user/user-default.png' })
+    const user = useSelector((storeState) => storeState.userModule.user)
 
     const [boardToEdit, setBoardToEdit] = useState(null)
     const [openModal, setOpenModal] = useState(null)
