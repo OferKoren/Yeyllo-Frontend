@@ -6,7 +6,8 @@ export const boardService = {
     save,
     remove,
     addBoardMsg,
-    uploadImg
+    uploadImg,
+    addActivity
 }
 
 async function query(filterBy = {}) {
@@ -33,6 +34,10 @@ async function save(board) {
 async function addBoardMsg(boardId, txt) {
     const savedMsg = await httpService.post(`board/${boardId}/msg`, { txt })
     return savedMsg
+}
+
+async function addActivity(activity) {
+    return httpService.post(`board/${activity.boardId}/activity`, activity)
 }
 
 async function uploadImg(imgData) {

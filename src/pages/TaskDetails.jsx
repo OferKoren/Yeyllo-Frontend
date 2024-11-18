@@ -19,6 +19,7 @@ import { Attachment } from '../cmps/Attachment/Attachment.jsx'
 import { Canvas } from '../cmps/Canvas.jsx'
 import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
 import { PopupYey } from '../cmps/PopupYey.jsx'
+import { userService } from '../services/user'
 import ClickOutside from '../cmps/ClickOutside.jsx'
 
 export function TaskDetails() {
@@ -240,8 +241,21 @@ export function TaskDetails() {
         const updatedGroups = boardToEdit.groups.map((group) => (group.id === groupId ? updatedGroup : group))
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
 
+        const user = userService.getLoggedinUser() || { id: '6737239f06c9b704f496443a', fullname: 'Gal Ben David' }
+
+        const activity = {
+            txt: `Updated task in group "${currGroupRef.current.title}"`,
+            boardId: boardToEdit._id,
+            groupId: currGroupRef.current.id,
+            taskId: taskId,
+            byMember: { _id: user._id, fullname: user.fullname },
+            createdAt: Date.now(),
+        }
+
+        console.log('activity', activity)
+
         try {
-            await updateBoard(boardToSave)
+            await updateBoard(boardToSave, activity)
         } catch (err) {
             console.error('can not save board', err)
         } finally {

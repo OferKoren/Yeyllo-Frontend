@@ -74,9 +74,20 @@ export async function addBoard(board) {
     }
 }
 
-export async function updateBoard(board) {
+export async function updateBoard(board, activity = null) {
     try {
+        // Save the entire board, including activities
+        console.log('Board arrived', board)
+
+        if (activity) {
+            // Push the activity to the saved board's activities
+            await boardService.addActivity(activity)
+        }
+
         const savedBoard = await boardService.save(board)
+
+        console.log('savedBoard', savedBoard)
+
         store.dispatch(getCmdUpdateBoard(savedBoard))
         return savedBoard
     } catch (err) {

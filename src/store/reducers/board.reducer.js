@@ -63,7 +63,6 @@ export function boardReducer(state = initialState, action) {
             lastBoard = { ...action.board }
             state.labels = defaultLabels
 
-            console.log('action.board', action.board)
             const updatedLabels = state.labels?.map((label) => {
                 const existingLabel = action.board.labels.find((l) => l.id === label.id)
                 if (existingLabel) {
