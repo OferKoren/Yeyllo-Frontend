@@ -75,4 +75,17 @@ $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
 :root {
     --dynamic-filter: brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%) hue-rotate(179deg) brightness(91%) contrast(88%);
+    --dynamic-nav-hover1: #091e4224;
+
+    --dynmaic-create-btn: #0c66e4;
+    --dynmaic-create-btn-hover: #0055cc;
+    --dynmaic-create-btn-color: #ffffff;
+
+    --dynamic-star-color: #ffffff;
+    --dynamic-board-header-color: #ffffff;
+    --dynamic-board-header-background: #0000003d;
+    --dynamic-board-header-hover: rgba(255, 255, 255, 0.2);
+
+    --testing: #00000029;
+    --testing: #ffffff3d;
 }

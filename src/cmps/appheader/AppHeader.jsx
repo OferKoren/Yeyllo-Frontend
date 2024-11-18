@@ -6,7 +6,7 @@ import { logout } from '../../store/actions/user.actions'
 import ColorThief from 'colorthief'
 import { useEffect, useRef, useState } from 'react'
 import { Modal } from '../Modal'
-import { addBoard } from '../../store/actions/board.actions'
+import { addBoard, setBrightness } from '../../store/actions/board.actions'
 import { boardService } from '../../services/board'
 import { AddBoard } from '../workspace/modals/AddBoard'
 import { Dropdown } from './Dropdown'
@@ -99,18 +99,18 @@ export function AppHeader() {
 
     function setHeaderTheme(brightness) {
         let filter = ''
+        setBrightness(brightness)
         if (brightness === 1) {
             headerRef.current.style.color = 'rgb(23, 43, 77)'
             filter = createCssFilter('rgb(23, 43, 77)')
-            console.log('here here')
         } else {
             headerRef.current.style.color = 'rgb(255,255,255)'
             filter = createCssFilter('rgb(255,255,255)')
         }
         if (filter) {
-            console.log(filter)
             document.documentElement.style.setProperty('--dynamic-filter', filter)
         }
+        // document.documentElement.style.setProperty('--dynamic-nav-hover', 'RGBA(255,255,255,0.2)')
     }
 
     async function onAddBoard(board) {

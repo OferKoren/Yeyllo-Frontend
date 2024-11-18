@@ -11,6 +11,7 @@ import {
     SET_WORKSPACE,
     BOARD_UNDO,
     SET_DYNAMIC_BG,
+    SET_BRIGHTNESS,
 } from '../reducers/board.reducer'
 import { batch } from 'react-redux'
 import { workspaceService } from '../../services/workspace/workspace.service'
@@ -51,6 +52,9 @@ export function unloadBoard() {
 }
 export function setDynamicBg(dynamicBg) {
     store.dispatch(getCmdSetDynamicBg(dynamicBg))
+}
+export function setBrightness(brightness) {
+    store.dispatch(getCmdSetBrightness(brightness))
 }
 
 export async function removeBoard(boardId) {
@@ -133,6 +137,12 @@ function getCmdSetDynamicBg(dynmaicBg) {
     return {
         type: SET_DYNAMIC_BG,
         dynmaicBg,
+    }
+}
+function getCmdSetBrightness(brightness) {
+    return {
+        type: SET_BRIGHTNESS,
+        brightness,
     }
 }
 function getCmdUnloadBoard() {

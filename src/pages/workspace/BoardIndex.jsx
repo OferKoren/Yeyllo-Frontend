@@ -43,6 +43,7 @@ export function BoardIndex() {
     function onCloseModal() {
         setIsModalOpen(false)
     }
+
     function onOpenModal() {
         setIsModalOpen(true)
     }
@@ -80,7 +81,7 @@ export function BoardIndex() {
                 <img src="\img\general\trello-loader.svg" alt="" />
             </div>
         )
-    console.log(workspace)
+
     return (
         <main className="board-index workspace-layout">
             {/* <BoardFilter filterBy={filterBy} setFilterBy={setFilterBy} /> */}

@@ -5,11 +5,11 @@
     align-items: center;
     padding: rem(12px) rem(10px) rem(12px) rem(16px);
     backdrop-filter: blur(4px);
-    background-color: #0000003d;
+    background-color: var(--dynamic-board-header-background);
 
     font-size: rem(18px);
     // font-family: 'se','Roboto-Bold';
-    color: white;
+    color: var(--dynamic-board-header-color);
 
     // justify-content: space-between;
 
@@ -60,7 +60,7 @@
             border-radius: 4px;
             transition: 0.1s;
             &:hover {
-                background-color: rgba(255, 255, 255, 0.256);
+                background-color: var(--dynamic-board-header-hover);
             }
             // transition: all 0.2s ease; // Smooth transition
         }
@@ -85,7 +85,7 @@
         align-items: center;
         justify-content: center;
         &:hover {
-            background-color: rgba(255, 255, 255, 0.256);
+            background-color: var(--dynamic-board-header-hover);
         }
     }
 
@@ -99,6 +99,7 @@
         }
     }
     & > button.star {
+        color: var(--dynamic-star-color);
         margin-inline-end: auto;
     }
 }

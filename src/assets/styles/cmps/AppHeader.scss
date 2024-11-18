@@ -101,7 +101,7 @@
         }
 
         a:hover {
-            background-color: lightgray;
+            background-color: var(--dynamic-nav-hover1);
         }
 
         .active {
@@ -146,13 +146,13 @@
             }
 
             &.btn1.create {
-                color: white;
-                background-color: $btnClr1;
+                color: var(--dynmaic-create-btn-color);
+                background-color: var(--dynmaic-create-btn);
                 margin-inline-start: 1em;
 
                 &:hover {
                     // background-color: darken($color: $btnClr1, $amount: 10);
-                    background-color: $headerCreateBtnClr;
+                    background-color: var(--dynmaic-create-btn-hover);
                 }
             }
 
@@ -161,7 +161,7 @@
                 align-items: center;
 
                 &:hover {
-                    background-color: $headerHoverBtnClr;
+                    background-color: var(--dynamic-nav-hover1);
                 }
 
                 svg {

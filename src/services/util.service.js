@@ -182,7 +182,6 @@ export function darkenColor(color, percent) {
 }
 
 export function getBrightnessLevel(color) {
-    // Match the RGB or RGBA components using a regex
     const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)
 
     if (!match) {
@@ -196,11 +195,11 @@ export function getBrightnessLevel(color) {
 
     // Calculate brightness using the luminance formula
     const brightness = 0.299 * r + 0.587 * g + 0.114 * b
-
+    console.log(brightness)
     // Return brightness level based on thresholds
     if (brightness > 165) {
         return 1 // Brightest
-    } else if (brightness > 85) {
+    } else if (brightness > 65) {
         return 2 // Medium
     } else {
         return 3 // Darkest

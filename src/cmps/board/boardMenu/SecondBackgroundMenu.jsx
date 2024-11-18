@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { EndlessPhotos } from '../../workspace/modals/EndlessPhotos'
 import { MoreBgs } from '../../workspace/modals/MoreBgs'
-
+// import { boardService } from '../../services/board'
 export function SecondBgMenu({ option, onUpdateBoard, board }) {
     const [boardBg, setBoardBg] = useState({ options: boardService.getBackgroundPallet(), selected: '' })
 

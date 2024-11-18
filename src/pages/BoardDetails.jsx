@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { loadBoard, unloadBoard, updateBoard, updateBoardOptimistic } from '../store/actions/board.actions'
+import { loadBoard, setBrightness, unloadBoard, updateBoard, updateBoardOptimistic } from '../store/actions/board.actions'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { GroupList } from '../cmps/GroupList'
@@ -9,10 +9,10 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { socketService, SOCKET_EVENT_BOARD_UPDATED } from '../services/socket.service.js'
 import { UPDATE_BOARD } from '../store/reducers/board.reducer.js'
 
-
 export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
     const board = useSelector((storeState) => storeState.boardModule.board)
+    const brightness = useSelector((storeState) => storeState.boardModule.brightness)
     const [isMenuOpen, setMenuOpen] = useState(false)
     const [isShrink, setIsShrink] = useState(false)
     const [isAsideOpen, setAsideOpen] = useState(false)
@@ -20,16 +20,20 @@ export function BoardDetails({ rootRef }) {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        socketService.on(SOCKET_EVENT_BOARD_UPDATED, updatedBoard => {
+        socketService.on(SOCKET_EVENT_BOARD_UPDATED, (updatedBoard) => {
             console.log('GOT from socket', 'board')
             dispatch({ type: UPDATE_BOARD, board: updatedBoard })
         })
-
+        // boardTheme()
         return () => {
             socketService.off(SOCKET_EVENT_BOARD_UPDATED)
+
+            baseTheme()
         }
     }, [])
-
+    useEffect(() => {
+        if (!!brightness) boardTheme(brightness)
+    }, [brightness])
     useEffect(() => {
         socketService.emit('join-board', boardId)
         console.log('joined to board', boardId)
@@ -39,7 +43,6 @@ export function BoardDetails({ rootRef }) {
             console.log('left the board', boardId)
         }
     }, [])
-
 
     useEffect(() => {
         if (rootRef.current && board) {
@@ -57,6 +60,40 @@ export function BoardDetails({ rootRef }) {
         }
     }, [boardId])
 
+    function boardTheme(brightness) {
+        console.log(brightness)
+        if (brightness === 1) {
+            document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #172B4D')
+            document.documentElement.style.setProperty('--dynmaic-create-btn', '#00000029')
+            document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#00000052')
+
+            document.documentElement.style.setProperty('--dynamic-board-header-color', ' #172B4D')
+            document.documentElement.style.setProperty('--dynamic-board-header-hover', ' #00000029')
+            document.documentElement.style.setProperty('--dynamic-board-header-background', '#ffffff3d')
+            document.documentElement.style.setProperty('--dynamic-star-color', '#172B4D')
+
+            document.documentElement.style.setProperty('--dynamic-nav-hover1', '#00000029')
+        } else {
+            document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #ffffff')
+            document.documentElement.style.setProperty('--dynmaic-create-btn', '#ffffff33')
+            document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#ffffff5c')
+
+            document.documentElement.style.setProperty('--dynamic-nav-hover1', '#ffffff33')
+
+            if (brightness === 2) {
+                document.documentElement.style.setProperty('--dynamic-star-color', '#ffffff')
+            } else {
+                document.documentElement.style.setProperty('--dynamic-star-color', '#e2b203')
+            }
+        }
+    }
+    function baseTheme() {
+        setBrightness(2)
+        document.documentElement.style.setProperty('--dynamic-nav-hover1', '#091e4224')
+        document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #ffffff')
+        document.documentElement.style.setProperty('--dynmaic-create-btn', '#0c66e4')
+        document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#0055cc')
+    }
     async function onUpdateBoard(board) {
         await updateBoard(board)
     }

@@ -3,6 +3,7 @@ export const SET_WORKSPACE = 'SET_WORKSPACE'
 export const SET_BOARDS = 'SET_BOARDS'
 export const SET_BOARD = 'SET_BOARD'
 export const SET_DYNAMIC_BG = 'SET_DYNAMIC_BG'
+export const SET_BRIGHTNESS = 'SET_BRIGHTNESS'
 export const UNLOAD_BOARD = 'UNLOAD_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
@@ -45,6 +46,7 @@ const initialState = {
     labels: defaultLabels,
     members: [],
     dynamicBg: '#ffffff00',
+    brightness: 2,
 }
 
 export function boardReducer(state = initialState, action) {
@@ -78,6 +80,9 @@ export function boardReducer(state = initialState, action) {
             break
         case SET_DYNAMIC_BG:
             newState = { ...state, dynamicBg: action.dynamicBg }
+            break
+        case SET_BRIGHTNESS:
+            newState = { ...state, brightness: action.brightness }
             break
         case UNLOAD_BOARD:
             newState = { ...state, board: {} }
