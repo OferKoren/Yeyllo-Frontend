@@ -47,6 +47,16 @@
                 }
             }
         }
+        .start-demo-btn{
+            background-color: #0065ff;
+            padding: 0.7em;
+            border-radius: 0.2em;
+            font-family: 'roboto-regular';
+            font-size: 1.4em;
+            &:hover{
+                background-color: #0747a6;
+            }
+        }
         // grid-template-columns: minmax(auto, 570px) minmax(auto, 665px);
     }
     .homepage-content2 {

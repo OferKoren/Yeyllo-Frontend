@@ -30,7 +30,7 @@ export function Login() {
             const checkedUser = await login(credentials)
             console.log(checkedUser);
             
-            checkedUser? navigate('/'): navigate('/login')
+            checkedUser? navigate('/workspace/home'): navigate('/login')
         } catch(err){
             console.log('err:', err);            
         }

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { login } from '../store/actions/user.actions'
 /* const carusalClass = [
     ['', 'right', 'right-edge'],
     ['left', '', 'right'],
@@ -8,6 +9,22 @@ import { Link } from 'react-router-dom'
 const carusalClass = ['', 'left', 'left-edge']
 export function HomePage() {
     const [activeBtn, setActiveBtn] = useState(0)
+    const [credentials, setCredentials] = useState({ username: 'guest@yeyllo.com', password: '123', fullname: 'Guest' })
+
+    const navigate = useNavigate()
+
+    async function onLogin(ev = null) {
+        if (ev) ev.preventDefault()
+
+        try {
+            if (!credentials.username || !credentials.password) return
+            const checkedUser = await login(credentials)
+            console.log(checkedUser);
+            checkedUser ? navigate('/workspace/home') : navigate('/login')
+        } catch (err) {
+            console.log('err:', err);
+        }
+    }
 
     return (
         <section className="homepage full main-container">
@@ -16,9 +33,12 @@ export function HomePage() {
                     <div className="text">
                         <h1>Yeyllo brings all your tasks, teammates, and tools together</h1>
                         <p>Keep everything in the same place—even if your team isn’t.</p>
-                        <Link to="/workspace/home" className="start-demo-btn">
+                        <button onClick={onLogin} className="start-demo-btn">
                             Start Demo
-                        </Link>
+                        </button>
+                        {/* <Link to="/workspace/home" className="start-demo-btn">
+                            Start Demo
+                        </Link> */}
                     </div>
                     <div>
                         <img src="/img/homepage/trello-hero.webp" alt="" />

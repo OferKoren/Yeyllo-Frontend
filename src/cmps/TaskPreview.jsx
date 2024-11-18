@@ -81,9 +81,8 @@ export function TaskPreview({
             return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
         // Above / Below year
         else if (today.getYear() !== date.getYear())
-            return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${
-                date.getYear() - 100
-            }`
+            return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${date.getYear() - 100
+                }`
         // else if (today.getYear() !== date.getYear()) return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
         // No year
         else if (!date.getYear()) return ''
@@ -143,6 +142,7 @@ export function TaskPreview({
     if (!!task.archivedAt && !archive) return ''
 
     return (
+
         <>
             {task.coverSize === 'full' ? (
                 <article
@@ -416,7 +416,7 @@ export function TaskPreview({
                             )}
                             {task.attachments ? (
                                 <div title="Attachments" className="flex align-center">
-                                    <img src="\img\board-details\attachment-icon.svg" alt="attachments" />{' '}
+                                    <img style={{opacity:0.7}} src="\img\board-details\attachment-icon.svg" alt="attachments" />{' '}
                                     {<span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{task.attachments.length}</span>}{' '}
                                 </div>
                             ) : (

@@ -7,8 +7,8 @@ export function LongTxt({ children, length = 40, showButton = true }) {
         setIsShowLong(isShowLong => !isShowLong)
     }
 
-    const isLongText = children.length > length
-    const textToShow = (isShowLong || !isLongText) ? children : (children.substring(0, length)) + '...'
+    const isLongText = children?.length > length
+    const textToShow = (isShowLong || !isLongText) ? children : (children?.substring(0, length)) + '...'
     return (
         <section className="long-txt">
             <p className="txt">{textToShow}</p>

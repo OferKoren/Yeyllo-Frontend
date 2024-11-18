@@ -13,6 +13,7 @@ import { Dropdown } from './Dropdown'
 import { createCssFilter, darkenColor, getBrightnessLevel, lightenColor } from '../../services/util.service'
 import { HomePageHeader } from './HomePageHeader'
 import ClickOutside from '../ClickOutside'
+import { UserMenu } from './userMenu'
 
 export function AppHeader() {
     const user = useSelector((storeState) => storeState.userModule.user)
@@ -23,6 +24,9 @@ export function AppHeader() {
     const [whichModal, setWhichModal] = useState('')
     const [position, setPosition] = useState()
     const [inputClass, setInputClass] = useState('')
+
+    const [isImgClicked, setIsImgClicked] = useState(false)
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -66,7 +70,7 @@ export function AppHeader() {
     useEffect(() => {
         if (!headerRef.current) return
         if (isModalOpen) headerRef.current.style.zIndex = '5'
-        else headerRef.current.style.zIndex = '3'
+        else headerRef.current.style.zIndex = '5'
     }, [isModalOpen])
 
     function setHeaderColorFromImage(imgSrc) {
@@ -157,6 +161,27 @@ export function AppHeader() {
         setInputClass('enlarged')
     }
 
+    async function onUserMenu() {
+        try {
+            if (!isUserMenuOpen && !isImgClicked) {
+                setIsImgClicked(true)
+                setIsUserMenuOpen(true)
+            } else if (!!isUserMenuOpen && !!isImgClicked) {
+                setIsImgClicked(false)
+                setIsUserMenuOpen(false)
+            } else if (!isUserMenuOpen && !!isImgClicked) {
+                setIsUserMenuOpen(true)
+                setIsImgClicked(false)
+            } else if (!!isUserMenuOpen && !isImgClicked) {
+                setIsUserMenuOpen(false)
+                setIsImgClicked(true)
+            }
+        } catch (err) {
+            console.log('err:', err)
+        }
+        // setIsUserMenuOpen(isOpen => !isOpen)
+    }
+
     /*  let inputStyle = ''
     if (bgClr) {
         inputStyle = inputClass ? { backgroundColor: 'white' } : { backgroundColor: lightenColor(bgClr) }
@@ -164,7 +189,7 @@ export function AppHeader() {
     if (!inputClass) return */
     // const inputStyle = ''
     return (
-        <header ref={headerRef} className="app-header full">
+        <header style={{ zIndex: '5' }} ref={headerRef} className="app-header full">
             <nav>
                 {/* <section className="flex align-center left-side-nav"> */}
                 {location.pathname !== '/home' && (
@@ -230,6 +255,20 @@ export function AppHeader() {
                             onBlur={handleBlur}
                             // style={inputStyle}
                         />
+                    </div>
+                    <div className="flex align-center">
+                        {user ? (
+                            <img
+                                className="user-img-header"
+                                onClick={onUserMenu}
+                                style={{ width: '1.6em', marginInlineEnd: '1em', cursor: 'pointer' }}
+                                src={user?.imgUrl}
+                                alt=""
+                            />
+                        ) : (
+                            ''
+                        )}
+                        {isUserMenuOpen ? <UserMenu setIsImgClicked={setIsImgClicked} setIsUserMenuOpen={setIsUserMenuOpen} user={user} /> : ''}
                     </div>
                 </>
             )}

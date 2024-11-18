@@ -19,12 +19,14 @@ import { Attachment } from '../cmps/Attachment/Attachment.jsx'
 import { Canvas } from '../cmps/Canvas.jsx'
 import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
 import { PopupYey } from '../cmps/PopupYey.jsx'
+import { userService } from '../services/user'
 import ClickOutside from '../cmps/ClickOutside.jsx'
 
 export function TaskDetails() {
     const board = useSelector((storeState) => storeState.boardModule.board)
     const gLabels = useSelector((storeState) => storeState.boardModule.labels)
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
+    const user = useSelector((storeState) => storeState.userModule.user)
 
     const [boardToEdit, setBoardToEdit] = useState(null)
     const [openModal, setOpenModal] = useState(null)
@@ -226,7 +228,17 @@ export function TaskDetails() {
 
     function onRemoveTask() {
         const updatedTasks = currGroupRef.current.tasks.filter((groupTask) => groupTask.id !== taskId)
-        saveBoard(updatedTasks)
+
+        const activity = {
+            txt: `deleted card #${taskId} from "${currGroupRef.current.title}"`,
+            boardId: boardToEdit._id,
+            groupId: currGroupRef.current.id,
+            taskId: taskId,
+            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
+            createdAt: Date.now(),
+        }
+
+        saveBoard(updatedTasks, activity)
     }
 
     function onSaveTask() {
@@ -235,13 +247,15 @@ export function TaskDetails() {
         saveBoard(updatedTasks)
     }
 
-    async function saveBoard(tasksToSave) {
+    async function saveBoard(tasksToSave, activity) {
         const updatedGroup = { ...currGroupRef.current, tasks: tasksToSave }
         const updatedGroups = boardToEdit.groups.map((group) => (group.id === groupId ? updatedGroup : group))
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
 
+        console.log('activity', activity)
+
         try {
-            await updateBoard(boardToSave)
+            await updateBoard(boardToSave, activity)
         } catch (err) {
             console.error('can not save board', err)
         } finally {
@@ -479,6 +493,9 @@ export function TaskDetails() {
                                         handleToggleModal={handleToggleModal}
                                         openModal={openModal}
                                         handleCloseModal={handleCloseModal}
+                                        boardToEdit={boardToEdit}
+                                        groupId={currGroupRef.current.id}
+                                        user={user}
                                     />
                                 ))}
                             </div>
@@ -524,7 +541,9 @@ export function TaskDetails() {
                                 </svg>
                                 <span> Checklist</span>
                             </button>
-                            {openModal === 'checklist' && <AddChecklist setTask={setTask} handleCloseModal={handleCloseModal} />}
+                            {openModal === 'checklist' &&
+                                <AddChecklist task={task} setTask={setTask} handleCloseModal={handleCloseModal}
+                                    boardToEdit={boardToEdit} groupId={currGroupRef.current.id} user={user} />}
                         </div>
 
                         <div>

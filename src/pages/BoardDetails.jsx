@@ -104,8 +104,48 @@ export function BoardDetails({ rootRef }) {
         document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#0055cc')
     }
 
-    async function onUpdateBoard(board) {
-        await updateBoard(board)
+    function boardTheme(brightness) {
+        console.log(brightness)
+        if (brightness === 1) {
+            document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #172B4D')
+            document.documentElement.style.setProperty('--dynmaic-create-btn', '#00000029')
+            document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#00000052')
+
+            document.documentElement.style.setProperty('--dynamic-board-header-color', ' #172B4D')
+            document.documentElement.style.setProperty('--dynamic-board-header-hover', ' #00000029')
+            document.documentElement.style.setProperty('--dynamic-board-header-background', '#ffffff3d')
+            document.documentElement.style.setProperty('--dynamic-star-color', '#172B4D')
+
+            document.documentElement.style.setProperty('--dynamic-nav-hover1', '#00000029')
+        } else {
+            document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #ffffff')
+            document.documentElement.style.setProperty('--dynmaic-create-btn', '#ffffff33')
+            document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#ffffff5c')
+
+            document.documentElement.style.setProperty('--dynamic-board-header-color', ' #ffffff')
+            document.documentElement.style.setProperty('--dynamic-board-header-hover', ' #ffffff33')
+            document.documentElement.style.setProperty('--dynamic-board-header-background', '#0000003d')
+
+            document.documentElement.style.setProperty('--dynamic-nav-hover1', '#ffffff33')
+
+            if (brightness === 2) {
+                document.documentElement.style.setProperty('--dynamic-star-color', '#ffffff')
+            } else {
+                document.documentElement.style.setProperty('--dynamic-star-color', '#e2b203')
+            }
+        }
+    }
+
+    function baseTheme() {
+        setBrightness(2)
+        document.documentElement.style.setProperty('--dynamic-nav-hover1', '#091e4224')
+        document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #ffffff')
+        document.documentElement.style.setProperty('--dynmaic-create-btn', '#0c66e4')
+        document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#0055cc')
+    }
+
+    async function onUpdateBoard(board, activity = null) {
+        await updateBoard(board, activity)
     }
 
     function onToggleMenu() {
