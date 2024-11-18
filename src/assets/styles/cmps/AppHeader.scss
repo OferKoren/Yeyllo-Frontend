@@ -1,6 +1,6 @@
 .app-header {
     position: relative;
-    z-index: 3;
+    z-index: 5;
     display: flex;
     justify-content: space-between;
     height: 3em;
@@ -29,6 +29,7 @@
         &:hover {
             outline: 4px solid rgb(128, 128, 128, 0.3);
         }
+        z-index: 5;
     }
 
     /*  :nth-child(3) {
@@ -39,6 +40,8 @@
         position: absolute;
         display: flex;
         flex-direction: column;
+
+        z-index: 4;
 
         top: 3em;
         right: 0.2em;

@@ -4,10 +4,10 @@ export default function ClickOutside({ children, exceptionRef, onClick, classNam
   const wrapperRef = useRef();
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickListener);
+    document.addEventListener('mouseup', handleClickListener);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickListener);
+      document.removeEventListener('mouseup', handleClickListener);
     };
   }, []);
 
