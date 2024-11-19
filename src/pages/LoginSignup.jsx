@@ -9,7 +9,7 @@ export function LoginSignup() {
             <div className="login-page">
                 <div className='login-signup-container'>
                     <div className='logo'>
-                        <img src="public\img\login\trello-icon-light.png" alt="" />
+                        <img src="\img\login\trello-icon-light.png" alt="" />
                         {/* <img src="\img\general\trello-logo-static.gif" alt="" /> */}
                         <h2>Yeyllo</h2>
                     </div>

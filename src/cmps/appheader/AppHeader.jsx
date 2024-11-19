@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { useLocation, useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
-import { logout } from '../../store/actions/user.actions'
+import { login, logout } from '../../store/actions/user.actions'
 import ColorThief from 'colorthief'
 import { useEffect, useRef, useState } from 'react'
 import { Modal } from '../Modal'
@@ -71,7 +71,7 @@ export function AppHeader() {
     useEffect(() => {
         if (!headerRef.current) return
         if (isModalOpen) headerRef.current.style.zIndex = '5'
-        else headerRef.current.style.zIndex = '5'
+        // else headerRef.current.style.zIndex = '5'
     }, [isModalOpen])
 
     function setHeaderColorFromImage(imgSrc) {
@@ -176,14 +176,33 @@ export function AppHeader() {
         // setIsUserMenuOpen(isOpen => !isOpen)
     }
 
+    const [credentials, setCredentials] = useState({ username: 'guest@yeyllo.com', password: '123', fullname: 'Guest' })
+
+    async function onLogin(ev = null) {
+        if (ev) ev.preventDefault()
+
+        try {
+            if (!credentials.username || !credentials.password) return
+            const checkedUser = await login(credentials)
+            console.log(checkedUser);
+            checkedUser ? navigate('/workspace/home') : navigate('/login')
+        } catch (err) {
+            console.log('err:', err);
+        }
+    }
+
     /*  let inputStyle = ''
     if (bgClr) {
         inputStyle = inputClass ? { backgroundColor: 'white' } : { backgroundColor: lightenColor(bgClr) }
     }
     if (!inputClass) return */
     // const inputStyle = ''
+
+    console.log(user);
+
+
     return (
-        <header style={{ zIndex: '5' }} ref={headerRef} className="app-header full">
+        <header /*style={{ zIndex: '5' }}*/ ref={headerRef} className="app-header full">
             <nav>
                 {/* <section className="flex align-center left-side-nav"> */}
                 {location.pathname !== '/home' && (
@@ -191,11 +210,19 @@ export function AppHeader() {
                         <NineDots />
                     </NavLink>
                 )}
-                <NavLink to="/workspace/home" className="logo">
-                    {/* <img src="/img/general/trello-logo-static.gif" alt="" /> */}
-                    <TrelloLogo />
-                    Yeyllo
-                </NavLink>
+                {!user || user.fullname === 'Guest'
+                    ?
+                    <button className="logo" onClick={onLogin}>
+                        <TrelloLogo />
+                        Yeyllo
+                    </button>
+                    :
+                    <NavLink to={`${!user || user.fullname === 'Guest' ? '/' : '/workspace/home'}`} className="logo">
+                        {/* <img src="/img/general/trello-logo-static.gif" alt="" /> */}
+                        <TrelloLogo />
+                        Yeyllo
+                    </NavLink>
+                }
                 {/* </section> */}
                 {/* <section className="flex align-center right-side-nav"> */}
                 {location.pathname !== '/home' ? <HeaderMainNav /> : <HomePageHeader />}
@@ -240,22 +267,22 @@ export function AppHeader() {
                         <span className="search-icon">
                             <img src="/img/general/search-icon.svg" alt="" />
                         </span>
-                        <input
+                        {/* <input
                             type="text"
                             className={`input header-search `}
                             placeholder="search"
                             ref={inputRef}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                            // style={inputStyle}
-                        />
+                        // style={inputStyle}
+                        /> */}
                     </div>
                     <div className="flex align-center">
                         {user ? (
                             <img
                                 className="user-img-header"
                                 onClick={onUserMenu}
-                                style={{ width: '1.6em', marginInlineEnd: '1em', cursor: 'pointer' }}
+                                style={{ width: '1.6em', marginInlineEnd: '0.3em', cursor: 'pointer' }}
                                 src={user?.imgUrl}
                                 alt=""
                             />

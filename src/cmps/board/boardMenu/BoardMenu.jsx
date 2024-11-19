@@ -7,6 +7,7 @@ import { CopyBoard } from './CopyBoard'
 import { FirstBgMenu } from './FirstBackgroundMenu'
 import { SecondBgMenu } from './SecondBackgroundMenu'
 import { ArchiveMenu } from './ArchiveMenu'
+import { boardService } from '../../../services/board'
 import dayjs from 'dayjs'
 
 export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
@@ -259,6 +260,9 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 </ul>
 
                 <div>
+                    {/* <div>
+                        <button onClick={() => boardService.generateAiBoard('trip to africa')}>Generate Board</button>
+                    </div> */}
                     <h3>Activities</h3>
                     <ul style={{ display: 'grid', gap: '0.8em' }}>
                         {board.activities?.length > 0 &&

@@ -84,14 +84,14 @@ export function HomePage() {
                     </nav>
 
                     <div className="picture-container">
-                        <img src="/img/homepage/carusal_boards.png" alt="" className={carusalClass[activeBtn]} />
-                        <img src="/img/homepage/carusal_lists.webp" alt="" className={carusalClass[activeBtn]} />
-                        <img src="/img/homepage/carusal_cards.webp" alt="" className={carusalClass[activeBtn]} />
+                        <img style={{minWidth:'733px'}} src="/img/homepage/carusal_boards.png" alt="" className={carusalClass[activeBtn]} />
+                        <img style={{minWidth:'733px'}} src="/img/homepage/carusal_lists.webp" alt="" className={carusalClass[activeBtn]} />
+                        <img style={{minWidth:'733px'}} src="/img/homepage/carusal_cards.webp" alt="" className={carusalClass[activeBtn]} />
                     </div>
                 </section>
             </div>
 
-            <footer className="full main-container">
+            {/* <footer className="full main-container">
                 <section className="footer1 full main-container">
                     <div className="footer1-main">
                         <h2>Get started with Yeyllo today</h2>
@@ -101,8 +101,8 @@ export function HomePage() {
                         </div>
                     </div>
                 </section>
-                {/* <section className="footer2 full"></section> */}
-            </footer>
+                <section className="footer2 full"></section>
+            </footer> */}
         </section>
     )
 }

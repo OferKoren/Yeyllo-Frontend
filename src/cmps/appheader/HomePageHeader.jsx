@@ -6,13 +6,13 @@ export function HomePageHeader() {
 
     const user = useSelector(storeState => storeState.userModule.user)
 
-    function onLogOut(){
+    function onLogOut() {
         logout()
     }
 
     return (
         <div className="home-page-headers">
-            {user ? <button onClick={onLogOut} className="login-btn">Log out</button> :
+            {user && user.fullname !== 'Guest' ? <button onClick={onLogOut} className="login-btn">Log out</button> :
                 <NavLink to="login" className="login-btn">
                     Log in
                 </NavLink>}

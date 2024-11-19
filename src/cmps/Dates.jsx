@@ -44,9 +44,6 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
     }
 
     function handleDateChange() {
-        // const formattedEndDate = dayjs(dueDate).format('DD-MM-YYYY')
-        // const formattedStartDate = beginnigDate ? dayjs(beginnigDate).format('DD-MM-YYYY') : null
-        // const formattedDueTime = dayjs(dueDate).format('hh:mm A')
         setTask((prevTask) => ({ ...prevTask, dueDate: endDate, startDate: startDate, dueTime: dueTime, status: 'inProgress' }))
     }
 
