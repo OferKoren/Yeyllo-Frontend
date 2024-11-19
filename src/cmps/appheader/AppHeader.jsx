@@ -288,7 +288,7 @@ export function AppHeader() {
                             <img
                                 className="user-img-header"
                                 onClick={onUserMenu}
-                                style={{ width: '1.6em', marginInlineEnd: '1em', cursor: 'pointer' }}
+                                style={{ width: '1.6em', marginInlineEnd: '0.3em', cursor: 'pointer' }}
                                 src={user?.imgUrl}
                                 alt=""
                             />
