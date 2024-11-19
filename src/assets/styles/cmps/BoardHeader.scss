@@ -16,6 +16,10 @@
                 margin-inline-end: 0;
 
             }
+
+            &.share{
+                display: none;
+            }
         }
 
         .board-members {
@@ -125,6 +129,28 @@
 
         &.filters {
             position: relative;
+
+            span {
+                height: 16px;
+
+                &:first-child {
+                    margin-inline-end: 8px;
+                }
+
+                &:last-child {
+                    height: 20px;
+                }
+            }
+
+            width: inherit;
+            padding: 6px;
+            font-weight: 600;
+            margin-inline-end: 1em;
+        }
+
+        &.share {
+            position: relative;
+            margin-inline-start: 8px;
 
             span {
                 height: 16px;
