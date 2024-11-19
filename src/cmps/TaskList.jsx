@@ -107,10 +107,10 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                     )}
                         {placeholder}
 
-                    {/* <ClickOutside
+                    <ClickOutside
                         onSubmit={onAddTask} onClick={()=>onAddTask()}
-                    > */}
-                    <div className="add-task-container" onBlur={onBlurAddTaskInput}>
+                    >
+                    <div className="add-task-container" /*onBlur={onBlurAddTaskInput}*/>
                         <form onSubmit={onAddTask}>
                             {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
                             <input autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
@@ -120,7 +120,7 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
                             </div>
                         </form>
                     </div>
-                    {/* </ClickOutside> */}
+                    </ClickOutside>
                 </section>
             }
 
