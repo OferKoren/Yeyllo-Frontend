@@ -9,6 +9,7 @@ import { SecondBgMenu } from './SecondBackgroundMenu'
 import { ArchiveMenu } from './ArchiveMenu'
 import { boardService } from '../../../services/board'
 import dayjs from 'dayjs'
+import { Activity } from './Activity'
 
 export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     const [width, setWidth] = useState('0px')
@@ -62,6 +63,8 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 return <SecondBgMenu option="photos" onUpdateBoard={onUpdateBoard} board={board} />
             case 'archive':
                 return <ArchiveMenu board={board} onUpdateBoard={onUpdateBoard} />
+            case 'activity':
+                return <Activity board={board} />
             default:
                 return <></>
         }
@@ -119,6 +122,9 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 break
             case 'archive':
                 setTitle('archive items')
+                break
+            case 'activity':
+                setTitle('Activity')
                 break
             default:
         }
@@ -188,7 +194,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                     </li> */}
 
                     <li>
-                        <button className="modal-btn menu-btn">
+                        <button className="modal-btn menu-btn" onClick={() => onEnterMenu('activity')}>
                             <ActivityIcon />
 
                             <div>activity</div>
@@ -263,7 +269,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                     {/* <div>
                         <button onClick={() => boardService.generateAiBoard('trip to africa')}>Generate Board</button>
                     </div> */}
-                    <h3>Activities</h3>
+                    {/*  <h3>Activities</h3>
                     <ul style={{ display: 'grid', gap: '0.8em' }}>
                         {board.activities?.length > 0 &&
                             board.activities.map((activity, i) => (
@@ -285,7 +291,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                                     </div>
                                 </li>
                             ))}
-                    </ul>
+                    </ul> */}
                 </div>
             </div>
         )
