@@ -67,8 +67,8 @@ async function addActivity(activity) {
     return httpService.post(`board/${activity.boardId}/activity`, activity)
 }
 
-async function generateAiBoard(topic) {
-    return httpService.post(`board/generate-board`, topic)
+async function generateAiBoard(topic, photos) {
+    return httpService.post(`board/generate-board`, { topic, photos })
 }
 
 async function uploadImg(imgData) {

@@ -11,6 +11,7 @@ import { ArchiveMenu } from './ArchiveMenu'
 import { boardService } from '../../../services/board'
 import dayjs from 'dayjs'
 import { Activity } from './Activity'
+import axios from 'axios'
 
 export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     const [width, setWidth] = useState('0px')
@@ -273,7 +274,8 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                             onClick={async () => {
                                 try {
                                     const topic = prompt('enter a topic')
-                                    const generatedBoard = await boardService.generateAiBoard(topic)
+                                    const photos = await getPhotosArray(topic)
+                                    const generatedBoard = await boardService.generateAiBoard(topic, photos)
                                     navigate(`/board/${generatedBoard._id}`)
                                 } catch (err) {
                                     console.error('can not generate board', err)
@@ -311,6 +313,23 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
         )
     }
 }
+async function getPhotosArray(topic) {
+    const UNSPLASH_SEARCH_URL = 'https://api.unsplash.com/search/photos'
+    const UNSPLASH_ACCESS_KEY = 'anN0ohg_TPCWJd4ALToXR25XalJdkQBdFae7guKwQjE'
+
+    const response = await axios.get(UNSPLASH_SEARCH_URL, {
+        params: {
+            client_id: UNSPLASH_ACCESS_KEY,
+            query: topic,
+            page: 1,
+            per_page: 8,
+        },
+    })
+    const newPhotos = response.data.results
+
+    return newPhotos.map((photo) => photo.urls)
+}
+
 function XIcon() {
     return (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
