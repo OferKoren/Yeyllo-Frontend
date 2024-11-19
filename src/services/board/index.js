@@ -52,6 +52,7 @@ function getArchivedItems(board) {
 function getDefaultFilter() {
     return {
         keyword: '',
+        members: [],
     }
 }
 

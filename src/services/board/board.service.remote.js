@@ -10,7 +10,7 @@ export const boardService = {
     addActivity,
 }
 
-async function query(filterBy = {}) {
+async function query(filterBy = {}, board) {
     return httpService.get(`board`, filterBy)
 }
 

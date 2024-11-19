@@ -4,12 +4,42 @@
     flex-direction: column;
     justify-content: stretch;
     width: 100%;
-    div {
+    .member-filter-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 0 8px 8px;
+        gap: 8px;
+        input {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            margin-inline-end: rem(16px);
+        }
+    }
+    div.title {
         font-size: 12px;
         font-weight: 600;
         margin-block-end: rem(8px);
-        &:first-child {
-            margin-block-start: rem(16px);
+
+        margin-block-start: rem(16px);
+    }
+    p {
+        margin-top: 8px;
+        margin-bottom: 4px;
+        color: var(--ds-text-subtle, #44546f);
+        font-size: 11px;
+        line-height: 14px;
+    }
+    label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        .member-img {
+            height: 24px;
+            width: 24px;
+            border: none;
+            padding: 0;
         }
     }
 }
