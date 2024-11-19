@@ -184,10 +184,10 @@ export function AppHeader() {
         try {
             if (!credentials.username || !credentials.password) return
             const checkedUser = await login(credentials)
-            console.log(checkedUser);
+            console.log(checkedUser)
             checkedUser ? navigate('/workspace/home') : navigate('/login')
         } catch (err) {
-            console.log('err:', err);
+            console.log('err:', err)
         }
     }
 
@@ -198,8 +198,7 @@ export function AppHeader() {
     if (!inputClass) return */
     // const inputStyle = ''
 
-    console.log(user);
-
+    console.log(user)
 
     return (
         <header /*style={{ zIndex: '5' }}*/ ref={headerRef} className="app-header full">
@@ -210,19 +209,18 @@ export function AppHeader() {
                         <NineDots />
                     </NavLink>
                 )}
-                {!user || user.fullname === 'Guest'
-                    ?
-                    <button className="logo" onClick={onLogin}>
+                {!user || user.fullname === 'Guest' ? (
+                    <button className="logo header-btn" onClick={onLogin}>
                         <TrelloLogo />
                         Yeyllo
                     </button>
-                    :
+                ) : (
                     <NavLink to={`${!user || user.fullname === 'Guest' ? '/' : '/workspace/home'}`} className="logo">
                         {/* <img src="/img/general/trello-logo-static.gif" alt="" /> */}
                         <TrelloLogo />
                         Yeyllo
                     </NavLink>
-                }
+                )}
                 {/* </section> */}
                 {/* <section className="flex align-center right-side-nav"> */}
                 {location.pathname !== '/home' ? <HeaderMainNav /> : <HomePageHeader />}
