@@ -31,7 +31,7 @@ export function Description({ task, setTask }) {
             recognitionInstance.onerror = (event) => {
                 console.error('Error occurred in recognition: ', event.error)
             }
-            setRecognition(recognitionInstance) // Set the recognition instance
+            setRecognition(recognitionInstance)
         } else {
             alert('Speech Recognition is not supported in this browser.')
         }
