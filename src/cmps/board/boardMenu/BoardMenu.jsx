@@ -260,9 +260,9 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 </ul>
 
                 <div>
-                    <div>
+                    {/* <div>
                         <button onClick={() => boardService.generateAiBoard('trip to africa')}>Generate Board</button>
-                    </div>
+                    </div> */}
                     <h3>Activities</h3>
                     <ul style={{ display: 'grid', gap: '0.8em' }}>
                         {board.activities?.length > 0 && board.activities.map((activity, i) =>

@@ -2,14 +2,21 @@
     display: flex;
     flex-direction: column;
     gap: 0.3em;
+    padding: 0 !important;
 
     .checkbox-label {
         display: flex;
-        gap: 0.6em;
+        gap: 0.3em;
+
+        .checkbox-and-label {
+            display: flex;
+            width: 100%;
+            gap: 0.7em;
+        }
 
         .task-label {
             width: 100%;
-            height: 2.1em;
+            height: 2.3em;
             border-radius: 0.2em;
             font-size: 0.9rem;
             padding: 0.2em 0 0 0.6em;
@@ -24,8 +31,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 2em;
-            padding: 0.3em;
+            width: 2.3em;
+            padding: 0.55em;
             border-radius: 0.2em;
             cursor: pointer;
 
