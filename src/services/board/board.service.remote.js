@@ -7,7 +7,8 @@ export const boardService = {
     remove,
     addBoardMsg,
     uploadImg,
-    addActivity
+    addActivity,
+    generateAiBoard
 }
 
 async function query(filterBy = {}) {
@@ -38,6 +39,10 @@ async function addBoardMsg(boardId, txt) {
 
 async function addActivity(activity) {
     return httpService.post(`board/${activity.boardId}/activity`, activity)
+}
+
+async function generateAiBoard(topic) {
+    return httpService.post(`board/generate-board`, topic)
 }
 
 async function uploadImg(imgData) {

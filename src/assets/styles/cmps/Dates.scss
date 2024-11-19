@@ -45,6 +45,7 @@
 .react-datepicker__day--selected {
     background-color: #E9F2FF;
     color: $gray4;
+    border-radius: 50%;
 
     &:hover {
         background-color: whitesmoke !important;
@@ -66,4 +67,16 @@
     display: flex;
     gap: 0.5em;
     margin-block-end: 0.5em;
+}
+
+.react-datepicker__day--in-range {
+    background-color: #E9F2FF;
+    color: $gray4;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: lightblue !important;
+        border-radius: 50% !important;
+    }
+
 }

@@ -54,19 +54,21 @@ export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleClose
                         const taskLabel = task.labelIds?.find(labelId => labelId === label.id)
                         const gLabel = gLabels.find(l => l.id === label.id)
                         return (<div key={label.id} className="checkbox-label">
-                            <input
-                                type="checkbox"
-                                autoFocus
-                                id={label.id}
-                                checked={taskLabel || false}
-                                onChange={() => toggleLabel({ ...label, title: (gLabel?.title || '') })}
-                            />
-                            <label className="task-label"
-                                htmlFor={label.id}
-                                style={{ backgroundColor: label.color }}
-                                onChange={() => toggleLabel({ ...label, title: (gLabel?.title || '') })}>
-                                {<div>{gLabel?.title || ''}</div>}
-                            </label>
+                            <div className="checkbox-and-label">
+                                <input
+                                    type="checkbox"
+                                    autoFocus
+                                    id={label.id}
+                                    checked={taskLabel || false}
+                                    onChange={() => toggleLabel({ ...label, title: (gLabel?.title || '') })}
+                                />
+                                <label className="task-label"
+                                    htmlFor={label.id}
+                                    style={{ backgroundColor: label.color }}
+                                    onChange={() => toggleLabel({ ...label, title: (gLabel?.title || '') })}>
+                                    {<div>{gLabel?.title || ''}</div>}
+                                </label>
+                            </div>
                             <div className="pencil-edit-label">
                                 <img src="/img/icons/icon-pencil.svg" onClick={() => { setIsEditLabel(prev => !prev); setLabelToEdit({ ...label, title: (gLabel?.title || '') }) }} />
                             </div>

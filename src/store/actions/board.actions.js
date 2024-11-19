@@ -72,9 +72,28 @@ export async function removeBoard(boardId) {
 }
 
 export async function addBoard(board) {
+    const user = store.getState().userModule.user
     try {
         const savedBoard = await boardService.save(board)
-        store.dispatch(getCmdAddBoard(savedBoard))
+
+        const activity = {
+            txt: `created this board`,
+            boardId: savedBoard._id,
+            groupId: null,
+            taskId: null,
+            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
+            createdAt: Date.now(),
+        }
+
+        try {
+            await boardService.addActivity(activity)
+
+        } catch (err) {
+            console.error('Failed to add activity:', err)
+        }
+
+        store.dispatch(getCmdAddBoard(savedBoard.activities.unshift(activity)))
+
         return savedBoard
     } catch (err) {
         console.log('Cannot add board', err)
