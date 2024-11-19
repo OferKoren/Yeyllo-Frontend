@@ -5,14 +5,14 @@ export function BoardFilter({ filterBy }) {
     const [filterToEdit, setFilterToEdit] = useState({ ...filterBy })
 
     useEffect(() => {
-        console.log(filterToEdit)
+        // console.log(filterToEdit)
         setFilterBy(filterToEdit)
     }, [filterToEdit])
 
     function handleChange(ev) {
         const type = ev.target.type
         const field = ev.target.name
-        console.log(field)
+
         let value = ev.target.value
 
         switch (type) {
@@ -31,6 +31,8 @@ export function BoardFilter({ filterBy }) {
         <section className="board-filter">
             <div>Keyword</div>
             <input type="text" name="keyword" className="input" value={keyword} onChange={handleChange} />
+            <div>Search cards, members, labels, and more.</div>
+            <div>Memebers</div>
         </section>
     )
 }

@@ -64,6 +64,9 @@ export function BoardDetails({ rootRef }) {
         }
     }, [boardId])
 
+    useEffect(() => {
+        loadBoard(boardId, filterBy)
+    }, [filterBy])
     function boardTheme(brightness) {
         console.log(brightness)
         if (brightness === 1) {

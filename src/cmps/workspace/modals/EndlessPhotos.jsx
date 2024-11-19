@@ -83,6 +83,7 @@ export function EndlessPhotos({ boardBg, onChangeBg, initQuery = 'patagonia' }) 
     }, [])
 
     const { selected } = boardBg
+
     return (
         <div className="more-bgs ">
             <div className="photo-search-wrapper">
@@ -113,7 +114,8 @@ export function EndlessPhotos({ boardBg, onChangeBg, initQuery = 'patagonia' }) 
                             style={{ backgroundImage: `url(${photo.urls.small})` }}
                             className={selected === photo.urls.full ? 'bg-btn btn 2 active' : 'bg-btn btn2'}
                             onClick={() => {
-                                onChangeBg(photo.urls.full)
+                                console.log(photo.urls)
+                                onChangeBg(photo.urls.regular, false, photo.urls)
                             }}
                         >
                             {selected === photo.urls.regular && <img src="/img/add-board/v-icon.svg" />}

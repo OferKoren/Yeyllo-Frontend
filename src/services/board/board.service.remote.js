@@ -7,15 +7,41 @@ export const boardService = {
     remove,
     addBoardMsg,
     uploadImg,
-    addActivity
+    addActivity,
 }
 
 async function query(filterBy = {}) {
     return httpService.get(`board`, filterBy)
 }
 
-function getById(boardId) {
-    return httpService.get(`board/${boardId}`)
+async function getById(boardId, filterBy = {}) {
+    console.log(filterBy)
+    let board = await httpService.get(`board/${boardId}`)
+    if (filterBy.keyword) {
+        console.log('filtering, ', board)
+        const regExp = new RegExp(filterBy.keyword, 'i')
+        const labels = board.labels
+
+        board.groups = board.groups.map((group) => {
+            group.tasks = group.tasks.filter((task) => {
+                const filterByCardTitle = regExp.test(task.title)
+
+                if (task.labelIds) {
+                    const filterByLabels = task.labelIds.some((labelId) => {
+                        const label = labels.find((label) => label.id === labelId)
+
+                        if (label) return regExp.test(label.title)
+                        return false
+                    })
+
+                    return filterByLabels || filterByCardTitle
+                }
+                return filterByCardTitle
+            })
+            return group
+        })
+    }
+    return board
 }
 
 async function remove(boardId) {

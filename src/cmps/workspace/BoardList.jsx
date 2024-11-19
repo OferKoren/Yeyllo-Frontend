@@ -37,6 +37,14 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
             <ul className="list board-list">
                 {boards.map((board) => {
                     if (!board.isStarred || board.isClosed) return null
+                    let style = { ...board.style }
+                    if (board.urls) {
+                        if (board.urls.small) style.backgroundImage = `url(${board.urls.small})`
+                        else if (board.urls.regular) {
+                            style.backgroundImage = `url(${board.urls.regular})`
+                        }
+                    }
+
                     return (
                         <li
                             key={board._id}
@@ -44,7 +52,7 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
                                 toBoard(board._id)
                             }}
                         >
-                            <div className="board-wrapper" style={board.style}>
+                            <div className="board-wrapper" style={style}>
                                 <BoardPreview board={board} />
                                 <div className="board-actions shown">
                                     <button

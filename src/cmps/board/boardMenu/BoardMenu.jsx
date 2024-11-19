@@ -89,7 +89,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
             setWhichMenu((prevMenu) => {
                 const newMenu = [...prevMenu]
                 newMenu.shift()
-                console.log(newMenu)
+                // console.log(newMenu)
                 return [...newMenu]
             })
             wrapperRef.current.classList.add('no-transition')
@@ -261,17 +261,26 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 <div>
                     <h3>Activities</h3>
                     <ul style={{ display: 'grid', gap: '0.8em' }}>
-                        {board.activities?.length > 0 && board.activities.map((activity, i) =>
-                            <li key={i}
-                                style={{ fontSize: '0.9rem', display: 'grid', gridTemplateColumns: '30px 1fr', gap: '0.7em', alignItems: 'start' }}>
-                                <img src={activity.byMember.imgUrl} style={{ width: '30px', borderRadius: '50%' }}></img>
-                                <div>
-                                    <span style={{ fontFamily: 'roboto-medium' }}>{activity.byMember.fullname}&nbsp;</span>
-                                    <span>{activity.txt}</span>
-                                    <div>{dayjs(activity.createdAt).fromNow()}</div>
-                                </div>
-                            </li>
-                        )}
+                        {board.activities?.length > 0 &&
+                            board.activities.map((activity, i) => (
+                                <li
+                                    key={i}
+                                    style={{
+                                        fontSize: '0.9rem',
+                                        display: 'grid',
+                                        gridTemplateColumns: '30px 1fr',
+                                        gap: '0.7em',
+                                        alignItems: 'start',
+                                    }}
+                                >
+                                    <img src={activity.byMember.imgUrl} style={{ width: '30px', borderRadius: '50%' }}></img>
+                                    <div>
+                                        <span style={{ fontFamily: 'roboto-medium' }}>{activity.byMember.fullname}&nbsp;</span>
+                                        <span>{activity.txt}</span>
+                                        <div>{dayjs(activity.createdAt).fromNow()}</div>
+                                    </div>
+                                </li>
+                            ))}
                     </ul>
                 </div>
             </div>

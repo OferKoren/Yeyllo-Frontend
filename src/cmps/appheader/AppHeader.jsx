@@ -30,6 +30,7 @@ export function AppHeader() {
 
     const navigate = useNavigate()
     const location = useLocation()
+
     function onCloseModal() {
         setIsModalOpen(false)
         setWhichModal('')
@@ -102,19 +103,12 @@ export function AppHeader() {
     }
 
     function setHeaderTheme(brightness) {
-        let filter = ''
         setBrightness(brightness)
         if (brightness === 1) {
             headerRef.current.style.color = 'rgb(23, 43, 77)'
-            filter = createCssFilter('rgb(23, 43, 77)')
         } else {
             headerRef.current.style.color = 'rgb(255,255,255)'
-            filter = createCssFilter('rgb(255,255,255)')
         }
-        if (filter) {
-            document.documentElement.style.setProperty('--dynamic-filter', filter)
-        }
-        // document.documentElement.style.setProperty('--dynamic-nav-hover', 'RGBA(255,255,255,0.2)')
     }
 
     async function onAddBoard(board) {
@@ -355,16 +349,19 @@ function NineDots() {
 }
 function TrelloLogo() {
     return (
-        <svg width="16" height="16" viewBox="0 0 024 024" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 73.323 64" height="16">
             <defs>
-                <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
-                    <stop stop-color="currentColor" offset="0%" />
-                    <stop stop-color="#currentColor" offset="100%" />
+                <linearGradient id="A" x1="31.52" y1="64.56" x2="31.52" y2="1.51" gradientUnits="userSpaceOnUse">
+                    <stop offset=".18" stopColor="currentColor" />
+                    <stop offset="1" stopColor="currentColor" />
                 </linearGradient>
             </defs>
-            <rect fill="url(#a)" width="256" height="256" rx="25" />
-            <rect fill="#FFF" x="144.64" y="33.28" width="78.08" height="112" rx="12" />
-            <rect fill="#FFF" x="33.28" y="33.28" width="78.08" height="176" rx="12" />
+            <path
+                d="M55.16 1.5H7.88a7.88 7.88 0 0 0-5.572 2.308A7.88 7.88 0 0 0 0 9.39v47.28a7.88 7.88 0 0 0 7.88 7.88h47.28A7.88 7.88 0 0 0 63 56.67V9.4a7.88 7.88 0 0 0-7.84-7.88zM27.42 49.26A3.78 3.78 0 0 1 23.64 53H12a3.78 3.78 0 0 1-3.8-3.74V13.5A3.78 3.78 0 0 1 12 9.71h11.64a3.78 3.78 0 0 1 3.78 3.78zM54.85 33.5a3.78 3.78 0 0 1-3.78 3.78H39.4a3.78 3.78 0 0 1-3.78-3.78v-20a3.78 3.78 0 0 1 3.78-3.79h11.67a3.78 3.78 0 0 1 3.78 3.78z"
+                fill="url(#A)"
+                fillRule="evenodd"
+                transform="matrix(1.163111 0 0 1.163111 .023263 -6.417545)"
+            />
         </svg>
     )
 }

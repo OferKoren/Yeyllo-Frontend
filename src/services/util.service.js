@@ -195,7 +195,7 @@ export function getBrightnessLevel(color) {
 
     // Calculate brightness using the luminance formula
     const brightness = 0.299 * r + 0.587 * g + 0.114 * b
-    console.log(brightness)
+    // console.log(brightness)
     // Return brightness level based on thresholds
     if (brightness > 165) {
         return 1 // Brightest

@@ -28,9 +28,9 @@ export async function loadBoards() {
     }
 }
 
-export async function loadBoard(boardId) {
+export async function loadBoard(boardId, filterBy) {
     try {
-        const board = await boardService.getById(boardId)
+        const board = await boardService.getById(boardId, filterBy)
         store.dispatch(getCmdSetBoard(board))
     } catch (err) {
         console.log('Cannot load board', err)
@@ -89,7 +89,7 @@ export async function updateBoard(board, activity = null) {
 
         if (activity) {
             // Push the activity to the saved board's activities
-            await boardService.addActivity(activity).catch(err => {
+            await boardService.addActivity(activity).catch((err) => {
                 console.error('Failed to add activity:', err)
             })
         }

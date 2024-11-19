@@ -17,11 +17,11 @@ export function AddBoard({ onAddBoard, position = null }) {
         ev.preventDefault()
         onAddBoard(boardToAdd)
     }
-    function onChangeBg(selectedBg, isSingleColor = false) {
+    function onChangeBg(selectedBg, isSingleColor = false, urls1 = null) {
         setBoardBg((prev) => ({ ...prev, selected: selectedBg }))
         setBoardToAdd((prevBoard) => {
             const style = isSingleColor ? { backgroundColor: selectedBg } : { ...prevBoard.style, backgroundImage: `url(${selectedBg})` }
-            const urls = { regular: selectedBg }
+            const urls = urls1 ? { ...urls1 } : { regular: selectedBg }
             return { ...prevBoard, style, urls }
         })
     }
@@ -50,11 +50,18 @@ export function AddBoard({ onAddBoard, position = null }) {
         setMenu(() => menu)
     }
     if (!boardBg) return
-    const { title, style } = boardToAdd
+    const { title, urls } = boardToAdd
+    let style = { ...boardToAdd.style }
     const { selected } = boardBg
+    if (urls) {
+        if (urls.small) style.backgroundImage = `url(${urls.small})`
+        else if (urls.regular) {
+            style.backgroundImage = `url(${urls.regular})`
+        }
+    }
     return (
         <section className="add-board">
-            <div className={'mini-board-preview'} style={boardToAdd.style}>
+            <div className={'mini-board-preview'} style={style}>
                 <img src="/img/add-board/board-preview.svg" alt="" />
             </div>
 
