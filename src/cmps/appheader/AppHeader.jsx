@@ -70,7 +70,7 @@ export function AppHeader() {
     useEffect(() => {
         if (!headerRef.current) return
         if (isModalOpen) headerRef.current.style.zIndex = '5'
-        else headerRef.current.style.zIndex = '5'
+        // else headerRef.current.style.zIndex = '5'
     }, [isModalOpen])
 
     function setHeaderColorFromImage(imgSrc) {
@@ -208,7 +208,7 @@ export function AppHeader() {
 
 
     return (
-        <header style={{ zIndex: '5' }} ref={headerRef} className="app-header full">
+        <header /*style={{ zIndex: '5' }}*/ ref={headerRef} className="app-header full">
             <nav>
                 {/* <section className="flex align-center left-side-nav"> */}
                 {location.pathname !== '/home' && (
@@ -273,7 +273,7 @@ export function AppHeader() {
                         <span className="search-icon">
                             <img src="/img/general/search-icon.svg" alt="" />
                         </span>
-                        <input
+                        {/* <input
                             type="text"
                             className={`input header-search `}
                             placeholder="search"
@@ -281,7 +281,7 @@ export function AppHeader() {
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                         // style={inputStyle}
-                        />
+                        /> */}
                     </div>
                     <div className="flex align-center">
                         {user ? (
