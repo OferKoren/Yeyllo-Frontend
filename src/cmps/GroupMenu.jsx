@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { makeId } from "../services/util.service"
 import ClickOutside from "./ClickOutside"
 import { groupColorPalette } from "../store/reducers/board.reducer"
+import { showErrorMsg } from "../services/event-bus.service"
 
 export function GroupMenu({ onChangeGroupColor, onUpdateBoard, board, group, setIsMenuOpen, onRemoveGroup, setIsAddTaskClicked, isCopyGroupClicked, setIsCopyGroupClicked }) {
 
@@ -39,7 +40,7 @@ export function GroupMenu({ onChangeGroupColor, onUpdateBoard, board, group, set
 
     async function onCopyGroup(ev) {
         ev.preventDefault()
-        if (!newTitle) return /*alert('Text field is required')*/
+        if (!newTitle) return showErrorMsg('Text field is required')
 
         const newTasks = group.tasks.map(task => {
             return task = { ...task, id: makeId() }

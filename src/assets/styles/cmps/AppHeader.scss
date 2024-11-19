@@ -1,4 +1,17 @@
 .app-header {
+
+    @include for-mobile-layout {
+        .header-btn {
+            &.starred {
+                display: none;
+            }
+        }
+
+        .btn1.create {
+            display: none;
+        }
+    }
+
     position: relative;
     z-index: 5;
     display: flex;
@@ -17,10 +30,12 @@
 
         position: fixed;
         width: 100%;
+
         nav {
             max-width: 1320px;
             margin: auto;
         }
+
         transition: box-shadow 0.3s;
 
         &:hover {
@@ -30,9 +45,11 @@
 
     .user-img-header {
         border-radius: 50%;
+
         &:hover {
             outline: 4px solid rgb(128, 128, 128, 0.3);
         }
+
         z-index: 5;
     }
 
@@ -71,6 +88,7 @@
             padding: 0.5em 0 0.5em 1em;
             width: 113%;
             margin-left: -16px;
+
             &:hover {
                 background-color: $clr-bg1-light;
             }
@@ -78,6 +96,24 @@
 
         box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;
     }
+
+    .share.btn1 {
+        color: var(--dynmaic-create-btn-color);
+        background-color: var(--dynmaic-create-btn);
+        margin-inline-start: 1em;
+
+        &:hover {
+            // background-color: darken($color: $btnClr1, $amount: 10);
+            background-color: var(--dynmaic-create-btn-hover);
+        }
+
+        // margin-inline: 1em 0;
+        font-family: 'Segoe UI',
+        'roboto-regular';
+        font-size: 14px;
+        transition: 0.1s;
+    }
+
 
     nav {
         display: flex;
@@ -107,7 +143,7 @@
             display: flex;
             align-items: center;
 
-            & > * {
+            &>* {
                 display: flex;
                 align-items: center;
             }

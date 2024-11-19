@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router'
 import { Modal } from '../../Modal'
 import ClickOutside from '../../ClickOutside'
 import { CloseBoard } from './CloseBoard'
@@ -20,6 +21,7 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
     const [title, setTitle] = useState('menu')
     const wrapperRef = useRef()
     const returnRef = useRef()
+    const navigate = useNavigate()
 
     function onCloseModal() {
         setIsModalOpen(false)
@@ -266,9 +268,21 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
                 </ul>
 
                 <div>
-                    {/* <div>
-                        <button onClick={() => boardService.generateAiBoard('trip to africa')}>Generate Board</button>
-                    </div> */}
+                    <div>
+                        <button
+                            onClick={async () => {
+                                try {
+                                    const topic = prompt('enter a topic')
+                                    const generatedBoard = await boardService.generateAiBoard(topic)
+                                    navigate(`/board/${generatedBoard._id}`)
+                                } catch (err) {
+                                    console.error('can not generate board', err)
+                                }
+                            }}
+                        >
+                            Generate Board
+                        </button>
+                    </div>
                     {/*  <h3>Activities</h3>
                     <ul style={{ display: 'grid', gap: '0.8em' }}>
                         {board.activities?.length > 0 &&

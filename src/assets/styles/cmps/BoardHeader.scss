@@ -1,4 +1,28 @@
 .board-header {
+    @include for-mobile-layout {
+
+        .title-wrapper {
+            max-width: 65%;
+            overflow: hidden;
+            // overflow-y: hidden;
+        }
+
+        .header-btn {
+            span:nth-child(2) {
+                display: none;
+            }
+
+            &.filters.btn2 {
+                margin-inline-end: 0;
+
+            }
+        }
+
+        .board-members {
+            display: none;
+        }
+    }
+
     position: relative;
     height: 56px;
     min-height: 56px;
@@ -14,7 +38,7 @@
     z-index: 3;
     // justify-content: space-between;
 
-    > * {
+    >* {
         display: flex;
         align-items: center;
     }
@@ -28,18 +52,23 @@
 
         margin-inline-start: -4px;
     }
+
     .title-wrapper {
         // position: relative;
         display: inline-block;
-        & > * {
+
+        &>* {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 1.125em;
             line-height: 32px;
             height: 32px;
         }
+
         .title-input {
             position: absolute;
-            top: 9px /*  */;
+            top: 9px
+                /*  */
+            ;
             left: 16px;
             // width: 50px;
             font-weight: 700;
@@ -51,6 +80,7 @@
             outline: 3px solid $btnClr1;
             // transition: all 0.2s ease;
         }
+
         .title-text {
             letter-spacing: 1px;
             font-size: 18px;
@@ -60,9 +90,11 @@
             padding: 0 0.4em;
             border-radius: 4px;
             transition: 0.1s;
+
             &:hover {
                 background-color: var(--dynamic-board-header-hover);
             }
+
             // transition: all 0.2s ease; // Smooth transition
         }
     }
@@ -86,16 +118,21 @@
         align-items: center;
         justify-content: center;
         color: var(--dynamic-board-header-color);
+
         &:hover {
             background-color: var(--dynamic-board-header-hover);
         }
+
         &.filters {
             position: relative;
+
             span {
                 height: 16px;
+
                 &:first-child {
                     margin-inline-end: 8px;
                 }
+
                 &:last-child {
                     height: 20px;
                 }
@@ -107,14 +144,17 @@
             margin-inline-end: 1em;
         }
     }
+
     .divider {
         display: inherit;
         height: 16px;
         margin: 8px 1em 8px 4px;
         border-left: 1px solid rgba(255, 255, 255, 0.16);
     }
+
     .board-members {
         margin-inline-end: 0.2em;
+
         .member-img {
             width: 2em;
             height: 1.8em;
@@ -122,7 +162,8 @@
             padding: 0;
         }
     }
-    & > button.star {
+
+    &>button.star {
         color: var(--dynamic-star-color);
         margin-inline-end: auto;
     }

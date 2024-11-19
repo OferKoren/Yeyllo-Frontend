@@ -4,6 +4,7 @@ import { makeId } from "../services/util.service";
 import ClickOutside from "./ClickOutside";
 import { Draggable } from "react-beautiful-dnd";
 import { useSelector } from 'react-redux';
+import { showErrorMsg } from "../services/event-bus.service";
 
 export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
     const user = useSelector((storeState) => storeState.userModule.user)
@@ -30,7 +31,8 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
         if (ev) ev.preventDefault()
         if (isModalOpen) return
         if (!taskTitle) return onCloseEditTitle()
-        // if (!taskTitle) return alert('Text field is required')
+        if (!taskTitle) return showErrorMsg('Text field is required')
+
 
         try {
             const currGroupIdx = board.groups.findIndex(group => group.id === groupId)

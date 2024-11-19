@@ -1,3 +1,4 @@
+import { showErrorMsg } from '../event-bus.service'
 import { httpService } from '../http.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
@@ -41,12 +42,14 @@ async function update({ _id, score }) {
 async function login(userCred) {
 	try {
 		const user = await httpService.post('auth/login', userCred)
-		if (user) return saveLoggedinUser(user)
-		else return alert('Email or password incorrect')
+		console.log(user);
+		
+		if (user && user.username !== 'Guest') return saveLoggedinUser(user)
+		 
 
 	} catch (err) {
 		console.log('err:', err);
-
+		return showErrorMsg('Email or password incorrect')
 	}
 }
 

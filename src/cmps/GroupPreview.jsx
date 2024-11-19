@@ -5,6 +5,7 @@ import { GroupMenu } from './GroupMenu'
 import { colorLuminance } from '../services/util.service'
 import { Droppable } from 'react-beautiful-dnd'
 import { useSelector } from 'react-redux'
+import { showErrorMsg } from '../services/event-bus.service'
 
 export function GroupPreview({ isModalOpen, setIsModalOpen, isLabelsClicked, setIsLabelsClicked, onUpdateBoard, board, group, setIsGroupDeleted }) {
     const { title, tasks, id } = group
@@ -50,8 +51,9 @@ export function GroupPreview({ isModalOpen, setIsModalOpen, isLabelsClicked, set
         if (!currTitle) {
             setCurrTitle(title)
             onEditGroupHeader()
+            showErrorMsg('Text field is required')
             return
-            /*alert('Text field is required')*/
+
         }
 
         try {
