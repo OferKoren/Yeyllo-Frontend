@@ -1,4 +1,17 @@
 .app-header {
+
+    @include for-mobile-layout {
+        .header-btn {
+            &.starred {
+                display: none;
+            }
+        }
+
+        .btn1.create {
+            display: none;
+        }
+    }
+
     position: relative;
     z-index: 5;
     display: flex;
@@ -17,10 +30,12 @@
 
         position: fixed;
         width: 100%;
+
         nav {
             max-width: 1320px;
             margin: auto;
         }
+
         transition: box-shadow 0.3s;
 
         &:hover {
@@ -30,9 +45,11 @@
 
     .user-img-header {
         border-radius: 50%;
+
         &:hover {
             outline: 4px solid rgb(128, 128, 128, 0.3);
         }
+
         z-index: 5;
     }
 
@@ -71,6 +88,7 @@
             padding: 0.5em 0 0.5em 1em;
             width: 113%;
             margin-left: -16px;
+
             &:hover {
                 background-color: $clr-bg1-light;
             }
@@ -107,7 +125,7 @@
             display: flex;
             align-items: center;
 
-            & > * {
+            &>* {
                 display: flex;
                 align-items: center;
             }

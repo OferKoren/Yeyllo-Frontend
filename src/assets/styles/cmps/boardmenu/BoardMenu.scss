@@ -1,4 +1,10 @@
 .board-menu {
+    @include for-mobile-layout {
+        overflow-y: hidden;
+
+        .close-btn {}
+
+    }
     /* Works on Firefox */
     * {
         scrollbar-width: thin;
@@ -28,35 +34,44 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+
     .menu-header {
         position: sticky;
         padding: 0 12px;
         margin: 0;
         height: rem(52px);
+
         h3 {
             color: $contentClr;
             padding-block-start: 9px;
             font-size: rem(16px);
         }
+
         .close-btn {
             color: $contentClr;
             transform: translate(0, 8px);
         }
+
         .return-btn {
             transition: 0.2s;
             transform: translate(-40px, 8px);
+
             &.active {
                 transform: translate(0, 8px);
             }
         }
     }
+
     .menu-body {
-        overflow-y: scroll; /* Forces a vertical scrollbar */
+        overflow-y: scroll;
+        /* Forces a vertical scrollbar */
         flex-grow: 1;
         padding: rem(15px) rem(12px) rem(8px) rem(9.5px);
+
         li {
             margin-block-end: rem(4px);
         }
+
         li button.menu-btn {
             width: 100%;
             display: flex;
@@ -69,20 +84,26 @@
             &:hover {
                 background-color: rgb(9, 30, 66, 0.06);
             }
+
             &.info {
                 height: 52px;
             }
         }
+
         ul div {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
             color: $contentClr;
+
             &::first-letter {
                 text-transform: capitalize;
             }
+
             font-size: 14px;
+
             div {
                 font-size: rem(12px);
             }
+
             &.background {
                 width: 20px;
                 height: 20px;
@@ -90,40 +111,65 @@
                 background-size: cover;
                 border-radius: rem(3px);
             }
+
             text-align: left;
         }
+
         .left {
             transform: translateX(-100%);
         }
+
         .right {
             transform: translateX(100%);
         }
+
         div.wrapper.no-transition {
             transition: none;
         }
+
         .wrapper {
             transition: 0.2s;
         }
     }
+
     &.shrink {
         transform: translateX(340px);
     }
+
     hr {
         width: 304px;
+
         &.thin {
             width: 100%;
             margin: 0;
             margin-inline-start: rem(12px);
         }
+
         &.semi-thin {
             margin: 8px 0 8px 0;
         }
     }
 }
+
 .placeholder-div {
     transition: 0.4s;
 }
+
 .board-menu-wrapper {
+    overflow-y: hidden;
+    // max-width: 100vh;
     position: relative;
     background-color: white;
+    z-index: 3;
+
+    @include for-mobile-layout {
+        // overflow-y: hidden;
+        position: absolute;
+        // top: ;
+        right: 0;
+        height: 92.4%;
+        width: 91%;
+        .close-btn {}
+
+    }
 }
