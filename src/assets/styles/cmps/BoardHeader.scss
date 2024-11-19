@@ -1,20 +1,21 @@
 .board-header {
     @include for-mobile-layout {
-        
-        .title-wrapper{
+
+        .title-wrapper {
             max-width: 65%;
-            overflow:hidden;
+            overflow: hidden;
             // overflow-y: hidden;
         }
+
         .header-btn {
             span:nth-child(2) {
                 display: none;
             }
-            &.filters.btn2{
+
+            &.filters.btn2 {
                 margin-inline-end: 0;
 
             }
-
         }
 
         .board-members {

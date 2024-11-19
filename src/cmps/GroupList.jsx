@@ -6,6 +6,7 @@ import ClickOutside from './ClickOutside'
 import { getEmptyGroup } from '../services/board'
 import { Draggable } from 'react-beautiful-dnd'
 import { useSelector } from 'react-redux'
+import { showErrorMsg } from '../services/event-bus.service'
 
 export function GroupList({ placeholder, onUpdateBoard, board }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
@@ -36,7 +37,7 @@ export function GroupList({ placeholder, onUpdateBoard, board }) {
 
     async function onAddGroup(ev) {
         ev.preventDefault()
-        if (!title) return /*alert('Text field is required')*/
+        if (!title) return showErrorMsg('Text field is required')
 
         const group = getEmptyGroup()
         group.title = title

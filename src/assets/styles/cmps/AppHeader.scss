@@ -97,6 +97,24 @@
         box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;
     }
 
+    .share.btn1 {
+        color: var(--dynmaic-create-btn-color);
+        background-color: var(--dynmaic-create-btn);
+        margin-inline-start: 1em;
+
+        &:hover {
+            // background-color: darken($color: $btnClr1, $amount: 10);
+            background-color: var(--dynmaic-create-btn-hover);
+        }
+
+        // margin-inline: 1em 0;
+        font-family: 'Segoe UI',
+        'roboto-regular';
+        font-size: 14px;
+        transition: 0.1s;
+    }
+
+
     nav {
         display: flex;
         justify-content: space-between;

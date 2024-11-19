@@ -27,12 +27,11 @@ export function Login() {
 
         if (!credentials.username || !credentials.password) return
         try {
-            const checkedUser = await login(credentials)
-            console.log(checkedUser);
-            
-            checkedUser? navigate('/workspace/home'): navigate('/login')
-        } catch(err){
-            console.log('err:', err);            
+            await login(credentials)
+
+            !user || user.fullname === 'Guest' ? navigate('/login') : navigate('/workspace/home')
+        } catch (err) {
+            console.log('err:', err);
         }
     }
 
