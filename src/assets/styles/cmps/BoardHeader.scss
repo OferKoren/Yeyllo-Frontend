@@ -103,14 +103,14 @@
             position: relative;
 
             span {
-                height: 16px;
+                // height: 16px;
 
                 &:first-child {
                     margin-inline-end: 8px;
                 }
 
                 &:last-child {
-                    height: 20px;
+                    // height: 20px;
                 }
             }
 
@@ -142,14 +142,14 @@
             }
 
             span {
-                height: 16px;
+                // height: 16px;
 
                 &:first-child {
-                    margin-inline-end: 8px;
+                    // margin-inline-end: 8px;
                 }
 
                 &:last-child {
-                    height: 20px;
+                    // height: 20px;
                 }
             }
 
@@ -242,7 +242,7 @@
 
                 span:first-child {
                     width: 20px;
-                    height: 20px;
+                    // height: 20px;
                     // border: 1px solid white;
                     border-color: var(--dynamic-board-header-color);
                     // border-radius: 50%;
