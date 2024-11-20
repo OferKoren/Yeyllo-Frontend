@@ -56,8 +56,10 @@ export function Description({ task, setTask }) {
 
     function saveContent() {
         if (editor) {
-            const htmlContent = editor.root.innerHTML
-            if (htmlContent === '<p><br></p>' || htmlContent === '') {
+            const htmlContent = editor.root.innerHTML.trim()
+            const isEmptyContent = ['<p><br></p>', '', '<p>\n</p>', '<p></p>'].includes(htmlContent)
+
+            if (isEmptyContent) {
                 setTask((prevTask) => {
                     const updatedTask = { ...prevTask }
                     delete updatedTask.description
@@ -72,7 +74,10 @@ export function Description({ task, setTask }) {
     function cancelEdit() {
         if (editor) {
             editor.root.innerHTML = originalContent
-            if (originalContent === '<p><br></p>' || originalContent === '') {
+            const normalizedContent = originalContent.trim()
+            const isEmptyContent = ['<p><br></p>', '', '<p>\n</p>', '<p></p>'].includes(normalizedContent)
+
+            if (isEmptyContent) {
                 setTask((prevTask) => {
                     const updatedTask = { ...prevTask }
                     delete updatedTask.description
