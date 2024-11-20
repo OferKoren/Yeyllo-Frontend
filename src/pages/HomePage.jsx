@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../store/actions/user.actions'
+import { useSelector } from 'react-redux'
 /* const carusalClass = [
     ['', 'right', 'right-edge'],
     ['left', '', 'right'],
@@ -10,14 +11,17 @@ const carusalClass = ['', 'left', 'left-edge']
 export function HomePage() {
     const [activeBtn, setActiveBtn] = useState(0)
     const [credentials, setCredentials] = useState({ username: 'guest@yeyllo.com', password: '123', fullname: 'Guest' })
+    const user = useSelector((storeState) => storeState.userModule.user)
 
     const navigate = useNavigate()
 
     async function onLogin(ev = null) {
         if (ev) ev.preventDefault()
-
+            console.log(user);
+            
+        if(user && user.fullname !== 'Guest') return navigate('/workspace/home')
         try {
-            if (!credentials.username || !credentials.password) return
+            if (!credentials.username || !credentials.password || user || user.fullname !== 'Guest') return
             const checkedUser = await login(credentials)
             console.log(checkedUser);
             checkedUser ? navigate('/workspace/home') : navigate('/login')
