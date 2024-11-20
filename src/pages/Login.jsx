@@ -29,7 +29,8 @@ export function Login() {
         try {
             await login(credentials)
 
-            !user || user.fullname === 'Guest' ? navigate('/login') : navigate('/workspace/home')
+            navigate('/workspace/home')
+            // !user || user.fullname === 'Guest' ? navigate('/login') : navigate('/workspace/home')
         } catch (err) {
             console.log('err:', err);
         }
