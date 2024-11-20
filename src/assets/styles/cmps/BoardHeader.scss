@@ -117,6 +117,28 @@
             font-weight: 600;
             margin-inline-end: 1em;
         }
+
+        &.share {
+            position: relative;
+            margin-inline-start: 8px;
+
+            span {
+                height: 16px;
+
+                &:first-child {
+                    margin-inline-end: 8px;
+                }
+
+                &:last-child {
+                    height: 20px;
+                }
+            }
+
+            width: inherit;
+            padding: 6px;
+            font-weight: 600;
+            margin-inline-end: 1em;
+        }
     }
 
     .divider {
@@ -175,4 +197,30 @@
             display: none;
         }
     }
+
+    /*   @include for-mobile-layout {
+        .title-wrapper {
+            max-width: 65%;
+            overflow: hidden;
+            // overflow-y: hidden;
+        }
+
+        .header-btn {
+            span:nth-child(2) {
+                display: none;
+            }
+
+            &.filters.btn2 {
+                margin-inline-end: 0;
+            }
+
+            &.share {
+                display: none;
+            }
+        }
+
+        .board-members {
+            display: none;
+        }
+    } */
 }

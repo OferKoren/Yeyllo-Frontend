@@ -151,6 +151,7 @@ export function TaskPreview({
                         opacity: snapshot.isDragging ? '0.5' : '',
                         height: '138px',
                         padding: 0,
+                        display: !!task.archivedAt && !archive ? 'none' : ''
                     }}
                     onClick={onOpenModal}
                     className="task-preview cover-size-full"
@@ -207,7 +208,9 @@ export function TaskPreview({
                 </article>
             ) : (
                 <article
-                    style={{ rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }}
+                    style={{
+                        rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '', display: !!task.archivedAt && !archive ? 'none' : '', gap:!!task.archivedAt && !archive ? '0' : ''
+                    }}
                     onClick={onOpenModal}
                     className="task-preview"
                 >
@@ -416,7 +419,7 @@ export function TaskPreview({
                             )}
                             {task.attachments ? (
                                 <div title="Attachments" className="flex align-center">
-                                    <img style={{opacity:0.7}} src="\img\board-details\attachment-icon.svg" alt="attachments" />{' '}
+                                    <img style={{ opacity: 0.7 }} src="\img\board-details\attachment-icon.svg" alt="attachments" />{' '}
                                     {<span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{task.attachments.length}</span>}{' '}
                                 </div>
                             ) : (
