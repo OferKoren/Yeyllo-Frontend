@@ -1,28 +1,4 @@
 .board-header {
-    @include for-mobile-layout {
-
-        .title-wrapper {
-            max-width: 65%;
-            overflow: hidden;
-            // overflow-y: hidden;
-        }
-
-        .header-btn {
-            span:nth-child(2) {
-                display: none;
-            }
-
-            &.filters.btn2 {
-                margin-inline-end: 0;
-
-            }
-        }
-
-        .board-members {
-            display: none;
-        }
-    }
-
     position: relative;
     height: 56px;
     min-height: 56px;
@@ -38,7 +14,7 @@
     z-index: 3;
     // justify-content: space-between;
 
-    >* {
+    > * {
         display: flex;
         align-items: center;
     }
@@ -57,7 +33,7 @@
         // position: relative;
         display: inline-block;
 
-        &>* {
+        & > * {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 1.125em;
             line-height: 32px;
@@ -66,9 +42,7 @@
 
         .title-input {
             position: absolute;
-            top: 9px
-                /*  */
-            ;
+            top: 9px /*  */;
             left: 16px;
             // width: 50px;
             font-weight: 700;
@@ -163,8 +137,42 @@
         }
     }
 
-    &>button.star {
+    & > button.star {
         color: var(--dynamic-star-color);
         margin-inline-end: auto;
+    }
+
+    @include for-mobile-layout {
+        .title-wrapper {
+            max-width: 65%;
+            overflow: hidden;
+            // overflow-y: hidden;
+        }
+
+        .header-btn {
+            span:nth-child(2) {
+                display: none;
+            }
+
+            &.filters.btn2 {
+                margin-inline-end: 0;
+                span:first-child {
+                    width: 20px;
+                    height: 20px;
+                    border: 1px solid white;
+                    border-color: var(--dynamic-board-header-color);
+                    border-radius: 50%;
+                    margin: 0;
+                    svg {
+                        transform: translateY(2px);
+                    }
+                }
+            }
+        }
+
+        .board-members,
+        .filter-btn-txt {
+            display: none;
+        }
     }
 }

@@ -16,13 +16,13 @@ async function query(filterBy = {}, board) {
 }
 
 async function getById(boardId, filterBy = {}) {
-    console.log(filterBy)
     let board = await httpService.get(`board/${boardId}`)
+    let boardToFilter = { ...board }
     if (filterBy.keyword) {
         const regExp = new RegExp(filterBy.keyword, 'i')
         const labels = board.labels
 
-        board.groups = board.groups.map((group) => {
+        boardToFilter.groups = boardToFilter.groups.map((group) => {
             group.tasks = group.tasks.filter((task) => {
                 const filterByCardTitle = regExp.test(task.title)
 
@@ -44,7 +44,7 @@ async function getById(boardId, filterBy = {}) {
     }
 
     if (filterBy.members && filterBy.members.length > 0) {
-        board.groups = board.groups.map((group) => {
+        boardToFilter.groups = boardToFilter.groups.map((group) => {
             group.tasks = group.tasks.filter((task) => {
                 if (!task.memberIds) {
                     if (filterBy.members.includes('no-member')) return true
@@ -58,7 +58,7 @@ async function getById(boardId, filterBy = {}) {
         })
     }
 
-    return board
+    return boardToFilter
 }
 
 async function remove(boardId) {

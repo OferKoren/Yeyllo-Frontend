@@ -134,7 +134,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                 <span>
                     <FilterIcon />
                 </span>
-                <span>Filters</span>
+                <span className="filter-btn-txt">Filters</span>
             </button>
             <span className="divider"></span>
             <div className="board-members">
