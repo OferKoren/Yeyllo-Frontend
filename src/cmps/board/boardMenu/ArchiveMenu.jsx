@@ -30,46 +30,35 @@ export function ArchiveMenu({ board, onUpdateBoard }) {
 
     return (
         <div className="archive-menu">
-            <Droppable droppableId="ROOT" type="group" direction="horizontal">
-                {(provided) => (
-                    <ul {...provided.droppableProps} ref={provided.innerRef} className="archive-list">
-                        {archivedItems.map((task, index) => (
-                            <li key={task.id}>
-                                <Draggable isDragDisabled={true} draggableId={task.id} index={index} key={task.id}>
-                                    {(provided, snapshot) => (
-                                        <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                            <TaskPreview
-                                                snapshot={snapshot}
-                                                isModalOpen={false}
-                                                setIsModalOpen={() => {}}
-                                                board={board}
-                                                isLabelsClicked={false}
-                                                setIsLabelsClicked={() => {}}
-                                                onUpdateBoard={() => {}}
-                                                key={task.id}
-                                                task={task}
-                                                groupId={'archived'}
-                                                archive={true}
-                                            />
-                                        </div>
-                                    )}
-                                </Draggable>
+            <ul className="archive-list">
+                {archivedItems.map(task => (
+                    <li key={task.id}>
+                        <TaskPreview
+                            snapshot=''
+                            isModalOpen={false}
+                            setIsModalOpen={() => { }}
+                            board={board}
+                            isLabelsClicked={false}
+                            setIsLabelsClicked={() => { }}
+                            onUpdateBoard={() => { }}
+                            key={task.id}
+                            task={task}
+                            groupId={'archived'}
+                            archive={true}
+                        />
 
-                                <div className="btns">
-                                    <button className="btn2" onClick={() => onDelete(task.id)}>
-                                        delete
-                                    </button>
-                                    •
-                                    <button className="btn2" onClick={() => onReturnToBoard(task.id)}>
-                                        return to board
-                                    </button>
-                                </div>
-                            </li>
-                        ))}
-                        {provided.placeholder}
-                    </ul>
-                )}
-            </Droppable>
-        </div>
+                        <div className="btns">
+                            <button className="btn2" onClick={() => onDelete(task.id)}>
+                                delete
+                            </button>
+                            •
+                            <button className="btn2" onClick={() => onReturnToBoard(task.id)}>
+                                return to board
+                            </button>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div >
     )
 }
