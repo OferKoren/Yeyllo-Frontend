@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import ClickOutside from '../ClickOutside'
 import { Modal } from '../Modal'
 import { BoardFilter } from './BoardFilter'
+import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
 
 const starEmpty = '/img/workspace/star-empty-small.svg'
 const starEmptyGold = '/img/workspace/star-empty-gold.svg'
