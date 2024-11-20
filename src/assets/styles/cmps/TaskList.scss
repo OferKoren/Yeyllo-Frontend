@@ -3,6 +3,13 @@
         width: 100%;
         display: grid;
         justify-items: center;
+
+        &:last-child {
+            .task-preview {
+
+                margin-bottom: 0.1em;
+            }
+        }
     }
 
     &.add-task-option {
