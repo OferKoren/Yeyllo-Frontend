@@ -41,5 +41,23 @@
             border: none;
             padding: 0;
         }
+        &.no-member-label {
+            transform: translateX(-5.5px);
+        }
+        .no-member-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 24px;
+            height: 24px;
+            background-color: rgba(9, 30, 66, 0.06);
+            border-radius: 50%;
+        }
+    }
+    fieldset {
+        border: none;
+        margin: 0;
+        padding: 0;
     }
 }

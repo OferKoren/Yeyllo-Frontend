@@ -19,7 +19,6 @@ async function getById(boardId, filterBy = {}) {
     console.log(filterBy)
     let board = await httpService.get(`board/${boardId}`)
     if (filterBy.keyword) {
-        console.log('filtering, ', board)
         const regExp = new RegExp(filterBy.keyword, 'i')
         const labels = board.labels
 
@@ -37,11 +36,28 @@ async function getById(boardId, filterBy = {}) {
 
                     return filterByLabels || filterByCardTitle
                 }
+
                 return filterByCardTitle
             })
             return group
         })
     }
+
+    if (filterBy.members && filterBy.members.length > 0) {
+        board.groups = board.groups.map((group) => {
+            group.tasks = group.tasks.filter((task) => {
+                if (!task.memberIds) {
+                    if (filterBy.members.includes('no-member')) return true
+                    return false
+                }
+                const isMember = task.memberIds.some((member) => filterBy.members.some((memberId) => memberId === member))
+                console.log(isMember)
+                return isMember
+            })
+            return group
+        })
+    }
+
     return board
 }
 
