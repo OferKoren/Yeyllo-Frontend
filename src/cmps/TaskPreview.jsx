@@ -82,9 +82,8 @@ export function TaskPreview({
             return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
         // Above / Below year
         else if (today.getYear() !== date.getYear())
-            return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${
-                date.getYear() - 100
-            }`
+            return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${date.getYear() - 100
+                }`
         // else if (today.getYear() !== date.getYear()) return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
         // No year
         else if (!date.getYear()) return ''
@@ -150,7 +149,7 @@ export function TaskPreview({
                     style={{
                         rotate: snapshot.isDragging ? '5deg' : '',
                         opacity: snapshot.isDragging ? '0.5' : '',
-                        height: '138px',
+                        // height: '138px',
                         padding: 0,
                         display: !!task.archivedAt && !archive ? 'none' : '',
                     }}
@@ -176,7 +175,7 @@ export function TaskPreview({
                                 backgroundColor: task.attachments[getAttachmentIsCover().attachmentIdx].bgColor || 'rgb(154, 139, 127)',
                                 display: 'block',
                                 width: '100%',
-                                height: '100%',
+                                height: '138px',
                                 borderRadius: '0.4em',
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
@@ -185,16 +184,26 @@ export function TaskPreview({
                         ></div>
                     ) : task.style ? (
                         task.style.backgroundColor ? (
-                            <div className="background" style={{ ...task.style }}></div>
+                            <div className="background color-back" style={{
+                                // backgroundImage: `${task.style.backgroundImage?.url}`,
+                                backgroundColor: task.style.backgroundColor || 'rgb(154, 139, 127)',
+                                display: 'block',
+                                width: '100%',
+                                height: '56px',
+                                borderRadius: '0.4em',
+                                backgroundSize: 'cover',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundPosition: 'center',
+                            }}></div>
                         ) : (
                             <div
                                 className="background"
                                 style={{
                                     backgroundImage: `${task.style.backgroundImage?.url}`,
-                                    backgroundColor: task.style.backgroundImage?.url?.bgColor || 'rgb(154, 139, 127)',
+                                    backgroundColor: task.style.backgroundImage?.bgColor || 'rgb(154, 139, 127)',
                                     display: 'block',
                                     width: '100%',
-                                    height: '100%',
+                                    height: '138px',
                                     borderRadius: '0.4em',
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
@@ -429,7 +438,7 @@ export function TaskPreview({
                             ) : (
                                 ''
                             )}
-                            {task.checklists && task.checklists.length > 0 ? (
+                            {(!!task.checklists && task.checklists.length > 0 && getTodosCount(task) > 0) ? (
                                 <div title="Checklist items" className="flex align-center">
                                     <img src="\img\board-details\checkbox-icon.svg" alt="checkbox" />
                                     <span style={{ marginInlineStart: '0.3em', fontSize: '0.9em' }}>{`${getDoneTodosCount(task)}/${getTodosCount(
