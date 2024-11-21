@@ -17,7 +17,7 @@ export function GroupPreview({
     group,
     setIsGroupDeleted,
     originBoard,
-    originGroup,
+    // originGroup,
 }) {
     const { title, tasks, id } = group
 
@@ -119,8 +119,10 @@ export function GroupPreview({
             // changeBoard.groups[groupIdx].style.backgroundColor = color
             console.log(group)
 
-            originGroup.style.backgroundColor = color
-            await onUpdateBoard(originBoard)
+            group.style.backgroundColor = color
+            await onUpdateBoard(board)
+            // originGroup.style.backgroundColor = color
+            // await onUpdateBoard(originBoard)
             // setIsMenuOpen(isOpen => !isOpen)
         } catch (err) {
             console.log('err: ', err)
@@ -135,9 +137,10 @@ export function GroupPreview({
         try {
             console.log(group)
 
-            // group.isCollapse = group.isCollapse ? false : true
-            originGroup.isCollapse = !originGroup.isCollapse
-            await onUpdateBoard(originBoard)
+            group.isCollapse = group.isCollapse ? false : true
+            // originGroup.isCollapse = !originGroup.isCollapse
+            // await onUpdateBoard(originBoard)
+            await onUpdateBoard(board)
             // await updateBoardOptimistic(board)
         } catch (err) {
             console.log('err: ', err)
