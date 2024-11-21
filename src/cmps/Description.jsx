@@ -115,7 +115,7 @@ export function Description({ task, setTask }) {
 
     function onToggleMic() {
         micBtn.current.classList.toggle('active')
-        voiceAnimation.current.classList.toggle('active')
+        // voiceAnimation.current.classList.toggle('active')
     }
 
     return (

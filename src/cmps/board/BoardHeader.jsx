@@ -4,6 +4,7 @@ import { Modal } from '../Modal'
 import { BoardFilter } from './BoardFilter'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
 import { AiModal } from '../AiModal'
+import { ModalTaskDetails } from '../ModalTaskDetails.jsx'
 
 const starEmpty = '/img/workspace/star-empty-small.svg'
 const starEmptyGold = '/img/workspace/star-empty-gold.svg'
@@ -221,15 +222,16 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                 </ClickOutside>
             ) :
                 <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
+                    {/* <div className='task-details-backdrop' style={{ position: 'absolute', top: '-13em', width: '100vw', height: '107vh', zIndex: '-1', backgroundColor: 'black', opacity: '0.6' }}></div> */}
                     <Modal
-
                         onCloseModal={onCloseModal}
                         isOpen={isModalOpen}
                         isBlur={false}
                         isBackDrop={true}
                         style={{ width: '380px', top: '13em' }}
                     >
-                        <AiModal onCloseModal={onCloseModal} />
+
+                        <AiModal onCloseModal={onCloseModal} onOpenModal={onOpenModal} />
                     </Modal>
                 </ClickOutside>
 

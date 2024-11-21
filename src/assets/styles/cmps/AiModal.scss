@@ -2,68 +2,141 @@
 
     // background-color: #1e2731;
     // padding: 15px 45px 27px 49px;
-    padding: 0 1em;
+    padding: 1em 1em 0 1em;
     border-radius: 16px;
     // box-shadow: 0 2px 10px #0000001a;
     width: 100%;
     color: $gray7;
-    max-width: 500px;
     font-family: inherit;
     transform: translateY(-3vh);
     // opacity: 0;
     transition: transform .5s ease, opacity .5s ease;
+    color: $gray6;
+
+    .ai-modal-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+
+        & svg {
+            height: 40px;
+            animation: rotate-infinite 8s linear infinite;
+        }
+    }
 
     h3 {
         margin-bottom: 0;
+        font-size: 1.8rem;
         font-family: 'roboto-bold';
-        color: inherit;
+
+    }
+
+    form {
+        display: grid;
+        gap: 0.5em;
     }
 
     label {
-        font-size: 0.7em;
+        font-size: 1rem;
         margin-left: 0.3em;
         margin-bottom: 0;
-        font-family: 'roboto-regular';
+        font-family: 'roboto-medium';
         color: inherit;
     }
 
 
     button {
         color: white;
-        font-family: 'roboto-regular';
-        background-image: linear-gradient(to right bottom, #5400FF, #3D32FE, #2748FA, #1957F3, #1E63EB, #0074ED, #0083EC, #2291E8, #3AA7EB, #5FBBEB, #85CEEB, #ADDFED);
+        font-family: 'roboto-medium';
         padding: 0.6em 0.8em;
         margin-top: 1em;
+        justify-self: start;
     }
 
     input {
-        font-family: "Roboto-Bold";
         // font-size: em(16px);
         margin-top: 0.1em;
         border-radius: 0.5em;
         // height: 70%;
         width: 100%;
-        padding: em(6px) em(8px) em(8px) em(12px);
+        padding: em(10px) em(8px);
         // margin-inline-start: 1em;
         // margin: 5px;
         // margin-bottom: em(10px);
 
-        border: #ccc solid 3px;
+        border: #ccc solid 2px;
 
         outline: none;
 
+        background-color: whitesmoke;
         -webkit-transition: 0.1s;
         transition: 0.1s;
         // border: none solid 3px;
 
 
         &:focus {
-            border: $clr-blue-border solid 3px;
+            border: $clr-blue-border solid 2px;
+            background-color: $clr-bg2-light;
 
         }
     }
 
     &.active {
-        // animation: slideDown .5s ease forwards;
+        animation: slideDown .5s ease forwards;
+    }
+}
+
+.ai-loading {
+    margin-block-start: 1em;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    gap: 1.3em;
+    color: $gray6;
+    font-family: 'roboto-regular';
+
+    .ai-logo {
+        height: 80px;
+        animation: rotate-infinite 8s linear infinite;
+        /* Applies the animation */
+    }
+
+
+    .dots {
+        display: inline-block;
+        font-weight: bold;
+        /* Optional for styling */
+        animation: dots-loading 1.5s steps(3, end) infinite;
+        /* Keyframes for the dots */
+    }
+
+    @keyframes dots-loading {
+        0% {
+            content: "";
+        }
+
+        33% {
+            content: ".";
+        }
+
+        66% {
+            content: "..";
+        }
+
+        100% {
+            content: "...";
+        }
+    }
+}
+
+@keyframes rotate-infinite {
+    from {
+        transform: rotate(0deg);
+        /* Start at 0 degrees */
+    }
+
+    to {
+        transform: rotate(360deg);
+        /* Rotate to 360 degrees */
     }
 }
