@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { login } from '../store/actions/user.actions'
+import { useSelector } from 'react-redux'
 /* const carusalClass = [
     ['', 'right', 'right-edge'],
     ['left', '', 'right'],
@@ -10,12 +11,15 @@ const carusalClass = ['', 'left', 'left-edge']
 export function HomePage() {
     const [activeBtn, setActiveBtn] = useState(0)
     const [credentials, setCredentials] = useState({ username: 'guest@yeyllo.com', password: '123', fullname: 'Guest' })
+    const user = useSelector((storeState) => storeState.userModule.user)
 
     const navigate = useNavigate()
 
     async function onLogin(ev = null) {
         if (ev) ev.preventDefault()
+        console.log(user);
 
+        // if (user && user?.fullname !== 'Guest') return navigate('/workspace/home')
         try {
             if (!credentials.username || !credentials.password) return
             const checkedUser = await login(credentials)
@@ -33,9 +37,19 @@ export function HomePage() {
                     <div className="text">
                         <h1>Yeyllo brings all your tasks, teammates, and tools together</h1>
                         <p>Keep everything in the same place—even if your team isn’t.</p>
-                        <button onClick={onLogin} className="start-demo-btn">
+                        {!user || user.fullname === 'Guest' ? (
+                            <button className="start-demo-btn" onClick={onLogin}>
+                                Start Demo
+                            </button>
+                        ) : (
+                            <NavLink to={`${!user || user.fullname === 'Guest' ? '/' : '/workspace/home'}`} className="start-demo-btn">
+                                {/* <img src="/img/general/trello-logo-static.gif" alt="" /> */}
+                                Start Demo
+                            </NavLink>
+                        )}
+                        {/* <button onClick={onLogin} className="start-demo-btn">
                             Start Demo
-                        </button>
+                        </button> */}
                         {/* <Link to="/workspace/home" className="start-demo-btn">
                             Start Demo
                         </Link> */}
@@ -84,9 +98,9 @@ export function HomePage() {
                     </nav>
 
                     <div className="picture-container">
-                        <img style={{minWidth:'733px'}} src="/img/homepage/carusal_boards.png" alt="" className={carusalClass[activeBtn]} />
-                        <img style={{minWidth:'733px'}} src="/img/homepage/carusal_lists.webp" alt="" className={carusalClass[activeBtn]} />
-                        <img style={{minWidth:'733px'}} src="/img/homepage/carusal_cards.webp" alt="" className={carusalClass[activeBtn]} />
+                        <img style={{ minWidth: '733px' }} src="/img/homepage/carusal_boards.png" alt="" className={carusalClass[activeBtn]} />
+                        <img style={{ minWidth: '733px' }} src="/img/homepage/carusal_lists.webp" alt="" className={carusalClass[activeBtn]} />
+                        <img style={{ minWidth: '733px' }} src="/img/homepage/carusal_cards.webp" alt="" className={carusalClass[activeBtn]} />
                     </div>
                 </section>
             </div>
