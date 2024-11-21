@@ -18,6 +18,7 @@ export function TaskPreview({
     groupId,
     task,
     archive = false,
+    originBoard,
 }) {
     const [isOpenTaskDetails, setIsOpenTaskDetails] = useState(false)
     const [isDone, setIsDone] = useState(task.status === 'done')
@@ -81,8 +82,9 @@ export function TaskPreview({
             return `${task.startDate ? `${startDate.month} ${startDate.date} - ` : ''}${currMonth} ${currDate}`
         // Above / Below year
         else if (today.getYear() !== date.getYear())
-            return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${date.getYear() - 100
-                }`
+            return `${task.startDate ? `${startDate.month} ${startDate.date}, ${pastDate.getYear() - 100} - ` : ''}${currMonth} ${currDate}, ${
+                date.getYear() - 100
+            }`
         // else if (today.getYear() !== date.getYear()) return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
         // No year
         else if (!date.getYear()) return ''
@@ -142,7 +144,6 @@ export function TaskPreview({
     if (!!task.archivedAt && !archive) return ''
 
     return (
-
         <>
             {task.coverSize === 'full' ? (
                 <article
@@ -151,7 +152,7 @@ export function TaskPreview({
                         opacity: snapshot.isDragging ? '0.5' : '',
                         height: '138px',
                         padding: 0,
-                        display: !!task.archivedAt && !archive ? 'none' : ''
+                        display: !!task.archivedAt && !archive ? 'none' : '',
                     }}
                     onClick={onOpenModal}
                     className="task-preview cover-size-full"
@@ -209,7 +210,10 @@ export function TaskPreview({
             ) : (
                 <article
                     style={{
-                        rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '', display: !!task.archivedAt && !archive ? 'none' : '', gap:!!task.archivedAt && !archive ? '0' : ''
+                        rotate: snapshot.isDragging ? '5deg' : '',
+                        opacity: snapshot.isDragging ? '0.5' : '',
+                        display: !!task.archivedAt && !archive ? 'none' : '',
+                        gap: !!task.archivedAt && !archive ? '0' : '',
                     }}
                     onClick={onOpenModal}
                     className="task-preview"

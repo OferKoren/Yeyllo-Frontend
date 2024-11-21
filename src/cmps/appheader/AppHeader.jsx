@@ -198,8 +198,7 @@ export function AppHeader() {
     if (!inputClass) return */
     // const inputStyle = ''
 
-
-    console.log(user)
+    // console.log(user)
 
     return (
         <header /*style={{ zIndex: '5' }}*/ ref={headerRef} className="app-header full">
@@ -288,7 +287,7 @@ export function AppHeader() {
                         ) : (
                             ''
                         )}
-                        
+
                         {isUserMenuOpen ? <UserMenu setIsImgClicked={setIsImgClicked} setIsUserMenuOpen={setIsUserMenuOpen} user={user} /> : ''}
                     </div>
                 </>

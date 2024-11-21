@@ -8,10 +8,12 @@ import { BoardMenu } from '../cmps/board/boardMenu/BoardMenu'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { socketService, SOCKET_EVENT_BOARD_UPDATED } from '../services/socket.service.js'
 import { UPDATE_BOARD } from '../store/reducers/board.reducer.js'
+import { boardService } from '../services/board/'
 
 export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
     const board = useSelector((storeState) => storeState.boardModule.board)
+    const [filteredBoard, setFilteredBoard] = useState()
     const brightness = useSelector((storeState) => storeState.boardModule.brightness)
     const filterBy = useSelector((storeState) => storeState.boardModule.filterBy)
 
@@ -23,7 +25,7 @@ export function BoardDetails({ rootRef }) {
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_BOARD_UPDATED, (updatedBoard) => {
-            console.log('GOT from socket', 'board')
+            // console.log('GOT from socket', 'board')
             dispatch({ type: UPDATE_BOARD, board: updatedBoard })
         })
         // boardTheme()
@@ -36,11 +38,11 @@ export function BoardDetails({ rootRef }) {
 
     useEffect(() => {
         socketService.emit('join-board', boardId)
-        console.log('joined to board', boardId)
+        // console.log('joined to board', boardId)
 
         return () => {
             socketService.emit('leave-board', boardId)
-            console.log('left the board', boardId)
+            // console.log('left the board', boardId)
         }
     }, [])
 
@@ -65,39 +67,9 @@ export function BoardDetails({ rootRef }) {
     }, [boardId])
 
     useEffect(() => {
-        loadBoard(boardId, filterBy)
-    }, [filterBy])
-    function boardTheme(brightness) {
-        console.log(brightness)
-        if (brightness === 1) {
-            document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #172B4D')
-            document.documentElement.style.setProperty('--dynmaic-create-btn', '#00000029')
-            document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#00000052')
-
-            document.documentElement.style.setProperty('--dynamic-board-header-color', ' #172B4D')
-            document.documentElement.style.setProperty('--dynamic-board-header-hover', ' #00000029')
-            document.documentElement.style.setProperty('--dynamic-board-header-background', '#ffffff3d')
-            document.documentElement.style.setProperty('--dynamic-star-color', '#172B4D')
-
-            document.documentElement.style.setProperty('--dynamic-nav-hover1', '#00000029')
-        } else {
-            document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #ffffff')
-            document.documentElement.style.setProperty('--dynmaic-create-btn', '#ffffff33')
-            document.documentElement.style.setProperty('--dynmaic-create-btn-hover', '#ffffff5c')
-
-            document.documentElement.style.setProperty('--dynamic-board-header-color', ' #ffffff')
-            document.documentElement.style.setProperty('--dynamic-board-header-hover', ' #ffffff33')
-            document.documentElement.style.setProperty('--dynamic-board-header-background', '#0000003d')
-
-            document.documentElement.style.setProperty('--dynamic-nav-hover1', '#ffffff33')
-
-            if (brightness === 2) {
-                document.documentElement.style.setProperty('--dynamic-star-color', '#ffffff')
-            } else {
-                document.documentElement.style.setProperty('--dynamic-star-color', '#e2b203')
-            }
-        }
-    }
+        // console.log('origin board  from board use effect', board)
+        setFilteredBoard(boardService.getFilteredBoard(board, filterBy))
+    }, [board, filterBy])
 
     function baseTheme() {
         setBrightness(2)
@@ -108,7 +80,7 @@ export function BoardDetails({ rootRef }) {
     }
 
     function boardTheme(brightness) {
-        console.log(brightness)
+        // console.log(brightness)
         if (brightness === 1) {
             document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #172B4D')
             document.documentElement.style.setProperty('--dynmaic-create-btn', '#00000029')
@@ -161,7 +133,7 @@ export function BoardDetails({ rootRef }) {
         } else setMenuOpen((prev) => !prev)
     }
     // style={{backgroundImage:`url(${board.style.backgroundImage})`}}
-    if (!board)
+    if (!board || !filteredBoard)
         return (
             <div className="trello-loader">
                 <img src="\img\general\trello-loader.svg" alt="" />
@@ -246,7 +218,12 @@ export function BoardDetails({ rootRef }) {
                     <Droppable droppableId="ROOT" type="group" direction="horizontal">
                         {(provided) => (
                             <section {...provided.droppableProps} ref={provided.innerRef} className="board-details">
-                                <GroupList placeholder={provided.placeholder} onUpdateBoard={onUpdateBoard} board={board} />
+                                <GroupList
+                                    placeholder={provided.placeholder}
+                                    onUpdateBoard={onUpdateBoard}
+                                    board={filteredBoard}
+                                    originBoard={board}
+                                />
                                 {provided.placeholder}
                             </section>
                         )}

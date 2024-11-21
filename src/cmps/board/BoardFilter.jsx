@@ -25,12 +25,11 @@ export function BoardFilter({ filterBy, board }) {
                 break
             case 'checkbox': {
                 fieldset = ev.target.closest('fieldset')
-                console.log(fieldset.name)
+                // console.log(fieldset.name)
             }
         }
         if (fieldset) {
             if (fieldset.name === 'filterBy-members') {
-                console.log('hehre')
                 let membersToUpdate = [...filterToEdit.members]
                 if (ev.target.checked) {
                     membersToUpdate.push(value)

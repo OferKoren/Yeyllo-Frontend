@@ -9,15 +9,14 @@ export const boardService = {
     uploadImg,
     addActivity,
     generateAiBoard,
+    getFilteredBoard,
 }
 
 async function query(filterBy = {}, board) {
     return httpService.get(`board`, filterBy)
 }
-
-async function getById(boardId, filterBy = {}) {
-    let board = await httpService.get(`board/${boardId}`)
-    let boardToFilter = { ...board }
+function getFilteredBoard(board, filterBy = {}) {
+    const boardToFilter = JSON.parse(JSON.stringify(board))
     if (filterBy.keyword) {
         const regExp = new RegExp(filterBy.keyword, 'i')
         const labels = board.labels
@@ -57,10 +56,12 @@ async function getById(boardId, filterBy = {}) {
             return group
         })
     }
-
+    // console.log(boardToFilter)
     return boardToFilter
 }
-
+async function getById(boardId) {
+    return await httpService.get(`board/${boardId}`)
+}
 async function remove(boardId) {
     return httpService.delete(`board/${boardId}`)
 }

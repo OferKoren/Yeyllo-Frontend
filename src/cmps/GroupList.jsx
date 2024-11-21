@@ -8,7 +8,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import { useSelector } from 'react-redux'
 import { showErrorMsg } from '../services/event-bus.service'
 
-export function GroupList({ placeholder, onUpdateBoard, board }) {
+export function GroupList({ placeholder, onUpdateBoard, board, originBoard }) {
     const [isAddGroupClicked, setIsAddGroupClicked] = useState(false)
     const [title, setTitle] = useState('')
     const [isGroupDeleted, setIsGroupDeleted] = useState(false)
@@ -59,6 +59,7 @@ export function GroupList({ placeholder, onUpdateBoard, board }) {
         }
 
         try {
+            // const changeBoard = board
             const changeBoard = board
             changeBoard.groups.push(group)
             await onUpdateBoard(changeBoard, activity)
@@ -88,7 +89,7 @@ export function GroupList({ placeholder, onUpdateBoard, board }) {
                         {(provided, snapshot) => (
                             <div className="group" {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
                                 <li
-                                    style={{ ...group.style , rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }}
+                                    style={{ ...group.style, rotate: snapshot.isDragging ? '5deg' : '', opacity: snapshot.isDragging ? '0.5' : '' }}
                                     className={group.isCollapse ? `collapse ${group.id} ${group?.style?.backgroundColor?.substr(1)}` : group.id}
                                     key={group.id}
                                 >
@@ -101,6 +102,7 @@ export function GroupList({ placeholder, onUpdateBoard, board }) {
                                         setIsGroupDeleted={setIsGroupDeleted}
                                         onUpdateBoard={onUpdateBoard}
                                         board={board}
+                                        originBoard={originBoard}
                                         group={group}
                                     />
                                 </li>

@@ -1,12 +1,28 @@
-import { useState } from "react";
-import { TaskPreview } from "./TaskPreview";
-import { makeId } from "../services/util.service";
-import ClickOutside from "./ClickOutside";
-import { Draggable } from "react-beautiful-dnd";
-import { useSelector } from 'react-redux';
-import { showErrorMsg } from "../services/event-bus.service";
+import { useState } from 'react'
+import { TaskPreview } from './TaskPreview'
+import { makeId } from '../services/util.service'
+import ClickOutside from './ClickOutside'
+import { Draggable } from 'react-beautiful-dnd'
+import { useSelector } from 'react-redux'
+import { showErrorMsg } from '../services/event-bus.service'
 
-export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLabelsClicked, setIsLabelsClicked, taskTitle, setTaskTitle, isAddTaskClicked, setIsAddTaskClicked, tasks, board, onUpdateBoard, groupId }) {
+export function TaskList({
+    isModalOpen,
+    setIsModalOpen,
+    placeholder,
+    group,
+    isLabelsClicked,
+    setIsLabelsClicked,
+    taskTitle,
+    setTaskTitle,
+    isAddTaskClicked,
+    setIsAddTaskClicked,
+    tasks,
+    board,
+    onUpdateBoard,
+    groupId,
+    originBoard,
+}) {
     const user = useSelector((storeState) => storeState.userModule.user)
     // const [isTaskDeleted, setIsTaskDeleted] = useState(false)
     // const { groups } = board
@@ -33,9 +49,8 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
         if (!taskTitle) return onCloseEditTitle()
         if (!taskTitle) return showErrorMsg('Text field is required')
 
-
         try {
-            const currGroupIdx = board.groups.findIndex(group => group.id === groupId)
+            const currGroupIdx = board.groups.findIndex((group) => group.id === groupId)
             const newTaskId = makeId()
             const newTask = {
                 id: newTaskId,
@@ -54,16 +69,16 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
 
             board.groups[currGroupIdx].tasks.push(newTask)
             await onUpdateBoard(board, activity)
-            setIsAddTaskClicked(isClicked => !isClicked)
+            setIsAddTaskClicked((isClicked) => !isClicked)
             onCloseEditTitle()
         } catch (err) {
-            console.log('err: ', err);
+            console.log('err: ', err)
         }
     }
 
     function onCloseEditTitle() {
         if (isModalOpen) return setTaskTitle('')
-        setIsAddTaskClicked(isClicked => !isClicked)
+        setIsAddTaskClicked((isClicked) => !isClicked)
         setTaskTitle('')
     }
 
@@ -74,61 +89,91 @@ export function TaskList({ isModalOpen, setIsModalOpen, placeholder, group, isLa
 
     return (
         <>
-
-            {!isAddTaskClicked ?
+            {!isAddTaskClicked ? (
                 <>
                     <section className="task-list">
-                        {tasks.map((task, index) =>
+                        {tasks.map((task, index) => (
                             <Draggable isDragDisabled={isModalOpen} draggableId={task.id} index={index} key={task.id}>
                                 {(provided, snapshot) => (
                                     <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                        <TaskPreview snapshot={snapshot} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} key={task.id} groupId={groupId} task={task} />
+                                        <TaskPreview
+                                            snapshot={snapshot}
+                                            isModalOpen={isModalOpen}
+                                            setIsModalOpen={setIsModalOpen}
+                                            board={board}
+                                            isLabelsClicked={isLabelsClicked}
+                                            setIsLabelsClicked={setIsLabelsClicked}
+                                            key={task.id}
+                                            groupId={groupId}
+                                            task={task}
+                                        />
                                     </div>
                                 )}
                             </Draggable>
-                        )}
+                        ))}
                         {placeholder}
                     </section>
                     <section>
-                        <div className='add-task-btn-container' >
-                            <button onClick={() => setIsAddTaskClicked(isClicked => !isClicked)} className={`add-task-btn ${group?.style?.backgroundColor?.substr(1)}`}><span>+</span><span>Add a card</span></button>
+                        <div className="add-task-btn-container">
+                            <button
+                                onClick={() => setIsAddTaskClicked((isClicked) => !isClicked)}
+                                className={`add-task-btn ${group?.style?.backgroundColor?.substr(1)}`}
+                            >
+                                <span>+</span>
+                                <span>Add a card</span>
+                            </button>
                         </div>
                     </section>
                 </>
-                :
+            ) : (
                 <section className="task-list add-task-option">
-                    {tasks.map((task, index) =>
+                    {tasks.map((task, index) => (
                         <Draggable isDragDisabled={isModalOpen} draggableId={task.id} index={index} key={task.id}>
                             {(provided, snapshot) => (
                                 <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                    <TaskPreview snapshot={snapshot} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} board={board} isLabelsClicked={isLabelsClicked} setIsLabelsClicked={setIsLabelsClicked} onUpdateBoard={onUpdateBoard} key={task.id} task={task} groupId={groupId} />
+                                    <TaskPreview
+                                        snapshot={snapshot}
+                                        isModalOpen={isModalOpen}
+                                        setIsModalOpen={setIsModalOpen}
+                                        board={board}
+                                        isLabelsClicked={isLabelsClicked}
+                                        setIsLabelsClicked={setIsLabelsClicked}
+                                        onUpdateBoard={onUpdateBoard}
+                                        key={task.id}
+                                        task={task}
+                                        groupId={groupId}
+                                        originBoard={originBoard}
+                                    />
                                 </div>
                             )}
                         </Draggable>
-                    )}
-                        {placeholder}
+                    ))}
+                    {placeholder}
 
-                    <ClickOutside
-                        onSubmit={onAddTask} onClick={()=>onAddTask()}
-                    >
-                    <div className="add-task-container" /*onBlur={onBlurAddTaskInput}*/>
-                        <form onSubmit={onAddTask}>
-                            {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
-                            <input autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title" onChange={handleChange} />
-                            <div className="add-group-btns">
-                                <button>Add card</button>
-                                <button className="close-btn-x add-card-close" onClick={onCloseEditTitle} type="button"><img src="\img\board-details\close-icon-dark.png" alt="" /></button>
-                            </div>
-                        </form>
-                    </div>
+                    <ClickOutside onSubmit={onAddTask} onClick={() => onAddTask()}>
+                        <div className="add-task-container" /*onBlur={onBlurAddTaskInput}*/>
+                            <form onSubmit={onAddTask}>
+                                {/* <input onBlur={onBlurAddTaskInput} autoFocus type="text" id="title" name="title" value={taskTitle} placeholder="Enter a title..." onChange={handleChange} /> */}
+                                <input
+                                    autoFocus
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    value={taskTitle}
+                                    placeholder="Enter a title"
+                                    onChange={handleChange}
+                                />
+                                <div className="add-group-btns">
+                                    <button>Add card</button>
+                                    <button className="close-btn-x add-card-close" onClick={onCloseEditTitle} type="button">
+                                        <img src="\img\board-details\close-icon-dark.png" alt="" />
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </ClickOutside>
                 </section>
-            }
-
+            )}
         </>
-
-
-
-
     )
 }
