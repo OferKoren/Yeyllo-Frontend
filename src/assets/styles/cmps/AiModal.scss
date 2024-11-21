@@ -1,5 +1,4 @@
 .ai-modal-container {
-
     // background-color: #1e2731;
     // padding: 15px 45px 27px 49px;
     padding: 1em 1em 0 1em;
@@ -10,7 +9,7 @@
     font-family: inherit;
     transform: translateY(-3vh);
     // opacity: 0;
-    transition: transform .5s ease, opacity .5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
     color: $gray6;
 
     .ai-modal-header {
@@ -28,7 +27,6 @@
         margin-bottom: 0;
         font-size: 1.8rem;
         font-family: 'roboto-bold';
-
     }
 
     form {
@@ -44,13 +42,17 @@
         color: inherit;
     }
 
-
     button {
         color: white;
         font-family: 'roboto-medium';
         padding: 0.6em 0.8em;
         margin-top: 1em;
         justify-self: start;
+        transition: 0.1s;
+        background-color: #579dff;
+        &:hover {
+            background-color: darken($color: #579dff, $amount: 5);
+        }
     }
 
     input {
@@ -73,16 +75,14 @@
         transition: 0.1s;
         // border: none solid 3px;
 
-
         &:focus {
             border: $clr-blue-border solid 2px;
             background-color: $clr-bg2-light;
-
         }
     }
 
     &.active {
-        animation: slideDown .5s ease forwards;
+        animation: slideDown 0.5s ease forwards;
     }
 }
 
@@ -101,7 +101,6 @@
         /* Applies the animation */
     }
 
-
     .dots {
         display: inline-block;
         font-weight: bold;
@@ -112,19 +111,19 @@
 
     @keyframes dots-loading {
         0% {
-            content: "";
+            content: '';
         }
 
         33% {
-            content: ".";
+            content: '.';
         }
 
         66% {
-            content: "..";
+            content: '..';
         }
 
         100% {
-            content: "...";
+            content: '...';
         }
     }
 }

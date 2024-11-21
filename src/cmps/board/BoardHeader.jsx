@@ -9,7 +9,7 @@ import { ModalTaskDetails } from '../ModalTaskDetails.jsx'
 const starEmpty = '/img/workspace/star-empty-small.svg'
 const starEmptyGold = '/img/workspace/star-empty-gold.svg'
 const starFullGold = '/img/workspace/star-full-gold.svg'
-export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, isMenuOpen, filterBy }) {
+export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, isMenuOpen, filterBy, openAiModal }) {
     const [isEditing, setIsEditing] = useState(false)
     const [text, setText] = useState() // Initial text for the header
     const inputRef = useRef(null)
@@ -141,7 +141,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
             <button
                 className="header-btn btn2 ai flex align-center"
                 onClick={(ev) => {
-                    onOpenModal('ai')
+                    openAiModal()
                 }}
             >
                 <svg
@@ -218,7 +218,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                 </button>
             )}
 
-            {isModalOpen && chosenModal === 'filters' ? (
+            {isModalOpen && chosenModal === 'filters' && (
                 <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
                     <Modal
                         title={'filter'}
@@ -230,13 +230,6 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                         style={{ width: '380px' }}
                     >
                         <BoardFilter filterBy={filterBy} board={board} />
-                    </Modal>
-                </ClickOutside>
-            ) : (
-                <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
-                    {/* <div className='task-details-backdrop' style={{ position: 'absolute', top: '-13em', width: '100vw', height: '107vh', zIndex: '-1', backgroundColor: 'black', opacity: '0.6' }}></div> */}
-                    <Modal onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={false} isBackDrop={true} style={{ width: '380px', top: '13em' }}>
-                        <AiModal onCloseModal={onCloseModal} onOpenModal={onOpenModal} />
                     </Modal>
                 </ClickOutside>
             )}

@@ -9,6 +9,9 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { socketService, SOCKET_EVENT_BOARD_UPDATED } from '../services/socket.service.js'
 import { UPDATE_BOARD } from '../store/reducers/board.reducer.js'
 import { boardService } from '../services/board/'
+import ClickOutside from '../cmps/ClickOutside.jsx'
+import { Modal } from '../cmps/Modal.jsx'
+import { AiModal } from '../cmps/AiModal.jsx'
 
 export function BoardDetails({ rootRef }) {
     const { boardId } = useParams()
@@ -16,7 +19,7 @@ export function BoardDetails({ rootRef }) {
     const [filteredBoard, setFilteredBoard] = useState()
     const brightness = useSelector((storeState) => storeState.boardModule.brightness)
     const filterBy = useSelector((storeState) => storeState.boardModule.filterBy)
-
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [isMenuOpen, setMenuOpen] = useState(false)
     const [isShrink, setIsShrink] = useState(false)
     const [isAsideOpen, setAsideOpen] = useState(false)
@@ -71,6 +74,12 @@ export function BoardDetails({ rootRef }) {
         setFilteredBoard(boardService.getFilteredBoard(board, filterBy))
     }, [board, filterBy])
 
+    function onCloseModal() {
+        setIsModalOpen(false)
+    }
+    function onOpenModal() {
+        setIsModalOpen(true)
+    }
     function baseTheme() {
         setBrightness(2)
         document.documentElement.style.setProperty('--dynamic-nav-hover1', '#091e4224')
@@ -214,6 +223,7 @@ export function BoardDetails({ rootRef }) {
                         onToggleMenu={onToggleMenu}
                         setIsShrink={setIsShrink}
                         filterBy={filterBy}
+                        openAiModal={onOpenModal}
                     />
                     <Droppable droppableId="ROOT" type="group" direction="horizontal">
                         {(provided) => (
@@ -230,7 +240,14 @@ export function BoardDetails({ rootRef }) {
                     </Droppable>
                 </article>
                 {/* <BoardMenu /> */}
-                {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} board={board} onUpdateBoard={onUpdateBoard} />}
+                {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} board={board} onUpdateBoard={onUpdateBoard} />}(
+                <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
+                    {/* <div className='task-details-backdrop' style={{ position: 'absolute', top: '-13em', width: '100vw', height: '107vh', zIndex: '-1', backgroundColor: 'black', opacity: '0.6' }}></div> */}
+                    <Modal onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true} isBackDrop={true} style={{ width: '460px', top: '' }}>
+                        <AiModal onCloseModal={onCloseModal} onOpenModal={onOpenModal} />
+                    </Modal>
+                </ClickOutside>
+                )
             </section>
         </DragDropContext>
     )
