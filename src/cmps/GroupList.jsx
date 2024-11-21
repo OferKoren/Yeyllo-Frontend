@@ -103,6 +103,7 @@ export function GroupList({ placeholder, onUpdateBoard, board, originBoard }) {
                                         onUpdateBoard={onUpdateBoard}
                                         board={board}
                                         originBoard={originBoard}
+                                        originGroup={originBoard.groups[index]}
                                         group={group}
                                     />
                                 </li>

@@ -50,7 +50,6 @@ function getFilteredBoard(board, filterBy = {}) {
                     return false
                 }
                 const isMember = task.memberIds.some((member) => filterBy.members.some((memberId) => memberId === member))
-                console.log(isMember)
                 return isMember
             })
             return group
