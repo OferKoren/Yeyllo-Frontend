@@ -15,7 +15,7 @@
     .ai-modal-header {
         display: flex;
         align-items: center;
-        gap: 0.5em;
+        gap: 0.7em;
 
         & svg {
             height: 40px;
@@ -50,6 +50,7 @@
         justify-self: start;
         transition: 0.1s;
         background-color: #579dff;
+
         &:hover {
             background-color: darken($color: #579dff, $amount: 5);
         }

@@ -242,7 +242,6 @@ export function BoardDetails({ rootRef }) {
                 {/* <BoardMenu /> */}
                 {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} board={board} onUpdateBoard={onUpdateBoard} />}(
                 <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
-                    {/* <div className='task-details-backdrop' style={{ position: 'absolute', top: '-13em', width: '100vw', height: '107vh', zIndex: '-1', backgroundColor: 'black', opacity: '0.6' }}></div> */}
                     <Modal onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true} isBackDrop={true} style={{ width: '460px', top: '' }}>
                         <AiModal onCloseModal={onCloseModal} onOpenModal={onOpenModal} />
                     </Modal>

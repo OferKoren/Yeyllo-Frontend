@@ -85,8 +85,8 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
                     <h2>{title}</h2>
                 </div>
                 <div>
-                    <button className="btn btn-remove-checklist btn-light" onClick={() => handleToggleModal('delete-checklist')}>Delete</button>
-                    {openModal === 'delete-checklist' &&
+                    <button className="btn btn-remove-checklist btn-light" onClick={() => handleToggleModal(`delete-checklist-${checklist.id}`)}>Delete</button>
+                    {openModal === `delete-checklist-${checklist.id}` &&
                         <DeleteChecklistModal checklistId={checklistId} handleCloseModal={handleCloseModal} onRemoveChecklist={onRemoveChecklist} />}
                 </div>
             </div>

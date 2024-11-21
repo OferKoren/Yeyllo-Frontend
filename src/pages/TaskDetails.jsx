@@ -137,6 +137,9 @@ export function TaskDetails() {
                 handleCloseModal={handleCloseModal}
                 boardMembers={boardToEdit.members}
                 onRemoveMember={onRemoveMember}
+                boardToEdit={boardToEdit}
+                groupId={currGroupRef.current.id}
+                user={user}
             />
         )
     }
