@@ -73,7 +73,7 @@ export function AiModal({ onCloseModal, onOpenModal }) {
                 onCloseModal()
                 audio.stop()
                 setIsLoading(false)
-            }, 4500)
+            }, 5000)
         } catch (err) {
             console.error('can not generate board', err)
         }
