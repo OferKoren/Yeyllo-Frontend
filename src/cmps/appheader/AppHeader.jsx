@@ -57,6 +57,11 @@ export function AppHeader() {
     }
 
     useEffect(() => {
+        console.log(location.pathname)
+        if (location.pathname === '/workspace/home') {
+            setHeaderColorFromColor('rgb(255,255,255,1)', true)
+            return
+        }
         if (board && board.urls) {
             const regex = new RegExp('^rgba?\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})(?:\\s*,\\s*(0|0?\\.\\d+|1))?\\s*\\)$')
             if (regex.test(board.urls.regular) && headerRef.current) {
@@ -93,8 +98,8 @@ export function AppHeader() {
         }
     }
 
-    function setHeaderColorFromColor(color) {
-        const darkerColor = darkenColor(color, 45)
+    function setHeaderColorFromColor(color, isWorkspace = false) {
+        const darkerColor = isWorkspace ? color : darkenColor(color, 45)
         const style = { backgroundColor: `${darkerColor}` }
         // const darkerColor = darker(`rgba(${r}, ${g}, ${b}, 0.9)`, 20)
         const brightness = getBrightnessLevel(color)

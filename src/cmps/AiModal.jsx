@@ -124,7 +124,7 @@ export function AiModal({ onCloseModal, onOpenModal }) {
                     </svg>
                     <span>
                         AI is thinking
-                        <span class="dots" ref={dotsRef}></span>
+                        <span className="dots" ref={dotsRef}></span>
                     </span>
                 </div>
             )}

@@ -58,7 +58,7 @@ export function BoardDetails({ rootRef }) {
             Object.assign(rootRef.current.style, board.style)
         }
         return () => {
-            rootRef.current.style.cssText = ''
+            if (rootRef.current) rootRef.current.style.cssText = ''
         }
     }, [board])
 
