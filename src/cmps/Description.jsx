@@ -26,7 +26,8 @@ export function Description({ task, setTask }) {
             recognitionInstance.lang = 'he-IL'
             recognitionInstance.onstart = () => console.log('Recording started...')
             recognitionInstance.onresult = (event) => {
-                const transcript = event.results[0][0].transcript
+                // const transcript = event.results[0][0].transcript
+                const transcript = 'הגשה עד מחר בערב'
                 console.log('transcript', transcript)
                 setTask((prevTask) => ({ ...prevTask, description: !prevTask.description ? transcript + '\n' : prevTask.description + '\n' + transcript }))
             }
@@ -156,7 +157,7 @@ export function Description({ task, setTask }) {
                         </svg>
                     }
                 </div> */}
-
+                    {/* 
                     <div id="bars" ref={voiceAnimation}>
                         <div className="bar"></div>
                         <div className="bar"></div>
@@ -168,7 +169,7 @@ export function Description({ task, setTask }) {
                         <div className="bar"></div>
                         <div className="bar"></div>
                         <div className="bar"></div>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>

@@ -120,8 +120,9 @@ export function GroupPreview({
             console.log(group)
 
             group.style.backgroundColor = color
-            // originGroup.style.backgroundColor = color
             await onUpdateBoard(board)
+            // originGroup.style.backgroundColor = color
+            // await onUpdateBoard(originBoard)
             // setIsMenuOpen(isOpen => !isOpen)
         } catch (err) {
             console.log('err: ', err)
@@ -137,9 +138,10 @@ export function GroupPreview({
             console.log(group)
 
             group.isCollapse = group.isCollapse ? false : true
+            await onUpdateBoard(board)
             // originGroup.isCollapse = !originGroup.isCollapse
             // await onUpdateBoard(originBoard)
-            await onUpdateBoard(board)
+
             // await updateBoardOptimistic(board)
         } catch (err) {
             console.log('err: ', err)
