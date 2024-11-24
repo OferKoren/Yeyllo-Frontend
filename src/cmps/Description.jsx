@@ -26,8 +26,7 @@ export function Description({ task, setTask }) {
             recognitionInstance.lang = 'he-IL'
             recognitionInstance.onstart = () => console.log('Recording started...')
             recognitionInstance.onresult = (event) => {
-                // const transcript = event.results[0][0].transcript
-                const transcript = 'הגשה עד מחר בערב'
+                const transcript = event.results[0][0].transcript
                 console.log('transcript', transcript)
                 setTask((prevTask) => ({ ...prevTask, description: !prevTask.description ? transcript + '\n' : prevTask.description + '\n' + transcript }))
             }
