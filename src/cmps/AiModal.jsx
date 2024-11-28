@@ -6,7 +6,7 @@ export function AiModal({ onCloseModal, onOpenModal }) {
     const [isLoading, setIsLoading] = useState(false)
     const [topic, setTopic] = useState('')
     const navigate = useNavigate()
-    const audio = new Audio('/audio/Chick-chak2.m4a')
+    // const audio = new Audio('/audio/Chick-chak2.m4a')
     const dotsRef = useRef()
 
     const [dots, setDots] = useState('')
@@ -60,22 +60,21 @@ export function AiModal({ onCloseModal, onOpenModal }) {
 
     async function onGenerateAiBoard(ev) {
         ev.preventDefault()
+        setIsLoading(true)
 
         try {
             const photos = await getPhotosArray(topic)
             const generatedBoard = await boardService.generateAiBoard(topic, photos)
             console.log('generatedBoard', generatedBoard)
-            audio.play()
-            setIsLoading(true)
 
-            setTimeout(() => {
-                navigate(`/board/${generatedBoard._id}`)
-                onCloseModal()
-                audio.stop()
-                setIsLoading(false)
-            }, 5000)
+            // audio.play()
+            navigate(`/board/${generatedBoard._id}`)
+            onCloseModal()
+            // audio.stop()
         } catch (err) {
             console.error('can not generate board', err)
+        } finally {
+            setIsLoading(false)
         }
     }
 
