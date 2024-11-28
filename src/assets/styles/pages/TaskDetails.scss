@@ -162,8 +162,16 @@
 }
 
 .task-main {
-    display: grid;
-    grid-template-columns: 4fr 1fr;
+    @include for-mobile-layout {
+        display: grid;
+        grid-auto-flow: row;
+    }
+
+    @include for-narrow-layout {
+        display: grid;
+        grid-template-columns: 4fr 1fr;
+    }
+
     gap: 1em;
     color: $gray4;
     padding: 1em;

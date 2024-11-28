@@ -39,8 +39,8 @@
 
     .btn-recording {
         position: absolute;
-        top: 0px;
-        right: 5px;
+        // top: 0px;
+        // right: 5px;
         display: flex;
         align-items: center;
 
@@ -58,8 +58,8 @@
 }
 
 .mic-container {
-    // position: absolute;
-    top: -45px;
+    position: absolute;
+    top: 5px;
     right: 5px;
 
     display: flex;
@@ -67,8 +67,8 @@
     justify-content: center;
 
     .circle {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         background: #ffffff;
         display: flex;
@@ -81,7 +81,7 @@
 
         i {
             color: #b2b1b1;
-            font-size: 18px;
+            font-size: 17px;
             transition: .9s;
         }
 
