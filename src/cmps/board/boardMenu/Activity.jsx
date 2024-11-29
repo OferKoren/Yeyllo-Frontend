@@ -16,7 +16,7 @@ export function Activity({ board }) {
                                 alignItems: 'start',
                             }}
                         >
-                            <img src={activity.byMember.imgUrl} style={{ width: '30px', borderRadius: '50%' }}></img>
+                            <img src={activity.byMember.imgUrl} style={{ height: '30px', borderRadius: '50%' }}></img>
                             <div>
                                 <span style={{ fontFamily: 'roboto-medium' }}>{activity.byMember.fullname}&nbsp;</span>
                                 <span>{activity.txt}</span>
