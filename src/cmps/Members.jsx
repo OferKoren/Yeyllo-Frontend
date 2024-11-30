@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { boardService } from '../services/board'
 
-export function Members({ task, setTask, onRemoveMember, handleCloseModal, user, groupId, boardToEdit }) {
+export function Members({ task, setTask, onRemoveMember, handleCloseModal, user, groupId, boardToEdit, style }) {
 
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
     const [filteredMembers, setFilteredMembers] = useState([...gMembers])
@@ -30,7 +30,7 @@ export function Members({ task, setTask, onRemoveMember, handleCloseModal, user,
     }
 
     return (
-        <div className="modal-option task-members">
+        <div className="modal-option task-members" /*style={{ ...style }}*/>
             <div className="task-members-header option-modal-header">
                 <h2>Members</h2>
                 <i className="btn fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>

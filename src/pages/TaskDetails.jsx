@@ -3,13 +3,8 @@ import { useParams, useOutletContext } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { updateBoard } from '../store/actions/board.actions'
-import { Labels } from '../cmps/Labels.jsx'
-import { Dates } from '../cmps/Dates.jsx'
 import { Checklist } from '../cmps/Checklist.jsx'
-import { AddChecklist } from '../cmps/AddChecklist.jsx'
-import { Members } from '../cmps/Members.jsx'
 import { MemberPreview } from '../cmps/MemberPreview'
-import { Cover } from '../cmps/Cover.jsx'
 import { DeleteTaskModal } from '../cmps/DeleteTaskModal.jsx'
 import dayjs from 'dayjs'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -17,30 +12,40 @@ import { Description } from '../cmps/Description.jsx'
 import { makeId } from '../services/util.service.js'
 import { AddAttachment } from '../cmps/Attachment/AddAttachment.jsx'
 import { Attachment } from '../cmps/Attachment/Attachment.jsx'
-import { Canvas } from '../cmps/Canvas.jsx'
-import { ModalTaskDetails } from '../cmps/ModalTaskDetails.jsx'
 import { PopupYey } from '../cmps/PopupYey.jsx'
+import { DynamicModal } from '../cmps/DynamicModal.jsx'
 import ClickOutside from '../cmps/ClickOutside.jsx'
 
 export function TaskDetails() {
-    const board = useSelector((storeState) => storeState.boardModule.board)
-    const gLabels = useSelector((storeState) => storeState.boardModule.labels)
-    const gMembers = useSelector((storeState) => storeState.boardModule.members)
-    const user = useSelector((storeState) => storeState.userModule.user)
+    const board = useSelector(storeState => storeState.boardModule.board)
+    const gLabels = useSelector(storeState => storeState.boardModule.labels)
+    const gMembers = useSelector(storeState => storeState.boardModule.members)
+    const user = useSelector(storeState => storeState.userModule.user)
 
     const [boardToEdit, setBoardToEdit] = useState(null)
     const [openModal, setOpenModal] = useState(null)
-    const [isEditLabels, setIsEditLabels] = useState(false)
     const [statusTask, setStatusTask] = useState('')
     const [task, setTask] = useState({})
     const [showPopup, setShowPopup] = useState(false)
+    const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
 
     const { onCloseModal, setIsDone } = useOutletContext()
     const currGroupRef = useRef(null)
+    const modalRefs = useRef({})
 
     // const { boardId } = useParams()
     const { groupId } = useParams()
     const { taskId } = useParams()
+
+    const modalConfig = [
+        { name: 'members', title: 'Members', icon: MembersIcon },
+        { name: 'labels', title: 'Labels', icon: LabelsIcon },
+        { name: 'checklist', title: 'Checklist', icon: ChecklistIcon },
+        { name: 'dates', title: 'Dates', icon: DatesIcon },
+        { name: 'cover', title: 'Cover', icon: CoverIcon },
+        { name: 'attachment', title: 'Attachment', icon: AttachmentIcon },
+        { name: 'drawing', title: 'Drawing', icon: DrawingIcon },
+    ]
 
     useEffect(() => {
         if (board) {
@@ -81,8 +86,22 @@ export function TaskDetails() {
         setOpenModal(modalName)
     }
 
-    function handleToggleModal(modalName) {
-        setOpenModal((prevModal) => (prevModal === modalName ? null : modalName))
+    function handleToggleModal(modalName, elementRef, parentClass) {
+        setOpenModal(openModal === modalName ? null : modalName)
+        console.log('hi modal', modalName)
+        console.log('elementRef', elementRef)
+
+        // if (elementRef) {
+        //     const rect = elementRef.getBoundingClientRect()
+        //     const parent = elementRef.closest(parentClass)
+        //     console.log('elementRef.closest', elementRef.closest(parentClass))
+        //     const parentRect = parent.getBoundingClientRect()
+
+        //     setModalPosition({
+        //         top: rect.top - parentRect.top + 30,
+        //         left: rect.left - parentRect.left,
+        //     });
+        // }
     }
 
     function handleCloseModal() {
@@ -127,43 +146,6 @@ export function TaskDetails() {
 
     function onRemoveMember(memberId) {
         setTask((prevTask) => ({ ...prevTask, memberIds: prevTask.memberIds.filter((mId) => mId !== memberId) }))
-    }
-
-    function renderMembersModal() {
-        return (
-            <Members
-                task={task}
-                setTask={setTask}
-                handleCloseModal={handleCloseModal}
-                boardMembers={boardToEdit.members}
-                onRemoveMember={onRemoveMember}
-                boardToEdit={boardToEdit}
-                groupId={currGroupRef.current.id}
-                user={user}
-            />
-        )
-    }
-
-    function renderLabelsModal() {
-        return (
-            <Labels
-                setTask={setTask}
-                handleChange={handleInfoChange}
-                boardToEdit={boardToEdit}
-                setBoardToEdit={setBoardToEdit}
-                handleCloseModal={handleCloseModal}
-                setIsEditLabels={setIsEditLabels}
-                task={task}
-            />
-        )
-    }
-
-    function renderDatesModal() {
-        return <Dates task={task} setTask={setTask} handleChange={handleInfoChange} handleCloseModal={handleCloseModal} openModal={openModal} />
-    }
-
-    function renderCoverModal() {
-        return <Cover setTask={setTask} handleCloseModal={handleCloseModal} task={task} />
     }
 
     function formatDate(dueDate, dueTime, startDate) {
@@ -352,10 +334,10 @@ export function TaskDetails() {
                     <div className="task-info">
                         <div className="task-metadata">
                             {task.memberIds && task.memberIds.length !== 0 && (
-                                <div className="members-area">
+                                <div className="members-area" style={{ position: 'relative' }}>
                                     <h3>Members</h3>
                                     <div>
-                                        <ul className="photo-member-list">
+                                        <ul className="photo-member-list" >
                                             {task.memberIds.map((memberId) => {
                                                 const memberDetails = gMembers.find((member) => member._id === memberId)
                                                 return (
@@ -377,11 +359,12 @@ export function TaskDetails() {
                                                     </li>
                                                 )
                                             })}
-                                            <div className="add-task-action circle" onClick={() => handleToggleModal('members-plusBtn')}>
+                                            <div ref={(el) => modalRefs.current['members-plusBtn'] = el} className="add-task-action circle"
+                                                onClick={() => handleToggleModal('members-plusBtn', modalRefs.current['members-plusBtn'], '.members-area')}>
                                                 <i className="fa-solid fa-plus"></i>
                                             </div>
                                         </ul>
-                                        {openModal === 'members-plusBtn' && renderMembersModal()}
+                                        {/* {openModal === 'members-plusBtn' && renderMembersModal()} */}
                                     </div>
                                 </div>
                             )}
@@ -494,81 +477,38 @@ export function TaskDetails() {
                         )}
                     </div>
 
-                    <div className="task-options">
-                        <div>
-                            <button
-                                className={`btn btn-option btn-light ${openModal === 'members' && 'active'}`}
-                                onClick={() => handleToggleModal('members')}>
-                                <MembersIcon active={openModal === 'members'} />
-                                <span>Members</span>
-                            </button>
-                            {openModal === 'members' && renderMembersModal()}
-                        </div>
+                    <div className="task-options" style={{ position: 'relative' }}>
+                        {modalConfig.map(({ name, title, icon: Icon }) => (
+                            <div key={name}>
+                                <button
+                                    ref={(el) => (modalRefs.current[name] = el)} // Store button ref by name
+                                    className={`btn btn-option btn-light ${openModal === name && 'active'}`}
+                                    onClick={() => handleToggleModal(name, modalRefs.current[name], '.task-options')}>
+                                    <Icon active={openModal === name} />
+                                    <span>{title}</span>
+                                </button>
+                            </div>
+                        ))}
 
-                        <div>
-                            <button
-                                className={`btn btn-option btn-light ${openModal === 'labels' && 'active'}`}
-                                onClick={() => handleToggleModal('labels')}>
-                                <LabelsIcon active={openModal === 'labels'} />
-                                <span>Labels</span>
-                            </button>
-                            {openModal === 'labels' && renderLabelsModal()}
-                        </div>
-
-                        <div>
-                            <button
-                                className={`btn btn-option btn-light ${openModal === 'checklist' && 'active'}`}
-                                onClick={() => handleToggleModal('checklist')}>
-                                <ChecklistIcon active={openModal === 'checklist'} />
-                                <span> Checklist</span>
-                            </button>
-                            {openModal === 'checklist' &&
-                                <AddChecklist task={task} setTask={setTask} handleCloseModal={handleCloseModal}
-                                    boardToEdit={boardToEdit} groupId={currGroupRef.current.id} user={user} />}
-                        </div>
-
-                        <div>
-                            <button
-                                className={`btn btn-option btn-light btn-date-picker ${openModal === 'dates' && 'active'}`}
-                                onClick={() => handleToggleModal('dates')}>
-                                <DatesIcon active={openModal === 'dates'} />
-                                <span>Dates</span>
-                            </button>
-                            {openModal === 'dates' && renderDatesModal()}
-                        </div>
-
-                        <div>
-                            <button
-                                className={`btn btn-option btn-light ${openModal === 'cover' && 'active'}`}
-                                onClick={() => handleToggleModal('cover')}>
-                                <CoverIcon active={openModal === 'cover'} />
-                                <span>Cover</span>
-                            </button>
-                            {openModal === 'cover' && renderCoverModal()}
-                        </div>
-
-                        <div>
-                            <button
-                                className={`btn btn-option btn-light ${openModal === 'attachment' && 'active'}`}
-                                onClick={() => handleToggleModal('attachment')}>
-                                <AttachmentIcon active={openModal === 'attachment'} />
-                                <span>Attachment</span>
-                            </button>
-                            {openModal === 'attachment' && <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} />}
-                        </div>
-
-                        <div>
-                            <button
-                                className={`btn btn-option btn-light`}
-                                onClick={() => handleToggleModal('drawing')}>
-                                <DrawingIcon />
-                                <span>Drawing</span>
-                            </button>
-                            {openModal === 'drawing' &&
-                                <ModalTaskDetails onCloseModal={onCloseModal} isOpen={openModal === 'drawing'} isBlur={true}>
-                                    <Canvas handleCloseModal={handleCloseModal} task={task} setTask={setTask} />
-                                </ModalTaskDetails>}
-                        </div>
+                        <DynamicModal
+                            cmpType={openModal}
+                            modalProps={{
+                                task,
+                                setTask,
+                                handleCloseModal,
+                                boardMembers: boardToEdit.members,
+                                setBoardToEdit,
+                                handleInfoChange,
+                                onRemoveMember,
+                                boardToEdit,
+                                groupId: currGroupRef.current.id,
+                                user,
+                                openModal,
+                                onCloseModal,
+                                handleOpenModal
+                            }}
+                            modalPosition={modalPosition}
+                        />
 
                         <div className="task-actions-area">
                             <h3>Actions</h3>
@@ -619,3 +559,4 @@ export function TaskDetails() {
         </>
     )
 }
+

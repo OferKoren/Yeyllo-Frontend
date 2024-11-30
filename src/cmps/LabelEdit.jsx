@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { updateBoard } from '../store/actions/board.actions'
 
-export function LabelEdit({ setIsEditLabels, labelToEdit, setLabelToEdit, setBoardToEdit, setIsEditLabel }) {
+export function LabelEdit({ labelToEdit, setLabelToEdit, setBoardToEdit, setIsEditLabel }) {
 
     const colorPalette = [
         '#BAF3DB', '#F8E6A0', '#FEDEC8', '#FFD5D2',
@@ -40,7 +40,7 @@ export function LabelEdit({ setIsEditLabels, labelToEdit, setLabelToEdit, setBoa
             <div className="edit-labels-header option-modal-header">
                 <i className="btn fa-solid fa-chevron-left right-side" onClick={() => setIsEditLabel(false)}></i>
                 <h2>Edit label</h2>
-                <i className="btn fa-solid fa-xmark left-side" onClick={() => { setIsEditLabels(false); setIsEditLabel(false) }}></i>
+                <i className="btn fa-solid fa-xmark left-side" onClick={() => { setIsEditLabel(false) }}></i>
             </div>
 
             <div className="label-preview">

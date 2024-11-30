@@ -4,7 +4,7 @@ import { LabelEdit } from '../cmps/LabelEdit.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { SET_LABELS } from '../store/reducers/board.reducer.js'
 
-export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleCloseModal, setIsEditLabels }) {
+export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleCloseModal }) {
 
     const [isEditLabel, setIsEditLabel] = useState(false)
     const [labelToEdit, setLabelToEdit] = useState(false)
@@ -26,8 +26,7 @@ export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleClose
             const existingLabel = boardToEdit.labels.find(l => l.id === label.id)
             if (existingLabel) {
                 return { ...existingLabel }
-            }
-            else {
+            } else {
                 return label
             }
         })
@@ -77,7 +76,7 @@ export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleClose
                 </div>
             </div>
             {isEditLabel &&
-                <LabelEdit setIsEditLabels={setIsEditLabels} labelToEdit={labelToEdit} setIsEditLabel={setIsEditLabel}
+                <LabelEdit labelToEdit={labelToEdit} setIsEditLabel={setIsEditLabel}
                     setLabelToEdit={setLabelToEdit} setBoardToEdit={setBoardToEdit} setTask={setTask} />}
         </>
     )
