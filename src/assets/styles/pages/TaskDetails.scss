@@ -183,7 +183,7 @@
         padding-inline-start: 3em;
 
         .labels-area {
-
+            position: relative;
             display: flex;
             flex-direction: column;
             margin-block-end: 1.3em;
@@ -210,6 +210,7 @@
         }
 
         .due-date-area {
+            position: relative;
             display: flex;
             flex-direction: column;
             margin-block-end: 1.3em;
@@ -376,10 +377,6 @@
                 margin-block-start: 0.05em;
             }
 
-            & img {
-                height: 1.2em;
-            }
-
             & svg {
                 height: 1.1em;
                 margin: 0;
@@ -397,6 +394,15 @@
 
         .task-actions-area {
             margin-block-start: 1em;
+        }
+
+        .dynamic-modal {
+            color: rgb(51, 51, 51);
+            text-align: left;
+
+            h3 {
+                justify-self: start;
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ export function TaskDetails() {
     const [task, setTask] = useState({})
     const [showPopup, setShowPopup] = useState(false)
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
+    const [modalParent, setModalParent] = useState(null)
 
     const { onCloseModal, setIsDone } = useOutletContext()
     const currGroupRef = useRef(null)
@@ -86,22 +87,25 @@ export function TaskDetails() {
         setOpenModal(modalName)
     }
 
-    function handleToggleModal(modalName, elementRef, parentClass) {
+    function handleToggleModal(modalName, elementRef, parentClass, source = 'fromTaskOptions') {
         setOpenModal(openModal === modalName ? null : modalName)
         console.log('hi modal', modalName)
         console.log('elementRef', elementRef)
 
-        // if (elementRef) {
-        //     const rect = elementRef.getBoundingClientRect()
-        //     const parent = elementRef.closest(parentClass)
-        //     console.log('elementRef.closest', elementRef.closest(parentClass))
-        //     const parentRect = parent.getBoundingClientRect()
+        if (elementRef) {
+            const rect = elementRef.getBoundingClientRect()
+            const parent = elementRef.closest(parentClass)
+            console.log('elementRef.closest', elementRef.closest(parentClass))
+            const parentRect = parent ? parent.getBoundingClientRect() : { top: 0, left: 0 }
 
-        //     setModalPosition({
-        //         top: rect.top - parentRect.top + 30,
-        //         left: rect.left - parentRect.left,
-        //     });
-        // }
+            setModalPosition({
+                top: rect.top - parentRect.top + 30,
+                left: 0
+                // left: rect.left - parentRect.left - (source === 'fromMetadata' ? parent.offsetWidth * 0.7 : 0)
+            })
+
+            setModalParent(parent)
+        }
     }
 
     function handleCloseModal() {
@@ -153,7 +157,7 @@ export function TaskDetails() {
         const formattedDueDate = dayjs(dueDate)
 
         if (!formattedDueDate.isValid()) {
-            return "Invalid Date"
+            return 'Invalid Date'
         }
 
         const formattedStartDate = startDate ? dayjs(startDate) : null
@@ -278,11 +282,12 @@ export function TaskDetails() {
                                 }}
                             >
                                 <div className="cover-btn-top">
-                                    <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`} onClick={() => handleToggleModal(`cover-topBtn`)}>
+                                    <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`}
+                                        onClick={() => handleToggleModal(`cover-topBtn`)}>
                                         <CoverIcon fill={'#44546f'} active={openModal === 'cover-topBtn'} />
                                         <span>Cover</span>
                                     </div>
-                                    {openModal === 'cover-topBtn' && renderCoverModal()}
+                                    {/* {openModal === 'cover-topBtn' && renderCoverModal()} */}
                                 </div>
                             </div>
                         )}
@@ -294,7 +299,7 @@ export function TaskDetails() {
                                         <CoverIcon fill={'#44546f'} active={openModal === 'cover-topBtn'} />
                                         <span>Cover</span>
                                     </div>
-                                    {openModal === 'cover-topBtn' && renderCoverModal()}
+                                    {/* {openModal === 'cover-topBtn' && renderCoverModal()} */}
                                 </div>
                             </div>
                         )}
@@ -336,7 +341,7 @@ export function TaskDetails() {
                             {task.memberIds && task.memberIds.length !== 0 && (
                                 <div className="members-area" style={{ position: 'relative' }}>
                                     <h3>Members</h3>
-                                    <div>
+                                    <div className="member-list">
                                         <ul className="photo-member-list" >
                                             {task.memberIds.map((memberId) => {
                                                 const memberDetails = gMembers.find((member) => member._id === memberId)
@@ -360,7 +365,7 @@ export function TaskDetails() {
                                                 )
                                             })}
                                             <div ref={(el) => modalRefs.current['members-plusBtn'] = el} className="add-task-action circle"
-                                                onClick={() => handleToggleModal('members-plusBtn', modalRefs.current['members-plusBtn'], '.members-area')}>
+                                                onClick={() => handleToggleModal('members-plusBtn', modalRefs.current['members-plusBtn'], '.members-area', 'fromMetadata')}>
                                                 <i className="fa-solid fa-plus"></i>
                                             </div>
                                         </ul>
@@ -384,11 +389,12 @@ export function TaskDetails() {
                                                 )
                                             })}
 
-                                            <div className="add-task-action square" onClick={() => handleToggleModal('labels-plusBtn')}>
+                                            <div ref={(el) => modalRefs.current['labels-plusBtn'] = el} className="add-task-action square"
+                                                onClick={() => handleToggleModal('labels-plusBtn', modalRefs.current['labels-plusBtn'], '.labels-area', 'fromMetadata')}>
                                                 <i className="fa-solid fa-plus"></i>
                                             </div>
                                         </ul>
-                                        {openModal === 'labels-plusBtn' && renderLabelsModal()}
+                                        {/* {openModal === 'labels-plusBtn' && renderLabelsModal()} */}
                                     </div>
                                 </div>
 
@@ -406,10 +412,11 @@ export function TaskDetails() {
                                                     }`}>
                                                 {(task.status === 'done' && 'complete') || statusTask}
                                             </span>
-                                            {openModal === 'dates-chevronBtn' && renderDatesModal()}
+                                            {/* {openModal === 'dates-chevronBtn' && renderDatesModal()} */}
                                             {showPopup && <PopupYey />}
 
-                                            <div className="add-task-action chevron" onClick={() => handleToggleModal('dates-chevronBtn')}>
+                                            <div ref={(el) => modalRefs.current['dates-chevronBtn'] = el} className="add-task-action chevron"
+                                                onClick={() => handleToggleModal('dates-chevronBtn', modalRefs.current['dates-chevronBtn'], '.due-date-area', 'fromMetadata')}>
                                                 <i className="fa-solid fa-chevron-down"></i>
                                             </div>
                                         </div>
@@ -482,33 +489,13 @@ export function TaskDetails() {
                             <div key={name}>
                                 <button
                                     ref={(el) => (modalRefs.current[name] = el)} // Store button ref by name
-                                    className={`btn btn-option btn-light ${openModal === name && 'active'}`}
-                                    onClick={() => handleToggleModal(name, modalRefs.current[name], '.task-options')}>
+                                    className={`btn btn-option btn-light btn-${name} ${openModal === name && 'active'}`}
+                                    onClick={() => handleToggleModal(name, modalRefs.current[name], `.btn-${name}`)}>
                                     <Icon active={openModal === name} />
                                     <span>{title}</span>
                                 </button>
                             </div>
                         ))}
-
-                        <DynamicModal
-                            cmpType={openModal}
-                            modalProps={{
-                                task,
-                                setTask,
-                                handleCloseModal,
-                                boardMembers: boardToEdit.members,
-                                setBoardToEdit,
-                                handleInfoChange,
-                                onRemoveMember,
-                                boardToEdit,
-                                groupId: currGroupRef.current.id,
-                                user,
-                                openModal,
-                                onCloseModal,
-                                handleOpenModal
-                            }}
-                            modalPosition={modalPosition}
-                        />
 
                         <div className="task-actions-area">
                             <h3>Actions</h3>
@@ -554,6 +541,27 @@ export function TaskDetails() {
                             )}
                         </div>
                     </div>
+
+                    <DynamicModal
+                        cmpType={openModal}
+                        modalProps={{
+                            task,
+                            setTask,
+                            handleCloseModal,
+                            boardMembers: boardToEdit.members,
+                            setBoardToEdit,
+                            handleInfoChange,
+                            onRemoveMember,
+                            boardToEdit,
+                            groupId: currGroupRef.current.id,
+                            user,
+                            openModal,
+                            onCloseModal,
+                            handleOpenModal
+                        }}
+                        modalPosition={modalPosition}
+                        parentRef={modalParent}
+                    />
                 </section>
             </article>
         </>

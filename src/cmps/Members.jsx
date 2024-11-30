@@ -30,7 +30,7 @@ export function Members({ task, setTask, onRemoveMember, handleCloseModal, user,
     }
 
     return (
-        <div className="modal-option task-members" /*style={{ ...style }}*/>
+        <div className="modal-option task-members">
             <div className="task-members-header option-modal-header">
                 <h2>Members</h2>
                 <i className="btn fa-solid fa-xmark left-side" onClick={handleCloseModal}></i>
