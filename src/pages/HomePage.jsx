@@ -55,7 +55,7 @@ export function HomePage() {
                         </Link> */}
                     </div>
                     <div>
-                        <img src="/img/homepage/trello-hero.webp" alt="" />
+                        <img className="homepage-main-img" src="/img/homepage/trello-hero.webp" alt="" />
                     </div>
                 </div>
             </div>
@@ -98,9 +98,9 @@ export function HomePage() {
                     </nav>
 
                     <div className="picture-container">
-                        <img style={{ minWidth: '733px' }} src="/img/homepage/carusal_boards.png" alt="" className={carusalClass[activeBtn]} />
-                        <img style={{ minWidth: '733px' }} src="/img/homepage/carusal_lists.webp" alt="" className={carusalClass[activeBtn]} />
-                        <img style={{ minWidth: '733px' }} src="/img/homepage/carusal_cards.webp" alt="" className={carusalClass[activeBtn]} />
+                        <img /*style={{ minWidth: '733px' }}*/ src="/img/homepage/carusal_boards.png" alt="" className={carusalClass[activeBtn]} />
+                        <img /*style={{ minWidth: '733px' }}*/ src="/img/homepage/carusal_lists.webp" alt="" className={carusalClass[activeBtn]} />
+                        <img /*style={{ minWidth: '733px' }}*/ src="/img/homepage/carusal_cards.webp" alt="" className={carusalClass[activeBtn]} />
                     </div>
                 </section>
             </div>
