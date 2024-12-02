@@ -3,6 +3,11 @@
     align-items: center;
     gap: rem(12px);
     padding: rem(32px);
+
+    @include for-mobile-layout {
+        padding: 0px;
+    }
+
     h2 {
         font-weight: 600;
         font-size: rem(20px);

@@ -1,6 +1,23 @@
 .board-index {
+
     color: $contentClr;
+
     .main-section {
+        @include for-mobile-layout {
+            margin: 0;
+            margin-top: 40px;
+
+            .board-lists {
+                padding: 0;
+                .board-list.list{
+                    grid-template-columns: 1fr 1fr;
+                }
+                    li {
+                        max-width: 100%;
+                    }
+            }
+        }
+
         margin: rem(40px) rem(16px) 0;
     }
 }

@@ -7,6 +7,10 @@
     top: 40px;
     overflow: visible;
 
+    @include for-mobile-layout {
+        display: none;
+    }
+
     a {
         display: flex;
         align-items: center;
