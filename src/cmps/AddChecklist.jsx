@@ -45,10 +45,10 @@ export function AddChecklist({ task, setTask, handleCloseModal, boardToEdit, gro
                         onChange={handleChangeChecklistTitle}
                     />
                 </div>
-                <button className="btn btn-dark btn-add-checklist"
+                <div className="btn btn-dark btn-add-checklist"
                     onClick={() => { addChecklist(); handleCloseModal(); setChecklist({ id: '', title: 'Checklist', todos: [] }) }}>
                     Add
-                </button>
+                </div>
             </div>
         </div>
     )

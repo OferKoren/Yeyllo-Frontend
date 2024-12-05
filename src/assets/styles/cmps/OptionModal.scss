@@ -3,12 +3,18 @@
     position: absolute;
     padding: 0.5em 0.7em 1.2em;
     margin-block-start: 0.5em;
+    width: 20.3em;
 
     border-radius: 0.5em;
     background-color: $clr-bg2-light;
 
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     z-index: 5;
+
+    @include for-mobile-layout {
+        right: 0;
+        z-index: 10;
+    }
 
     .option-modal-container {
         display: grid;
@@ -21,9 +27,8 @@
     grid-template-columns: 30px 1fr 30px;
     justify-items: center;
     align-items: center;
-    justify-self: center;
+    justify-self: stretch;
 
-    width: 19em;
     margin-block-end: 0.7em;
 
     font-size: 0.9rem;

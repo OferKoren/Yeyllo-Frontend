@@ -15,6 +15,7 @@ export function DynamicModal({ cmpType, modalProps, modalPosition, parentRef }) 
         position: 'absolute',
         top: modalPosition.top, // Position below the button with padding
         left: modalPosition.left,
+        right: modalPosition.right
     }
 
     const {
@@ -32,6 +33,8 @@ export function DynamicModal({ cmpType, modalProps, modalPosition, parentRef }) 
         onCloseModal,
         handleOpenModal
     } = modalProps
+
+    console.log('cmpType', cmpType)
 
     return (parentRef
         ? ReactDOM.createPortal(
@@ -76,6 +79,16 @@ export function DynamicModal({ cmpType, modalProps, modalPosition, parentRef }) 
                     handleCloseModal={handleCloseModal}
                     task={task}
                 />}
+                {(cmpType === 'attachment') && <AddAttachment
+                    handleCloseModal={handleCloseModal}
+                    task={task}
+                    setTask={setTask}
+                />}
+                {(cmpType === 'drawing') &&
+                    <ModalTaskDetails onCloseModal={onCloseModal} isOpen={openModal === 'drawing'} isBlur={true}>
+                        <Canvas handleCloseModal={handleCloseModal} task={task} setTask={setTask} />
+                    </ModalTaskDetails>
+                }
                 {/* Add other cases as needed */}
             </div>,
             parentRef // Mount dynamically under the specified parent element

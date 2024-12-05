@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { boardService } from '../services/board'
 
-export function Members({ task, setTask, onRemoveMember, handleCloseModal, user, groupId, boardToEdit, style }) {
+export function Members({ task, setTask, onRemoveMember, handleCloseModal, user, groupId, boardToEdit }) {
 
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
     const [filteredMembers, setFilteredMembers] = useState([...gMembers])

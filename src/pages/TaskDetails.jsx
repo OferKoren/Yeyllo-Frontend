@@ -87,22 +87,37 @@ export function TaskDetails() {
         setOpenModal(modalName)
     }
 
-    function handleToggleModal(modalName, elementRef, parentClass, source = 'fromTaskOptions') {
+    function handleToggleModal(modalName, elementRef, parentClass, source = null) {
         setOpenModal(openModal === modalName ? null : modalName)
-        console.log('hi modal', modalName)
-        console.log('elementRef', elementRef)
+        const viewportWidth = window.innerWidth
+        const viewportHeight = window.innerHeight
+        console.log('viewportWidth', viewportWidth)
+        console.log('source', source)
 
         if (elementRef) {
+            let parent
             const rect = elementRef.getBoundingClientRect()
-            const parent = elementRef.closest(parentClass)
-            console.log('elementRef.closest', elementRef.closest(parentClass))
+            if (viewportWidth < 500) {
+                if (source === 'fromTaskOptions') parent = elementRef.closest('.task-options')
+                else if (source === 'fromMetadata') parent = elementRef.closest('.task-metadata')
+                else if (source === 'fromCover') parent = elementRef.closest('.cover')
+            } else {
+                parent = elementRef.closest(parentClass)
+            }
             const parentRect = parent ? parent.getBoundingClientRect() : { top: 0, left: 0 }
 
-            setModalPosition({
-                top: rect.top - parentRect.top + rect.height * 1.01,
-                left: 0
-                // left: rect.left - parentRect.left - (source === 'fromMetadata' ? parent.offsetWidth * 0.7 : 0)
-            })
+            if (viewportWidth < 500) {
+                setModalPosition({
+                    top: 0,
+                    right: 0
+                })
+
+            } else {
+                setModalPosition({
+                    top: (viewportWidth < 500) ? 0 : rect.top - parentRect.top + rect.height * 1.01,
+                    left: 0
+                })
+            }
 
             setModalParent(parent)
         }
@@ -286,7 +301,7 @@ export function TaskDetails() {
                                 <div className="cover-btn-area" style={{ position: 'relative' }}>
                                     <div className="cover-btn-top">
                                         <div ref={(el) => modalRefs.current['cover-btn-top'] = el} className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`}
-                                            onClick={() => handleToggleModal(`cover-topBtn`, modalRefs.current['cover-btn-top'], '.cover-btn-area')}>
+                                            onClick={() => handleToggleModal(`cover-topBtn`, modalRefs.current['cover-btn-top'], '.cover-btn-area', 'fromCover')}>
                                             <CoverIcon fill={'#44546f'} active={openModal === 'cover-topBtn'} />
                                             <span>Cover</span>
                                         </div>
@@ -294,20 +309,6 @@ export function TaskDetails() {
                                 </div>
                             </div>
                         )}
-
-                        {/* {task.style?.backgroundColor && (
-                            <div className="cover" style={{ backgroundColor: task.style.backgroundColor, height: '8em' }}>
-                                <div className="cover-btn-area" style={{ position: 'relative' }}>
-                                    <div ref={(el) => modalRefs.current['cover-btn-top'] = el} className="cover-btn-top">
-                                        <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`}
-                                            onClick={() => handleToggleModal(`cover-topBtn`, modalRefs.current['cover-btn-top'], '.cover-btn-area')}>
-                                            <CoverIcon fill={'#44546f'} active={openModal === 'cover-topBtn'} />
-                                            <span>Cover</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )} */}
                     </>
                 )}
 
@@ -342,7 +343,7 @@ export function TaskDetails() {
 
                 <section className="task-main">
                     <div className="task-info">
-                        <div className="task-metadata">
+                        <div className="task-metadata" style={{ position: 'relative' }}>
                             {task.memberIds && task.memberIds.length !== 0 && (
                                 <div className="members-area" style={{ position: 'relative' }}>
                                     <h3>Members</h3>
@@ -480,6 +481,7 @@ export function TaskDetails() {
                                         boardToEdit={boardToEdit}
                                         groupId={currGroupRef.current.id}
                                         user={user}
+                                        modalRefs={modalRefs}
                                     />
                                 ))}
                             </div>
@@ -492,7 +494,7 @@ export function TaskDetails() {
                                 <button
                                     ref={(el) => (modalRefs.current[name] = el)} // Store button ref by name
                                     className={`btn btn-option btn-light btn-${name} ${openModal === name && 'active'}`}
-                                    onClick={() => handleToggleModal(name, modalRefs.current[name], `.btn-${name}`)}>
+                                    onClick={() => handleToggleModal(name, modalRefs.current[name], `.btn-${name}`, 'fromTaskOptions')}>
                                     <Icon active={openModal === name} />
                                     <span>{title}</span>
                                 </button>
@@ -511,7 +513,7 @@ export function TaskDetails() {
 
                         <hr />
 
-                        <div>
+                        <div className="archive-area">
                             <button
                                 className={`btn btn-option btn-light`}
                                 onClick={() => {

@@ -360,9 +360,18 @@
     }
 
     & .task-options {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5em;
+        @include for-mobile-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5em;
+            margin-block-start: 30px;
+        }
+
+        @include for-narrow-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+        }
 
         .btn-option {
             position: relative;
@@ -394,6 +403,17 @@
 
         .task-actions-area {
             margin-block-start: 1em;
+            grid-column: 1/2;
+            grid-row: 5/6;
+        }
+
+        .archive-area {
+            grid-column: 1/2;
+            grid-row: 7/8;
+        }
+
+        .archive-actions {
+            grid-row: 8/9;
         }
 
         .dynamic-modal {
