@@ -99,7 +99,7 @@ export function TaskDetails() {
             const parentRect = parent ? parent.getBoundingClientRect() : { top: 0, left: 0 }
 
             setModalPosition({
-                top: rect.top - parentRect.top + 30,
+                top: rect.top - parentRect.top + rect.height * 1.01,
                 left: 0
                 // left: rect.left - parentRect.left - (source === 'fromMetadata' ? parent.offsetWidth * 0.7 : 0)
             })
@@ -269,40 +269,45 @@ export function TaskDetails() {
 
                 {task.style && (
                     <>
-                        {task.style.backgroundImage && (
+                        {(task.style.backgroundImage || task.style?.backgroundColor) && (
                             <div
                                 className="cover"
-                                style={{
+                                style={task.style.backgroundImage ? {
                                     backgroundImage: task.style.backgroundImage.url,
                                     backgroundColor: task.style.backgroundImage.bgColor || 'rgb(154, 139, 127)',
                                     height: '11em',
                                     backgroundSize: 'contain',
                                     backgroundRepeat: 'no-repeat',
                                     backgroundPosition: 'center',
-                                }}
+                                } :
+                                    { backgroundColor: task.style.backgroundColor, height: '8em' }
+                                }
                             >
-                                <div className="cover-btn-top">
-                                    <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`}
-                                        onClick={() => handleToggleModal(`cover-topBtn`)}>
-                                        <CoverIcon fill={'#44546f'} active={openModal === 'cover-topBtn'} />
-                                        <span>Cover</span>
+                                <div className="cover-btn-area" style={{ position: 'relative' }}>
+                                    <div className="cover-btn-top">
+                                        <div ref={(el) => modalRefs.current['cover-btn-top'] = el} className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`}
+                                            onClick={() => handleToggleModal(`cover-topBtn`, modalRefs.current['cover-btn-top'], '.cover-btn-area')}>
+                                            <CoverIcon fill={'#44546f'} active={openModal === 'cover-topBtn'} />
+                                            <span>Cover</span>
+                                        </div>
                                     </div>
-                                    {/* {openModal === 'cover-topBtn' && renderCoverModal()} */}
                                 </div>
                             </div>
                         )}
 
-                        {task.style?.backgroundColor && (
+                        {/* {task.style?.backgroundColor && (
                             <div className="cover" style={{ backgroundColor: task.style.backgroundColor, height: '8em' }}>
-                                <div className="cover-btn-top">
-                                    <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`} onClick={() => handleToggleModal(`cover-topBtn`)}>
-                                        <CoverIcon fill={'#44546f'} active={openModal === 'cover-topBtn'} />
-                                        <span>Cover</span>
+                                <div className="cover-btn-area" style={{ position: 'relative' }}>
+                                    <div ref={(el) => modalRefs.current['cover-btn-top'] = el} className="cover-btn-top">
+                                        <div className={`btn cover-options ${openModal === 'cover-topBtn' && 'active'}`}
+                                            onClick={() => handleToggleModal(`cover-topBtn`, modalRefs.current['cover-btn-top'], '.cover-btn-area')}>
+                                            <CoverIcon fill={'#44546f'} active={openModal === 'cover-topBtn'} />
+                                            <span>Cover</span>
+                                        </div>
                                     </div>
-                                    {/* {openModal === 'cover-topBtn' && renderCoverModal()} */}
                                 </div>
                             </div>
-                        )}
+                        )} */}
                     </>
                 )}
 
@@ -369,7 +374,6 @@ export function TaskDetails() {
                                                 <i className="fa-solid fa-plus"></i>
                                             </div>
                                         </ul>
-                                        {/* {openModal === 'members-plusBtn' && renderMembersModal()} */}
                                     </div>
                                 </div>
                             )}
@@ -394,7 +398,6 @@ export function TaskDetails() {
                                                 <i className="fa-solid fa-plus"></i>
                                             </div>
                                         </ul>
-                                        {/* {openModal === 'labels-plusBtn' && renderLabelsModal()} */}
                                     </div>
                                 </div>
 
@@ -412,7 +415,6 @@ export function TaskDetails() {
                                                     }`}>
                                                 {(task.status === 'done' && 'complete') || statusTask}
                                             </span>
-                                            {/* {openModal === 'dates-chevronBtn' && renderDatesModal()} */}
                                             {showPopup && <PopupYey />}
 
                                             <div ref={(el) => modalRefs.current['dates-chevronBtn'] = el} className="add-task-action chevron"

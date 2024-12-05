@@ -55,6 +55,27 @@ export function DynamicModal({ cmpType, modalProps, modalPosition, parentRef }) 
                     handleCloseModal={handleCloseModal}
                     task={task}
                 />}
+                {(cmpType === 'dates-chevronBtn' || cmpType === 'dates') && <Dates
+                    setTask={setTask}
+                    handleChange={handleInfoChange}
+                    boardToEdit={boardToEdit}
+                    setBoardToEdit={setBoardToEdit}
+                    handleCloseModal={handleCloseModal}
+                    task={task}
+                />}
+                {(cmpType === 'checklist') && <AddChecklist
+                    task={task}
+                    setTask={setTask}
+                    handleCloseModal={handleCloseModal}
+                    boardToEdit={boardToEdit}
+                    groupId={groupId}
+                    user={user}
+                />}
+                {(cmpType === 'cover' || cmpType === 'cover-topBtn') && <Cover
+                    setTask={setTask}
+                    handleCloseModal={handleCloseModal}
+                    task={task}
+                />}
                 {/* Add other cases as needed */}
             </div>,
             parentRef // Mount dynamically under the specified parent element
