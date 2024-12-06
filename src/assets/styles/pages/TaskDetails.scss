@@ -86,14 +86,13 @@
         margin-block-start: 1.5em;
         margin-inline-start: 0.3em;
 
-        // & img {
-        //     margin-block-start: 0.2em;
-        // }
+        & img {
+            margin-block-start: 0.2em;
+        }
 
         .task-header-left-side {
             display: flex;
             flex-direction: column;
-            gap: 0.3em;
             width: 100%;
         }
     }
@@ -132,7 +131,8 @@
     }
 
     .textarea-input {
-        border: none;
+        border: 2px solid transparent;
+        border-radius: 0.2em;
         font-family: inherit;
 
         width: 100%;
@@ -140,17 +140,19 @@
         overflow: hidden;
         resize: none;
 
-        line-height: 0.5;
+        // line-height: 0.5;
     }
 
     textarea.task-title {
         width: 90%;
-        padding: 0.5em 0 0 0.5em;
+        // padding: 0.5em 0 0 0.4em;
         font-size: 1.2rem;
         font-family: 'roboto-medium';
         background-color: $clr-bg3-light;
 
         &:focus {
+            outline: 2px solid $clr-blue-border;
+            outline-offset: -2px;
             background-color: $clr-bg2-light;
         }
     }
@@ -249,7 +251,7 @@
             margin-block-end: 1.3em;
 
             & .member-area-photo {
-                width: 2em;
+                height: 2em;
                 border-radius: 50%;
                 cursor: pointer;
 

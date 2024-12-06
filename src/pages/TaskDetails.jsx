@@ -14,6 +14,7 @@ import { AddAttachment } from '../cmps/Attachment/AddAttachment.jsx'
 import { Attachment } from '../cmps/Attachment/Attachment.jsx'
 import { PopupYey } from '../cmps/PopupYey.jsx'
 import { DynamicModal } from '../cmps/DynamicModal.jsx'
+import { TaskHeader } from '../cmps/TaskHeader.jsx'
 import ClickOutside from '../cmps/ClickOutside.jsx'
 
 export function TaskDetails() {
@@ -91,8 +92,6 @@ export function TaskDetails() {
         setOpenModal(openModal === modalName ? null : modalName)
         const viewportWidth = window.innerWidth
         const viewportHeight = window.innerHeight
-        console.log('viewportWidth', viewportWidth)
-        console.log('source', source)
 
         if (elementRef) {
             let parent
@@ -246,7 +245,6 @@ export function TaskDetails() {
     }
 
     function onSaveTask() {
-        // console.log('currGroup', currGroupRef.current)
         const updatedTasks = currGroupRef.current.tasks.map((groupTask) => (groupTask.id === taskId ? task : groupTask))
         saveBoard(updatedTasks)
     }
@@ -325,21 +323,7 @@ export function TaskDetails() {
                     </div>
                 )}
 
-                <div className="task-header">
-                    <img src="/img/icons/icon-task-title.svg" />
-                    <div className="task-header-left-side">
-                        <textarea
-                            className="textarea-input task-title"
-                            type="text"
-                            name="title"
-                            id="task-title"
-                            placeholder="Title"
-                            value={task.title}
-                            onChange={handleInfoChange}
-                        />
-                        <h3>in list {currGroupRef.current.title.toUpperCase()}</h3>
-                    </div>
-                </div>
+                <TaskHeader task={task} handleInfoChange={handleInfoChange} currGroupRef={currGroupRef} />
 
                 <section className="task-main">
                     <div className="task-info">

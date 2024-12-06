@@ -52,7 +52,7 @@ export function AttachmentActions({ attachment, setTask, handleCloseModal, task 
 
     return (
         <>
-            <div className="modal-option task-attachments-modal">
+            <div className="modal-option task-attachments-modal" style={{ width: '13em' }}>
                 <ul className="option-modal-container attachment-actions-list">
                     <li className="attachment-action-item"
                         onClick={() => setIsEditAttachment(true)}>Edit</li>

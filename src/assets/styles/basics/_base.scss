@@ -73,8 +73,9 @@ h3 {
         color: $gray5;
     }
 
-    .task-options & {
-        margin-block-end: 0.8em;
+    .task-options &,
+    .task-metadata & {
+        margin-block-end: 0.8em !important;
         font-family: 'roboto-medium';
         padding-inline-start: 0.1em;
     }
