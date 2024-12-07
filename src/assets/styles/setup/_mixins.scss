@@ -23,6 +23,11 @@
         @content;
     }
 }
+@mixin for-large-layout {
+    @media (min-width: calc($large-breakpoint)) {
+        @content;
+    }
+}
 
 @mixin btn($type: regular) {
     @if $type ==dark {
