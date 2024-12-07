@@ -10,6 +10,8 @@
 
 .checklist-details {
     margin-inline-start: 0.3em;
+    row-gap: 0.1em !important;
+    margin-block-end: 0.5em !important;
 
     .checklist-header {
         grid-area: header;
@@ -23,89 +25,128 @@
             align-items: center;
             gap: 1em;
         }
+
+        .btn-remove-checklist {
+            font-size: 0.9rem;
+            font-family: 'roboto-medium';
+        }
     }
 
-    .todo-item {
-        display: flex;
-        align-items: center;
-        gap: 0.3em;
-        font-size: 0.9rem;
+    .todo-list {
+        grid-column: 1/-1;
+        display: grid;
+        gap: 0.4em;
 
-        .checkbox-todo {
-            display: flex;
-            gap: 1em;
-
-            input[type="checkbox"] {
-                margin-inline-start: 0.5em;
-            }
-        }
-
-        .todo-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
+        .todo-item {
+            // display: flex;
             width: 100%;
-            height: 2.5em;
-            border-radius: 0.9em;
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            column-gap: 0.3em;
+            grid-template-areas:
+                "icon title";
 
-            padding-inline-start: 0.8em;
+            font-size: 0.9rem;
+            align-items: start;
 
-            .todo-done {
-                text-decoration: line-through
-            }
-
-            .todo-content-buttons {
+            .checkbox-todo {
                 display: flex;
-                margin-inline-end: 0.5em;
-                opacity: 0;
+                gap: 1em;
+                margin-block-start: 0.5em;
 
-                .btn-action {
-                    display: flex;
-                    justify-content: center;
-                    padding: 0.3em;
-                    height: 1.5em;
-                    border-radius: 50%;
-                    color: $gray5;
+                input[type="checkbox"] {
+                    margin-inline-start: 0.5em;
                 }
             }
 
-            &:hover {
-                background-color: $clr-btn-1;
+            .todo-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
 
-                &:hover .todo-content-buttons {
+                border-radius: 0.9em;
+
+                padding-inline-start: 0.8em;
+                padding-block-start: 0.3em;
+                padding-block-end: 0.3em;
+                line-height: 1.5;
+
+                .todo-text {
+                    overflow-wrap: break-word;
+                }
+
+                .todo-done {
+                    text-decoration: line-through;
+                }
+
+                .todo-content-buttons {
+                    display: flex;
+                    margin-inline-end: 0.5em;
+                    opacity: 0;
+
+                    .btn-action {
+                        display: flex;
+                        justify-content: center;
+                        padding: 0.3em;
+                        height: 1.5em;
+                        border-radius: 50%;
+                        color: $gray5;
+                    }
+                }
+
+                &:hover {
+                    background-color: $clr-btn-1;
+
+                    &:hover .todo-content-buttons {
+                        opacity: 1;
+                    }
+                }
+
+                .todo-content:hover .todo-content-buttons,
+                .todo-content-buttons.visible {
                     opacity: 1;
                 }
-            }
-
-            .todo-content:hover .todo-content-buttons,
-            .todo-content-buttons.visible {
-                opacity: 1;
             }
         }
     }
 
     .btn-open-todo {
-        margin-block-start: 1em;
-        margin-inline-start: 2.5em;
+        margin-block-start: 0.6em;
         font-family: 'roboto-medium';
         font-size: 0.95rem;
+        grid-column: 2/3;
+        justify-self: start;
     }
 
     .adding-todo-area {
+        grid-column: 2/3;
         display: flex;
         flex-direction: column;
-        gap: 0.5em;
-        padding: 0.5em 0 0 2em;
 
         & button {
             margin: 0;
         }
 
+        .adding-todo-title {
+            font-family: 'roboto-regular';
+            padding: 0.6em 0.7em;
+            font-size: 0.9rem;
+            resize: none;
+            border-radius: 0.2em;
+            margin: 0;
+            margin-block-start: 0.5em;
+
+            &:focus {
+                outline: 2px solid $clr-blue-border;
+                outline-offset: -2px;
+                background-color: $clr-bg2-light;
+            }
+        }
+
         .add-todo-actions {
             display: flex;
             gap: 0.3em;
-            margin-inline-start: 0.3em;
+            margin-block-start: 0.5em;
         }
 
         input.adding-todo-title:focus {
@@ -119,6 +160,7 @@
     gap: 0.8em;
     width: 100%;
     align-items: center;
+    grid-column: 1/-1;
 
     .progress-bar {
         width: 100%;

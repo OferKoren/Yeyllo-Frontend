@@ -3,6 +3,7 @@ import { makeId } from '../services/util.service.js'
 import { DeleteTodoModal } from '../cmps/DeleteTodoModal.jsx'
 import { DeleteChecklistModal } from '../cmps/DeleteChecklistModal.jsx'
 import { boardService } from '../services/board'
+import { TextareaAutosize } from '@mui/base/TextareaAutosize'
 
 export function Checklist({ todos, task, checklist, setTask, openModal, handleToggleModal, handleCloseModal, groupId, boardToEdit, user }) {
 
@@ -11,8 +12,6 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
     const [checklistIdToEdit, setChecklistIdToEdit] = useState('')
     const [newTodoValue, setNewTodoValue] = useState('')
     const [isButtonsVisible, setIsButtonsVisible] = useState(false)
-
-    const inputRef = useRef(null)
 
     function onUpdateTodo(todoId, task, checklistId, action, newTodoValue) {
         const updatedChecklists = task.checklists.map(checklist => {
@@ -78,12 +77,10 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
     }
 
     return (
-        <div className="checklist-details">
-            <div className="checklist-header">
-                <div className="checklist-title">
-                    <img src="/img/icons/icon-checklist.svg" />
-                    <h2>{title}</h2>
-                </div>
+        <div className="area-layout checklist-details">
+            <img className="icon-area" src="/img/icons/icon-checklist.svg" />
+            <div className="title-area checklist-header">
+                <h2 >{title}</h2>
                 <div className="delete-checklist-area">
                     <button className="btn btn-remove-checklist btn-light"
                         onClick={() => handleToggleModal(`delete-checklist-${checklist.id}`)}>
@@ -105,45 +102,47 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
                 </div>
             </div>
 
-            {todos && todos.map((item, i) =>
-                item &&
-                <div className="todo-item" key={item.id}>
-                    <div className="checkbox-todo"  >
-                        <input
-                            type="checkbox"
-                            checked={item.isDone || false}
-                            value={item.title}
-                            onChange={() => onUpdateTodo(item.id, task, checklistId, 'isDone')} />
-                    </div>
-                    <div className="todo-content">
-                        <span className={`todo-text ${item.isDone ? 'todo-done' : ''}`}>{item.title}</span>
-                        <div className={`todo-content-buttons ${isButtonsVisible === `todoActions-${item.id}` ? 'visible' : ''}`}>
-                            <div>
-                                <button className={"btn btn-item-actions btn-action"}
-                                    onClick={() => { handleToggleModal(`todoActions-${item.id}`); handleToggleButtons(`todoActions-${item.id}`) }}>
-                                    <i className="fa-solid fa-ellipsis"></i>
-                                </button>
-                                {openModal === `todoActions-${item.id}` &&
-                                    <DeleteTodoModal
-                                        onUpdateTodo={onUpdateTodo}
-                                        itemId={item.id}
-                                        task={task}
-                                        checklistId={checklistId}
-                                        action={'removeTodo'}
-                                        handleCloseModal={handleCloseModal} />}
+            {todos && todos.length > 0 &&
+                <div className="todo-list">
+                    {todos.map((item, i) =>
+                        item &&
+                        <div className="todo-item" key={item.id}>
+                            <div className="checkbox-todo icon-area"  >
+                                <input
+                                    type="checkbox"
+                                    checked={item.isDone || false}
+                                    value={item.title}
+                                    onChange={() => onUpdateTodo(item.id, task, checklistId, 'isDone')} />
                             </div>
-                        </div>
-                    </div>
-                </div>)}
+                            <div className="todo-content title-area">
+                                <span className={`todo-text ${item.isDone ? 'todo-done' : ''}`}>{item.title}</span>
+                                <div className={`todo-content-buttons ${isButtonsVisible === `todoActions-${item.id}` ? 'visible' : ''}`}>
+                                    <div>
+                                        <button className={"btn btn-item-actions btn-action"}
+                                            onClick={() => { handleToggleModal(`todoActions-${item.id}`); handleToggleButtons(`todoActions-${item.id}`) }}>
+                                            <i className="fa-solid fa-ellipsis"></i>
+                                        </button>
+                                        {openModal === `todoActions-${item.id}` &&
+                                            <DeleteTodoModal
+                                                onUpdateTodo={onUpdateTodo}
+                                                itemId={item.id}
+                                                task={task}
+                                                checklistId={checklistId}
+                                                action={'removeTodo'}
+                                                handleCloseModal={handleCloseModal} />}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>)}
+                </div>}
 
             {(checklistIdToEdit === checklistId) && isAddingTodo ? (
                 <form className="adding-todo-area" onSubmit={(ev) => { ev.preventDefault(); onUpdateTodo(undefined, task, checklistId, 'addTodo', newTodoValue); setNewTodoValue('') }}>
-                    <input
-                        ref={inputRef}
-                        className="adding-todo-title"
-                        type="text"
+                    <TextareaAutosize
                         placeholder="Add an item"
+                        className="adding-todo-title"
                         autoFocus
+                        type="text"
                         value={newTodoValue}
                         onChange={handleNewTodoChange}
                     />
