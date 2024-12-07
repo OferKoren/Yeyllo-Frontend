@@ -115,7 +115,6 @@ export function Description({ task, setTask }) {
 
     function onToggleMic() {
         micBtn.current.classList.toggle('active')
-        // voiceAnimation.current.classList.toggle('active')
     }
 
     return (
@@ -139,36 +138,12 @@ export function Description({ task, setTask }) {
                     onClick={() => { loadContent(); setOpenEditor(true) }}
                     style={{ padding: task.description ? '0' : '5px 0 25px 10px', backgroundColor: task.description ? '#f5f4f4' : '#e7e9eb' }} />
 
-                <div onClick={() => { toggleRecording(); onToggleMic() }} style={{ position: 'absolute', top: '-45px', right: '0', display: 'flex', flexDirection: 'row-reverse', gap: '10px' }}>
+                <div onClick={() => { toggleRecording(); onToggleMic() }} style={{ position: 'absolute', top: '-45px', right: '0', display: 'flex', gap: '10px' }}>
                     <div className="mic-container">
                         <div ref={micBtn} className="circle">
                             <i className="fas fa-microphone"></i>
                         </div>
                     </div>
-
-                    {/* <div onClick={toggleRecording} className="btn btn-dark btn-recording">
-                    {isRecording ?
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" style={{ fill: '#ffffff' }}>
-                            <path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z" />
-                        </svg> :
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" style={{ fill: '#ffffff' }}>
-                            <path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm0-240Zm-40 520v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Zm40-360q17 0 28.5-11.5T520-520v-240q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v240q0 17 11.5 28.5T480-480Z" />
-                        </svg>
-                    }
-                </div> */}
-                    {/* 
-                    <div id="bars" ref={voiceAnimation}>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                    </div> */}
                 </div>
 
             </div>

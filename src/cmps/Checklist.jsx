@@ -55,7 +55,13 @@ export function Checklist({ todos, task, checklist, setTask, openModal, handleTo
     }
 
     function handleToggleButtons(todoName) {
-        setIsButtonsVisible(prevState => prevState ? null : todoName)
+        setIsButtonsVisible(prevState => {
+            if (prevState) {
+                handleCloseModal()
+                return null
+            } else return todoName
+            // return prevState ? null : todoName
+        })
     }
 
     function onRemoveChecklist(checklistId) {
