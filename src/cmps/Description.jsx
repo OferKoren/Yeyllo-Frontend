@@ -138,7 +138,7 @@ export function Description({ task, setTask }) {
                     onClick={() => { loadContent(); setOpenEditor(true) }}
                     style={{ padding: task.description ? '0' : '5px 0 25px 10px', backgroundColor: task.description ? '#f5f4f4' : '#e7e9eb' }} />
 
-                <div style={{ position: 'absolute', top: '-45px', right: '0', display: 'flex', gap: '10px' }}>
+                <div style={{ position: 'absolute', top: '-45px', right: '-3px', display: 'flex', gap: '10px' }}>
                     <div className="mic-container mic" >
                         <div ref={micBtn} className="circle" onClick={() => { toggleRecording(); onToggleMic() }}>
                             <i className="fas fa-microphone"></i>
@@ -146,9 +146,6 @@ export function Description({ task, setTask }) {
                     </div>
 
                     <div className="mic-container pencil" onClick={() => { loadContent(); setOpenEditor(true) }}>
-                        {/* <div className="circle">
-                            <i className="fa-solid fa-pencil"></i>
-                        </div> */}
                         <button className="btn btn-light btn-edit-description">Edit</button>
                     </div>
                 </div>

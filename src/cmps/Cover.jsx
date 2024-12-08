@@ -15,12 +15,12 @@ export function Cover({ setTask, handleCloseModal, task }) {
         '#579DFF', '#6CC3E0', '#94C748', '#E774BB', '#8590A2']
 
     const bgImagesRef = useRef([
-        { url: '/img/cover-bgImage/bennie-bates-szB1lzIzdpw-unsplash.jpg', id: 'img001' },
-        { url: '/img/cover-bgImage/marek-piwnicki-5ojcSbYw-qA-unsplash.jpg', id: 'img002' },
-        { url: '/img/cover-bgImage/marek-piwnicki-w6Qhc3Xid4M-unsplash.jpg', id: 'img003' },
-        { url: '/img/cover-bgImage/mo-GLjekdIJftQ-unsplash.jpg', id: 'img004' },
-        { url: '/img/cover-bgImage/mo-J36IsMgFjbY-unsplash.jpg', id: 'img005' },
-        { url: '/img/cover-bgImage/mo-Q-yrZIjmBmE-unsplash.jpg', id: 'img006' }
+        { url: '/img/cover-bgImage/bennie-bates-szB1lzIzdpw-unsplash-small.jpg', id: 'img001' },
+        { url: '/img/cover-bgImage/marek-piwnicki-5ojcSbYw-qA-unsplash-small.jpg', id: 'img002' },
+        { url: '/img/cover-bgImage/marek-piwnicki-w6Qhc3Xid4M-unsplash-small.jpg', id: 'img003' },
+        { url: '/img/cover-bgImage/mo-GLjekdIJftQ-unsplash-small.jpg', id: 'img004' },
+        { url: '/img/cover-bgImage/mo-J36IsMgFjbY-unsplash-small.jpg', id: 'img005' },
+        { url: '/img/cover-bgImage/mo-Q-yrZIjmBmE-unsplash-small.jpg', id: 'img006' }
     ])
 
     const [bgImages, setBgImages] = useState([...bgImagesRef.current])

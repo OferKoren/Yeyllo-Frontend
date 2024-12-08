@@ -16,17 +16,22 @@
         .attachment-details {
             display: grid;
             align-items: center;
+            width: 60%;
 
             .attach-time-and-cover {
-                display: flex;
 
-                & p:first-of-type {
-                    margin-inline-end: 0.5em;
+                & p:first-of-type:not(.dot) {
+                    width: 100%;
                 }
 
                 .is-cover {
-                    display: flex;
+                    display: inline-flex;
                     align-items: center;
+                    width: max-content;
+
+                    .dot {
+                        margin-inline-start: 0.5em;
+                    }
 
                     & svg {
                         height: 1.1em;
