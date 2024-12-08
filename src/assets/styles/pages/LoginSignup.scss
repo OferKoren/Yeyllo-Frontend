@@ -7,6 +7,7 @@
     height: 100%;
     text-align: center;
     color: rgb(23, 43, 77);
+
     .login-background {
         position: fixed;
         display: flex;
@@ -29,8 +30,12 @@
     flex-direction: column;
 
     place-self: center;
-
     width: rem(400px);
+
+    @include for-mobile-layout {
+        width: 100%;
+    }
+
     // min-height: rem(500px);
     max-height: max-content;
 
@@ -41,6 +46,7 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px 0px;
     border-radius: 3px;
     margin-block-start: rem(50px);
+
     .logo {
         display: flex;
         align-items: center;
