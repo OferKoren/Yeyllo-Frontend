@@ -380,7 +380,7 @@ function NineDots() {
 }
 function TrelloLogo() {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 73.323 64" height="16">
+        <svg style={{marginInlineStart:"0"}} xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 73.323 64" height="16">
             <defs>
                 <linearGradient id="A" x1="31.52" y1="64.56" x2="31.52" y2="1.51" gradientUnits="userSpaceOnUse">
                     <stop offset=".18" stopColor="currentColor" />

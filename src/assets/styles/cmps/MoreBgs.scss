@@ -1,12 +1,19 @@
 .modal {
-    & > :has(> .more-bgs) {
+    &> :has(> .more-bgs) {
         transform: translateX(100%);
+
+        @include for-mobile-layout {
+            transform: translateX(0);
+            transform: translateY(-16px);
+        }
 
         width: fit-content;
         padding: 0 0.5em;
     }
 }
+
 .more-bgs {
+
     // position: relative;
     .bgs-header {
         height: 32px;
@@ -17,29 +24,35 @@
         font-size: 14px;
         font-weight: 600;
         margin-block-end: 0.35em;
-        & > *::first-letter {
+
+        &>*::first-letter {
             text-transform: capitalize;
         }
     }
-    & > ul {
+
+    &>ul {
         padding: 0 0.2em;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 0.4em;
+
         &.endless-photos {
             grid-template-columns: repeat(2, 1fr);
             max-height: 52vh;
 
             overflow-y: auto;
         }
+
         &.endless-photos li {
             width: 128px;
             height: 73px;
         }
+
         li {
             width: 82.575px;
             height: 56px;
         }
+
         margin-bottom: 0.5em;
     }
 
@@ -48,14 +61,18 @@
         top: 5px;
         left: 2px;
     }
+
     padding-block-end: 1em;
+
     .photo-search-wrapper {
         position: sticky;
         margin-block-end: 0.5em;
+
         .photo-search {
             padding-inline-start: 2em;
             color: $modalHeaderClr;
         }
+
         img {
             position: absolute;
             top: 0.5em;
