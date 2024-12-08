@@ -388,7 +388,7 @@
                 margin-block-start: 0.05em;
             }
 
-            & svg {
+            & svg:not(.btn-cancel-canvas) {
                 height: 1.1em;
                 margin: 0;
             }

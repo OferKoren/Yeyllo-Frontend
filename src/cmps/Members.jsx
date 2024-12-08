@@ -39,7 +39,6 @@ export function Members({ task, setTask, onRemoveMember, handleCloseModal, user,
             <div className="members">
                 <input
                     type="text"
-                    autoFocus
                     onChange={handleFilterByMember}
                     placeholder="Search members"
                 />

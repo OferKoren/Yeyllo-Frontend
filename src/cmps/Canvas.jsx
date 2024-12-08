@@ -4,7 +4,7 @@ import { makeId } from '../services/util.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { boardService } from '../services/board'
 
-export function Canvas({ task, handleCloseModal, setTask }) {
+export function Canvas({ handleCloseModal, setTask }) {
 
     const canvasRef = useRef(null)
     const containerCanvasRef = useRef(null)
@@ -17,21 +17,17 @@ export function Canvas({ task, handleCloseModal, setTask }) {
         const canvas = canvasRef.current
         const canvasContainer = containerCanvasRef.current
 
+        function resizeCanvas() {
+            if (canvas && canvasContainer) {
+                canvas.width = canvasContainer.offsetWidth
+                canvas.height = canvasContainer.offsetHeight
+            }
+        }
+
         if (canvas) {
             context = canvas.getContext('2d')
             canvas.width = canvasContainer.offsetWidth
             canvas.height = canvasContainer.offsetHeight
-
-            // if (note.info.drawingUrl) {
-            //     const img = new Image()
-            //     img.onload = function () {
-            //         context.clearRect(0, 0, canvas.width, canvas.height)
-            //         context.drawImage(img, 0, 0)
-            //     }
-            //     img.src = note.info.drawingUrl
-            // } else {
-            //     console.log('No saved drawing found.')
-            // }
         }
 
         canvas.addEventListener('mousedown', onDown)
@@ -42,6 +38,8 @@ export function Canvas({ task, handleCloseModal, setTask }) {
         canvas.addEventListener('touchmove', onMove, { passive: false })
         canvas.addEventListener('touchend', onUp, { passive: false })
 
+        window.addEventListener('resize', resizeCanvas)
+
         return () => {
             canvas.removeEventListener('mousedown', onDown)
             canvas.removeEventListener('mousemove', onMove)
@@ -51,6 +49,7 @@ export function Canvas({ task, handleCloseModal, setTask }) {
             canvas.removeEventListener('touchmove', onMove)
             canvas.removeEventListener('touchend', onUp)
 
+            window.removeEventListener('resize', resizeCanvas)
             document.body.style.cursor = 'default'
         }
     }, [])
@@ -99,11 +98,13 @@ export function Canvas({ task, handleCloseModal, setTask }) {
             //* Prevent triggering the mouse screen dragging event
             ev.preventDefault()
             //* Gets the first touch point
-            ev = ev.changedTouches[0]
+            const touch = ev.changedTouches[0]
+
             //* Calc the right pos according to the touch screen
+            const rect = ev.target.getBoundingClientRect()
             pos = {
-                x: ev.clientX - ev.target.offsetLeft - ev.target.clientLeft,
-                y: ev.clientY - ev.target.offsetTop - ev.target.clientTop,
+                x: touch.clientX - rect.left,
+                y: touch.clientY - rect.top,
             }
         }
 
@@ -134,15 +135,17 @@ export function Canvas({ task, handleCloseModal, setTask }) {
     }
 
     return (
-        <div className="canvas-container" ref={containerCanvasRef}>
-            <canvas ref={canvasRef}></canvas>
-            <button className="btn btn-dark save-drawing-btn" onClick={(ev) => { ev.stopPropagation(); onSaveDrawing() }}>Save</button>
-            <button className="btn-save-task" onClick={(ev) => { ev.stopPropagation(); handleCloseModal() }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12Z" fill="#44546f"
-                    />
-                </svg>
-            </button>
+        <div className="canvas-area">
+            <div className="canvas-container" ref={containerCanvasRef}>
+                <canvas ref={canvasRef}></canvas>
+                <div className="btn-save-task" onClick={(ev) => { ev.stopPropagation(); handleCloseModal() }}>
+                    <svg className="btn-cancel-canvas" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" clipRule="evenodd" d="M10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12Z" fill="#44546f"
+                        />
+                    </svg>
+                </div>
+            </div>
+            <div className="btn btn-dark save-drawing-btn" onClick={(ev) => { ev.stopPropagation(); onSaveDrawing() }}>Save</div>
         </div>
     )
 }

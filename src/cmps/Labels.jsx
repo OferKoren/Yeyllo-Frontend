@@ -56,7 +56,6 @@ export function Labels({ task, setTask, boardToEdit, setBoardToEdit, handleClose
                             <div className="checkbox-and-label">
                                 <input
                                     type="checkbox"
-                                    autoFocus
                                     id={label.id}
                                     checked={taskLabel || false}
                                     onChange={() => toggleLabel({ ...label, title: (gLabel?.title || '') })}
