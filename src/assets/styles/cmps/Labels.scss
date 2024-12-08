@@ -10,26 +10,31 @@
 
         .checkbox-and-label {
             display: flex;
+            align-items: center;
             width: 100%;
             gap: 0.7em;
-        }
 
-        .task-label {
-            display: flex;
-            width: 100%;
-            height: 2.3em;
-            border-radius: 0.2em;
-            font-size: 0.9rem;
-            padding: 0 0.6em;
-            cursor: pointer;
-
-            &>* {
-                align-self: center;
+            & input[type="checkbox" i] {
+                margin-block-end: 0 !important;
             }
-        }
 
-        &:hover {
-            opacity: 0.8;
+            .task-label {
+                display: flex;
+                width: 100%;
+                height: 2.3em;
+                border-radius: 0.2em;
+                font-size: 0.9rem;
+                padding: 0 0.6em;
+                cursor: pointer;
+
+                &>* {
+                    align-self: center;
+                }
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
         }
 
         .pencil-edit-label {
