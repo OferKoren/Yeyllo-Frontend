@@ -100,6 +100,7 @@
     input[type="text"] {
         box-sizing: border-box;
         font-family: 'roboto-regular';
+        font-size: rem(14px);
         transition: none;
     }
 
@@ -115,7 +116,7 @@
     }
 
     input:not(input[type="checkbox"]) {
-        padding: 0.8em;
+        padding: 0.6em;
         width: 100%;
         border: 1px solid gray;
         border-radius: 0.2em;

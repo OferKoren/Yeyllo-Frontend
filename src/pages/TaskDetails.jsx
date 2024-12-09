@@ -176,34 +176,32 @@ export function TaskDetails() {
 
         const formattedStartDate = startDate ? dayjs(startDate) : null
 
+        let formattedDueTime = ''
+        if (dueTime) {
+            const parsedDueTime = dayjs(dueTime)
+            if (parsedDueTime.isValid()) {
+                formattedDueTime = parsedDueTime.format('hh:mm A')
+            }
+        }
+
         let formattedDue = ''
         if (formattedDueDate.year() !== currentYear) {
-            if (dueTime) {
-                const formattedDueTime = dayjs(dueTime, 'hh:mm A').format('hh:mm A')
-                const dateTimeStr = `${formattedDueDate.format('YYYY-MM-DD')} ${formattedDueTime}`
-                formattedDue = dayjs(dateTimeStr).format('MMM D, YYYY, hh:mm A')
-            } else {
-                formattedDue = formattedDueDate.format('MMM D, YYYY')
-            }
+            // const formattedDueTime = dayjs(dueTime, 'hh:mm A').format('hh:mm A')
+            formattedDue = formattedDueTime
+                ? `${formattedDueDate.format('MMM D, YYYY')} ${formattedDueTime}`
+                : formattedDueDate.format('MMM D, YYYY')
         } else {
-            if (dueTime) {
-                const formattedDueTime = dayjs(dueTime, 'hh:mm A').format('hh:mm A')
-                const dateTimeStr = `${formattedDueDate.format('YYYY-MM-DD')} ${formattedDueTime}`
-                formattedDue = dayjs(dateTimeStr).format('MMM D, hh:mm A')
-            } else {
-                formattedDue = formattedDueDate.format('MMM D')
-            }
+            formattedDue = formattedDueTime
+                ? `${formattedDueDate.format('MMM D')} ${formattedDueTime}`
+                : formattedDueDate.format('MMM D')
         }
 
         let formattedStart = ''
         if (formattedStartDate && formattedStartDate.isValid()) {
-            if (formattedStartDate.year() !== currentYear) {
-                formattedStart = formattedStartDate.format('MMM D, YYYY')
-            } else {
-                formattedStart = formattedStartDate.format('MMM D')
-            }
+            formattedStart = (formattedStartDate.year() !== currentYear) ? formattedStartDate.format('MMM D, YYYY')
+                : formattedStartDate.format('MMM D')
         }
-        return formattedStart ? `${formattedStart} - ${formattedDue}` : formattedDue;
+        return formattedStart ? `${formattedStart} - ${formattedDue}` : formattedDue
     }
 
     function onToggleArchivedTask() {

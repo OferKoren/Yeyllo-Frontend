@@ -1,8 +1,8 @@
 .board-header {
     position: relative;
-    height: 56px;
-    min-height: 56px;
+    // min-height: 56px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: rem(12px) rem(10px) rem(12px) rem(16px);
     backdrop-filter: blur(4px);
@@ -14,9 +14,15 @@
     z-index: 2;
     // justify-content: space-between;
 
-    > * {
+    >* {
         display: flex;
         align-items: center;
+    }
+
+    .board-header-right-buttons {
+        @include for-mobile-layout {
+            margin-inline-start: auto;
+        }
     }
 
     .member-img {
@@ -32,8 +38,9 @@
     .title-wrapper {
         // position: relative;
         display: inline-block;
+        width: 100%;
 
-        & > * {
+        &>* {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 1.125em;
             line-height: 32px;
@@ -42,7 +49,9 @@
 
         .title-input {
             position: absolute;
-            top: 9px /*  */;
+            top: 9px
+                /*  */
+            ;
             left: 16px;
             // width: 50px;
             font-weight: 700;
@@ -203,17 +212,17 @@
         }
     }
 
-    & > button.star {
+    &>button.star {
         color: var(--dynamic-star-color);
         margin-inline-end: auto;
     }
 
     @include for-mobile-layout {
-        .title-wrapper {
-            max-width: 65%;
-            overflow: hidden;
-            // overflow-y: hidden;
-        }
+        // .title-wrapper {
+        //     max-width: 65%;
+        //     overflow: hidden;
+        //     // overflow-y: hidden;
+        // }
 
         .divider {
             display: none;
@@ -224,9 +233,9 @@
                 display: none;
             }
 
-            &.share.btn2 {
-                display: none;
-            }
+            // &.share.btn2 {
+            //     display: none;
+            // }
 
             &.ai.btn2 {
                 display: none;
