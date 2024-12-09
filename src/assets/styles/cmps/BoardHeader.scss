@@ -21,6 +21,7 @@
 
     .board-header-left-side {
         margin-inline-end: auto;
+        // width: 100%;
     }
 
     .board-header-right-side {
@@ -41,8 +42,11 @@
 
     .title-wrapper {
         // position: relative;
-        display: inline-block;
-        width: 100%;
+        // display: inline-block;
+
+        @include for-mobile-layout {
+            width: max-content !important;
+        }
 
         &>* {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -52,7 +56,7 @@
         }
 
         .title-input {
-            position: absolute;
+            // position: absolute;
             top: 9px;
             left: 16px;
             // width: 50px;
@@ -63,6 +67,12 @@
             padding-inline-start: 8px;
 
             outline: 3px solid $btnClr1;
+
+            @include for-mobile-layout {
+                max-width: 300px;
+                margin-inline-start: 5px;
+            }
+
             // transition: all 0.2s ease;
         }
 

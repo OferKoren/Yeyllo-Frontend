@@ -3,6 +3,7 @@ import ClickOutside from '../ClickOutside'
 import { Modal } from '../Modal'
 import { BoardFilter } from './BoardFilter'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
+import { LongTxt } from '../LongTxt.jsx'
 import { AiModal } from '../AiModal'
 import { ModalTaskDetails } from '../ModalTaskDetails.jsx'
 
@@ -129,7 +130,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                         />
                     ) : (
                         <h3 ref={headerRef} onClick={handleHeaderClick} className="title-text">
-                            {text}
+                            <LongTxt showButton={false} length={25}>{text?.trim() || 'Add title'}</LongTxt>
                         </h3>
                     )}
                 </div>
