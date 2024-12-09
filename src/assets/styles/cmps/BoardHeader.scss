@@ -46,7 +46,7 @@
         // display: inline-block;
 
         @include for-mobile-layout {
-            width: 17em !important;
+            max-width: 17em !important;
             overflow: hidden;
         }
 
@@ -210,7 +210,12 @@
             width: inherit;
             padding: 6px;
             font-weight: 600;
-            margin-inline-end: 1em;
+
+            // margin-inline-end: 1em;
+
+            @include for-mobile-layout {
+                margin-inline-start: 0;
+            }
         }
     }
 
