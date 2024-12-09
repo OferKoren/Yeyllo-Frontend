@@ -49,9 +49,7 @@
 
         .title-input {
             position: absolute;
-            top: 9px
-                /*  */
-            ;
+            top: 9px;
             left: 16px;
             // width: 50px;
             font-weight: 700;
@@ -69,7 +67,8 @@
             font-size: 18px;
             cursor: pointer;
             margin: 0;
-            width: fit-content;
+            width: 100%;
+            // width: fit-content;
             padding: 0 0.4em;
             border-radius: 4px;
             transition: 0.1s;
@@ -116,15 +115,15 @@
                     margin-inline-end: 8px;
                 }
 
-                &:last-child {
-                    // height: 20px;
-                }
+                // &:last-child {
+                //     // height: 20px;
+                // }
             }
 
             width: inherit;
             padding: 6px;
             font-weight: 600;
-            margin-inline-end: 1em;
+            // margin-inline-end: 1em;
         }
 
         &.ai {
@@ -150,17 +149,17 @@
                 }
             }
 
-            span {
-                // height: 16px;
+            // span {
+            //     // height: 16px;
 
-                &:first-child {
-                    // margin-inline-end: 8px;
-                }
+            //     &:first-child {
+            //         // margin-inline-end: 8px;
+            //     }
 
-                &:last-child {
-                    // height: 20px;
-                }
-            }
+            //     &:last-child {
+            //         // height: 20px;
+            //     }
+            // }
 
             width: inherit;
             padding: 6px;
@@ -197,15 +196,16 @@
     .divider {
         display: inherit;
         height: 16px;
-        margin: 8px 1em 8px 4px;
+        margin: 0 1em 0 0.5em;
         border-left: 1px solid rgba(255, 255, 255, 0.16);
     }
 
     .board-members {
-        margin-inline-end: 0.2em;
+        // margin-inline-end: 0.2em;
+        display: flex;
 
         .member-img {
-            width: 2em;
+            width: 1.8em;
             height: 1.8em;
             border: none;
             padding: 0;
