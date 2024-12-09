@@ -106,39 +106,42 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
 
     return (
         <header className="board-header flex" ref={headerRef}>
-            <div className="title-wrapper" style={{ width: `${textWidth + 10}px` }}>
-                {isEditing ? (
-                    <input
-                        className="title-input"
-                        ref={inputRef}
-                        type="text"
-                        value={text}
-                        onChange={(e) => {
-                            setText(e.target.value)
-                            handleInputChange()
-                        }}
-                        onFocus={() => {
-                            setTimeout(() => {
-                                inputRef.current.select()
-                            }, 10)
-                        }}
-                        style={{ width: `${textWidth}px` }}
-                        onBlur={handleBlur} // Exit edit mode when focus is lost
-                        autoFocus
-                    />
-                ) : (
-                    <h3 ref={headerRef} onClick={handleHeaderClick} className="title-text">
-                        {text}
-                    </h3>
-                )}
+            <div className="board-header-left-side">
+                <div className="title-wrapper" style={{ width: `${textWidth + 10}px` }}>
+                    {isEditing ? (
+                        <input
+                            className="title-input"
+                            ref={inputRef}
+                            type="text"
+                            value={text}
+                            onChange={(e) => {
+                                setText(e.target.value)
+                                handleInputChange()
+                            }}
+                            onFocus={() => {
+                                setTimeout(() => {
+                                    inputRef.current.select()
+                                }, 10)
+                            }}
+                            style={{ width: `${textWidth}px` }}
+                            onBlur={handleBlur} // Exit edit mode when focus is lost
+                            autoFocus
+                        />
+                    ) : (
+                        <h3 ref={headerRef} onClick={handleHeaderClick} className="title-text">
+                            {text}
+                        </h3>
+                    )}
+                </div>
+                <span ref={spanRef} className="text-measurer" />
+
+                <button className="header-btn btn2 star" onClick={(ev) => onStarBoard(ev, board)}>
+                    {board.isStarred ? <StarFull /> : <StarEmpty />}
+                </button>
+
             </div>
-            <span ref={spanRef} className="text-measurer" />
 
-            <button className="header-btn btn2 star" onClick={(ev) => onStarBoard(ev, board)}>
-                {board.isStarred ? <StarFull /> : <StarEmpty />}
-            </button>
-
-            <div className="board-header-right-buttons">
+            <div className="board-header-right-side">
 
                 <button
                     className="header-btn btn2 ai flex align-center"

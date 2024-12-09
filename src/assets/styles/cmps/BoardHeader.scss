@@ -19,7 +19,11 @@
         align-items: center;
     }
 
-    .board-header-right-buttons {
+    .board-header-left-side {
+        margin-inline-end: auto;
+    }
+
+    .board-header-right-side {
         @include for-mobile-layout {
             margin-inline-start: auto;
         }
@@ -214,7 +218,7 @@
 
     &>button.star {
         color: var(--dynamic-star-color);
-        margin-inline-end: auto;
+        // margin-inline-end: auto;
     }
 
     @include for-mobile-layout {
