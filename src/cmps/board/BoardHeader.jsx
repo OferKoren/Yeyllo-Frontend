@@ -130,7 +130,8 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                         />
                     ) : (
                         <h3 ref={headerRef} onClick={handleHeaderClick} className="title-text">
-                            <LongTxt showButton={false} length={25}>{text?.trim() || 'Add title'}</LongTxt>
+                            {text?.trim() || 'Add title'}
+                            {/* <LongTxt showButton={false} length={25}>{text?.trim() || 'Add title'}</LongTxt> */}
                         </h3>
                     )}
                 </div>

@@ -21,6 +21,7 @@
 
     .board-header-left-side {
         margin-inline-end: auto;
+        gap: 0.5em;
         // width: 100%;
     }
 
@@ -45,7 +46,8 @@
         // display: inline-block;
 
         @include for-mobile-layout {
-            width: max-content !important;
+            width: 17em !important;
+            overflow: hidden;
         }
 
         &>* {
@@ -82,10 +84,14 @@
             cursor: pointer;
             margin: 0;
             width: 100%;
-            white-space: nowrap;
+
             // width: fit-content;
             padding: 0 0.4em;
             border-radius: 4px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             transition: 0.1s;
 
             &:hover {
