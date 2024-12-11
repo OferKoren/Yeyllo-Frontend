@@ -100,6 +100,10 @@
 
         transition: 100ms;
 
+        @include for-mobile-layout {
+            width: rem(250px);
+        }
+
         &:focus {
             border: 2px transparent solid;
             outline: 2px #0c66e4 solid;

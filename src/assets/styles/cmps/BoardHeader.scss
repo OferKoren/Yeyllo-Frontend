@@ -31,16 +31,6 @@
         }
     }
 
-    .member-img {
-        border-radius: 50%;
-        width: 1em;
-        padding: 0.1em;
-        background-color: #ffffff;
-        border: 0.1px solid rgb(177, 173, 173);
-
-        margin-inline-start: -4px;
-    }
-
     .title-wrapper {
         // position: relative;
         // display: inline-block;
@@ -84,9 +74,10 @@
             cursor: pointer;
             margin: 0;
             width: 100%;
+            text-align: center;
 
             // width: fit-content;
-            padding: 0 0.4em;
+            // padding: 0 0.4em;
             border-radius: 4px;
 
             white-space: nowrap;
@@ -231,10 +222,17 @@
         display: flex;
 
         .member-img {
-            width: 1.8em;
-            height: 1.8em;
+            // width: 1.8em;
+            // height: 1.8em;
+            // border: none;
+            // padding: 0;
+
+            border-radius: 50%;
+            width: 30px;
+            aspect-ratio: 1/1;
             border: none;
-            padding: 0;
+
+            margin-inline-start: -4px;
         }
     }
 
