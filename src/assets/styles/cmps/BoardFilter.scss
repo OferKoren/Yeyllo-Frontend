@@ -4,11 +4,12 @@
     flex-direction: column;
     justify-content: stretch;
     width: 100%;
+
     .member-filter-item {
         display: flex;
         align-items: center;
         padding: 8px 0 8px 8px;
-        gap: 8px;
+
         input {
             width: 16px;
             height: 16px;
@@ -16,6 +17,7 @@
             margin-inline-end: rem(16px);
         }
     }
+
     div.title {
         font-size: 12px;
         font-weight: 600;
@@ -23,6 +25,7 @@
 
         margin-block-start: rem(16px);
     }
+
     p {
         margin-top: 8px;
         margin-bottom: 4px;
@@ -30,20 +33,21 @@
         font-size: 11px;
         line-height: 14px;
     }
+
     label {
         display: flex;
         align-items: center;
         gap: 8px;
         font-size: 14px;
+
         .member-img {
             height: 24px;
             width: 24px;
             border: none;
             padding: 0;
+            border-radius: 50%;
         }
-        &.no-member-label {
-            transform: translateX(-5.5px);
-        }
+
         .no-member-wrap {
             display: flex;
             align-items: center;
@@ -55,6 +59,7 @@
             border-radius: 50%;
         }
     }
+
     fieldset {
         border: none;
         margin: 0;
