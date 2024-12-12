@@ -23,6 +23,12 @@
 
     border-radius: 0.4em;
     width: 304px;
+
+    @include for-mobile-layout {
+        width : 95% !important;
+
+    }
+
     padding: 0 rem(12px) rem(12px) rem(12px);
     height: max-content;
     color: var(--crl-font);

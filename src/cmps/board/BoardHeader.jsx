@@ -98,7 +98,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
             const copyText = window.location.href
             navigator.clipboard.writeText(copyText)
             console.log('Url copied to clipboard')
-            showSuccessMsg('Url copied to clipboard!')
+            showSuccessMsg('URL copied to clipboard!')
         } catch (err) {
             console.error('Error, problem copy url to clipboard:', err)
             showErrorMsg('Problem copy url to clipboard')
@@ -191,7 +191,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                 </div>
 
                 <button style={{ gap: '0.4em' }} className="share header-btn btn2 flex align-center" onClick={copyUrl}>
-                    <svg width="16" height="16" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    {/* <svg width="16" height="16" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             fillRule="evenodd"
                             clipRule="evenodd"
@@ -202,8 +202,11 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
                             d="M17 14C17 13.4477 17.4477 13 18 13C18.5523 13 19 13.4477 19 14V16H21C21.5523 16 22 16.4477 22 17C22 17.5523 21.5523 18 21 18H19V20C19 20.5523 18.5523 21 18 21C17.4477 21 17 20.5523 17 20V18H15C14.4477 18 14 17.5523 14 17C14 16.4477 14.4477 16 15 16H17V14Z"
                             fill="currentColor"
                         />
+                    </svg> */}
+                    <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" fill="currentColor">
+                        <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T720-200q0-17-11.5-28.5T680-240q-17 0-28.5 11.5T640-200q0 17 11.5 28.5T680-160ZM200-440q17 0 28.5-11.5T240-480q0-17-11.5-28.5T200-520q-17 0-28.5 11.5T160-480q0 17 11.5 28.5T200-440Zm480-280q17 0 28.5-11.5T720-760q0-17-11.5-28.5T680-800q-17 0-28.5 11.5T640-760q0 17 11.5 28.5T680-720Zm0 520ZM200-480Zm480-280Z" />
                     </svg>
-                    Share
+                    <span>Share</span>
                 </button>
 
                 {!isMenuOpen && (

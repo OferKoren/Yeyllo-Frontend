@@ -78,6 +78,13 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
             </h2>
 
             <ul className="list board-list">
+                <li key="add-board">
+                    <div className="board-wrapper " onClick={onOpenModal}>
+                        <div className="add-board">
+                            <span>Create new board</span>
+                        </div>
+                    </div>
+                </li>
                 {boards.map((board) => {
                     if (board.isClosed) return
                     return (
@@ -103,14 +110,6 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
                         </li>
                     )
                 })}
-
-                <li key="add-board">
-                    <div className="board-wrapper " onClick={onOpenModal}>
-                        <div className="add-board">
-                            <span>Create new board</span>
-                        </div>
-                    </div>
-                </li>
             </ul>
         </section>
     )

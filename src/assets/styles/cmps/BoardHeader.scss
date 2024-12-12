@@ -257,12 +257,11 @@
                 display: none;
             }
 
-            // &.share.btn2 {
-            //     display: none;
-            // }
-
             &.ai.btn2 {
-                display: none;
+                background-color: inherit;
+                color: inherit;
+
+                margin: 0;
             }
 
             &.menu.btn2 {
