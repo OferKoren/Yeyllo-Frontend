@@ -252,8 +252,6 @@ export function TaskDetails() {
         const updatedGroups = boardToEdit.groups.map((group) => (group.id === groupId ? updatedGroup : group))
         const boardToSave = { ...boardToEdit, groups: updatedGroups }
 
-        console.log('activity', activity)
-
         try {
             await updateBoard(boardToSave, activity)
         } catch (err) {

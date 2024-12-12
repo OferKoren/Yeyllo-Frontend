@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 export function Modal({
     children,
     isOpen = false,
-    onCloseModal = () => {},
+    onCloseModal = () => { },
     title = '',
     isBlur = true,
     isBackDrop = true,
@@ -17,11 +17,6 @@ export function Modal({
     useEffect(() => {
         setModalHeight(modalRef.current.clientHeight * -1)
     }, [isOpen])
-    /*  useEffect(() => {
-        if (position) {
-            console.log(position)
-        }
-    }, []) */
 
     const blur = isBlur ? 'blur' : ''
     let contentStyle = position ? { inset: 'auto', ...position } : {}

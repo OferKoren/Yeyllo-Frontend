@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
+import 'react-datepicker/dist/react-datepicker.css'
 import dayjs from 'dayjs'
 
 export function Dates({ task, setTask, handleCloseModal, openModal }) {
@@ -11,18 +11,11 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
     const [isRangeEnabled, setIsRangeEnabled] = useState(!!startDate)
     const [dueTime, setDueTime] = useState(task.dueTime ? new Date(task.dueTime) : new Date())
 
-    console.log('startDate', startDate)
-    console.log('endDate', endDate)
-    // console.log('formattedDate', dayjs(endDate).format('DD-MM-YYYY'))
-    // console.log('task', task)
-
-
     function onRemoveDueDate() {
         const { dueDate, status, ...updatedTask } = task
         setTask(updatedTask)
     }
     function handleDatePick(dates) {
-        console.log('dates', dates)
         if (Array.isArray(dates)) {
             const [start, end] = dates
             if (isRangeEnabled) {
@@ -128,21 +121,3 @@ export function Dates({ task, setTask, handleCloseModal, openModal }) {
         </div>
     )
 }
-
-{/* <DatePicker
-selected={startDate}
-onChange={(date) => setStartDate(date)}
-showTimeSelect
-showTimeSelectOnly
-timeIntervals={15}
-dateFormat="h:mm aa"
-showTimeCaption={false}
-/> */}
-
-{/* <input value={task.dueDate || "2024-10-23"}
-                type="date"
-                id="dueDate"
-                className="task-dueDate"
-                name="dueDate"
-                onChange={handleChange}
-            ></input> */}

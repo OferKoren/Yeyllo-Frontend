@@ -70,11 +70,8 @@ export function GroupMenu({
         try {
             const groupIdx = board.groups.findIndex((currGroup) => currGroup.id === group.id)
             const changeBoard = board
-            // changeBoard.groups.push(newGroup)
             changeBoard.groups.splice(groupIdx + 1, 0, newGroup)
-            console.log(...changeBoard.groups)
 
-            // changeBoard.groups.map(currGroup => currGroup.id === group.id? newGroup )
             await onUpdateBoard(changeBoard)
             setNewTitle('')
             setIsMenuOpen((isOpen) => !isOpen)
@@ -106,13 +103,12 @@ export function GroupMenu({
                                 value={newTitle}
                                 onChange={handleChange}
                             ></textarea>
-                            {/* <input autoFocus className="group-copy-input" type="text" id="title" name="title" value={newTitle} onChange={handleChange} /> */}
                             <button>Create list</button>
                         </form>
                     </div>
                 </div>
             ) : (
-                <div /*onBlur={onBlurGroupMenu}*/ className="group-menu">
+                <div className="group-menu">
                     <header>List actions</header>
                     <button className="close-btn" onClick={() => setIsMenuOpen((isOpen) => !isOpen)}>
                         <img src="\img\board-details\close-icon.png" alt="" />

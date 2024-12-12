@@ -9,7 +9,6 @@ import { boardService as remote } from './board.service.remote'
 
 function getEmptyBoard() {
     const user = useSelector((storeState) => storeState.userModule.user)
-    console.log(user)
 
     return {
         title: '',

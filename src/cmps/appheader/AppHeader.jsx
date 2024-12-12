@@ -76,7 +76,6 @@ export function AppHeader() {
     useEffect(() => {
         if (!headerRef.current) return
         if (isModalOpen) headerRef.current.style.zIndex = '5'
-        // else headerRef.current.style.zIndex = '5'
     }, [isModalOpen])
 
     function setHeaderColorFromImage(imgSrc) {
@@ -94,14 +93,12 @@ export function AppHeader() {
             const style = { backgroundColor: `${darkenColor(baseColor, 0)}` }
 
             Object.assign(headerRef.current.style, style)
-            // Object.assign(inputRef.current.style, inputStyle)
         }
     }
 
     function setHeaderColorFromColor(color, isWorkspace = false) {
         const darkerColor = isWorkspace ? color : darkenColor(color, 45)
         const style = { backgroundColor: `${darkerColor}` }
-        // const darkerColor = darker(`rgba(${r}, ${g}, ${b}, 0.9)`, 20)
         const brightness = getBrightnessLevel(color)
         setHeaderTheme(brightness)
         Object.assign(headerRef.current.style, style)
@@ -130,13 +127,10 @@ export function AppHeader() {
             showErrorMsg('Cannot add board')
         } finally {
             setIsModalOpen(false)
-            // nav
         }
     }
 
     function onSetPosition(ev) {
-        // Get button position
-
         const rect = ev.target.getBoundingClientRect()
         setPosition({ left: rect.left, top: rect.bottom + 10 })
     }
@@ -178,7 +172,6 @@ export function AppHeader() {
         } catch (err) {
             console.log('err:', err)
         }
-        // setIsUserMenuOpen(isOpen => !isOpen)
     }
 
     const [credentials, setCredentials] = useState({ username: 'guest@yeyllo.com', password: '123', fullname: 'Guest' })
@@ -189,26 +182,15 @@ export function AppHeader() {
         try {
             if (!credentials.username || !credentials.password) return
             const checkedUser = await login(credentials)
-            console.log(checkedUser)
             checkedUser ? navigate('/workspace/home') : navigate('/login')
         } catch (err) {
             console.log('err:', err)
         }
     }
 
-    /*  let inputStyle = ''
-    if (bgClr) {
-        inputStyle = inputClass ? { backgroundColor: 'white' } : { backgroundColor: lightenColor(bgClr) }
-    }
-    if (!inputClass) return */
-    // const inputStyle = ''
-
-    // console.log(user)
-
     return (
-        <header /*style={{ zIndex: '5' }}*/ ref={headerRef} className="app-header full">
+        <header ref={headerRef} className="app-header full">
             <nav>
-                {/* <section className="flex align-center left-side-nav"> */}
                 {location.pathname !== '/home' && (
                     <NavLink to="/home" className="homepage-link">
                         <NineDots />
@@ -221,34 +203,15 @@ export function AppHeader() {
                     </button>
                 ) : (
                     <NavLink to={`${!user || user.fullname === 'Guest' ? '/' : '/workspace/home'}`} className="logo">
-                        {/* <img src="/img/general/trello-logo-static.gif" alt="" /> */}
                         <TrelloLogo />
                         Yeyllo
                     </NavLink>
                 )}
-                {/* </section> */}
-                {/* <section className="flex align-center right-side-nav"> */}
                 {location.pathname !== '/home' ? <HeaderMainNav /> : <HomePageHeader />}
-                {/* </section> */}
+
             </nav>
 
-            {/*   {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
 
-                {!user && (
-                    <NavLink to="login" className="login-link">
-                        Login
-                    </NavLink>
-                )}
-                {user && (
-                    <div className="user-info">
-                        <Link to={`user/${user._id}`}>
-                            {user.imgUrl && <img src={user.imgUrl} />}
-                            {user.fullname}
-                        </Link>
-                        <span className="score">{user.score?.toLocaleString()}</span>
-                        <button onClick={onLogout}>logout</button>
-                    </div>
-                )} */}
             {location.pathname !== '/home' && (
                 <>
                     {isModalOpen && (
@@ -267,18 +230,6 @@ export function AppHeader() {
                     )}
 
                     <div className={`header-search-wrapper ${inputClass}`}>
-                        {/* <span className="search-icon">
-                            <img src="/img/general/search-icon.svg" alt="" />
-                        </span> */}
-                        {/* <input
-                            type="text"
-                            className={`input header-search `}
-                            placeholder="search"
-                            ref={inputRef}
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                        // style={inputStyle}
-                        /> */}
                     </div>
                     <div className="flex align-center">
                         {user ? (
@@ -303,19 +254,6 @@ export function AppHeader() {
     function HeaderMainNav() {
         return (
             <>
-                {/* <button
-                    className="btn1 header-btn recent"
-                    onClick={(ev) => {
-                        onToggleModal('recent')
-                        if (!isModalOpen) {
-                            onSetPosition(ev)
-                        }
-                    }}
-                >
-                    Recent
-                    <ArrowDown />
-                </button> */}
-
                 <button
                     className="btn1 header-btn starred"
                     onClick={(ev) => {
@@ -328,19 +266,6 @@ export function AppHeader() {
                     Starred
                     <ArrowDown />
                 </button>
-
-                {/*    <button
-                    className="btn1 header-btn template"
-                    onClick={(ev) => {
-                        onToggleModal('templates')
-                        if (!isModalOpen) {
-                            onSetPosition(ev)
-                        }
-                    }}
-                >
-                    Templates
-                    <ArrowDown />
-                </button> */}
 
                 <button
                     className="btn1 create"
@@ -380,7 +305,7 @@ function NineDots() {
 }
 function TrelloLogo() {
     return (
-        <svg style={{marginInlineStart:"0"}} xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 73.323 64" height="16">
+        <svg style={{ marginInlineStart: "0" }} xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 73.323 64" height="16">
             <defs>
                 <linearGradient id="A" x1="31.52" y1="64.56" x2="31.52" y2="1.51" gradientUnits="userSpaceOnUse">
                     <stop offset=".18" stopColor="currentColor" />

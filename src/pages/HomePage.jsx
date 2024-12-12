@@ -17,16 +17,15 @@ export function HomePage() {
 
     async function onLogin(ev = null) {
         if (ev) ev.preventDefault()
-        console.log(user);
 
         // if (user && user?.fullname !== 'Guest') return navigate('/workspace/home')
         try {
             if (!credentials.username || !credentials.password) return
             const checkedUser = await login(credentials)
-            console.log(checkedUser);
+            console.log(checkedUser)
             checkedUser ? navigate('/workspace/home') : navigate('/login')
         } catch (err) {
-            console.log('err:', err);
+            console.log('err:', err)
         }
     }
 
@@ -43,16 +42,9 @@ export function HomePage() {
                             </button>
                         ) : (
                             <NavLink to={`${!user || user.fullname === 'Guest' ? '/' : '/workspace/home'}`} className="start-demo-btn">
-                                {/* <img src="/img/general/trello-logo-static.gif" alt="" /> */}
                                 Start Demo
                             </NavLink>
                         )}
-                        {/* <button onClick={onLogin} className="start-demo-btn">
-                            Start Demo
-                        </button> */}
-                        {/* <Link to="/workspace/home" className="start-demo-btn">
-                            Start Demo
-                        </Link> */}
                     </div>
                     <div>
                         <img className="homepage-main-img" src="/img/homepage/trello-hero.webp" alt="" />

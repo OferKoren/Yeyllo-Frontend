@@ -1,6 +1,5 @@
 .board-header {
     position: relative;
-    // min-height: 56px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -9,10 +8,8 @@
     background-color: var(--dynamic-board-header-background);
 
     font-size: rem(18px);
-    // font-family: 'se','Roboto-Bold';
     color: var(--dynamic-board-header-color);
     z-index: 2;
-    // justify-content: space-between;
 
     >* {
         display: flex;
@@ -22,7 +19,6 @@
     .board-header-left-side {
         margin-inline-end: auto;
         gap: 0.5em;
-        // width: 100%;
     }
 
     .board-header-right-side {
@@ -32,9 +28,6 @@
     }
 
     .title-wrapper {
-        // position: relative;
-        // display: inline-block;
-
         @include for-mobile-layout {
             max-width: 17em !important;
             overflow: hidden;
@@ -51,7 +44,7 @@
             // position: absolute;
             top: 9px;
             left: 16px;
-            // width: 50px;
+
             font-weight: 700;
             border: 1px solid #ccc; // Show a border for the input
             outline: none;
@@ -64,8 +57,6 @@
                 max-width: 300px;
                 margin-inline-start: 5px;
             }
-
-            // transition: all 0.2s ease;
         }
 
         .title-text {
@@ -75,9 +66,6 @@
             margin: 0;
             width: 100%;
             text-align: center;
-
-            // width: fit-content;
-            // padding: 0 0.4em;
             border-radius: 4px;
 
             white-space: nowrap;
@@ -88,8 +76,6 @@
             &:hover {
                 background-color: var(--dynamic-board-header-hover);
             }
-
-            // transition: all 0.2s ease; // Smooth transition
         }
     }
 
@@ -121,21 +107,16 @@
             position: relative;
 
             span {
-                // height: 16px;
 
                 &:first-child {
                     margin-inline-end: 8px;
                 }
 
-                // &:last-child {
-                //     // height: 20px;
-                // }
             }
 
             width: inherit;
             padding: 6px;
             font-weight: 600;
-            // margin-inline-end: 1em;
         }
 
         &.ai {
@@ -161,18 +142,6 @@
                 }
             }
 
-            // span {
-            //     // height: 16px;
-
-            //     &:first-child {
-            //         // margin-inline-end: 8px;
-            //     }
-
-            //     &:last-child {
-            //         // height: 20px;
-            //     }
-            // }
-
             width: inherit;
             padding: 6px;
             padding-right: 0.65em;
@@ -192,17 +161,11 @@
                 &:first-child {
                     margin-inline-end: 8px;
                 }
-
-                // &:last-child {
-                //     height: 20px;
-                // }
             }
 
             width: inherit;
             padding: 6px;
             font-weight: 600;
-
-            // margin-inline-end: 1em;
 
             @include for-mobile-layout {
                 margin-inline-start: 0;
@@ -218,15 +181,9 @@
     }
 
     .board-members {
-        // margin-inline-end: 0.2em;
         display: flex;
 
         .member-img {
-            // width: 1.8em;
-            // height: 1.8em;
-            // border: none;
-            // padding: 0;
-
             border-radius: 50%;
             width: 30px;
             aspect-ratio: 1/1;
@@ -238,16 +195,9 @@
 
     &>button.star {
         color: var(--dynamic-star-color);
-        // margin-inline-end: auto;
     }
 
     @include for-mobile-layout {
-        // .title-wrapper {
-        //     max-width: 65%;
-        //     overflow: hidden;
-        //     // overflow-y: hidden;
-        // }
-
         .divider {
             display: none;
         }
@@ -273,10 +223,7 @@
 
                 span:first-child {
                     width: 20px;
-                    // height: 20px;
-                    // border: 1px solid white;
                     border-color: var(--dynamic-board-header-color);
-                    // border-radius: 50%;
                     margin: 0;
 
                     svg {
@@ -291,30 +238,4 @@
             display: none;
         }
     }
-
-    /*   @include for-mobile-layout {
-        .title-wrapper {
-            max-width: 65%;
-            overflow: hidden;
-            // overflow-y: hidden;
-        }
-
-        .header-btn {
-            span:nth-child(2) {
-                display: none;
-            }
-
-            &.filters.btn2 {
-                margin-inline-end: 0;
-            }
-
-            &.share {
-                display: none;
-            }
-        }
-
-        .board-members {
-            display: none;
-        }
-    } */
 }

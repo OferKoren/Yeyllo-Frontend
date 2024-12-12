@@ -55,7 +55,6 @@ function getFilteredBoard(board, filterBy = {}) {
             return group
         })
     }
-    // console.log(boardToFilter)
     return boardToFilter
 }
 async function getById(boardId) {

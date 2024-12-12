@@ -42,10 +42,9 @@ async function update({ _id, score }) {
 async function login(userCred) {
 	try {
 		const user = await httpService.post('auth/login', userCred)
-		console.log(user);
-		
+
 		if (user && user.username !== 'Guest') return saveLoggedinUser(user)
-		 
+
 
 	} catch (err) {
 		console.log('err:', err);
@@ -54,10 +53,6 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
-	// if (!userCred.imgUrl) userCred.imgUrl = 'url(https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png)'
-	// userCred.score = 10000
-	console.log('before', userCred);
-
 	userCred.imgUrl = userCred.imgUrl ? userCred.imgUrl : '/img/user/user-default.png'
 
 	console.log('after', userCred)

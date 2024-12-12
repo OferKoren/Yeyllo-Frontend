@@ -8,8 +8,6 @@ export function Cover({ setTask, handleCloseModal, task }) {
         type: task.style?.backgroundColor ? 'color' : task.style?.backgroundImage ? 'image' : ''
     })
 
-    console.log('hi')
-
     const colorPalette = [
         '#4BCE97', '#F5CD47', '#FEA362', '#F87168', '#9F8FEF',
         '#579DFF', '#6CC3E0', '#94C748', '#E774BB', '#8590A2']
