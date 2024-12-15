@@ -31,6 +31,7 @@ export function DynamicModal({ cmpType, modalProps, modalPosition, parentRef }) 
         user,
         openModal,
         onCloseModal,
+        addActivity,
         handleOpenModal
     } = modalProps
 
@@ -44,9 +45,7 @@ export function DynamicModal({ cmpType, modalProps, modalPosition, parentRef }) 
                     handleCloseModal={handleCloseModal}
                     boardMembers={boardMembers}
                     onRemoveMember={onRemoveMember}
-                    boardToEdit={boardToEdit}
-                    groupId={groupId}
-                    user={user}
+                    addActivity={addActivity}
                 />}
                 {(cmpType === 'labels-plusBtn' || cmpType === 'labels') && <Labels
                     setTask={setTask}
@@ -68,9 +67,7 @@ export function DynamicModal({ cmpType, modalProps, modalPosition, parentRef }) 
                     task={task}
                     setTask={setTask}
                     handleCloseModal={handleCloseModal}
-                    boardToEdit={boardToEdit}
-                    groupId={groupId}
-                    user={user}
+                    addActivity={addActivity}
                 />}
                 {(cmpType === 'cover' || cmpType === 'cover-topBtn') && <Cover
                     setTask={setTask}
@@ -81,6 +78,7 @@ export function DynamicModal({ cmpType, modalProps, modalPosition, parentRef }) 
                     handleCloseModal={handleCloseModal}
                     task={task}
                     setTask={setTask}
+                    addActivity={addActivity}
                 />}
                 {(cmpType === 'drawing') &&
                     <ModalTaskDetails onCloseModal={onCloseModal} isOpen={openModal === 'drawing'} isBlur={true}>

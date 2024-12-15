@@ -186,7 +186,7 @@ export function TaskDetails() {
 
         let formattedDue = ''
         if (formattedDueDate.year() !== currentYear) {
-            // const formattedDueTime = dayjs(dueTime, 'hh:mm A').format('hh:mm A')
+
             formattedDue = formattedDueTime
                 ? `${formattedDueDate.format('MMM D, YYYY')} ${formattedDueTime}`
                 : formattedDueDate.format('MMM D, YYYY')
@@ -225,6 +225,21 @@ export function TaskDetails() {
         })
 
         saveBoard(updatedTasks)
+    }
+
+    function addActivity(txt) {
+        const activity = {
+            txt,
+            boardId: boardToEdit._id,
+            groupId: groupId,
+            taskId: task.id,
+            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
+            createdAt: Date.now(),
+        }
+
+        boardService.addActivity(activity).catch(err => {
+            console.error('Failed to add activity:', err)
+        })
     }
 
     function onRemoveTask() {
@@ -424,7 +439,7 @@ export function TaskDetails() {
                                             <span>Add</span>
                                         </button>
                                         {openModal === 'attachment-addBtn' && (
-                                            <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} />
+                                            <AddAttachment handleCloseModal={handleCloseModal} task={task} setTask={setTask} addActivity={addActivity} />
                                         )}
                                     </div>
                                 </h2>
@@ -440,6 +455,7 @@ export function TaskDetails() {
                                             handleCloseModal={handleCloseModal}
                                             handleOpenModal={handleOpenModal}
                                             openModal={openModal}
+                                            addActivity={addActivity}
                                         />
                                     ))}
                                 </div>
@@ -458,10 +474,8 @@ export function TaskDetails() {
                                         handleToggleModal={handleToggleModal}
                                         openModal={openModal}
                                         handleCloseModal={handleCloseModal}
-                                        boardToEdit={boardToEdit}
-                                        groupId={currGroupRef.current.id}
-                                        user={user}
                                         modalRefs={modalRefs}
+                                        addActivity={addActivity}
                                     />
                                 ))}
                             </div>
@@ -541,7 +555,8 @@ export function TaskDetails() {
                             user,
                             openModal,
                             onCloseModal,
-                            handleOpenModal
+                            handleOpenModal,
+                            addActivity
                         }}
                         modalPosition={modalPosition}
                         parentRef={modalParent}

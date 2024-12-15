@@ -5,7 +5,7 @@ import { LongTxt } from '../LongTxt.jsx'
 
 dayjs.extend(relativeTime)
 
-export function Attachment({ attachment, handleToggleModal, handleCloseModal, handleOpenModal, openModal, setTask, task }) {
+export function Attachment({ attachment, handleToggleModal, handleCloseModal, handleOpenModal, openModal, setTask, task, addActivity }) {
     return (
         <div className="attachment-data">
             <a href={attachment.url}
@@ -54,7 +54,8 @@ export function Attachment({ attachment, handleToggleModal, handleCloseModal, ha
                                 task={task}
                                 openModal={openModal}
                                 handleCloseModal={handleCloseModal}
-                                handleOpenModal={handleOpenModal} />}
+                                handleOpenModal={handleOpenModal}
+                                addActivity={addActivity} />}
                     </div>
                 </div>
             </div>

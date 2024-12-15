@@ -5,7 +5,7 @@ import { makeId } from '../../services/util.service.js'
 import ColorThief from 'colorthief'
 
 
-export function AddAttachment({ task, setTask, handleCloseModal }) {
+export function AddAttachment({ task, setTask, handleCloseModal, addActivity }) {
 
     function loadImageFromInput(ev) {
         const reader = new FileReader()
@@ -41,6 +41,7 @@ export function AddAttachment({ task, setTask, handleCloseModal }) {
     function addImageToAttachments(url, bgColor, fileName) {
         const updatedAttachments = [...(task.attachments || []), { url, bgColor, fileName, isCover: false, id: makeId(), uploadedAt: Date.now() }]
         setTask(prevTask => ({ ...prevTask, attachments: updatedAttachments }))
+        addActivity(`attached ${fileName} to card "${task.title}"`)
     }
 
     return (

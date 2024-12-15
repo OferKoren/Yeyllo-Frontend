@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { boardService } from '../services/board'
 
-export function Members({ task, setTask, onRemoveMember, handleCloseModal, user, groupId, boardToEdit }) {
+export function Members({ task, setTask, onRemoveMember, handleCloseModal, addActivity }) {
 
     const gMembers = useSelector((storeState) => storeState.boardModule.members)
     const [filteredMembers, setFilteredMembers] = useState([...gMembers])
@@ -10,18 +10,7 @@ export function Members({ task, setTask, onRemoveMember, handleCloseModal, user,
     function onAddMember(memberId, memberFullname) {
         setTask(prevTask => ({ ...prevTask, memberIds: (!prevTask.memberIds) ? [memberId] : [...prevTask.memberIds, memberId] }))
 
-        const activity = {
-            txt: `added ${memberFullname} to card "${task.title}"`,
-            boardId: boardToEdit._id,
-            groupId: groupId,
-            taskId: task.id,
-            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
-            createdAt: Date.now(),
-        }
-
-        boardService.addActivity(activity).catch(err => {
-            console.error('Failed to add activity:', err)
-        })
+        addActivity(`added ${memberFullname} to card "${task.title}"`)
     }
 
     function handleFilterByMember({ target }) {

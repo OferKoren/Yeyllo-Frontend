@@ -20,7 +20,10 @@ export function Activity({ board }) {
                             <div>
                                 <span style={{ fontFamily: 'roboto-medium' }}>{activity.byMember.fullname}&nbsp;</span>
                                 <span>{activity.txt}</span>
-                                <div>{dayjs(activity.createdAt).fromNow()}</div>
+                                <div>{dayjs().diff(activity.createdAt, 'week') >= 1
+                                    ? dayjs(activity.createdAt).format('MMM DD, YYYY [at] HH:mm')
+                                    : dayjs(activity.createdAt).fromNow()
+                                }</div>
                             </div>
                         </li>
                     ))}

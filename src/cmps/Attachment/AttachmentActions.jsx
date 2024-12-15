@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function AttachmentActions({ attachment, setTask, handleCloseModal, task }) {
+export function AttachmentActions({ attachment, setTask, handleCloseModal, task, addActivity }) {
     const [isEditAttachment, setIsEditAttachment] = useState(false)
     const [fileToEdit, setFileToEdit] = useState({ ...attachment })
 
@@ -22,6 +22,7 @@ export function AttachmentActions({ attachment, setTask, handleCloseModal, task 
     }
 
     function onRemoveAttachment(attachmentId) {
+        addActivity(`deleted the ${attachment.fileName} attachment from "${task.title}"`)
         setTask(prevTask => {
             const updatedTask = { ...prevTask }
             if (prevTask.style.backgroundImage?.imgId === attachmentId) {

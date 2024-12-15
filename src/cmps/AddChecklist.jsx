@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { makeId } from '../services/util.service.js'
-import { boardService } from '../services/board'
 
-export function AddChecklist({ task, setTask, handleCloseModal, boardToEdit, groupId, user }) {
+export function AddChecklist({ task, setTask, handleCloseModal, addActivity }) {
     const [newChecklist, setChecklist] = useState({ id: '', title: 'Checklist', todos: [] })
 
     function handleChangeChecklistTitle({ target }) {
@@ -10,19 +9,7 @@ export function AddChecklist({ task, setTask, handleCloseModal, boardToEdit, gro
     }
     function addChecklist() {
         const newChecklistToSave = { ...newChecklist, id: makeId() }
-
-        const activity = {
-            txt: `added ${newChecklistToSave.title} to card "${task.title}"`,
-            boardId: boardToEdit._id,
-            groupId: groupId,
-            taskId: task.id,
-            byMember: { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl },
-            createdAt: Date.now(),
-        }
-
-        boardService.addActivity(activity).catch(err => {
-            console.error('Failed to add activity:', err)
-        })
+        addActivity(`added ${newChecklistToSave.title} to card "${task.title}"`)
 
         setTask(prevTask => ({ ...prevTask, checklists: (!prevTask.checklists) ? [newChecklistToSave] : [...prevTask.checklists, newChecklistToSave] }))
     }
