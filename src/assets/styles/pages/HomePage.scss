@@ -174,6 +174,7 @@
                 font-family: 'CharlieText-Regular';
                 max-width: 633px;
                 font-size: rem(20px);
+                margin: 0;
             }
 
         }
@@ -181,30 +182,31 @@
         .content2-main {
             // padding: 0 rem(16px);
             display: grid;
-            grid-template-columns: 380px 1fr;
+            grid-template-columns: 360px 1fr;
+            gap: 1em;
 
             @include for-mobile-layout {
                 display: flex;
                 flex-direction: column-reverse;
-
-                grid-template-columns: 1fr;
+                justify-content: center;
+                margin-block-start: 0.5em;
+                gap: 1.3em;
             }
 
             @include for-narrow-layout {
                 display: flex;
                 flex-direction: column-reverse;
-
-                grid-template-columns: 1fr;
+                margin-block-start: 3em;
             }
 
             @include for-wide-layout {
                 display: grid;
-                grid-template-columns: 295px 1fr;
+                grid-template-columns: 360px 1fr;
             }
 
-            @include for-large-layout {
-                grid-template-columns: 380px 1fr;
-            }
+            // @include for-large-layout {
+            //     grid-template-columns: 360px 1fr;
+            // }
         }
 
         nav {
@@ -212,7 +214,7 @@
             flex-direction: column;
             align-items: start;
             gap: 1em;
-            padding: 16px;
+            width: 342px;
 
             button {
                 border: 0px;
@@ -258,14 +260,13 @@
 
         .picture-container {
             position: relative;
-            padding: 1rem;
             display: flex;
             overflow: hidden;
-            gap: 16px;
+            gap: 50px;
 
-            &>*:last-child {
-                margin-inline-start: 1px;
-            }
+            // &>*:last-child {
+            //     margin-inline-start: 1px;
+            // }
 
             img {
                 // position: absolute;
@@ -273,17 +274,17 @@
                 // transform: translateX(-100%);
 
                 &.left {
-                    transform: translateX(calc(-100% - 16.3px));
+                    transform: translateX(calc(-100% - 50px));
                 }
 
                 &.left-edge {
-                    transform: translateX(calc(-200% - 32.3px));
+                    transform: translateX(calc(-200% - 100px));
                 }
 
-                @include for-wide-layout {
-                    max-width: 600px;
-                    height: fit-content;
-                }
+                // @include for-wide-layout {
+                //     max-width: 600px;
+                //     height: fit-content;
+                // }
 
                 @include for-large-layout {
                     max-width: 733px;

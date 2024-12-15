@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
     ['left', '', 'right'],
     ['left-edge', 'left', ''],
 ] */
-const carusalClass = ['', 'left', 'left-edge']
+const carusalClass = ['first', 'left', 'left-edge']
 export function HomePage() {
     const [activeBtn, setActiveBtn] = useState(0)
     const [credentials, setCredentials] = useState({ username: 'guest@yeyllo.com', password: '123', fullname: 'Guest' })
@@ -90,9 +90,9 @@ export function HomePage() {
                     </nav>
 
                     <div className="picture-container">
-                        <img /*style={{ minWidth: '733px' }}*/ src="/img/homepage/carusal_boards.png" alt="" className={carusalClass[activeBtn]} />
-                        <img /*style={{ minWidth: '733px' }}*/ src="/img/homepage/carusal_lists.webp" alt="" className={carusalClass[activeBtn]} />
-                        <img /*style={{ minWidth: '733px' }}*/ src="/img/homepage/carusal_cards.webp" alt="" className={carusalClass[activeBtn]} />
+                        <img src="/img/homepage/carusal_boards.png" className={carusalClass[activeBtn]} />
+                        <img src="/img/homepage/carusal_lists.webp" className={carusalClass[activeBtn]} />
+                        <img src="/img/homepage/carusal_cards.webp" className={carusalClass[activeBtn]} />
                     </div>
                 </section>
             </div>
