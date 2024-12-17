@@ -1,5 +1,4 @@
 export function CoverSize({ coverType, setTask, task }) {
-    console.log('coverType', coverType)
 
     function onSetCoveSize(size) {
         setTask(prevTask => ({ ...prevTask, coverSize: size }))

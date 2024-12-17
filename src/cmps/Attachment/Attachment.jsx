@@ -26,7 +26,12 @@ export function Attachment({ attachment, handleToggleModal, handleCloseModal, ha
             <div className="attachment-main">
                 <div className="attachment-details">
                     <h2 title={attachment.fileName}><LongTxt showButton={false}>{attachment.fileName}</LongTxt></h2>
-                    <p className="attach-time-and-cover"><span>Added {dayjs(attachment.uploadedAt).fromNow()}</span>
+                    <div className="attach-time-and-cover">
+                        <span>
+                            {dayjs().diff(attachment.uploadedAt, 'week') >= 1
+                                ? `Added ${dayjs(attachment.uploadedAt).format('MMM DD, YYYY [at] HH:mm')}`
+                                : `Added ${dayjs(attachment.uploadedAt).fromNow()}`}
+                        </span>
                         {attachment.isCover &&
                             <div className="is-cover">
                                 <span className="dot">•</span>
@@ -35,7 +40,7 @@ export function Attachment({ attachment, handleToggleModal, handleCloseModal, ha
                                 </svg>
                                 <span>Cover</span>
                             </div>}
-                    </p>
+                    </div>
                 </div>
 
                 <div className="attachment-actions">

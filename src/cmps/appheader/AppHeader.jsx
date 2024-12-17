@@ -57,7 +57,6 @@ export function AppHeader() {
     }
 
     useEffect(() => {
-        console.log(location.pathname)
         if (location.pathname === '/workspace/home') {
             setHeaderColorFromColor('rgb(255,255,255,1)', true)
             return

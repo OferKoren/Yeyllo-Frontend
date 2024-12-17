@@ -22,7 +22,6 @@ export function HomePage() {
         try {
             if (!credentials.username || !credentials.password) return
             const checkedUser = await login(credentials)
-            console.log(checkedUser)
             checkedUser ? navigate('/workspace/home') : navigate('/login')
         } catch (err) {
             console.log('err:', err)

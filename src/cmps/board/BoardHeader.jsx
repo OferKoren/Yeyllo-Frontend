@@ -97,7 +97,6 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
         try {
             const copyText = window.location.href
             navigator.clipboard.writeText(copyText)
-            console.log('Url copied to clipboard')
             showSuccessMsg('URL copied to clipboard!')
         } catch (err) {
             console.error('Error, problem copy url to clipboard:', err)

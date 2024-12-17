@@ -39,7 +39,6 @@ export async function loadBoard(boardId) {
 }
 
 export async function loadWorkspace() {
-    // console.log('hehr')
     try {
         const workspace = await workspaceService.query()
         store.dispatch(getCmdSetWorkspace(workspace))

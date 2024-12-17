@@ -17,7 +17,6 @@ export function BoardList({ boards, onAddBoard, onOpenModal, onUpdateBoard }) {
         ev.stopPropagation()
         const boardToUpdate = { ...board }
         boardToUpdate.isStarred = !boardToUpdate.isStarred
-        console.log(boardToUpdate.isStarred)
         onUpdateBoard(boardToUpdate)
     }
     function handleMouseEnter() {

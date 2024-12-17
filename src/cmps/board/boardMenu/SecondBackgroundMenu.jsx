@@ -24,7 +24,6 @@ export function SecondBgMenu({ option, onUpdateBoard, board }) {
             <div className="bg-menu colors">
                 <ul className="colors-menu gardient">
                     {boardBg.options.colors.map((color, idx) => {
-                        // console.log(selected)
                         if (idx > 8) return null
                         const style = { backgroundImage: `url('${color}')` }
                         return (

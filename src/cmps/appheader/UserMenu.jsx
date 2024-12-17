@@ -4,7 +4,6 @@ import ClickOutside from "../ClickOutside";
 export function UserMenu({ setIsImgClicked, setIsUserMenuOpen, user }) {
 
     const navigate = useNavigate()
-    console.log(user);
 
     return (
         <ClickOutside onClick={() => {

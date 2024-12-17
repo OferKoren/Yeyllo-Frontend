@@ -28,10 +28,8 @@ export function BoardDetails({ rootRef }) {
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_BOARD_UPDATED, (updatedBoard) => {
-            // console.log('GOT from socket', 'board')
             dispatch({ type: UPDATE_BOARD, board: updatedBoard })
         })
-        // boardTheme()
         return () => {
             socketService.off(SOCKET_EVENT_BOARD_UPDATED)
 
@@ -41,11 +39,9 @@ export function BoardDetails({ rootRef }) {
 
     useEffect(() => {
         socketService.emit('join-board', boardId)
-        // console.log('joined to board', boardId)
 
         return () => {
             socketService.emit('leave-board', boardId)
-            // console.log('left the board', boardId)
         }
     }, [])
 
@@ -70,7 +66,6 @@ export function BoardDetails({ rootRef }) {
     }, [boardId])
 
     useEffect(() => {
-        // console.log('origin board  from board use effect', board)
         setFilteredBoard(boardService.getFilteredBoard(board, filterBy))
     }, [board, filterBy])
 
@@ -89,7 +84,6 @@ export function BoardDetails({ rootRef }) {
     }
 
     function boardTheme(brightness) {
-        // console.log(brightness)
         if (brightness === 1) {
             document.documentElement.style.setProperty('--dynmaic-create-btn-color', ' #172B4D')
             document.documentElement.style.setProperty('--dynmaic-create-btn', '#00000029')

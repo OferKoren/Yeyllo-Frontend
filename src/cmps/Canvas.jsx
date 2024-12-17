@@ -126,8 +126,7 @@ export function Canvas({ handleCloseModal, setTask }) {
                 const fileName = `Drawing_${drawingId}`
                 setTask(prevTask => ({ ...prevTask, attachments: [...prevTask.attachments || [], { url: uploadedImgUrl, bgColor: '#ffffff', fileName, id: drawingId, uploadedAt: Date.now() }] }))
                 showSuccessMsg('Image uploaded successfully!')
-                console.log('Drawing saved!')
-            };
+            }
         } catch (error) {
             console.error('Image upload failed:', error)
             showErrorMsg('Failed to upload image')

@@ -13,7 +13,6 @@ export function CopyBoard({ onToggleMenu }) {
     async function onCopyBoard(ev) {
         ev.preventDefault()
         try {
-            console.log(boardToCopy)
             const savedBoard = await addBoard(boardToCopy)
             onToggleMenu()
             navigate(`/board/${savedBoard._id}`)

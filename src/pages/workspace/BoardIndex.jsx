@@ -69,8 +69,7 @@ export function BoardIndex() {
     async function onUpdateBoard(board) {
         const boardToSave = { ...board }
         try {
-            const savedBoard = await updateBoard(boardToSave)
-            console.log(savedBoard)
+            await updateBoard(boardToSave)
         } catch (err) {
             showErrorMsg('Cannot update board')
         }

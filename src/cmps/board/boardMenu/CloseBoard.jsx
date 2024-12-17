@@ -9,7 +9,6 @@ export function CloseBoard({ onUpdateBoard }) {
         const closedBoard = { ...board }
         closedBoard.isClosed = Date.now()
         await onUpdateBoard(closedBoard)
-        console.log('closing')
         navigate('/workspace/home')
     }
     return (

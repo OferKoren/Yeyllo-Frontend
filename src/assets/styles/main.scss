@@ -8,18 +8,14 @@
 @import 'basics/helpers';
 @import 'basics/layout';
 @import 'basics/base';
-// @import 'basics/links';
 @import 'basics/forms';
 
 // pages
 @import 'RootCmp';
 
-@import 'pages/AboutUs';
-// @import 'pages/HomePage';
 @import 'pages/BoardIndex';
 @import 'pages/BoardDetails';
 @import 'pages/TaskDetails';
-@import 'pages/ReviewIndex';
 @import 'pages/UserDetails';
 @import 'pages/LoginSignup';
 @import 'pages/HomePage';
@@ -60,19 +56,19 @@
 @import 'cmps/AddBoard';
 @import 'cmps/MoreBgs';
 @import 'cmps/WorkspaceAside';
-@import 'cmps/WorkspaceHeader.scss';
+@import 'cmps/WorkspaceHeader';
 
 @import 'cmps/BoardFilter';
 @import 'cmps/BoardHeader';
-@import 'cmps/boardmenu/BoardMenu.scss';
+@import 'cmps/boardmenu/BoardMenu';
 @import 'cmps/boardmenu/firstBgMenu';
-@import 'cmps/boardmenu/secondBgMenu.scss';
+@import 'cmps/boardmenu/secondBgMenu';
 @import 'cmps/boardmenu/ArchiveMenu';
 
 //boardmenu modals
-@import 'cmps/boardmenu/CloseBoard.scss';
-@import 'cmps/boardmenu/MakeTemplate.scss';
-@import 'cmps/boardmenu/CopyBoard.scss';
+@import 'cmps/boardmenu/CloseBoard';
+@import 'cmps/boardmenu/MakeTemplate';
+@import 'cmps/boardmenu/CopyBoard';
 
 @import 'cmps/AppHeader';
 @import 'cmps/Dropdown.scss';
@@ -81,6 +77,3 @@
 
 @import 'cmps/UserMsg';
 @import 'cmps/BoardFilter';
-@import 'cmps/ReviewEdit';
-@import 'cmps/ReviewList';
-@import 'cmps/ReviewPreview';

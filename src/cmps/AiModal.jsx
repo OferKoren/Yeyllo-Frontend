@@ -65,7 +65,6 @@ export function AiModal({ onCloseModal, onOpenModal }) {
         try {
             const photos = await getPhotosArray(topic)
             const generatedBoard = await boardService.generateAiBoard(topic, photos)
-            console.log('generatedBoard', generatedBoard)
 
             // audio.play()
             navigate(`/board/${generatedBoard._id}`)

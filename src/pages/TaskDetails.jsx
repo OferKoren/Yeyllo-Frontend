@@ -162,8 +162,9 @@ export function TaskDetails() {
         })
     }
 
-    function onRemoveMember(memberId) {
+    function onRemoveMember(memberId, memberFullname) {
         setTask((prevTask) => ({ ...prevTask, memberIds: prevTask.memberIds.filter((mId) => mId !== memberId) }))
+        addActivity(`removed ${memberFullname} from card "${task.title}"`)
     }
 
     function formatDate(dueDate, dueTime, startDate) {

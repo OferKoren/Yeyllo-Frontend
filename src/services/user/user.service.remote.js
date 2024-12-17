@@ -82,7 +82,6 @@ function saveLoggedinUser(user) {
 		isAdmin: user.isAdmin
 	}
 
-	console.log('user', user)
 	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
 	return user
 }

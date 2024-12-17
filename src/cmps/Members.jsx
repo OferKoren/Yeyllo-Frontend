@@ -43,7 +43,7 @@ export function Members({ task, setTask, onRemoveMember, handleCloseModal, addAc
                                         <li key={memberDetails._id} className="member">
                                             <img src={memberDetails.imgUrl || ''} />
                                             <span className="member-name">{memberDetails.fullname}</span>
-                                            <i className="btn fa-solid fa-xmark left-side" onClick={() => onRemoveMember(memberDetails._id)}></i>
+                                            <i className="btn fa-solid fa-xmark left-side" onClick={() => onRemoveMember(memberDetails._id, memberDetails.fullname)}></i>
                                         </li>
                                     )
                                 }

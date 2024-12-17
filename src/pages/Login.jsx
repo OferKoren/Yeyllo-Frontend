@@ -13,15 +13,6 @@ export function Login() {
 
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     loadUsers()
-    // }, [])
-
-    // async function loadUsers() {
-    //     const users = await userService.getUsers()
-    //     setUsers(users)
-    // }
-
     async function onLogin(ev = null) {
         if (ev) ev.preventDefault()
 
@@ -32,7 +23,7 @@ export function Login() {
             navigate('/workspace/home')
             // !user || user.fullname === 'Guest' ? navigate('/login') : navigate('/workspace/home')
         } catch (err) {
-            console.log('err:', err);
+            console.log('err:', err)
         }
     }
 
@@ -41,8 +32,6 @@ export function Login() {
         const value = ev.target.value
         setCredentials({ ...credentials, [field]: value })
     }
-
-    console.log(user);
 
     return (
 
@@ -69,13 +58,7 @@ export function Login() {
                     onChange={handleChange}
                     required
                 />
-                {/* <select
-                name="username"
-                value={credentials.username}
-                onChange={handleChange}>
-                    <option value="">Select User</option>
-                    {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
-            </select> */}
+
                 <button className='main-btn'>Log in</button>
             </form>
             <nav className='nav-login-signup'>

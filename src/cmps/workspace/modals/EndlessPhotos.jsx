@@ -114,15 +114,11 @@ export function EndlessPhotos({ boardBg, onChangeBg, initQuery = 'patagonia' }) 
                             style={{ backgroundImage: `url(${photo.urls.small})` }}
                             className={selected === photo.urls.full ? 'bg-btn btn 2 active' : 'bg-btn btn2'}
                             onClick={() => {
-                                console.log(photo.urls)
                                 onChangeBg(photo.urls.regular, false, photo.urls)
                             }}
                         >
                             {selected === photo.urls.regular && <img src="/img/add-board/v-icon.svg" />}
                         </button>
-                        {/* <div className="photo-card" style={{ position: 'relative' }}>
-                            <div>{photo.user.name}</div>
-                        </div> */}
                     </li>
                 ))}
             </ul>

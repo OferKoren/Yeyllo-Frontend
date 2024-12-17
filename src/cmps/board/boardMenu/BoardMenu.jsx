@@ -96,7 +96,6 @@ export function BoardMenu({ isShrink, onToggleMenu, board, onUpdateBoard }) {
             setWhichMenu((prevMenu) => {
                 const newMenu = [...prevMenu]
                 newMenu.shift()
-                // console.log(newMenu)
                 return [...newMenu]
             })
             wrapperRef.current.classList.add('no-transition')
