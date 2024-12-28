@@ -4,10 +4,6 @@ export function AttachmentActions({ attachment, setTask, handleCloseModal, task,
     const [isEditAttachment, setIsEditAttachment] = useState(false)
     const [fileToEdit, setFileToEdit] = useState({ ...attachment })
 
-    // useEffect(() => {
-    //     setFileToEdit({ ...attachment });
-    // }, [attachment])
-
     function handleChangeFileName({ target }) {
         setFileToEdit(prevFile => ({ ...prevFile, fileName: target.value }))
     }
@@ -22,7 +18,6 @@ export function AttachmentActions({ attachment, setTask, handleCloseModal, task,
     }
 
     function onRemoveAttachment(attachmentId) {
-        addActivity(`deleted the ${attachment.fileName} attachment from "${task.title}"`)
         setTask(prevTask => {
             const updatedTask = { ...prevTask }
             if (prevTask.style.backgroundImage?.imgId === attachmentId) {
@@ -30,6 +25,8 @@ export function AttachmentActions({ attachment, setTask, handleCloseModal, task,
             }
             return ({ ...updatedTask, attachments: updatedTask.attachments.filter(item => item.id !== attachmentId) })
         })
+
+        addActivity(`deleted the ${attachment.fileName} attachment from "${task.title}"`)
     }
 
     function onRemoveCover() {
