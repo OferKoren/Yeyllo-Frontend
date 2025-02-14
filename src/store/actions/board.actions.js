@@ -134,17 +134,6 @@ export async function updateBoardOptimistic(board) {
     }
 }
 
-/* export async function addBoardMsg(boardId, txt) {
-    try {
-        const msg = await boardService.addBoardMsg(boardId, txt)
-        store.dispatch(getCmdAddBoardMsg(msg))
-        return msg
-    } catch (err) {
-        console.log('Cannot add board msg', err)
-        throw err
-    }
-}
- */
 // Command Creators:
 function getCmdSetBoards(boards) {
     return {

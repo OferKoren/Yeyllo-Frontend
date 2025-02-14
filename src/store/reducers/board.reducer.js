@@ -11,11 +11,10 @@ export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
 
-export const BOARD_UNDO = 'TOY_UNDO'
+export const BOARD_UNDO = 'BOARD_UNDO'
 
 export const ADD_BOARD_LABELS = 'SET_BOARD_LABELS'
 export const SET_LABELS = 'SET_LABELS'
-// export const ADD_BOARD_MSG = 'ADD_BOARD_MSG'
 
 const defaultLabels = [
     { id: 'l101', color: '#4BCE97', fontColor: '#164b35', title: '' },

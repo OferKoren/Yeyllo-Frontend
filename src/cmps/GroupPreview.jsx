@@ -32,7 +32,7 @@ export function GroupPreview({
 
     const navigator = useNavigate()
 
-    useEffect(() => {}, [isMenuOpen])
+    useEffect(() => { }, [isMenuOpen])
 
     function onEditGroupHeader() {
         setIsGroupHeaderEdit((isEdit) => !isEdit)
@@ -135,8 +135,6 @@ export function GroupPreview({
         // ev.preventDefault()
 
         try {
-            console.log(group)
-
             group.isCollapse = group.isCollapse ? false : true
             await onUpdateBoard(board)
             // originGroup.isCollapse = !originGroup.isCollapse

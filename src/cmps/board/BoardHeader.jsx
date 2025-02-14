@@ -3,9 +3,6 @@ import ClickOutside from '../ClickOutside'
 import { Modal } from '../Modal'
 import { BoardFilter } from './BoardFilter'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
-import { LongTxt } from '../LongTxt.jsx'
-import { AiModal } from '../AiModal'
-import { ModalTaskDetails } from '../ModalTaskDetails.jsx'
 
 const starEmpty = '/img/workspace/star-empty-small.svg'
 const starEmptyGold = '/img/workspace/star-empty-gold.svg'
@@ -146,9 +143,7 @@ export function BoardHeader({ board, onUpdateBoard, onToggleMenu, setIsShrink, i
 
                 <button
                     className="header-btn btn2 ai flex align-center"
-                    onClick={(ev) => {
-                        openAiModal()
-                    }}
+                    onClick={openAiModal}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

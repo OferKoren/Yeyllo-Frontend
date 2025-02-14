@@ -92,7 +92,6 @@ export function TaskDetails() {
     function handleToggleModal(modalName, elementRef, parentClass, source = null) {
         setOpenModal(openModal === modalName ? null : modalName)
         const viewportWidth = window.innerWidth
-        const viewportHeight = window.innerHeight
 
         if (elementRef) {
             let parent
@@ -114,7 +113,7 @@ export function TaskDetails() {
 
             } else {
                 setModalPosition({
-                    top: (viewportWidth < 500) ? 0 : rect.top - parentRect.top + rect.height * 1.01,
+                    top: rect.top - parentRect.top + rect.height * 1.01,
                     left: 0
                 })
             }

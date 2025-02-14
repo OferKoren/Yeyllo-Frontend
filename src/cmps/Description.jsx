@@ -8,7 +8,6 @@ export function Description({ task, setTask }) {
     const [openEditor, setOpenEditor] = useState(false)
     const [originalContent, setOriginalContent] = useState(task.description || '')
     const micBtn = useRef()
-    const voiceAnimation = useRef()
 
     //Recording state
     const [isRecording, setIsRecording] = useState(false)

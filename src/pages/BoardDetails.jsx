@@ -235,11 +235,13 @@ export function BoardDetails({ rootRef }) {
                 </article>
                 {/* <BoardMenu /> */}
                 {isMenuOpen && <BoardMenu isShrink={isShrink} onToggleMenu={onToggleMenu} board={board} onUpdateBoard={onUpdateBoard} />}
-                <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
-                    <Modal onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true} isBackDrop={true} style={{ width: '460px', top: '' }}>
-                        <AiModal onCloseModal={onCloseModal} onOpenModal={onOpenModal} />
-                    </Modal>
-                </ClickOutside>
+
+                {isModalOpen && (
+                    <ClickOutside onClick={onCloseModal} className={'absoluteapp'}>
+                        <Modal onCloseModal={onCloseModal} isOpen={isModalOpen} isBlur={true} isBackDrop={true} style={{ width: '460px', top: '' }}>
+                            <AiModal onCloseModal={onCloseModal} onOpenModal={onOpenModal} />
+                        </Modal>
+                    </ClickOutside>)}
             </section>
         </DragDropContext>
     )
